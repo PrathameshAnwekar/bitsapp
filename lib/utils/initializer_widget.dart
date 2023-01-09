@@ -15,19 +15,21 @@ class InitializerWidget extends ConsumerStatefulWidget {
 class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        return LayoutBuilder(builder: (context, orientation) {
-          SizeConfig().init(context);
-
-          if (SharedPrefs.getString("userId") == null) {
-            // return SplashScreen(route: Onboarding.routeName);
-          } else {
-            // return Home();
-          }
-          return const BottomNavScreen();
-        });
-      },
+    return SafeArea(
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          return LayoutBuilder(builder: (context, orientation) {
+            SizeConfig().init(context);
+    
+            if (SharedPrefs.getString("userId") == null) {
+              // return SplashScreen(route: Onboarding.routeName);
+            } else {
+              // return Home();
+            }
+            return const BottomNavScreen();
+          });
+        },
+      ),
     );
   }
 }
