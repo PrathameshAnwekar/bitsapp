@@ -1,7 +1,9 @@
-import 'package:bitsapp/constants/sizeConfig.dart';
+import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/storage/sharedPrefs.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../screens/Bottom Nav Screen/bottom_nav_screen.dart';
 
 class InitializerWidget extends ConsumerStatefulWidget {
   const InitializerWidget({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
           } else {
             // return Home();
           }
-          return CircularProgressIndicator();
+          return const BottomNavScreen();
         });
       },
     );
