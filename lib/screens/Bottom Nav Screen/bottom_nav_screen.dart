@@ -6,6 +6,7 @@ import '../../constants/size_config.dart';
 import '../Demo Screens/Screen3.dart';
 import '../Demo Screens/Screen4.dart';
 import '../Feed Screen/feed_screen.dart';
+import '../Job Internship Screen/job_internship_screen.dart';
 // import 'Job Internship Screen/job_internship_screen.dart';
 // import 'Profile Screen/userprofile_screen.dart';
 
@@ -22,8 +23,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     const FeedScreen(),
-    // const JobIntershipScreen(),
-    const Screen3(),
+    const JobIntershipScreen(),
     const Screen4(),
     const Screen3(),
     const Screen4(),
