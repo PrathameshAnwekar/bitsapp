@@ -1,5 +1,9 @@
 import 'package:bitsapp/constants/size_config.dart';
+import 'package:bitsapp/screens/auth/login_screen.dart';
+import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:bitsapp/storage/sharedPrefs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -20,11 +24,9 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
         builder: (context, orientation) {
           return LayoutBuilder(builder: (context, orientation) {
             SizeConfig().init(context);
-    
-            if (SharedPrefs.getString("userId") == null) {
-              // return SplashScreen(route: Onboarding.routeName);
-            } else {
-              // return Home();
+
+            if (FirebaseAuth.instance.currentUser == null) {
+              return LoginScreen();
             }
             return const BottomNavScreen();
           });

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "589601474347",
+    "project_id": "the-bits-project",
+    "storage_bucket": "the-bits-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589601474347:android:c058b2f227996eb366a76e",
+        "android_client_info": {
+          "package_name": "com.example.bitsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589601474347-3anucr8dq8d9lthcho7n8f4315diakg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bitsapp",
+            "certificate_hash": "d7f6b97ea24251ed987aba860642d540377196e6"
+          }
+        },
+        {
+          "client_id": "589601474347-a5m494du6k1fasoqgl0m6pnn1os9b2p6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMMIzFb51ujalvcbHlpsQhZ2O9LuHaKaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589601474347-a5m494du6k1fasoqgl0m6pnn1os9b2p6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "589601474347-vdb82jff7a2jebnmtlaa7o1eloaj0d3t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bitsapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
