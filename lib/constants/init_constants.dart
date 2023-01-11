@@ -8,7 +8,7 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 class InitConstants {
   init() async {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    if (!kIsWeb) await FlutterDisplayMode.setHighRefreshRate();
+    // if (!kIsWeb) await FlutterDisplayMode.setHighRefreshRate();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

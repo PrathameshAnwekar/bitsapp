@@ -26,8 +26,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     const JobIntershipScreen(),
     const Screen4(),
     const Screen3(),
-    const Screen4(),
-    // const UserProfileScreen(),
+    const Screen4(), 
   ];
   @override
   Widget build(BuildContext context) {
