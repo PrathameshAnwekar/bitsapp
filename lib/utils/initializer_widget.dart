@@ -24,7 +24,6 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
         builder: (context, orientation) {
           return LayoutBuilder(builder: (context, orientation) {
             SizeConfig().init(context);
-
             if (FirebaseAuth.instance.currentUser == null) {
               return LoginScreen();
             }

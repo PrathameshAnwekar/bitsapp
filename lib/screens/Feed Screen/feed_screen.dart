@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as bd;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -112,15 +112,13 @@ class _FeedScreenState extends State<FeedScreen> {
                       child: Center(
                         child: SizedBox(
                           width: 30,
-                          child: Badge(
-                            padding: const EdgeInsets.all(6),
+                          child: bd.Badge(
                             badgeContent: Text(
                               '$countText',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                   color: Colors.white, fontSize: 13),
                             ),
-                            alignment: Alignment.topRight,
                             child: SvgPicture.asset(
                               'assets/icons/message.svg',
                               width: 35,
