@@ -1,6 +1,6 @@
 import 'package:bitsapp/constants/init_constants.dart';
-import 'package:bitsapp/utils/custom_routes.dart';
-import 'package:bitsapp/utils/initializer_widget.dart';
+import 'package:bitsapp/services/custom_routes.dart';
+import 'package:bitsapp/services/initializer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,8 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BITSocial',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
-      home: const InitializerWidget(),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.amber
+      ),
+      home: const InitializerService(),
       routes: customRoutes,
     );
   }

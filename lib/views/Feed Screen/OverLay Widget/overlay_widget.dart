@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:animated_widgets/animated_widgets.dart';
-import 'package:bitsapp/screens/Feed%20Screen/OverLay%20Widget/video_player_widget.dart';
+import 'package:bitsapp/views/Feed%20Screen/OverLay%20Widget/video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:video_player/video_player.dart';

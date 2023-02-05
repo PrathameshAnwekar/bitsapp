@@ -7,13 +7,17 @@ part of 'feedPost.dart';
 // **************************************************************************
 
 FeedPost _$FeedPostFromJson(Map<String, dynamic> json) => FeedPost(
-      json['name'] as String,
-      json['time'] as String,
-      json['desc'] as String,
-      json['profilePicURL'] as String,
-      (json['imageUrlList'] as List<dynamic>).map((e) => e as String).toList(),
-      (json['videoUrlList'] as List<dynamic>).map((e) => e as String).toList(),
-      json['uid'] as String,
+      name: json['name'] as String,
+      time: json['time'] as String,
+      desc: json['desc'] as String,
+      profilePicURL: json['profilePicURL'] as String,
+      imageUrlList: (json['imageUrlList'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      videoUrlList: (json['videoUrlList'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      uid: json['uid'] as String,
     );
 
 Map<String, dynamic> _$FeedPostToJson(FeedPost instance) => <String, dynamic>{

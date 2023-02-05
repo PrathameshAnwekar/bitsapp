@@ -10,7 +10,7 @@ class User {
   final String email;
   final String bitsID;
   final String uid;
-  User(this.name, this.profilePicUrl, this.email, this.bitsID, this.uid);
+  User({required this.name,required this.profilePicUrl,required this.email,required this.bitsID,required this.uid});
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.
