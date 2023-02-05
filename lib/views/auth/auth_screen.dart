@@ -26,10 +26,10 @@ class AuthScreen extends HookConsumerWidget {
   Widget _signedOutBody(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: const <Widget>[
+      children:  <Widget>[
         Text('You are not currently signed in.'),
         ElevatedButton(
-          onPressed: null,
+          onPressed:() => AuthController.signIn(context),
           child: Text('SIGN IN'),
         ),
       ],
