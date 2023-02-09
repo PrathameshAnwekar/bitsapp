@@ -1,9 +1,4 @@
 import 'package:bitsapp/constants/size_config.dart';
-import 'package:bitsapp/views/auth/auth_screen.dart';
-import 'package:bitsapp/services/google_auth_service.dart';
-import 'package:bitsapp/storage/sharedPrefs.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,10 +18,10 @@ class _InitializerServiceState extends ConsumerState<InitializerService> {
       child: OrientationBuilder(
         builder: (context, orientation) {
           return LayoutBuilder(builder: (context, orientation) {
-            SizeConfig().init(context);
-            if (FirebaseAuth.instance.currentUser == null) {
-              return AuthScreen();
-            }
+            SizeConfig.init(context);
+            // if (FirebaseAuth.instance.currentUser == null) {
+            //   return const AuthScreen();
+            // }
             return const BottomNavScreen();
           });
         },

@@ -55,6 +55,7 @@ dependencies:
   shared_preferences: ^2.0.15
   swipe_to: ^1.0.2
   video_player: ^2.4.10
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   build_runner: ^2.3.3
