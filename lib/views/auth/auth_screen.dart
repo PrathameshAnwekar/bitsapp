@@ -1,5 +1,5 @@
-
 import 'package:bitsapp/controllers/auth_controller.dart';
+import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,10 +26,13 @@ class AuthScreen extends HookConsumerWidget {
   Widget _signedOutBody(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children:  <Widget>[
+      children: <Widget>[
         Text('You are not currently signed in.'),
         ElevatedButton(
-          onPressed:() => AuthController.signIn(context),
+          onPressed: () {
+            Navigator.pushNamed(context, ChatsScreen.routeName);
+            // AuthController.signIn(context);
+          },
           child: Text('SIGN IN'),
         ),
       ],

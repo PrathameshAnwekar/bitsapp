@@ -1,3 +1,4 @@
+import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,7 +23,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final Color _activeColor = Colors.white;
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-    const FeedScreen(),
+    const AuthScreen(),
     const JobIntershipScreen(),
     const Screen4(),
     const Screen3(),
