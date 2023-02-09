@@ -1,7 +1,6 @@
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
-import 'package:bitsapp/storage/sharedPrefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +16,16 @@ class InitializerService extends ConsumerStatefulWidget {
 }
 
 class _InitializerServiceState extends ConsumerState<InitializerService> {
+  bool init = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: OrientationBuilder(
         builder: (context, orientation) {
           return LayoutBuilder(builder: (context, orientation) {
-            SizeConfig().init(context);
+            if (init) SizeConfig.init(context);
+            init = false;
             if (FirebaseAuth.instance.currentUser == null) {
               return AuthScreen();
             }
