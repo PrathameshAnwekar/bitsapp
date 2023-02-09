@@ -1,7 +1,7 @@
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../constants/size_config.dart';
 import '../views/Bottom Nav Screen/bottom_nav_screen.dart';
 
 class InitializerService extends ConsumerStatefulWidget {

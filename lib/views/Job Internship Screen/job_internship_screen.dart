@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
@@ -11,52 +10,53 @@ class JobInternhipScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(25, 29, 30, 1),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 25, bottom: 8),
-                child: Text(
-                  "Hello Prathamesh",
-                  style: GoogleFonts.quicksand(
-                    color: const Color.fromRGBO(248, 251, 254, 1),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 15),
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: _searchbar(),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          color: const Color.fromRGBO(255, 118, 84, 1),
-                          borderRadius: BorderRadius.circular(15)),
-                      height: 65,
-                      width: 60,
-                      child: SvgPicture.asset(
-                        'assets/vertical_filter.svg',
-                        color: const Color.fromRGBO(248, 251, 254, 0.95),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(child: _listView()),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFF7F6F8),
+        centerTitle: false,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Text(
+            "Hello Prathamesh",
+            style: GoogleFonts.dmSans(
+              color: Colors.black.withOpacity(0.7),
+              fontWeight: FontWeight.w400,
+              fontSize: 20,
+            ),
           ),
+        ),
+      ),
+      backgroundColor: const Color(0xFFF7F6F8),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 15),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: _searchbar(),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 118, 84, 1),
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 65,
+                    width: 60,
+                    child: SvgPicture.asset(
+                      'assets/icons/vertical_filter.svg',
+                      color: const Color.fromRGBO(248, 251, 254, 0.95),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(child: _listView()),
+          ],
         ),
       ),
     );
@@ -119,29 +119,23 @@ Widget _listView() {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: const Color.fromRGBO(50, 51, 55, 1),
+            color: const Color(0xFFdfdee8).withOpacity(0.8),
           ),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Hero(
-                    transitionOnUserGestures: true,
-                    tag: index,
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: const Color.fromRGBO(226, 210, 254, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: SvgPicture.asset(
-                          'assets/icons/freelance.svg',
-                          fit: BoxFit.cover,
-                          color: const Color.fromRGBO(54, 50, 60, 1),
-                        ),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundColor: const Color.fromRGBO(226, 210, 254, 1),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SvgPicture.asset(
+                        'assets/icons/freelance.svg',
+                        fit: BoxFit.cover,
+                        color: const Color.fromRGBO(54, 50, 60, 1),
                       ),
                     ),
                   ),
@@ -155,7 +149,7 @@ Widget _listView() {
                         'Kaushal Kirpekar',
                         style: GoogleFonts.dmSans(
                           // color: Colors.white.withOpacity(0.9),
-                          color: const Color.fromRGBO(248, 248, 253, 1),
+                          color: const Color(0xFF383D51),
                           // fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -163,7 +157,7 @@ Widget _listView() {
                       Text(
                         '1d ago',
                         style: GoogleFonts.dmSans(
-                          color: Colors.white70,
+                          color: const Color(0xFF383D51),
                           letterSpacing: 0.2,
                           fontSize: 12,
                         ),
@@ -183,7 +177,7 @@ Widget _listView() {
               Text(
                 "Social media manager",
                 style: GoogleFonts.dmSans(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.black.withOpacity(0.7),
                   fontWeight: FontWeight.w300,
                   // color: const Color.fromRGBO(248, 248, 253, 1),
                   fontSize: 22,
@@ -197,8 +191,9 @@ Widget _listView() {
                 trimMode: TrimMode.Line,
                 trimExpandedText: ' show less',
                 trimCollapsedText: ' ',
-                style:
-                    GoogleFonts.dmSans(color: Colors.white.withOpacity(0.98)),
+                style: GoogleFonts.dmSans(
+                  color: const Color(0xFF383D51),
+                ),
               ),
               const SizedBox(height: 12),
               Wrap(
@@ -265,14 +260,14 @@ Widget _tags(
     padding: EdgeInsets.all(inPadding),
     decoration: BoxDecoration(
       border: Border.all(
-        color: const Color.fromRGBO(248, 251, 254, 0.8),
+        color: Colors.black.withOpacity(0.7),
       ),
       borderRadius: BorderRadius.circular(borderRadius),
     ),
     child: Text(
       text,
       style: GoogleFonts.dmSans(
-        color: const Color.fromRGBO(248, 251, 254, 0.9),
+        color: Colors.black.withOpacity(0.7),
         fontSize: textSize,
       ),
     ),

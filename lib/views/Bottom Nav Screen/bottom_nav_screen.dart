@@ -6,7 +6,7 @@ import '../../constants/size_config.dart';
 import '../Demo Screens/Screen3.dart';
 import '../Demo Screens/Screen4.dart';
 import '../Feed Screen/feed_screen.dart';
-import '../Job Internship Screen/job_internship_screen_new.dart';
+import '../Job Internship Screen/job_internship_screen.dart';
 // import 'Job Internship Screen/job_internship_screen.dart';
 // import 'Profile Screen/userprofile_screen.dart';
 
@@ -31,7 +31,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       extendBody: true,
