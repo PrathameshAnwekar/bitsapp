@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as bd;
+import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,22 +108,31 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                   ),
                   actions: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 18),
-                      child: Center(
-                        child: SizedBox(
-                          width: 30,
-                          child: bd.Badge(
-                            badgeContent: Text(
-                              '$countText',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white, fontSize: 13),
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/message.svg',
-                              width: 35,
-                              // height: 35,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => const ChatsScreen(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 18),
+                        child: Center(
+                          child: SizedBox(
+                            width: 30,
+                            child: bd.Badge(
+                              badgeContent: Text(
+                                '$countText',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 13),
+                              ),
+                              child: SvgPicture.asset(
+                                'assets/icons/message.svg',
+                                width: 35,
+                                // height: 35,
+                              ),
                             ),
                           ),
                         ),
@@ -136,23 +146,27 @@ class _FeedScreenState extends State<FeedScreen> {
               body: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return const NewFeedContainer(
-                    name: 'Kunal Sharma',
-                    time: '1 week ago',
-                    desc:
-                        'Hello everyone,\n\nI am elated to share that I have joined PayPal as a Software Engineer Intern for the Qing six months. \n\nI would like to thank Priyanka Nayak, Alpana Sharma and team for a smooth and timely onboarding process. Looking forward to the learnings and responsibilities! ✨️',
-                    profilePicURL:
-                        'https://images.hindustantimes.com/tech/img/2022/09/21/960x540/Iron_Man_game_1663763152566_1663763165963_1663763165963.jpg',
-                    imageUrlList: [
-                      'https://media.licdn.com/dms/image/sync/D5618AQHTKy8tcVfezA/companyUpdate-article-image-shrink_627_1200/0/1671705307092/Ad2post3png?e=1675900800&v=beta&t=hrhTpb_DOSSKM_5NIT67Q6tZhLmZuW3_2faHdcCDgbU',
-                      'https://media.licdn.com/dms/image/C5622AQEgbz9ayGNEwg/feedshare-shrink_2048_1536/0/1673072293657?e=1675900800&v=beta&t=qC5zQeq62wBge9UhPYkUvc4mtFbV-sTUjHo9RKcWqSs',
-                      'https://media-exp1.licdn.com/dms/image/C5622AQFDfkmhbYg8bw/feedshare-shrink_800/0/1648549869858?e=2147483647&v=beta&t=4FW6mJGYwZu2SwoovFLEEhZHRiA_RqRikYPUKh1nsSo',
-                      'https://media.licdn.com/media/AAYQAQQSAAgAAQAAAAAAABwEEXEeLoHISM2cU9LdzliLaQ.gif'
-                    ],
-                    videoUrlList: [
-                      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'
-                    ],
+                  return Container(
+                    height: 100,
+                    color: Colors.green,
                   );
+                  // return const NewFeedContainer(
+                  //   name: 'Kunal Sharma',
+                  //   time: '1 week ago',
+                  //   desc:
+                  //       'Hello everyone,\n\nI am elated to share that I have joined PayPal as a Software Engineer Intern for the Qing six months. \n\nI would like to thank Priyanka Nayak, Alpana Sharma and team for a smooth and timely onboarding process. Looking forward to the learnings and responsibilities! ✨️',
+                  //   profilePicURL:
+                  //       'https://images.hindustantimes.com/tech/img/2022/09/21/960x540/Iron_Man_game_1663763152566_1663763165963_1663763165963.jpg',
+                  //   imageUrlList: [
+                  //     'https://media.licdn.com/dms/image/sync/D5618AQHTKy8tcVfezA/companyUpdate-article-image-shrink_627_1200/0/1671705307092/Ad2post3png?e=1675900800&v=beta&t=hrhTpb_DOSSKM_5NIT67Q6tZhLmZuW3_2faHdcCDgbU',
+                  //     'https://media.licdn.com/dms/image/C5622AQEgbz9ayGNEwg/feedshare-shrink_2048_1536/0/1673072293657?e=1675900800&v=beta&t=qC5zQeq62wBge9UhPYkUvc4mtFbV-sTUjHo9RKcWqSs',
+                  //     'https://media-exp1.licdn.com/dms/image/C5622AQFDfkmhbYg8bw/feedshare-shrink_800/0/1648549869858?e=2147483647&v=beta&t=4FW6mJGYwZu2SwoovFLEEhZHRiA_RqRikYPUKh1nsSo',
+                  //     'https://media.licdn.com/media/AAYQAQQSAAgAAQAAAAAAABwEEXEeLoHISM2cU9LdzliLaQ.gif'
+                  //   ],
+                  //   videoUrlList: [
+                  //     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'
+                  //   ],
+                  // );
                 },
               ),
             ),

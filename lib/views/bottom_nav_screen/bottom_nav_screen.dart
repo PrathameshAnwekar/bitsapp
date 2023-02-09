@@ -27,6 +27,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     const JobInternhipScreen(),
     const Screen3(),
     const Screen4(),
+    const Screen4(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       resizeToAvoidBottomInset: true,
       extendBody: true,
       bottomNavigationBar: SnakeNavigationBar.color(
-        height: getProportionateScreenHeight(52),
+        height: getProportionateScreenHeight(100),
         behaviour: SnakeBarBehaviour.pinned,
         snakeShape: SnakeShape.indicator,
         currentIndex: _pageindex,

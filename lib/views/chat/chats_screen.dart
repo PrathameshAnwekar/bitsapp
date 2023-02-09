@@ -1,10 +1,8 @@
-import 'package:bitsapp/components/filled_outline_button.dart';
 import 'package:bitsapp/models/chat_room.dart';
-import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/views/chat/chat.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 
 class ChatsScreen extends StatelessWidget {
   const ChatsScreen({super.key});
@@ -47,7 +45,9 @@ buildBody(chatsData) {
           itemCount: chatsData.length,
           itemBuilder: (context, index) => ChatCard(
             chatRoom: chatsData[index],
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, ChatRoomScreen.routeName);
+            },
           ),
         ),
       ),

@@ -12,29 +12,34 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
 
-  runApp(const ProviderScope(
+  runApp( ProviderScope(
       child: MediaQuery(data: MediaQueryData(), child: MyApp())));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+  bool init = true;
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
+    if (init) {
+      init = false;
+      SizeConfig.init(context);
+    }
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        return SafeArea(
-          child: MaterialApp(
-            title: 'BITSocial',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-            home: snapshot.hasData ?  const BottomNavScreen() : const AuthScreen(),
-            routes: customRoutes,
-          ),
-        );
-      }
-    );
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          return SafeArea(
+            child: MaterialApp(
+              title: 'BITSocial',
+              debugShowCheckedModeBanner: false,
+              theme:
+                  ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
+              home: snapshot.hasData
+                  ? const BottomNavScreen()
+                  : const AuthScreen(),
+              routes: customRoutes,
+            ),
+          );
+        });
   }
 }
