@@ -23,16 +23,15 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final Color _activeColor = Colors.white;
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-    const AuthScreen(),
-    const JobIntershipScreen(),
-    const Screen4(),
+    const FeedScreen(),
+    const JobInternhipScreen(),
     const Screen3(),
-    const Screen4(), 
+    const Screen4(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       extendBody: true,

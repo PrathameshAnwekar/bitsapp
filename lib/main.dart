@@ -1,7 +1,6 @@
 import 'package:bitsapp/constants/init_constants.dart';
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
-import 'package:bitsapp/services/initializer_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
