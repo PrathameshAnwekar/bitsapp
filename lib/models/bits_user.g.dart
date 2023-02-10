@@ -1,25 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'bits_user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
+BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
       name: json['name'] as String,
       profilePicUrl: json['profilePicUrl'] as String?,
       email: json['email'] as String,
       bitsID: json['bitsID'] as String,
+      chatRooms: (json['chatRooms'] as List<dynamic>)
+          .map((e) => ChatRoom.fromJson(e as Map<String, dynamic>))
+          .toList(),
       uid: json['uid'] as String,
       fcmID: json['fcmID'] as String,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'name': instance.name,
       'profilePicUrl': instance.profilePicUrl,
       'email': instance.email,
       'bitsID': instance.bitsID,
       'uid': instance.uid,
       'fcmID': instance.fcmID,
+      'chatRooms': instance.chatRooms,
     };

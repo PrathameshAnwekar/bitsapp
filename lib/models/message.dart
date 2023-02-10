@@ -4,14 +4,14 @@ part 'message.g.dart';
 
 @JsonSerializable()
 class Message {
-  final String text;
   final DateTime time;
+  final String text;
   final String sender;
 
   Message({
+    required this.time,
     required this.text,
     required this.sender,
-    required this.time,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) =>

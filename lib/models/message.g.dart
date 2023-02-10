@@ -7,13 +7,13 @@ part of 'message.dart';
 // **************************************************************************
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
+      time: DateTime.parse(json['time'] as String),
       text: json['text'] as String,
       sender: json['sender'] as String,
-      time: DateTime.parse(json['time'] as String),
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'text': instance.text,
       'time': instance.time.toIso8601String(),
+      'text': instance.text,
       'sender': instance.sender,
     };
