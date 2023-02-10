@@ -3,13 +3,13 @@
 import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthController {
   static User? currentActiveuser;
-  static signIn(BuildContext context) async {
+  static signIn(BuildContext context,WidgetRef ref) async {
     
-    final res = await GoogleAuthService.signIn(context);
+    final res = await GoogleAuthService.signIn(context, ref);
     if (res) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

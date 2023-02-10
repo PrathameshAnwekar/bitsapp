@@ -1,5 +1,7 @@
-import 'package:bitsapp/services/firestore_chat_service.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -19,7 +21,7 @@ class BitsUser {
   final String email;
   final String bitsID;
   final String uid;
-  final String fcmID;
+  final String? fcmID;
   final List<ChatRoom> chatRooms;
 
   BitsUser(
@@ -38,6 +40,20 @@ class BitsUser {
 
   /// Connect the generated [_$UserToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$BitsUserToJson(this);
+
+  static Future<void> createNewUser(
+      WidgetRef ref, UserCredential result) async {
+    BitsUser bitsUser = BitsUser(
+        name: result.user!.displayName!,
+        profilePicUrl: null,
+        email: result.user!.email!,
+        bitsID: "NOT SET",
+        chatRooms: [],
+        uid: result.user!.uid,
+        fcmID: await FirebaseMessaging.instance.getToken());
+    ref.read(localUserProvider.notifier).setUser(bitsUser);
+    await FirestoreService.createUser(bitsUser);
+  }
 
   static final dummyUser1 = BitsUser(
       name: "me",

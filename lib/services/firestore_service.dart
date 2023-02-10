@@ -4,15 +4,20 @@ import 'package:bitsapp/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FirestoreChatService {
+class FirestoreService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
+  static final _usersRef = _firestore.collection("Users");
 
   static void init() {
     _firestore.settings = const Settings(
       persistenceEnabled: true,
       cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
     );
+  }
+
+  static Future<void> createUser(BitsUser user) async {
+    await _usersRef.doc(user.uid).set(user.toJson());
   }
 
   static void initialiseChatRoomList(WidgetRef ref) async {
