@@ -1,8 +1,9 @@
+import 'package:bitsapp/main.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/views/chat/chat.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bitsapp/services/google_auth_service.dart';
 
 class ChatsScreen extends StatelessWidget {
   const ChatsScreen({super.key});
@@ -14,7 +15,12 @@ class ChatsScreen extends StatelessWidget {
       appBar: buildAppBar(),
       body: buildBody(ChatRoom.chatsData),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (await GoogleAuthService.signOut()) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                MyApp.routeName, (route) => false);
+          }
+        },
         child: const Icon(
           Icons.person_add_alt_1,
           color: Colors.white,

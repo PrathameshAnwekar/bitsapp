@@ -1,8 +1,6 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/services/firestore_service.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,7 +10,7 @@ class GoogleAuthService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignInAccount? googleSignInAccount;
 
-  static Future<bool> signIn(context,WidgetRef ref) async {
+  static Future<bool> signIn(context, WidgetRef ref) async {
     googleSignInAccount = await _googleSignIn.signIn();
     if (googleSignInAccount != null &&
         googleSignInAccount!.email.contains("bits-pilani.ac.in")) {
@@ -25,7 +23,7 @@ class GoogleAuthService {
       if (result.additionalUserInfo!.isNewUser) {
         await BitsUser.createNewUser(ref, result);
       }
-
+      dlog("Signed in as ${result.user!.displayName} , ${result.user!.email}");
       AuthController.currentActiveuser = result.user;
       return Future.value(true);
     } else {
@@ -34,14 +32,18 @@ class GoogleAuthService {
     }
   }
 
-  static Future<bool> signOut(BuildContext context) async {
-    await _googleSignIn.disconnect();
-    await _auth.signOut().then((_) {
-      AuthController.currentActiveuser = null;
+  static Future<bool> signOut() async {
+    try {
+      await _googleSignIn.disconnect();
+      await _auth.signOut().then((_) {
+        AuthController.currentActiveuser = null;
+        dlog("Signed out successfully, set current active user to null");
+      });
+      
       return Future.value(true);
-    });
+    } catch (e) {
+      elog(e.toString());
+    }
     return Future.value(false);
   }
-
-  
 }

@@ -18,20 +18,19 @@ class AuthScreen extends HookConsumerWidget {
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
           child: AuthController.currentActiveuser == null
-              ? _signedOutBody(context)
+              ? _signedOutBody(context, ref)
               : _signedInBody(context),
         ));
   }
 
-  Widget _signedOutBody(BuildContext context) {
+  Widget _signedOutBody(BuildContext context, ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Text('You are not currently signed in.'),
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, ChatsScreen.routeName);
-            // AuthController.signIn(context);
+            AuthController.signIn(context, ref);
           },
           child: Text('SIGN IN'),
         ),

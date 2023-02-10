@@ -8,17 +8,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'views/bottom_nav_screen/bottom_nav_screen.dart';
 
+bool init = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
 
-  runApp( ProviderScope(
-      child: MediaQuery(data: MediaQueryData(), child: MyApp())));
+  runApp(
+      ProviderScope(child: MediaQuery(data: MediaQueryData(), child: MyApp())));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-  bool init = true;
+  static const routeName = "/base-app";
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     if (init) {
