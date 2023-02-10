@@ -1,4 +1,5 @@
 import 'package:bitsapp/services/firestore_chat_service.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -79,27 +80,12 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = state..chatRooms.remove(chatRoom);
   }
 
-  void updateChatRoom(ChatRoom chatRoom) {
-    state = state..chatRooms[state.chatRooms.indexOf(chatRoom)] = chatRoom;
+  void addMessage(ChatRoom chatRoom, Message message) {
+    int index = state.chatRooms.indexOf(chatRoom);
+    state = state..chatRooms[index].messages.add(message);
   }
 
   void initChatRooms(List<ChatRoom> chatRoomsList) {
     state = state..chatRooms.addAll(chatRoomsList);
-  }
-
-  void addMessage(ChatRoom chatRoom, Message message) {
-    state = state
-      ..chatRooms.map((element) {
-        if (element.uid == chatRoom.uid) {
-          FirestoreChatService.addMessageToChatRoom(chatRoom.uid, message);
-          return ChatRoom(
-            uid: element.uid,
-            userList: element.userList,
-            messages: [...element.messages, message],
-          );
-        } else {
-          return element;
-        }
-      }).toList();
   }
 }
