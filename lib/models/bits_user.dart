@@ -96,8 +96,8 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = state..chatRooms.remove(chatRoom);
   }
 
-  void addMessage(ChatRoom chatRoom, Message message) {
-    int index = state.chatRooms.indexOf(chatRoom);
+  void addMessage(String chatRoomUid, Message message) {
+    int index = state.chatRooms.indexWhere((element) => element.uid == chatRoomUid);
     state = state..chatRooms[index].messages.add(message);
   }
 

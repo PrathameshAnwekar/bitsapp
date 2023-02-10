@@ -1,14 +1,20 @@
 import 'package:bitsapp/constants.dart';
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-
-class ChatInputField extends StatelessWidget {
+class ChatInputField extends HookConsumerWidget {
+  final String chatRoomUid;
   const ChatInputField({
     Key? key,
+    required this.chatRoomUid,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textController = useTextEditingController();
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
@@ -51,6 +57,7 @@ class ChatInputField extends StatelessWidget {
                     SizedBox(width: kDefaultPadding / 4),
                     Expanded(
                       child: TextField(
+                        controller: textController,
                         decoration: InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
@@ -66,13 +73,26 @@ class ChatInputField extends StatelessWidget {
                           .withOpacity(0.64),
                     ),
                     SizedBox(width: kDefaultPadding / 4),
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      color: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .color!
-                          .withOpacity(0.64),
+                    GestureDetector(
+                      onTap: () {
+                        final Message te = Message(
+                          sender: ref.read(localUserProvider).uid,
+                          text: textController.text,
+                          time: DateTime.now(),
+                        );
+
+                        ref
+                            .read(localUserProvider.notifier)
+                            .addMessage(chatRoomUid, te);
+                      },
+                      child: Icon(
+                        Icons.send,
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .color!
+                            .withOpacity(0.64),
+                      ),
                     ),
                   ],
                 ),

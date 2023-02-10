@@ -4,12 +4,16 @@ import 'components/body.dart';
 
 class ChatRoomScreen extends StatelessWidget {
   static const routeName = "/chat-room-creen";
+  final String chatRoomUid;
 
+  const ChatRoomScreen({super.key, required this.chatRoomUid});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: Body(
+        chatRoomUid: chatRoomUid,
+      ),
     );
   }
 
@@ -18,14 +22,14 @@ class ChatRoomScreen extends StatelessWidget {
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          BackButton(),
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/images/user_2.png"),
+          const BackButton(),
+          const CircleAvatar(
+            backgroundImage: AssetImage("assets/images/user2.png"),
           ),
-          SizedBox(width: kDefaultPadding * 0.75),
+          const SizedBox(width: kDefaultPadding * 0.75),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
                 "Kristin Watson",
                 style: TextStyle(fontSize: 16),
@@ -40,14 +44,14 @@ class ChatRoomScreen extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(Icons.local_phone),
+          icon: const Icon(Icons.local_phone),
           onPressed: () {},
         ),
         IconButton(
-          icon: Icon(Icons.videocam),
+          icon: const Icon(Icons.videocam),
           onPressed: () {},
         ),
-        SizedBox(width: kDefaultPadding / 2),
+        const SizedBox(width: kDefaultPadding / 2),
       ],
     );
   }

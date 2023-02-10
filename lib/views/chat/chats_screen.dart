@@ -17,8 +17,8 @@ class ChatsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (await GoogleAuthService.signOut()) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                MyApp.routeName, (route) => false);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(MyApp.routeName, (route) => false);
           }
         },
         child: const Icon(
@@ -52,7 +52,9 @@ buildBody(chatsData) {
           itemBuilder: (context, index) => ChatCard(
             chatRoom: chatsData[index],
             press: () {
-              Navigator.pushNamed(context, ChatRoomScreen.routeName);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return ChatRoomScreen(chatRoomUid: chatsData[index].uid);
+              }));
             },
           ),
         ),

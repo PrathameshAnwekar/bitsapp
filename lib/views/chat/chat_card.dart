@@ -1,7 +1,9 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChatCard extends StatelessWidget {
+class ChatCard extends HookConsumerWidget {
   const ChatCard({
     Key? key,
     required this.chatRoom,
@@ -12,12 +14,14 @@ class ChatCard extends StatelessWidget {
   final VoidCallback press;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
+
     return InkWell(
       onTap: press,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 10, vertical: 10 * 0.75),
+        padding:
+            const EdgeInsets.symmetric(horizontal: 10, vertical: 10 * 0.75),
         child: Row(
           children: [
             Stack(
@@ -46,13 +50,14 @@ class ChatCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "chat.name",
+                      chatRoom.userList[0].uid == localUser.uid
+                          ? chatRoom.userList[1].name
+                          : chatRoom.userList[0].name,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
