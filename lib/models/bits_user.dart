@@ -10,9 +10,6 @@ import 'message.dart';
 
 part 'bits_user.g.dart';
 
-final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(
-    (ref) => BitsUserNotifier());
-
 @JsonSerializable()
 class BitsUser {
   /// The generated code assumes these values exist in JSON.
@@ -88,7 +85,9 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = user;
   }
 
-  void addChatRoom(ChatRoom chatRoom) {
+  void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) {
+    dlog("creating a new chatRoom for $user1uid and $user2uid");
+    FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
     state = state..chatRooms.add(chatRoom);
   }
 
@@ -97,7 +96,8 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
   }
 
   void addMessage(String chatRoomUid, Message message) {
-    int index = state.chatRooms.indexWhere((element) => element.uid == chatRoomUid);
+    int index =
+        state.chatRooms.indexWhere((element) => element.uid == chatRoomUid);
     state = state..chatRooms[index].messages.add(message);
   }
 
@@ -105,3 +105,8 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = state..chatRooms.addAll(chatRoomsList);
   }
 }
+
+final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(
+    (ref) => BitsUserNotifier());
+
+final contactsListProvider = StateProvider((ref) => List<BitsUser>.empty());

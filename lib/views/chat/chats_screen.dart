@@ -1,19 +1,23 @@
 import 'package:bitsapp/main.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/views/chat/chat.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
+import 'package:bitsapp/views/chat/contacts_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChatsScreen extends StatelessWidget {
+class ChatsScreen extends HookConsumerWidget {
   const ChatsScreen({super.key});
   static const routeName = "/chats-screen";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localuser = ref.watch(localUserProvider);
     return Scaffold(
-      appBar: buildAppBar(),
-      body: buildBody(ChatRoom.chatsData),
+      appBar: buildAppBar(context),
+      body: buildBody(localuser.chatRooms),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (await GoogleAuthService.signOut()) {
@@ -29,14 +33,20 @@ class ChatsScreen extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: const Text("Chats"),
       actions: [
         IconButton(
           icon: const Icon(Icons.search),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return ContactsScreen();
+              },
+            ));
+          },
         ),
       ],
     );

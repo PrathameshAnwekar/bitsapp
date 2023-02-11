@@ -8,8 +8,8 @@ part of 'chat_room.dart';
 
 ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) => ChatRoom(
       uid: json['uid'] as String,
-      userList: (json['userList'] as List<dynamic>)
-          .map((e) => BitsUser.fromJson(e as Map<String, dynamic>))
+      userUidList: (json['userUidList'] as List<String>)
+          .map((e) => e)
           .toList(),
       messages: (json['messages'] as List<dynamic>)
           .map((e) => Message.fromJson(e as Map<String, dynamic>))
@@ -18,6 +18,6 @@ ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) => ChatRoom(
 
 Map<String, dynamic> _$ChatRoomToJson(ChatRoom instance) => <String, dynamic>{
       'uid': instance.uid,
-      'userList': instance.userList,
+      'userUidList': instance.userUidList,
       'messages': instance.messages,
     };

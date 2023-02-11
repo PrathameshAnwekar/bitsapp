@@ -9,10 +9,10 @@ part 'chat_room.g.dart';
 @JsonSerializable()
 class ChatRoom {
   final String uid;
-  final List<BitsUser> userList;
+  final List<String> userUidList;
   final List<Message> messages;
 
-  ChatRoom({required this.uid, required this.userList, required this.messages});
+  ChatRoom({required this.uid, required this.userUidList, required this.messages});
 
   factory ChatRoom.fromJson(Map<String, dynamic> json) =>
       _$ChatRoomFromJson(json);
@@ -23,42 +23,42 @@ class ChatRoom {
   static List chatsData = [
     ChatRoom(
       uid: "Jenny Wilson",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Esther Howard",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Ralph Edwards",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Jacob Jones",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Albert Flores",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Jenny Wilson",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Esther Howard",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
     ChatRoom(
       uid: "Ralph Edwards",
-      userList: [BitsUser.dummyUser1, BitsUser.dummyUser2],
+      userUidList: [BitsUser.dummyUser1.uid, BitsUser.dummyUser2.uid],
       messages: Message.demoMessages,
     ),
   ];

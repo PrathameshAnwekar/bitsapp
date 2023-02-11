@@ -1,6 +1,7 @@
 import 'package:bitsapp/constants/init_constants.dart';
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +18,17 @@ void main() async {
       ProviderScope(child: MediaQuery(data: MediaQueryData(), child: MyApp())));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget {
   static const routeName = "/base-app";
   MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (init) {
       init = false;
       SizeConfig.init(context);
     }
+    FirestoreService.initUser(ref);
+    FirestoreService.updateContactsList(ref);
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
