@@ -6,4 +6,12 @@ class Constants {
     ["Pending", Colors.yellow.shade700],
     ["Rejected", Colors.red],
   ];
+
+  static final bottomBarIcons = [
+    "assets/Icons/home.svg",
+    "assets/Icons/freelance.svg",
+    "assets/Icons/addnewad.svg",
+    "assets/Icons/cart.svg",
+    "assets/Icons/person.svg",
+  ];
 }

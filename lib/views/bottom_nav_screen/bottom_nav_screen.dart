@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../constants/constants.dart';
 import '../../constants/size_config.dart';
 import '../Demo Screens/Screen3.dart';
 import '../Demo Screens/Screen4.dart';
@@ -72,7 +73,7 @@ class _BottomBarState extends State<BottomBar> {
                         child: Opacity(
                           opacity: index == _pageindex ? 1 : 0.5,
                           child: SvgPicture.asset(
-                            'assets/Icons/home.svg',
+                            Constants.bottomBarIcons[index],
                             width: getProportionateScreenWidth(1),
                             height: getProportionateScreenHeight(1),
                             color: Colors.white60,
