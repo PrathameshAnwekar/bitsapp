@@ -29,6 +29,26 @@ class JobInternhipScreen extends StatelessWidget {
         ),
         elevation: 0,
         actions: [
+          Container(
+            padding: const EdgeInsets.all(1),
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(49, 50, 54, 1),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => const PostNewInternship()),
+                ),
+              ),
+              child: Icon(
+                Icons.add_rounded,
+                size: 28,
+                color: Colors.white.withOpacity(0.9),
+              ),
+            ),
+          ),
           IconButton(
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(
@@ -40,11 +60,10 @@ class JobInternhipScreen extends StatelessWidget {
               size: 28,
               color: Colors.black.withOpacity(0.7),
             ),
-          )
+          ),
         ],
       ),
       backgroundColor: const Color(0xFFF7F6F8),
-      floatingActionButton: _floatingActionButton(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -79,23 +98,4 @@ class JobInternhipScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _floatingActionButton(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 15, bottom: 70),
-    child: FloatingActionButton(
-      onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: ((context) => const PostNewInternship()),
-        ),
-      ),
-      backgroundColor: const Color.fromRGBO(49, 50, 54, 1),
-      child: Icon(
-        Icons.add_rounded,
-        size: 40,
-        color: Colors.white.withOpacity(0.9),
-      ),
-    ),
-  );
 }

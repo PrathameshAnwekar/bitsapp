@@ -32,9 +32,7 @@ class PersonDetail extends StatelessWidget {
             Text(
               'Kaushal Kirpekar',
               style: GoogleFonts.dmSans(
-                // color: Colors.white.withOpacity(0.9),
                 color: const Color(0xFF383D51),
-                // fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),
             ),

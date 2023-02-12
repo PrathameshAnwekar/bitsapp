@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../apply_now_Screen.dart';
+import '../apply_now_screen.dart';
 
 class ApplyNow extends StatelessWidget {
   const ApplyNow({

@@ -21,18 +21,19 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding),
       child: Row(
-        mainAxisAlignment:
-            message.sender == "me" ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: message.sender == "me"
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
-          if (! (message.sender == "me")) ...[
-            CircleAvatar(
+          if (!(message.sender == "me")) ...[
+            const CircleAvatar(
               radius: 12,
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
-            SizedBox(width: kDefaultPadding / 2),
+            const SizedBox(width: kDefaultPadding / 2),
           ],
           messageContent(message),
-          if (message.sender == "me") MessageStatusDot()
+          if (message.sender == "me") const MessageStatusDot()
         ],
       ),
     );
@@ -48,7 +49,7 @@ class MessageStatusDot extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(left: kDefaultPadding / 2),
+      margin: const EdgeInsets.only(left: kDefaultPadding / 2),
       height: 12,
       width: 12,
       decoration: BoxDecoration(

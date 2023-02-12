@@ -26,7 +26,7 @@ class ChatCard extends HookConsumerWidget {
           children: [
             Stack(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 24,
                   // backgroundImage: AssetImage(chat.image),
                 ),
@@ -58,11 +58,11 @@ class ChatCard extends HookConsumerWidget {
                       chatRoom.userUidList[0] == localUser.uid
                           ? chatRoom.userUidList[1]
                           : chatRoom.userUidList[0],
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    SizedBox(height: 8),
-                    Opacity(
+                    const SizedBox(height: 8),
+                    const Opacity(
                       opacity: 0.64,
                       child: Text(
                         "chat.lastMessage",
@@ -74,7 +74,7 @@ class ChatCard extends HookConsumerWidget {
                 ),
               ),
             ),
-            Opacity(
+            const Opacity(
               opacity: 0.64,
               child: Text("chat.time"),
             ),

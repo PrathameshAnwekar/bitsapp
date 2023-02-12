@@ -17,14 +17,14 @@ class FillOutlineButton extends StatelessWidget {
     return MaterialButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
-        side: BorderSide(color: Colors.white),
+        side: const BorderSide(color: Colors.white),
       ),
       elevation: isFilled ? 2 : 0,
       color: isFilled ? Colors.white : Colors.transparent,
       onPressed: press,
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.green,
           fontSize: 12,
         ),

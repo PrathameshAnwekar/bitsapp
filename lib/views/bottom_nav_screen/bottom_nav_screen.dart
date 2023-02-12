@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/size_config.dart';
-import '../Feed Screen/feed_screen.dart';
-import '../Job Internship Screen /job_internship_screen.dart';
 import '../Demo Screens/Screen3.dart';
 import '../Demo Screens/Screen4.dart';
+import '../Feed Screen/feed_screen.dart';
+import '../Job Internship Screen /job_internship_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -37,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
           padding: const EdgeInsets.all(12),
           margin: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
-            color: const Color(0xFF17203A).withOpacity(0.8),
+            color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.9),
             borderRadius: const BorderRadius.all(Radius.circular(24)),
           ),
           child: Row(
@@ -67,14 +67,14 @@ class _BottomBarState extends State<BottomBar> {
                         ),
                       ),
                       SizedBox(
-                        height: 36,
-                        width: 36,
+                        height: 30,
+                        width: 30,
                         child: Opacity(
                           opacity: index == _pageindex ? 1 : 0.5,
                           child: SvgPicture.asset(
                             'assets/Icons/home.svg',
-                            width: getProportionateScreenWidth(21),
-                            height: getProportionateScreenHeight(21),
+                            width: getProportionateScreenWidth(1),
+                            height: getProportionateScreenHeight(1),
                             color: Colors.white60,
                           ),
                         ),
