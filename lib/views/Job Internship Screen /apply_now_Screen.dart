@@ -21,80 +21,77 @@ class ApplyNowScreen extends StatelessWidget {
       bottomNavigationBar: _bottomWidget(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _heading1("Your resume", 20, 10),
-              Container(
-                height: 250,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xFFdfdee8).withOpacity(0.8),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _heading1("Your resume", 20, 10),
+            Container(
+              height: 250,
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: const Color(0xFFdfdee8).withOpacity(0.8),
               ),
-              _heading1("Contact details", 25, 5),
-              _heading2("Phone Number: ", "8220585181"),
-              _heading2("Email Id: ", "aryabamboli2002@gmail.com"),
-              _heading1("Cover letter", 25, 5),
-              TextFormField(
-                // focusNode: _descFocus,
-                cursorColor: const Color(0xFF383D51).withOpacity(0.8),
-                // controller: desccontroller,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.multiline,
-                textCapitalization: TextCapitalization.sentences,
-                minLines: 6,
-                maxLines: 7,
-                style: const TextStyle(
+            ),
+            _heading1("Contact details", 25, 5),
+            _heading2("Phone Number: ", "8220585181"),
+            _heading2("Email Id: ", "aryabamboli2002@gmail.com"),
+            _heading1("Cover letter", 25, 5),
+            TextFormField(
+              // focusNode: _descFocus,
+              cursorColor: const Color(0xFF383D51).withOpacity(0.8),
+              // controller: desccontroller,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.multiline,
+              textCapitalization: TextCapitalization.sentences,
+              minLines: 6,
+              maxLines: 7,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color.fromRGBO(27, 27, 27, 1),
+              ),
+              maxLength: 400,
+              // onFieldSubmitted: (_) {
+              //   _fieldFocusChange(
+              //       context, _descFocus, _priceFocus);
+              // },
+              // onSaved: (value) {
+              //   _editeditem = Item(
+              //     title: _editeditem.title,
+              //     description: value!,
+              //     price: _editeditem.price,
+              //     category: _editeditem.category,
+              //     profileId: _editeditem.profileId,
+              //     imageList: _editeditem.imageList,
+              //     id: _editeditem.id,
+              //   );
+              // },
+              validator: (val) {
+                if (val!.isEmpty) {
+                  return "Field cannot be empty";
+                } else {
+                  return null;
+                }
+              },
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.only(top: 20, left: 12, right: 12),
+                hintText:
+                    'Mention what relevant skill or past experience you have for this internship',
+                hintStyle: TextStyle(
                   fontSize: 16,
-                  color: Color.fromRGBO(27, 27, 27, 1),
+                  color: Color.fromRGBO(0, 0, 0, 0.25),
                 ),
-                maxLength: 400,
-                // onFieldSubmitted: (_) {
-                //   _fieldFocusChange(
-                //       context, _descFocus, _priceFocus);
-                // },
-                // onSaved: (value) {
-                //   _editeditem = Item(
-                //     title: _editeditem.title,
-                //     description: value!,
-                //     price: _editeditem.price,
-                //     category: _editeditem.category,
-                //     profileId: _editeditem.profileId,
-                //     imageList: _editeditem.imageList,
-                //     id: _editeditem.id,
-                //   );
-                // },
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Field cannot be empty";
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 20, left: 12, right: 12),
-                  hintText:
-                      'Mention what relevant skill or past experience you have for this internship',
-                  hintStyle: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                filled: true,
+                fillColor: Color.fromRGBO(242, 242, 242, 1),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
                   ),
-                  filled: true,
-                  fillColor: Color.fromRGBO(242, 242, 242, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
-                    ),
-                    borderSide: BorderSide.none,
-                  ),
+                  borderSide: BorderSide.none,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -163,13 +160,13 @@ Widget _bottomWidget(BuildContext context) {
                   color: const Color(0xFF149fda),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
               child: const Text(
                 "Back",
                 style: TextStyle(
                   color: Color(0xFF149fda),
                   fontWeight: FontWeight.w500,
-                  fontSize: 17,
+                  fontSize: 18,
                 ),
               ),
             ),
@@ -193,7 +190,7 @@ Widget _bottomWidget(BuildContext context) {
               shadowColor: const Color(0xFF149fda).withOpacity(0.6),
               elevation: 6,
               child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 16),
                 child: Text(
                   "Submit",
                   style: TextStyle(

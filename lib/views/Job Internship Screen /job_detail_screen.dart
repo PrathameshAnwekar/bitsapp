@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'apply_now_Screen.dart';
+import 'apply_now_screen.dart';
 
 class JobDetailScreen extends StatelessWidget {
   const JobDetailScreen({super.key});
@@ -162,7 +162,7 @@ Widget _personDetail() {
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: SvgPicture.asset(
-            'assets/icons/person.svg',
+            'assets/person.svg',
             fit: BoxFit.cover,
           ),
         ),
@@ -230,7 +230,7 @@ Widget _bottomWidget(BuildContext context) {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
-                  fontSize: 17,
+                  fontSize: 16,
                 ),
               ),
             ),

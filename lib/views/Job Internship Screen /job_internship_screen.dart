@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import 'job_detail_screen copy.dart';
+import 'Tab Viewer/internship_tabview_screen.dart';
+import 'job_detail_screen.dart';
+import 'post_new_internship.dart';
 
 class JobInternhipScreen extends StatelessWidget {
   const JobInternhipScreen({super.key});
@@ -21,12 +23,28 @@ class JobInternhipScreen extends StatelessWidget {
             style: GoogleFonts.dmSans(
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w400,
-              fontSize: 20,
+              fontSize: 21,
             ),
           ),
         ),
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: ((context) => const InternshipTabView()),
+              ),
+            ),
+            icon: Icon(
+              Icons.format_align_left_rounded,
+              size: 28,
+              color: Colors.black.withOpacity(0.7),
+            ),
+          )
+        ],
       ),
       backgroundColor: const Color(0xFFF7F6F8),
+      floatingActionButton: _floatingActionButton(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -48,7 +66,7 @@ class JobInternhipScreen extends StatelessWidget {
                     height: 65,
                     width: 60,
                     child: SvgPicture.asset(
-                      'assets/icons/vertical_filter.svg',
+                      'assets/vertical_filter.svg',
                       color: const Color.fromRGBO(248, 251, 254, 0.95),
                     ),
                   ),
@@ -61,6 +79,25 @@ class JobInternhipScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _floatingActionButton(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 5, bottom: 10),
+    child: FloatingActionButton(
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: ((context) => const PostNewInternship()),
+        ),
+      ),
+      backgroundColor: const Color.fromRGBO(49, 50, 54, 1),
+      child: Icon(
+        Icons.add_rounded,
+        size: 40,
+        color: Colors.white.withOpacity(0.9),
+      ),
+    ),
+  );
 }
 
 Widget _searchbar() {
@@ -103,23 +140,21 @@ Widget _listView() {
     scrollDirection: Axis.vertical,
     itemBuilder: (BuildContext context, int index) {
       return GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: ((context) => const JobDetailScreen(
-                  // circlecolor: const Color.fromRGBO(204, 240, 191, 1),
-                  // logoUrl: 'assets/icons/freelance.svg',
-                  // index: index,
-                  )),
-            ),
-          );
-        },
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => const JobDetailScreen(
+                // circlecolor: const Color.fromRGBO(204, 240, 191, 1),
+                // logoUrl: 'assets/icons/freelance.svg',
+                // index: index,
+                )),
+          ),
+        ),
         child: Container(
           // height: 140,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: const Color(0xFFdfdee8).withOpacity(0.8),
+            color: const Color(0xFFdfdee8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +168,7 @@ Widget _listView() {
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: SvgPicture.asset(
-                        'assets/icons/freelance.svg',
+                        'assets/person.svg',
                         fit: BoxFit.cover,
                         color: const Color.fromRGBO(54, 50, 60, 1),
                       ),
