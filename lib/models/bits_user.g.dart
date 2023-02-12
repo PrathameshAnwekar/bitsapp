@@ -11,8 +11,8 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
       profilePicUrl: json['profilePicUrl'] as String?,
       email: json['email'] as String,
       bitsID: json['bitsID'] as String,
-      chatRooms: (json['chatRooms'] as List<dynamic>)
-          .map((e) => ChatRoom.fromJson(e as Map<String, dynamic>))
+      chatRooms: (json['chatRooms'] as List<String>)
+          .map((e) => e.toString())
           .toList(),
       uid: json['uid'] as String,
       fcmID: json['fcmID'] as String,

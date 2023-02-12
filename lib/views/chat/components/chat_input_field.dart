@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../models/chat_room.dart';
+
 class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
   const ChatInputField({
@@ -82,7 +84,7 @@ class ChatInputField extends HookConsumerWidget {
                         );
 
                         ref
-                            .read(localUserProvider.notifier)
+                            .read(chatRoomsProvider.notifier)
                             .addMessage(chatRoomUid, te);
                       },
                       child: Icon(

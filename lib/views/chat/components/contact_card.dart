@@ -1,3 +1,4 @@
+import 'package:bitsapp/controllers/contacts_screen_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
@@ -19,17 +20,7 @@ class ContactCard extends HookConsumerWidget {
 
     return InkWell(
       onTap: () {
-        final uid = localUser.uid + user.uid;
-        final newChatRoom = ChatRoom(
-            uid: uid, userUidList: [localUser.uid, user.uid], messages: []);
-        ref
-            .read(localUserProvider.notifier)
-            .addChatRoom(newChatRoom, localUser.uid, user.uid);
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) {
-            return ChatRoomScreen(chatRoomUid: uid);
-          },
-        ));
+       ContactsScreenController.addNewChatRoom(localUser.uid, user.uid, context, ref); 
       },
       child: Padding(
         padding:

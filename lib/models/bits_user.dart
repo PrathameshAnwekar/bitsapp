@@ -19,7 +19,7 @@ class BitsUser {
   final String bitsID;
   final String uid;
   final String? fcmID;
-  final List<ChatRoom> chatRooms;
+  final List<String> chatRooms;
 
   BitsUser(
       {required this.name,
@@ -87,22 +87,12 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
 
   void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) {
     dlog("creating a new chatRoom for $user1uid and $user2uid");
-    FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
-    state = state..chatRooms.add(chatRoom);
+    
+    state = state..chatRooms.add(chatRoom.uid);
   }
 
-  void removeChatRoom(ChatRoom chatRoom) {
-    state = state..chatRooms.remove(chatRoom);
-  }
-
-  void addMessage(String chatRoomUid, Message message) {
-    int index =
-        state.chatRooms.indexWhere((element) => element.uid == chatRoomUid);
-    state = state..chatRooms[index].messages.add(message);
-  }
-
-  void initChatRooms(List<ChatRoom> chatRoomsList) {
-    state = state..chatRooms.addAll(chatRoomsList);
+  void initChatRoomsUidList(List<ChatRoom> chatRoomsList) {
+    state = state..chatRooms.addAll(chatRoomsList.map((e) => e.uid).toList());
   }
 }
 

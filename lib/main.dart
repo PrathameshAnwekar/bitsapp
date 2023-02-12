@@ -29,6 +29,8 @@ class MyApp extends HookConsumerWidget {
     }
     FirestoreService.initUser(ref);
     FirestoreService.updateContactsList(ref);
+    FirestoreService.initialiseChatRooms(ref);
+
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
