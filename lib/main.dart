@@ -14,13 +14,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
 
-  runApp(
-      ProviderScope(child: MediaQuery(data: MediaQueryData(), child: MyApp())));
+  runApp(const ProviderScope(
+      child: MediaQuery(data: MediaQueryData(), child: MyApp())));
 }
 
 class MyApp extends HookConsumerWidget {
   static const routeName = "/base-app";
-  MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (init) {
@@ -40,9 +40,8 @@ class MyApp extends HookConsumerWidget {
               debugShowCheckedModeBanner: false,
               theme:
                   ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              home: snapshot.hasData
-                  ? const BottomNavScreen()
-                  : const AuthScreen(),
+              home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
+              // home: const BottomBar(),
               routes: customRoutes,
             ),
           );

@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../../constants/size_config.dart';
 import '../Comment Screen/comment_screen.dart';
 import '../OverLay Widget/loader.dart';
@@ -56,21 +57,18 @@ class _NewFeedContainerState extends State<NewFeedContainer> {
             children: [
               Container(
                 width: 28,
-                      decoration: BoxDecoration(
-                        
-                        color: const Color.fromRGBO(32, 33, 37, 1),
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            widget.profilePicURL,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                                    value: downloadProgress.progress),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
-                    ),
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(32, 33, 37, 1),
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: widget.profilePicURL,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
               const SizedBox(
                 width: 11,
               ),
@@ -131,7 +129,7 @@ class _NewFeedContainerState extends State<NewFeedContainer> {
                                       CircularProgressIndicator(
                                           value: downloadProgress.progress),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           ),
                         ),

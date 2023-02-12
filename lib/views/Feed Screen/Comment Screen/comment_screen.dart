@@ -18,6 +18,7 @@ class _CommentScreenState extends State<CommentScreen> {
   FocusNode focusNode = FocusNode();
   PreferredSize avatarRoot(Comment data) {
     return PreferredSize(
+      preferredSize: const Size.fromRadius(18),
       child: Padding(
         padding: const EdgeInsets.only(top: 3),
         child: CircleAvatar(
@@ -26,12 +27,12 @@ class _CommentScreenState extends State<CommentScreen> {
           backgroundImage: NetworkImage(data.avatar!),
         ),
       ),
-      preferredSize: const Size.fromRadius(18),
     );
   }
 
   PreferredSize avatarChild(Comment data) {
     return PreferredSize(
+      preferredSize: const Size.fromRadius(16),
       child: Padding(
         padding: const EdgeInsets.only(top: 3),
         child: CircleAvatar(
@@ -40,7 +41,6 @@ class _CommentScreenState extends State<CommentScreen> {
           backgroundImage: NetworkImage(data.avatar!),
         ),
       ),
-      preferredSize: const Size.fromRadius(16),
     );
   }
 
@@ -92,7 +92,7 @@ class _CommentScreenState extends State<CommentScreen> {
           DefaultTextStyle(
             style: Theme.of(context)
                 .textTheme
-                .caption!
+                .bodySmall!
                 .copyWith(color: Colors.grey[700], fontWeight: FontWeight.bold),
             child: Padding(
               padding: const EdgeInsets.only(top: 4),
@@ -162,7 +162,7 @@ class _CommentScreenState extends State<CommentScreen> {
               ),
             ),
             DefaultTextStyle(
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: const Color.fromRGBO(173, 164, 165, 1),
                   fontWeight: FontWeight.bold),
               child: GestureDetector(

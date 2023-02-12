@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Feed Container/feed_container.dart';
 import 'OverLay Widget/overlay_widget.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -50,7 +49,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   // or const Color.fromRGBO(33, 33, 33, 1),
                   toolbarHeight: 48,
                   leading: Padding(
-                    padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                    padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
                     child: Container(
                       width: 28,
                       decoration: BoxDecoration(
@@ -64,7 +63,8 @@ class _FeedScreenState extends State<FeedScreen> {
                             (context, url, downloadProgress) =>
                                 CircularProgressIndicator(
                                     value: downloadProgress.progress),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -96,11 +96,13 @@ class _FeedScreenState extends State<FeedScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SvgPicture.asset(
-                            'assets/icons/search.svg',
+                            'assets/Icons/search.svg',
                             height: 22,
+                            color: Colors.white,
                           ),
                           SvgPicture.asset(
-                            'assets/icons/filter.svg',
+                            'assets/Icons/filter.svg',
+                            color: Colors.white,
                             height: 22,
                           ),
                         ],
@@ -129,9 +131,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                     color: Colors.white, fontSize: 13),
                               ),
                               child: SvgPicture.asset(
-                                'assets/icons/message.svg',
+                                'assets/Icons/message.svg',
                                 width: 35,
-                                // height: 35,
+                                height: 35,
                               ),
                             ),
                           ),
