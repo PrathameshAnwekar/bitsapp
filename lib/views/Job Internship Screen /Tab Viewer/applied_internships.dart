@@ -43,7 +43,7 @@ class AppliedInternships extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: SvgPicture.asset(
-                          'assets/person.svg',
+                          'assets/Icons/person.svg',
                           fit: BoxFit.cover,
                           color: const Color.fromRGBO(54, 50, 60, 1),
                         ),

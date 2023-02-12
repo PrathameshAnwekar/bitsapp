@@ -1,4 +1,3 @@
-import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,8 +22,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final Color _activeColor = Colors.white;
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-    const FeedScreen(),
     const JobInternhipScreen(),
+    const FeedScreen(),
     const Screen3(),
     const Screen4(),
     const Screen4(),
@@ -32,7 +31,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: true,
       extendBody: true,
@@ -42,7 +40,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         snakeShape: SnakeShape.indicator,
         currentIndex: _pageindex,
         backgroundColor: const Color.fromRGBO(25, 29, 30, 1),
-        // backgroundColor: const Color.fromRGBO(32, 33, 37, 1),
         showUnselectedLabels: false,
         showSelectedLabels: false,
         onTap: (value) {
@@ -54,13 +51,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/home.svg',
+              'assets/Icons/home.svg',
               width: getProportionateScreenWidth(21),
               height: getProportionateScreenHeight(21),
               color: Colors.white60,
             ),
             activeIcon: SvgPicture.asset(
-              'assets/icons/home.svg',
+              'assets/Icons/home.svg',
               width: getProportionateScreenWidth(23),
               height: getProportionateScreenHeight(23),
               color: _activeColor,
@@ -68,13 +65,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/addnewad.svg',
+              'assets/Icons/addnewad.svg',
               width: getProportionateScreenWidth(21),
               height: getProportionateScreenHeight(21),
               color: Colors.white60,
             ),
             activeIcon: SvgPicture.asset(
-              'assets/icons/addnewad.svg',
+              'assets/Icons/addnewad.svg',
               width: getProportionateScreenWidth(23),
               height: getProportionateScreenHeight(23),
               color: _activeColor,
@@ -82,13 +79,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/cart.svg',
+              'assets/Icons/cart.svg',
               width: getProportionateScreenWidth(21),
               height: getProportionateScreenHeight(21),
               color: Colors.white60,
             ),
             activeIcon: SvgPicture.asset(
-              'assets/icons/cart.svg',
+              'assets/Icons/cart.svg',
               width: getProportionateScreenWidth(23),
               height: getProportionateScreenHeight(23),
               color: _activeColor,
@@ -96,13 +93,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/adslist.svg',
+              'assets/Icons/adslist.svg',
               width: getProportionateScreenWidth(21),
               height: getProportionateScreenHeight(21),
               color: Colors.white60,
             ),
             activeIcon: SvgPicture.asset(
-              'assets/icons/adslist.svg',
+              'assets/Icons/adslist.svg',
               width: getProportionateScreenWidth(23),
               height: getProportionateScreenHeight(23),
               color: _activeColor,
@@ -110,13 +107,13 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              'assets/icons/person.svg',
+              'assets/Icons/person.svg',
               width: getProportionateScreenWidth(21),
               height: getProportionateScreenHeight(21),
               color: Colors.white60,
             ),
             activeIcon: SvgPicture.asset(
-              'assets/icons/person.svg',
+              'assets/Icons/person.svg',
               width: getProportionateScreenWidth(23),
               height: getProportionateScreenHeight(23),
               color: _activeColor,

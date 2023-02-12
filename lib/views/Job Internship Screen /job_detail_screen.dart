@@ -162,7 +162,7 @@ Widget _personDetail() {
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: SvgPicture.asset(
-            'assets/person.svg',
+            'assets/Icons/person.svg',
             fit: BoxFit.cover,
           ),
         ),

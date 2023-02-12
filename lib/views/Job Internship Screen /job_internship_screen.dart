@@ -66,7 +66,7 @@ class JobInternhipScreen extends StatelessWidget {
                     height: 65,
                     width: 60,
                     child: SvgPicture.asset(
-                      'assets/vertical_filter.svg',
+                      'assets/Icons/vertical_filter.svg',
                       color: const Color.fromRGBO(248, 251, 254, 0.95),
                     ),
                   ),
@@ -83,7 +83,7 @@ class JobInternhipScreen extends StatelessWidget {
 
 Widget _floatingActionButton(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.only(right: 5, bottom: 10),
+    padding: const EdgeInsets.only(right: 15, bottom: 70),
     child: FloatingActionButton(
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
@@ -168,7 +168,7 @@ Widget _listView() {
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: SvgPicture.asset(
-                        'assets/person.svg',
+                        'assets/Icons/person.svg',
                         fit: BoxFit.cover,
                         color: const Color.fromRGBO(54, 50, 60, 1),
                       ),

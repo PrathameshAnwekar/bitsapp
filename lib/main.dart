@@ -2,7 +2,6 @@ import 'package:bitsapp/constants/init_constants.dart';
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
-import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,13 +13,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
 
-  runApp(
-      ProviderScope(child: MediaQuery(data: MediaQueryData(), child: MyApp())));
+  runApp(const ProviderScope(
+      child: MediaQuery(data: MediaQueryData(), child: MyApp())));
 }
 
 class MyApp extends HookConsumerWidget {
   static const routeName = "/base-app";
-  MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (init) {
@@ -38,9 +37,10 @@ class MyApp extends HookConsumerWidget {
               debugShowCheckedModeBanner: false,
               theme:
                   ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              home: snapshot.hasData
-                  ? const BottomNavScreen()
-                  : const AuthScreen(),
+              // home: snapshot.hasData
+              //     ? const BottomNavScreen()
+              //     : const AuthScreen(),
+              home: const BottomNavScreen(),
               routes: customRoutes,
             ),
           );
