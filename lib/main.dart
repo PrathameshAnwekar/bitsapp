@@ -2,6 +2,7 @@ import 'package:bitsapp/constants/init_constants.dart';
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,10 +38,8 @@ class MyApp extends HookConsumerWidget {
               debugShowCheckedModeBanner: false,
               theme:
                   ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              // home: snapshot.hasData
-              //     ? const BottomNavScreen()
-              //     : const AuthScreen(),
-              home: const BottomNavScreen(),
+              home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
+              // home: const BottomBar(),
               routes: customRoutes,
             ),
           );

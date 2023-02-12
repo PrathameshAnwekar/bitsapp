@@ -1,4 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/back_submit_button.dart';
+import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/heading1.dart';
+import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/heading2.dart';
 import 'package:flutter/material.dart';
 
 class ApplyNowScreen extends StatelessWidget {
@@ -18,14 +21,14 @@ class ApplyNowScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      bottomNavigationBar: _bottomWidget(context),
+      bottomNavigationBar: const BackSubmitButton(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _heading1("Your resume", 20, 10),
+              const Heading1(txt: "Your resume", top: 20, bottom: 10),
               Container(
                 height: 250,
                 padding:
@@ -35,10 +38,11 @@ class ApplyNowScreen extends StatelessWidget {
                   color: const Color(0xFFdfdee8).withOpacity(0.8),
                 ),
               ),
-              _heading1("Contact details", 25, 5),
-              _heading2("Phone Number: ", "8220585181"),
-              _heading2("Email Id: ", "aryabamboli2002@gmail.com"),
-              _heading1("Cover letter", 25, 5),
+              const Heading1(txt: "Contact details", top: 25, bottom: 5),
+              const Heading2(txt1: "Phone Number: ", txt2: "8220585181"),
+              const Heading2(
+                  txt1: "Email Id: ", txt2: "aryabamboli2002@gmail.com"),
+              const Heading1(txt: "Cover letter", top: 25, bottom: 5),
               TextFormField(
                 // focusNode: _descFocus,
                 cursorColor: const Color(0xFF383D51).withOpacity(0.8),
@@ -99,114 +103,4 @@ class ApplyNowScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _heading1(String txt, double top, double bottom) {
-  return Padding(
-    padding: EdgeInsets.only(
-      top: top,
-      bottom: bottom,
-    ),
-    child: Text(
-      txt,
-      style: const TextStyle(
-        color: Color(0xFF4D5470),
-        fontWeight: FontWeight.w600,
-        fontSize: 20,
-      ),
-    ),
-  );
-}
-
-Widget _heading2(String txt, String txt2) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 5),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          txt,
-          style: const TextStyle(
-            color: Color(0xFF4D5470),
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          txt2,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.7),
-            fontSize: 14,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _bottomWidget(BuildContext context) {
-  return Material(
-    elevation: 14,
-    child: SizedBox(
-      height: 90,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: const Color(0xFF149fda),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
-              child: const Text(
-                "Back",
-                style: TextStyle(
-                  color: Color(0xFF149fda),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(
-                    const SnackBar(
-                      content: Text("Succesfuly Applied"),
-                      backgroundColor: Color.fromRGBO(237, 92, 90, 1),
-                    ),
-                  )
-                  .closed
-                  .then((value) => Navigator.pop(context));
-            },
-            child: Card(
-              color: const Color(0xFF149fda),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              shadowColor: const Color(0xFF149fda).withOpacity(0.6),
-              elevation: 6,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 16),
-                child: Text(
-                  "Submit",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }

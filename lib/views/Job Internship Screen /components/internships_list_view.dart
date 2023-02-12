@@ -1,15 +1,16 @@
-import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/application_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../constants/constants.dart';
-import '../components/tags.dart';
 import '../job_detail_screen.dart';
+import 'tags.dart';
 
-class AppliedInternships extends StatelessWidget {
-  const AppliedInternships({super.key});
+class InternshipsListView extends StatelessWidget {
+  const InternshipsListView({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -23,7 +24,6 @@ class AppliedInternships extends StatelessWidget {
             ),
           ),
           child: Container(
-            // height: 140,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -137,25 +137,6 @@ class AppliedInternships extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Divider(
-                  height: 22,
-                  thickness: 1,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Applied on June ${index * 3 + index % 3 + 2}, 9:07 AM",
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    ApplicationStatus(
-                      text: Constants.statusList[index % 3][0] as String,
-                      color: Constants.statusList[index % 3][1] as Color,
-                    ),
-                  ],
-                )
               ],
             ),
           ),
@@ -166,7 +147,7 @@ class AppliedInternships extends StatelessWidget {
           height: 20,
         );
       },
-      itemCount: 6,
+      itemCount: 5,
     );
   }
 }

@@ -1,5 +1,6 @@
+import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/person_detail.dart';
+import 'package:bitsapp/views/Job%20Internship%20Screen%20/components/title1.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostNewInternship extends StatelessWidget {
@@ -40,7 +41,7 @@ class PostNewInternship extends StatelessWidget {
         elevation: 0,
         actions: [
           Container(
-            width: 70,
+            width: 72,
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             decoration: BoxDecoration(
               border: Border.all(
@@ -50,20 +51,21 @@ class PostNewInternship extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-            child: const Text("Post", style: TextStyle(fontSize: 18)),
+            child: const Text("Post",
+                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _personDetails(),
-                _textWidget("Title"),
+                const PersonDetail(),
+                const Title1(txt: "Title"),
                 TextFormField(
                   cursorColor: Colors.black54,
                   maxLength: 100,
@@ -95,7 +97,7 @@ class PostNewInternship extends StatelessWidget {
                     color: Color.fromRGBO(27, 27, 27, 1),
                   ),
                 ),
-                _textWidget("Description"),
+                const Title1(txt: "Description"),
                 TextFormField(
                   cursorColor: Colors.black54,
                   maxLength: 400,
@@ -131,7 +133,7 @@ class PostNewInternship extends StatelessWidget {
                 const SizedBox(height: 25),
                 Row(
                   children: [
-                    _textWidget("Skill(s) required: "),
+                    const Title1(txt: "Skill(s) required: "),
                     Expanded(
                       child: TextFormField(
                         cursorColor: Colors.black54,
@@ -169,7 +171,7 @@ class PostNewInternship extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    _textWidget("Compensation type: "),
+                    const Title1(txt: "Compensation type: "),
                     Expanded(
                       child: TextFormField(
                         cursorColor: Colors.black54,
@@ -207,7 +209,7 @@ class PostNewInternship extends StatelessWidget {
                 const SizedBox(height: 25),
                 Row(
                   children: [
-                    _textWidget("Contact email: "),
+                    const Title1(txt: "Contact email: "),
                     Expanded(
                       child: TextFormField(
                         cursorColor: Colors.black54,
@@ -249,47 +251,4 @@ class PostNewInternship extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget _personDetails() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 15),
-    child: Row(
-      children: <Widget>[
-        CircleAvatar(
-          radius: 17,
-          backgroundColor: const Color.fromRGBO(226, 210, 254, 1),
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: SvgPicture.asset(
-              'assets/Icons/person.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        const SizedBox(width: 15),
-        Text(
-          'Kaushal Kirpekar',
-          style: GoogleFonts.dmSans(
-            color: Colors.black.withOpacity(0.8),
-            fontSize: 18,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _textWidget(String txt) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 5),
-    child: Text(
-      txt,
-      style: GoogleFonts.dmSans(
-        color: Colors.black.withOpacity(0.7),
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-  );
 }
