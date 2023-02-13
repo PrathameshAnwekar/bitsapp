@@ -2,8 +2,8 @@ import 'package:bitsapp/constants.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/chat_room.dart';
 
@@ -18,7 +18,7 @@ class ChatInputField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
         vertical: kDefaultPadding / 2,
       ),
@@ -26,20 +26,20 @@ class ChatInputField extends HookConsumerWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
             blurRadius: 32,
-            color: Color(0xFF087949).withOpacity(0.08),
+            color: const Color(0xFF087949).withOpacity(0.08),
           ),
         ],
       ),
       child: SafeArea(
         child: Row(
           children: [
-            Icon(Icons.mic, color: kPrimaryColor),
-            SizedBox(width: kDefaultPadding),
+            const Icon(Icons.mic, color: kPrimaryColor),
+            const SizedBox(width: kDefaultPadding),
             Expanded(
               child: Container(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: kDefaultPadding * 0.75,
                 ),
                 decoration: BoxDecoration(
@@ -52,15 +52,15 @@ class ChatInputField extends HookConsumerWidget {
                       Icons.sentiment_satisfied_alt_outlined,
                       color: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .color!
                           .withOpacity(0.64),
                     ),
-                    SizedBox(width: kDefaultPadding / 4),
+                    const SizedBox(width: kDefaultPadding / 4),
                     Expanded(
                       child: TextField(
                         controller: textController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Type message",
                           border: InputBorder.none,
                         ),
@@ -70,11 +70,11 @@ class ChatInputField extends HookConsumerWidget {
                       Icons.attach_file,
                       color: Theme.of(context)
                           .textTheme
-                          .bodyText1!
+                          .bodyLarge!
                           .color!
                           .withOpacity(0.64),
                     ),
-                    SizedBox(width: kDefaultPadding / 4),
+                    const SizedBox(width: kDefaultPadding / 4),
                     GestureDetector(
                       onTap: () {
                         final Message te = Message(
@@ -91,7 +91,7 @@ class ChatInputField extends HookConsumerWidget {
                         Icons.send,
                         color: Theme.of(context)
                             .textTheme
-                            .bodyText1!
+                            .bodyLarge!
                             .color!
                             .withOpacity(0.64),
                       ),

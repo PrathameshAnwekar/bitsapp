@@ -1,26 +1,20 @@
-import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../constants/size_config.dart';
-import '../Demo Screens/Screen3.dart';
-import '../Demo Screens/Screen4.dart';
-import '../Feed Screen/feed_screen.dart';
-import '../job_internship_screen/job_internship_screen.dart';
-// import 'Job Internship Screen/job_internship_screen.dart';
-// import 'Profile Screen/userprofile_screen.dart';
+import '../../constants/constants.dart';
+import '../Demo_Screens/Screen3.dart';
+import '../Demo_Screens/Screen4.dart';
+import '../Feed_Screen/feed_screen.dart';
+import '../Job_Internship_Screen/job_internship_screen.dart';
 
-class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({Key? key}) : super(key: key);
-  static const routeName = '/feed-screen';
-
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
+  static const routeName = '/bottom-nav-screen';
   @override
-  State<BottomNavScreen> createState() => _BottomNavScreenState();
+  State<BottomBar> createState() => _BottomBarState();
 }
 
-class _BottomNavScreenState extends State<BottomNavScreen> {
-  final Color _activeColor = Colors.white;
+class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     const FeedScreen(),
@@ -32,101 +26,64 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       extendBody: true,
-      bottomNavigationBar: SnakeNavigationBar.color(
-        height: getProportionateScreenHeight(100),
-        behaviour: SnakeBarBehaviour.pinned,
-        snakeShape: SnakeShape.indicator,
-        currentIndex: _pageindex,
-        backgroundColor: const Color.fromRGBO(25, 29, 30, 1),
-        // backgroundColor: const Color.fromRGBO(32, 33, 37, 1),
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        onTap: (value) {
-          setState(() {
-            _pageindex = value;
-          });
-        },
-        snakeViewColor: Colors.white54,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/home.svg',
-              width: getProportionateScreenWidth(21),
-              height: getProportionateScreenHeight(21),
-              color: Colors.white60,
-            ),
-            activeIcon: SvgPicture.asset(
-              'assets/icons/home.svg',
-              width: getProportionateScreenWidth(23),
-              height: getProportionateScreenHeight(23),
-              color: _activeColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/addnewad.svg',
-              width: getProportionateScreenWidth(21),
-              height: getProportionateScreenHeight(21),
-              color: Colors.white60,
-            ),
-            activeIcon: SvgPicture.asset(
-              'assets/icons/addnewad.svg',
-              width: getProportionateScreenWidth(23),
-              height: getProportionateScreenHeight(23),
-              color: _activeColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/cart.svg',
-              width: getProportionateScreenWidth(21),
-              height: getProportionateScreenHeight(21),
-              color: Colors.white60,
-            ),
-            activeIcon: SvgPicture.asset(
-              'assets/icons/cart.svg',
-              width: getProportionateScreenWidth(23),
-              height: getProportionateScreenHeight(23),
-              color: _activeColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/adslist.svg',
-              width: getProportionateScreenWidth(21),
-              height: getProportionateScreenHeight(21),
-              color: Colors.white60,
-            ),
-            activeIcon: SvgPicture.asset(
-              'assets/icons/adslist.svg',
-              width: getProportionateScreenWidth(23),
-              height: getProportionateScreenHeight(23),
-              color: _activeColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/person.svg',
-              width: getProportionateScreenWidth(21),
-              height: getProportionateScreenHeight(21),
-              color: Colors.white60,
-            ),
-            activeIcon: SvgPicture.asset(
-              'assets/icons/person.svg',
-              width: getProportionateScreenWidth(23),
-              height: getProportionateScreenHeight(23),
-              color: _activeColor,
-            ),
-          ),
-        ],
-      ),
       body: IndexedStack(
         index: _pageindex,
         children: pagelist,
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.9),
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ...List.generate(
+                pagelist.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    if (index != _pageindex) {
+                      setState(() {
+                        _pageindex = index;
+                      });
+                    }
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        margin: const EdgeInsets.only(bottom: 2),
+                        height: 4,
+                        width: index == _pageindex ? 20 : 0,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF81B4FF),
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Opacity(
+                          opacity: index == _pageindex ? 1 : 0.5,
+                          child: SvgPicture.asset(
+                            Constants.bottomBarIcons[index],
+                            color: Colors.white60,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
