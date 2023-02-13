@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../constants/size_config.dart';
-import '../Comment Screen/comment_screen.dart';
-import '../OverLay Widget/loader.dart';
+import '../Comment_Screen/comment_screen.dart';
+import '../OverLay_Widget/loader.dart';
 
 class NewFeedContainer extends StatefulWidget {
   const NewFeedContainer(
