@@ -16,7 +16,7 @@ class ChatCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
-
+    final contactsList = ref.watch(contactsListProvider);
     return InkWell(
       onTap: press,
       child: Padding(
@@ -56,8 +56,8 @@ class ChatCard extends HookConsumerWidget {
                   children: [
                     Text(
                       chatRoom.userUidList[0] == localUser.uid
-                          ? chatRoom.userUidList[1]
-                          : chatRoom.userUidList[0],
+                          ? contactsList.singleWhere((element) => element.uid == chatRoom.userUidList[1]).name 
+                          : contactsList.singleWhere((element) => element.uid == chatRoom.userUidList[0]).name ,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),

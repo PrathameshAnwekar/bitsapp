@@ -86,6 +86,7 @@ class ChatInputField extends HookConsumerWidget {
                         ref
                             .read(chatRoomsProvider.notifier)
                             .addMessage(chatRoomUid, te);
+                        textController.clear();
                       },
                       child: Icon(
                         Icons.send,

@@ -2,7 +2,7 @@ import 'package:logger_plus/logger_plus.dart';
 
 final _logger = Logger(
   printer: PrettyPrinter(
-      methodCount: 1, // number of method calls to be displayed
+      methodCount: 5, // number of method calls to be displayed
       errorMethodCount: 8, // number of method calls if stacktrace is provided
       lineLength: 60, // width of the output
       colors: true, // Colorful log messages

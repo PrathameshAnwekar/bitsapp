@@ -57,12 +57,12 @@ class FirestoreService {
   static void initialiseChatRooms(WidgetRef ref) async {
     try {
       final response = await _chatRoomsRef
-          .where("userList", arrayContains: ref.read(localUserProvider).uid)
+          .where("userUidList", arrayContains: ref.read(localUserProvider).uid)
           .get();
 
       final chatRooms =
           response.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
-
+      dlog("initialised ${chatRooms.length} chat rooms");
       ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
       ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
     } catch (e) {
@@ -73,7 +73,7 @@ class FirestoreService {
   static Future<void> addChatRoom(
       ChatRoom chatRoom, String user1uid, String user2uid) async {
     try {
-      await _chatRoomsRef.add(chatRoom.toJson());
+      await _chatRoomsRef.doc(chatRoom.uid).set(chatRoom.toJson());
       await _usersRef.doc(user1uid).update({
         "chatRooms": FieldValue.arrayUnion([chatRoom.uid])
       });

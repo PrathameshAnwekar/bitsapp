@@ -1,5 +1,6 @@
 import 'package:bitsapp/main.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:bitsapp/views/chat/chat.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
@@ -13,10 +14,10 @@ class ChatsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localuser = ref.watch(localUserProvider);
+    final chatrooms = ref.watch(chatRoomsProvider);
     return Scaffold(
       appBar: buildAppBar(context),
-      body: buildBody(localuser.chatRooms),
+      body: buildBody(chatrooms),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (await GoogleAuthService.signOut()) {

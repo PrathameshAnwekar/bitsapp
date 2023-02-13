@@ -7,7 +7,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ContactsScreenController {
   static void addNewChatRoom(String localUserUid, String userUid,
       BuildContext context, WidgetRef ref) {
-    final uid = localUserUid + userUid;
+    final uid = localUserUid.compareTo(userUid) < 0 ?  localUserUid + userUid : userUid + localUserUid;
+    if(ref.read(localUserProvider).chatRooms.contains(uid)) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) {
+          return ChatRoomScreen(chatRoomUid: uid);
+        },
+      ));
+      return;
+    }
     final newChatRoom =
         ChatRoom(uid: uid, userUidList: [localUserUid, userUid], messages: []);
     ref

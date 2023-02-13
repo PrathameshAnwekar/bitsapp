@@ -3,6 +3,7 @@ import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
+import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,20 +28,21 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
-    FirestoreService.initUser(ref);
-    FirestoreService.updateContactsList(ref);
-    FirestoreService.initialiseChatRooms(ref);
+
 
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+              FirestoreService.initUser(ref);
+    FirestoreService.updateContactsList(ref);
+    FirestoreService.initialiseChatRooms(ref);
           return SafeArea(
             child: MaterialApp(
               title: 'BITSocial',
               debugShowCheckedModeBanner: false,
               theme:
                   ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
+              home: snapshot.hasData ? const ChatsScreen() : const AuthScreen(),
               // home: const BottomBar(),
               routes: customRoutes,
             ),
