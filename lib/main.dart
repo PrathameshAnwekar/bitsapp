@@ -28,14 +28,13 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
-
-
+    FirestoreService.initUser(ref);
+    FirestoreService.updateContactsList(ref);
+    FirestoreService.initialiseChatRooms(ref);
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-              FirestoreService.initUser(ref);
-    FirestoreService.updateContactsList(ref);
-    FirestoreService.initialiseChatRooms(ref);
+          
           return SafeArea(
             child: MaterialApp(
               title: 'BITSocial',

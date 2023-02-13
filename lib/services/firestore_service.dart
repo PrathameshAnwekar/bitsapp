@@ -10,7 +10,6 @@ class FirestoreService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
   static final _usersRef = _firestore.collection("Users");
-
   static void init() {
     try {
       _firestore.settings = const Settings(
@@ -22,7 +21,7 @@ class FirestoreService {
     }
   }
 
-  static void initUser(WidgetRef ref) async {
+  static Future<void> initUser(WidgetRef ref) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
       final userDoc = await _usersRef.doc(uid).get();
@@ -41,20 +40,22 @@ class FirestoreService {
     }
   }
 
-  static updateContactsList(WidgetRef ref) async {
+  static Future<void> updateContactsList(WidgetRef ref) async {
     try {
       final response = await _usersRef.get();
       final allUsersList = response.docs.map((e) {
         final profile = e.data();
         return BitsUser.fromJson(profile);
       }).toList();
+
       ref.read(contactsListProvider.notifier).state = allUsersList;
+      dlog("initialised ${allUsersList.length} contacts");
     } catch (e) {
       elog(e.toString());
     }
   }
 
-  static void initialiseChatRooms(WidgetRef ref) async {
+  static Future<void> initialiseChatRooms(WidgetRef ref) async {
     try {
       final response = await _chatRoomsRef
           .where("userUidList", arrayContains: ref.read(localUserProvider).uid)
@@ -62,9 +63,10 @@ class FirestoreService {
 
       final chatRooms =
           response.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
-      dlog("initialised ${chatRooms.length} chat rooms");
+      
       ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
       ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
+      dlog("initialised ${chatRooms.length} chat rooms");
     } catch (e) {
       elog(e.toString());
     }
@@ -91,6 +93,7 @@ class FirestoreService {
       await _chatRoomsRef.doc(chatRoomUid).update({
         "messages": FieldValue.arrayUnion([message.toJson()])
       });
+      dlog("added message ${message.text} to chat room $chatRoomUid");
     } catch (e) {
       elog(e.toString());
     }

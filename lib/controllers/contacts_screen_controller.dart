@@ -20,7 +20,7 @@ class ContactsScreenController {
         ChatRoom(uid: uid, userUidList: [localUserUid, userUid], messages: []);
     ref
         .read(localUserProvider.notifier)
-        .addChatRoom(newChatRoom, localUserUid, userUid);
+        .addChatRoom(uid);
     ref.read(chatRoomsProvider.notifier).addChatRoom(newChatRoom, localUserUid, userUid);
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) {

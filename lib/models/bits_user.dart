@@ -85,10 +85,10 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = user;
   }
 
-  void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) {
-    dlog("creating a new chatRoom for $user1uid and $user2uid");
+  void addChatRoom(String uid) {
+    dlog("creating a new chatRoom for uid $uid");
     
-    state = state..chatRooms.add(chatRoom.uid);
+    state = state..chatRooms.add(uid);
   }
 
   void initChatRoomsUidList(List<ChatRoom> chatRoomsList) {

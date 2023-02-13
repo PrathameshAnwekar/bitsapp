@@ -14,7 +14,7 @@ class ChatRoomScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatRoom = ref.watch(chatRoomsProvider).firstWhere((element) => element.uid == chatRoomUid);
     final contactsList = ref.watch(contactsListProvider);
-    final BitsUser otherUser = contactsList.firstWhere((element) => element.uid == chatRoom.userUidList.firstWhere((element) => element != ref.read(localUserProvider).uid));
+    final BitsUser otherUser = contactsList.firstWhere((element) => element.uid == chatRoom.userUidList.firstWhere((element) => element != ref.read(localUserProvider).uid, orElse:() => "-1") , orElse:() => ref.read(localUserProvider))  ;
     return Scaffold(
       appBar: buildAppBar(otherUser.name),
       body: Body(
