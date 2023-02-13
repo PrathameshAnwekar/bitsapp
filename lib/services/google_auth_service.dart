@@ -1,5 +1,6 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +24,8 @@ class GoogleAuthService {
       if (result.additionalUserInfo!.isNewUser) {
         await BitsUser.createNewUser(ref, result);
       }
+      await FirestoreService.initUser(ref);
+
       dlog("Signed in as ${result.user!.displayName} , ${result.user!.email}");
       AuthController.currentActiveuser = result.user;
       return Future.value(true);
@@ -39,7 +42,7 @@ class GoogleAuthService {
         AuthController.currentActiveuser = null;
         dlog("Signed out successfully, set current active user to null");
       });
-      
+
       return Future.value(true);
     } catch (e) {
       elog(e.toString());
