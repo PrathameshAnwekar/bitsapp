@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants.dart';
-import '../Demo Screens/Screen3.dart';
-import '../Demo Screens/Screen4.dart';
-import '../Feed Screen/feed_screen.dart';
-import '../Job Internship Screen /job_internship_screen.dart';
+import '../Demo_Screens/Screen3.dart';
+import '../Demo_Screens/Screen4.dart';
+import '../Feed_Screen/feed_screen.dart';
+import '../Job_Internship_Screen/job_internship_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
