@@ -52,22 +52,6 @@ class BitsUser {
     await FirestoreService.createUser(bitsUser);
   }
 
-  static final dummyUser1 = BitsUser(
-      name: "me",
-      profilePicUrl: "profilePicUrl",
-      email: "email",
-      bitsID: "bitsID",
-      chatRooms: [],
-      uid: "0",
-      fcmID: "fcmID2");
-  static final dummyUser2 = BitsUser(
-      name: "you",
-      profilePicUrl: "profilePicUrl",
-      email: "email",
-      bitsID: "bitsID",
-      chatRooms: [],
-      uid: "1",
-      fcmID: "fcmID1");
 }
 
 class BitsUserNotifier extends StateNotifier<BitsUser> {

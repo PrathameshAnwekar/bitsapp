@@ -29,8 +29,6 @@ class MyApp extends HookConsumerWidget {
       SizeConfig.init(context);
     }
     FirestoreService.initUser(ref);
-    FirestoreService.updateContactsList(ref);
-    FirestoreService.initialiseChatRooms(ref);
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -41,7 +39,7 @@ class MyApp extends HookConsumerWidget {
               debugShowCheckedModeBanner: false,
               theme:
                   ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              home: snapshot.hasData ? const ChatsScreen() : const AuthScreen(),
+              home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
               // home: const BottomBar(),
               routes: customRoutes,
             ),

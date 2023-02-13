@@ -23,9 +23,12 @@ class FirestoreService {
 
   static Future<void> initUser(WidgetRef ref) async {
     try {
+      FirestoreService.updateContactsList(ref);
+      FirestoreService.initialiseChatRooms(ref);
       final uid = FirebaseAuth.instance.currentUser!.uid;
       final userDoc = await _usersRef.doc(uid).get();
       final user = BitsUser.fromJson(userDoc.data()!);
+      
       ref.read(localUserProvider.notifier).setUser(user);
     } catch (e) {
       elog(e.toString());
@@ -63,9 +66,10 @@ class FirestoreService {
 
       final chatRooms =
           response.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
-      
+
       ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
       ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
+      
       dlog("initialised ${chatRooms.length} chat rooms");
     } catch (e) {
       elog(e.toString());
