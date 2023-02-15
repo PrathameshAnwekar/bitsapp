@@ -14,6 +14,7 @@ class JobInternhipScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: const Color(0xFFF7F6F8),
         centerTitle: false,
         title: Padding(
@@ -65,7 +66,7 @@ class JobInternhipScreen extends StatelessWidget {
       ),
       backgroundColor: const Color(0xFFF7F6F8),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

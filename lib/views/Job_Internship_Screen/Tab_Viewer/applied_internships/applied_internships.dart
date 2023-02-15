@@ -36,7 +36,7 @@ class AppliedInternships extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const <Widget>[
-                    CircleProfilePic(),
+                    CircleProfilePic(radius: 16),
                     Spacer(flex: 1),
                     PersonDetail(),
                     Spacer(flex: 15),
