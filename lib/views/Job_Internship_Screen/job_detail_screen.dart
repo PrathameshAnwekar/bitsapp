@@ -1,7 +1,7 @@
-
 import 'package:bitsapp/views/job_internship_screen/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 
+import '../Components/circle_profile_pic.dart';
 import 'Components/apply_now.dart';
 import 'components/heading2.dart';
 import 'components/tags.dart';
@@ -46,7 +46,14 @@ class JobDetailScreen extends StatelessWidget {
               height: 15,
             ),
             const SizedBox(height: 6),
-            const PersonDetail(),
+            Row(
+              children: const [
+                CircleProfilePic(),
+                Spacer(flex: 1),
+                PersonDetail(),
+                Spacer(flex: 15),
+              ],
+            ),
             const SizedBox(height: 20),
             Text(
               "Social Media Manager",

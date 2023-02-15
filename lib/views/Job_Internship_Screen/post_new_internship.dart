@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Components/person_detail.dart';
+import '../Components/circle_profile_pic.dart';
+import '../job_internship_screen/Components/person_detail.dart';
 import 'Components/title1.dart';
 
 class PostNewInternship extends StatelessWidget {
@@ -66,7 +66,14 @@ class PostNewInternship extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const PersonDetail(),
+                Row(
+                  children: const [
+                    CircleProfilePic(),
+                    Spacer(flex: 1),
+                    PersonDetail(),
+                    Spacer(flex: 15),
+                  ],
+                ),
                 const Title1(txt: "Title"),
                 TextFormField(
                   cursorColor: Colors.black54,
@@ -74,7 +81,7 @@ class PostNewInternship extends StatelessWidget {
                   decoration: InputDecoration(
                     contentPadding:
                         const EdgeInsets.only(bottom: -10.0, left: 12),
-                    hintText: 'Flutter app developer or C-Founder',
+                    hintText: 'Flutter app developer or Co-Founder',
                     hintStyle: const TextStyle(
                       fontFamily: 'ManRope Regular',
                       fontSize: 16,

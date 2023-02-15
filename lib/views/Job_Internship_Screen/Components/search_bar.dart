@@ -27,7 +27,7 @@ class SearchBar extends StatelessWidget {
             const EdgeInsets.only(top: 21, left: 26, right: 12, bottom: 21),
         hintText: 'What are you looking for?',
         hintStyle: GoogleFonts.dmSans(
-          fontSize: 17,
+          fontSize: 18,
           color: Colors.white70,
         ),
         filled: true,

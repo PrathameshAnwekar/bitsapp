@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'OverLay_Widget/overlay_widget.dart';
+import 'New_UI/feed_container.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -70,11 +71,6 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                   title: GestureDetector(
                     onTap: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (ctx) => const Screen2(),
-                      //   ),
-                      // );
                       setState(() {
                         countText++;
                       });
@@ -148,10 +144,11 @@ class _FeedScreenState extends State<FeedScreen> {
               body: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 100,
-                    color: Colors.green,
-                  );
+                  // return Container(
+                  //   height: 100,
+                  //   color: Colors.green,
+                  // );
+                  return const FeedContainer();
                   // return const NewFeedContainer(
                   //   name: 'Kunal Sharma',
                   //   time: '1 week ago',

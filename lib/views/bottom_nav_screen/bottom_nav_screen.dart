@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../constants/constants.dart';
 import '../Demo_Screens/Screen3.dart';
 import '../Demo_Screens/Screen4.dart';
-import '../Feed_Screen/feed_screen.dart';
+import '../Feed_Screen/New_UI/feed_screen1.dart';
 import '../Job_Internship_Screen/job_internship_screen.dart';
 
 class BottomBar extends StatefulWidget {
@@ -17,7 +17,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-    const FeedScreen(),
+    const FeedScreen1(),
     const JobInternhipScreen(),
     const Screen3(),
     const Screen4(),

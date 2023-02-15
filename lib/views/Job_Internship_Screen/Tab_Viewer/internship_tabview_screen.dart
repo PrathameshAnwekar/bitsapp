@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'applied_internships.dart';
+import 'applied_internships/applied_internships.dart';
 import 'posted_internships/posted_internships.dart';
 
 class InternshipTabView extends StatelessWidget {

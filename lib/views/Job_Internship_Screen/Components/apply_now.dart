@@ -23,10 +23,12 @@ class ApplyNow extends StatelessWidget {
               );
             },
             child: Card(
-              color: const Color(0xFF149fda),
+              // color: const Color(0xFF149fda),
+              color: const Color(0xFF81B4FF),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              shadowColor: const Color(0xFF149fda).withOpacity(0.6),
+              // shadowColor: const Color(0xFF149fda).withOpacity(0.6),
+              shadowColor: const Color(0xFF81B4FF).withOpacity(0.6),
               elevation: 6,
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 35, vertical: 16),

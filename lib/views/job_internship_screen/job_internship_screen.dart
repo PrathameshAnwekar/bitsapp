@@ -23,7 +23,7 @@ class JobInternhipScreen extends StatelessWidget {
             style: GoogleFonts.dmSans(
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w400,
-              fontSize: 21,
+              fontSize: 23,
             ),
           ),
         ),
