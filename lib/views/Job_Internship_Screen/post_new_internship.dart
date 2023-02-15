@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Components/circle_profile_pic.dart';
-import '../job_internship_screen/Components/person_detail.dart';
+import '../Components/person_detail.dart';
 import 'Components/title1.dart';
 
 class PostNewInternship extends StatelessWidget {

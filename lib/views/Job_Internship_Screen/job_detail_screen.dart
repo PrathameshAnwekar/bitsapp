@@ -1,7 +1,7 @@
-import 'package:bitsapp/views/job_internship_screen/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../Components/circle_profile_pic.dart';
+import '../Components/person_detail.dart';
 import 'Components/apply_now.dart';
 import 'components/heading2.dart';
 import 'components/tags.dart';

@@ -4,7 +4,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../Components/circle_profile_pic.dart';
-import '../../../job_internship_screen/Components/person_detail.dart';
+import '../../../Components/person_detail.dart';
 import '../../Components/application_status.dart';
 import '../../components/tags.dart';
 import '../../job_detail_screen.dart';

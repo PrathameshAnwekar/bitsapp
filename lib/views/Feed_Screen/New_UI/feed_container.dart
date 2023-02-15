@@ -1,10 +1,10 @@
-import 'package:bitsapp/views/job_internship_screen/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../Components/circle_profile_pic.dart';
+import '../../Components/person_detail.dart';
 import '../Comment_Screen/comment_screen.dart';
 import 'feed_detail_screen.dart';
 
