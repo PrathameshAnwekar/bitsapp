@@ -12,9 +12,17 @@ class ChatRoomScreen extends ConsumerWidget {
   const ChatRoomScreen({super.key, required this.chatRoomUid});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final chatRoom = ref.watch(chatRoomsProvider).firstWhere((element) => element.uid == chatRoomUid);
+    final chatRoom = ref
+        .watch(chatRoomsProvider)
+        .firstWhere((element) => element.uid == chatRoomUid);
     final contactsList = ref.watch(contactsListProvider);
-    final BitsUser otherUser = contactsList.firstWhere((element) => element.uid == chatRoom.userUidList.firstWhere((element) => element != ref.read(localUserProvider).uid, orElse:() => "-1") , orElse:() => ref.read(localUserProvider))  ;
+    final BitsUser otherUser = contactsList.firstWhere(
+        (element) =>
+            element.uid ==
+            chatRoom.userUidList.firstWhere(
+                (element) => element != ref.read(localUserProvider).uid,
+                orElse: () => "-1"),
+        orElse: () => ref.read(localUserProvider));
     return Scaffold(
       appBar: buildAppBar(otherUser.name),
       body: Body(
@@ -35,9 +43,9 @@ class ChatRoomScreen extends ConsumerWidget {
           const SizedBox(width: kDefaultPadding * 0.75),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
+            children: [
               Text(
-                 name,
+                name,
                 style: TextStyle(fontSize: 16),
               ),
               Text(
