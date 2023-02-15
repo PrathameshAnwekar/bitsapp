@@ -80,7 +80,7 @@ class ChatInputField extends HookConsumerWidget {
                         final Message te = Message(
                           sender: ref.read(localUserProvider).uid,
                           text: textController.text,
-                          time: DateTime.now(),
+                          time: DateTime.now().millisecondsSinceEpoch,
                         );
 
                         ref
