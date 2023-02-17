@@ -35,6 +35,15 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     state = state..addAll(chatRooms);
   }
 
+  void updateChatRoom(String chatRoomUid, List<Message> messages) {
+    state = state.map((chatRoom) {
+      if (chatRoom.uid == chatRoomUid) {
+        chatRoom.messages = messages;
+      }
+      return chatRoom;
+    }).toList();
+  }
+
   void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) async {
     state = state..add(chatRoom);
     await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);

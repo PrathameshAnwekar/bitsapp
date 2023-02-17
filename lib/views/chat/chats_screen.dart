@@ -1,3 +1,4 @@
+import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/main.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
@@ -41,11 +42,7 @@ class ChatsScreen extends HookConsumerWidget {
         IconButton(
           icon: const Icon(Icons.search),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return const ContactsScreen();
-              },
-            ));
+            ChatsScreenController.gotoContactsScreen(context);
           },
         ),
       ],
@@ -62,9 +59,7 @@ buildBody(chatsData) {
           itemBuilder: (context, index) => ChatCard(
             chatRoom: chatsData[index],
             press: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return ChatRoomScreen(chatRoomUid: chatsData[index].uid);
-              }));
+              ChatsScreenController.gotoChatRoom(context, chatsData, index);
             },
           ),
         ),

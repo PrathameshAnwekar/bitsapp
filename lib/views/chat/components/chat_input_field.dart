@@ -1,4 +1,6 @@
 import 'package:bitsapp/constants.dart';
+import 'package:bitsapp/controllers/chat_controller.dart';
+import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
@@ -77,16 +79,7 @@ class ChatInputField extends HookConsumerWidget {
                     const SizedBox(width: kDefaultPadding / 4),
                     GestureDetector(
                       onTap: () {
-                        final Message te = Message(
-                          sender: ref.read(localUserProvider).uid,
-                          text: textController.text,
-                          time: DateTime.now().millisecondsSinceEpoch,
-                        );
-
-                        ref
-                            .read(chatRoomsProvider.notifier)
-                            .addMessage(chatRoomUid, te);
-                        textController.clear();
+                        ChatController.sendMessage(ref, textController, chatRoomUid);
                       },
                       child: Icon(
                         Icons.send,

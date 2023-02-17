@@ -1,4 +1,4 @@
-import 'package:bitsapp/views/job_internship_screen/Components/person_detail.dart';
+import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../Components/circle_profile_pic.dart';
