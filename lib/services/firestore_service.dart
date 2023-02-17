@@ -23,8 +23,8 @@ class FirestoreService {
 
   static Future<void> initUser(WidgetRef ref) async {
     try {
-      FirestoreService.updateContactsList(ref);
-      FirestoreService.initialiseChatRooms(ref);
+      await FirestoreService.updateContactsList(ref);
+      await FirestoreService.initialiseChatRooms(ref);
       final uid = FirebaseAuth.instance.currentUser!.uid;
       final userDoc = await _usersRef.doc(uid).get();
       final user = BitsUser.fromJson(userDoc.data()!);
@@ -60,17 +60,17 @@ class FirestoreService {
 
   static Future<void> initialiseChatRooms(WidgetRef ref) async {
     try {
-      final response = await _chatRoomsRef
+      await _chatRoomsRef
           .where("userUidList", arrayContains: ref.read(localUserProvider).uid)
-          .get();
+          .get()
+          .then((value) {
+        final chatRooms =
+            value.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
 
-      final chatRooms =
-          response.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
-
-      ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
-      ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
-
-      dlog("initialised ${chatRooms.length} chat rooms");
+        ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
+        ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
+        dlog("initialised ${chatRooms.length} chat rooms");
+      });
     } catch (e) {
       elog(e.toString());
     }
