@@ -23,7 +23,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
   void initState() {
     if (widget.isCommentPressed) {
       WidgetsBinding.instance.addPostFrameCallback(
-          (_) => Future.delayed(const Duration(milliseconds: 200), func));
+          (_) => Future.delayed(const Duration(milliseconds: 280), func));
     }
     super.initState();
   }

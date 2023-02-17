@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../Components/circle_profile_pic.dart';
 import '../../Components/person_detail.dart';
+import 'components/post_options.dart';
 import 'feed_detail_screen.dart';
 
 class FeedContainer extends StatelessWidget {
@@ -14,9 +14,8 @@ class FeedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const FeedDetailScreen(
-                isCommentPressed: false,
-              ))),
+          builder: (context) =>
+              const FeedDetailScreen(isCommentPressed: false))),
       child: Container(
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -75,36 +74,24 @@ class FeedContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                SvgPicture.asset(
-                  'assets/Icons/like.svg',
-                  width: 26,
-                  height: 26,
-                  color: Colors.black,
+                PostOptionButtons(
+                  onPressed: () {},
+                  icon: 'assets/Icons/like.svg',
                 ),
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const FeedDetailScreen(
-                            isCommentPressed: true,
-                          ))),
-                  child: SvgPicture.asset(
-                    'assets/Icons/comment.svg',
-                    width: 26,
-                    height: 26,
-                    color: Colors.black,
-                  ),
+                PostOptionButtons(
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          const FeedDetailScreen(isCommentPressed: true))),
+                  icon: 'assets/Icons/comment.svg',
                 ),
-                SvgPicture.asset(
-                  'assets/Icons/bookmark.svg',
-                  width: 28,
-                  height: 28,
-                  color: Colors.black,
+                PostOptionButtons(
+                  onPressed: () {},
+                  icon: 'assets/Icons/comment.svg',
                 ),
-                SvgPicture.asset(
-                  'assets/Icons/share.svg',
-                  width: 26,
-                  height: 26,
-                  color: Colors.black,
-                )
+                PostOptionButtons(
+                  onPressed: () {},
+                  icon: 'assets/Icons/share.svg',
+                ),
               ],
             ),
           ],
