@@ -5,7 +5,6 @@ import 'package:readmore/readmore.dart';
 
 import '../../Components/circle_profile_pic.dart';
 import '../../Components/person_detail.dart';
-import '../Comment_Screen/comment_screen.dart';
 import 'feed_detail_screen.dart';
 
 class FeedContainer extends StatelessWidget {
@@ -14,8 +13,10 @@ class FeedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const FeedDetailScreen())),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const FeedDetailScreen(
+                isCommentPressed: false,
+              ))),
       child: Container(
         padding: const EdgeInsets.all(5),
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -81,10 +82,10 @@ class FeedContainer extends StatelessWidget {
                   color: Colors.black,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CommentScreen()));
-                  },
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const FeedDetailScreen(
+                            isCommentPressed: true,
+                          ))),
                   child: SvgPicture.asset(
                     'assets/Icons/comment.svg',
                     width: 26,

@@ -14,7 +14,7 @@ class FeedScreen1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // extendBody: true,
+      extendBody: true,
       backgroundColor: Colors.grey.withOpacity(0.3),
       body: SafeArea(
         bottom: false,

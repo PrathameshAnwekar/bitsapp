@@ -127,9 +127,6 @@ class _CommentScreenState extends State<CommentScreen> {
             Container(
               padding: const EdgeInsets.all(11),
               decoration: const BoxDecoration(
-                // color: Color.fromRGBO(49, 49, 49, 1),
-                // color: Color.fromRGBO(49, 50, 54, 1),
-                // color: Color.fromRGBO(50, 51, 55, 1),
                 color: Color.fromRGBO(38, 45, 58, 1),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
@@ -287,10 +284,11 @@ class _CommentScreenState extends State<CommentScreen> {
                         ),
                         CommentTreeWidget<Comment, Comment>(
                           Comment(
-                              avatar:
-                                  'https://media-exp1.licdn.com/dms/image/C4E03AQEpTA4E1XHhLw/profile-displayphoto-shrink_400_400/0/1624958744829?e=1650499200&v=beta&t=EjkB4H-PxOQ2e68Qpvp5kia0dBXGTcTqsfhs67HMnAA',
-                              userName: 'Prathamesh Anwekar',
-                              content: 'I love flutter'),
+                            avatar:
+                                'https://media-exp1.licdn.com/dms/image/C4E03AQEpTA4E1XHhLw/profile-displayphoto-shrink_400_400/0/1624958744829?e=1650499200&v=beta&t=EjkB4H-PxOQ2e68Qpvp5kia0dBXGTcTqsfhs67HMnAA',
+                            userName: 'Prathamesh Anwekar',
+                            content: 'I love flutter',
+                          ),
                           [
                             Comment(
                                 avatar:
