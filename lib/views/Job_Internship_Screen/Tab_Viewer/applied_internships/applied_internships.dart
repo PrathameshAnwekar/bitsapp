@@ -5,6 +5,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../Components/circle_profile_pic.dart';
+import '../../../Components/person_detail.dart';
 import '../../Components/application_status.dart';
 import '../../components/tags.dart';
 import '../../job_detail_screen.dart';
@@ -36,7 +37,7 @@ class AppliedInternships extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const <Widget>[
-                    CircleProfilePic(),
+                    CircleProfilePic(radius: 16),
                     Spacer(flex: 1),
                     PersonDetail(),
                     Spacer(flex: 15),

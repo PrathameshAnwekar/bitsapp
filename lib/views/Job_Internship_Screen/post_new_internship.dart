@@ -13,6 +13,7 @@ class PostNewInternship extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFF7F6F8),
         leadingWidth: 40,
@@ -69,7 +70,7 @@ class PostNewInternship extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: const [
-                    CircleProfilePic(),
+                    CircleProfilePic(radius: 16),
                     Spacer(flex: 1),
                     PersonDetail(),
                     Spacer(flex: 15),

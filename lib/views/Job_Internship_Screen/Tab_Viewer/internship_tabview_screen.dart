@@ -14,6 +14,7 @@ class InternshipTabView extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: AppBar(
+            scrolledUnderElevation: 0,
             backgroundColor: const Color(0xFFF7F6F8),
             elevation: 0,
             automaticallyImplyLeading: false,

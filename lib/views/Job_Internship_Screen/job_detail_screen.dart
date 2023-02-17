@@ -1,7 +1,7 @@
-import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../Components/circle_profile_pic.dart';
+import '../Components/person_detail.dart';
 import 'Components/apply_now.dart';
 import 'components/heading2.dart';
 import 'components/tags.dart';
@@ -13,6 +13,7 @@ class JobDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leadingWidth: 40,
         centerTitle: false,
         leading: Padding(
@@ -48,7 +49,7 @@ class JobDetailScreen extends StatelessWidget {
             const SizedBox(height: 6),
             Row(
               children: const [
-                CircleProfilePic(),
+                CircleProfilePic(radius: 16),
                 Spacer(flex: 1),
                 PersonDetail(),
                 Spacer(flex: 15),

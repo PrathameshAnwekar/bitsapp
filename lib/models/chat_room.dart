@@ -1,5 +1,4 @@
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -24,15 +23,13 @@ class ChatRoom {
 
   /// Connect the generated [_$ChatRoomToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$ChatRoomToJson(this);
-
-  
 }
 
 class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
   ChatRoomsNotifier() : super([]);
 
   void initChatRooms(List<ChatRoom> chatRooms) {
-    state = state..addAll(chatRooms);
+    state = chatRooms;
   }
 
   void updateChatRoom(String chatRoomUid, List<Message> messages) {

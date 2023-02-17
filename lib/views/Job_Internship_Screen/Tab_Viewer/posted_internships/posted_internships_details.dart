@@ -12,6 +12,7 @@ class PostedInternshipDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leadingWidth: 40,
         centerTitle: false,
         leading: Padding(

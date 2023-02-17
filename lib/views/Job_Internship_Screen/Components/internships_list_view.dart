@@ -1,9 +1,9 @@
 import 'package:bitsapp/views/Components/circle_profile_pic.dart';
-import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../Components/person_detail.dart';
 import '../job_detail_screen.dart';
 import 'tags.dart';
 
@@ -36,7 +36,7 @@ class InternshipsListView extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const <Widget>[
-                    CircleProfilePic(),
+                    CircleProfilePic(radius: 16),
                     Spacer(flex: 1),
                     PersonDetail(),
                     Spacer(flex: 15),

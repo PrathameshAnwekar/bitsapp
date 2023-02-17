@@ -8,6 +8,7 @@ class ApplyNowScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         leadingWidth: 0,
         backgroundColor: const Color(0xFFF7F6F8),
