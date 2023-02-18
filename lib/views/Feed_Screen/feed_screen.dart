@@ -1,3 +1,4 @@
+
 import 'package:badges/badges.dart' as bd;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../chat/chats_screen.dart';
 import 'Feed_Container/feed_container.dart';
 
-class FeedScreen1 extends StatelessWidget {
-  const FeedScreen1({super.key});
+class FeedScreen extends StatelessWidget {
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
