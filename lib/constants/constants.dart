@@ -14,4 +14,11 @@ class Constants {
     "assets/Icons/message.svg",
     "assets/Icons/person.svg",
   ];
+
+  static final postOptionIcons = [
+    'assets/Icons/like.svg',
+    'assets/Icons/comment.svg',
+    'assets/Icons/bookmark.svg',
+    'assets/Icons/share.svg',
+  ];
 }

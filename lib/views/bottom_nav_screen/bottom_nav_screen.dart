@@ -1,3 +1,4 @@
+import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
     const FeedScreen1(),
     const JobInternhipScreen(),
     const Screen3(),
-    const Screen4(),
+    const ChatsScreen(),
     const Screen4(),
   ];
   @override

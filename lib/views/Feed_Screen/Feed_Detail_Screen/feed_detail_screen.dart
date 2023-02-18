@@ -52,7 +52,14 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                 //     ),
                 //   ),
                 // ),
-                FeedDesc(itemKey: itemKey, isFeedScreen: false),
+                FeedDesc(
+                  isFeedScreen: false,
+                  commentFunc: () async {
+                    final context = itemKey.currentContext!;
+                    await Scrollable.ensureVisible(context,
+                        duration: const Duration(milliseconds: 600));
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
