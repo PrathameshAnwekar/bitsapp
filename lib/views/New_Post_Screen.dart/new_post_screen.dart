@@ -1,8 +1,8 @@
-import 'package:bitsapp/views/Components/person_detail.dart';
+import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import '../Components/circle_profile_pic.dart';
+import '../components/circle_profile_pic.dart';
 
 class NewPostScreen extends StatelessWidget {
   const NewPostScreen({super.key});
