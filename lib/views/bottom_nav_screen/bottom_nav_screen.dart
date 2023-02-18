@@ -1,3 +1,4 @@
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -25,7 +26,6 @@ class _BottomBarState extends State<BottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -34,55 +34,56 @@ class _BottomBarState extends State<BottomBar> {
         children: pagelist,
       ),
       bottomNavigationBar: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.9),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: BlurryContainer(
+            blur: 5,
+            color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
             borderRadius: const BorderRadius.all(Radius.circular(24)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ...List.generate(
-                pagelist.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    if (index != _pageindex) {
-                      setState(() {
-                        _pageindex = index;
-                      });
-                    }
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        margin: const EdgeInsets.only(bottom: 2),
-                        height: 4,
-                        width: index == _pageindex ? 20 : 0,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF81B4FF),
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Opacity(
-                          opacity: index == _pageindex ? 1 : 0.5,
-                          child: SvgPicture.asset(
-                            Constants.bottomBarIcons[index],
-                            color: Colors.white60,
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ...List.generate(
+                  pagelist.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      if (index != _pageindex) {
+                        setState(() {
+                          _pageindex = index;
+                        });
+                      }
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: const EdgeInsets.only(bottom: 2),
+                          height: 4,
+                          width: index == _pageindex ? 20 : 0,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF81B4FF),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: Opacity(
+                            opacity: index == _pageindex ? 1 : 0.5,
+                            child: SvgPicture.asset(
+                              Constants.bottomBarIcons[index],
+                              color: Colors.white60,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
