@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants.dart';
-import '../Demo_Screens/Screen3.dart';
-import '../Demo_Screens/Screen4.dart';
 import '../Feed_Screen/feed_screen.dart';
 import '../Job_Internship_Screen/job_internship_screen.dart';
+import '../New_Post_Screen.dart/new_post_screen.dart';
+import '../Profile_Screen/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -21,7 +21,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pagelist = <Widget>[
     const FeedScreen(),
     const JobInternhipScreen(),
-    const Screen3(),
+    const NewPostScreen(),
     const ChatsScreen(),
     const Screen4(),
   ];
@@ -38,6 +38,7 @@ class _BottomBarState extends State<BottomBar> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: BlurryContainer(
+            height: 62,
             blur: 4.5,
             color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
             borderRadius: const BorderRadius.all(Radius.circular(24)),
@@ -68,9 +69,10 @@ class _BottomBarState extends State<BottomBar> {
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
                         ),
-                        SizedBox(
-                          height: 30,
-                          width: 30,
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          height: index == _pageindex ? 30 : 28,
+                          width: index == _pageindex ? 30 : 28,
                           child: Opacity(
                             opacity: index == _pageindex ? 1 : 0.5,
                             child: SvgPicture.asset(

@@ -6,7 +6,7 @@ class Screen4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color.fromRGBO(16, 20, 23, 1),
+      backgroundColor: Colors.white,
       body: Center(
         child: Text('Screen 4'),
       ),
