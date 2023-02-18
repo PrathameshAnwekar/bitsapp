@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../constants/constants.dart';
 import '../Demo_Screens/Screen3.dart';
 import '../Demo_Screens/Screen4.dart';
-import '../Feed_Screen/New_UI/feed_screen1.dart';
+import '../Feed_Screen/feed_screen1.dart';
 import '../Job_Internship_Screen/job_internship_screen.dart';
 
 class BottomBar extends StatefulWidget {
@@ -37,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: BlurryContainer(
-            blur: 5,
+            blur: 4.5,
             color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
             borderRadius: const BorderRadius.all(Radius.circular(24)),
             padding: const EdgeInsets.all(12),
