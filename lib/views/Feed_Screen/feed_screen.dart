@@ -1,8 +1,6 @@
-
 import 'package:badges/badges.dart' as bd;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,11 +23,6 @@ class FeedScreen extends StatelessWidget {
             SliverAppBar(
               scrolledUnderElevation: 0,
               backgroundColor: Colors.white,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.white,
-                statusBarIconBrightness: Brightness.dark,
-                statusBarBrightness: Brightness.light,
-              ),
               floating: true,
               snap: true,
               toolbarHeight: 55,

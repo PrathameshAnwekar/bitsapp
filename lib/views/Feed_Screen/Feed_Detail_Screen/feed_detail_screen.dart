@@ -13,17 +13,20 @@ class FeedDetailScreen extends StatefulWidget {
 
 class _FeedDetailScreenState extends State<FeedDetailScreen> {
   final itemKey = GlobalKey();
-  void func() async {
+  void commentFunc() async {
     final context = itemKey.currentContext!;
-    await Scrollable.ensureVisible(context,
-        duration: const Duration(milliseconds: 800));
+    await Scrollable.ensureVisible(
+      context,
+      duration: const Duration(milliseconds: 800),
+    );
   }
 
   @override
   void initState() {
     if (widget.isCommentPressed) {
       WidgetsBinding.instance.addPostFrameCallback(
-          (_) => Future.delayed(const Duration(milliseconds: 280), func));
+        (_) => Future.delayed(const Duration(milliseconds: 280), commentFunc),
+      );
     }
     super.initState();
   }
@@ -40,25 +43,9 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Container(
-                //   margin: const EdgeInsets.only(top: 35, bottom: 5),
-                //   height: 50,
-                //   child: IconButton(
-                //     onPressed: () => Navigator.of(context).pop(),
-                //     icon: const Icon(
-                //       Icons.arrow_back_ios_new_rounded,
-                //       color: Colors.black54,
-                //       size: 24,
-                //     ),
-                //   ),
-                // ),
                 FeedDesc(
                   isFeedScreen: false,
-                  commentFunc: () async {
-                    final context = itemKey.currentContext!;
-                    await Scrollable.ensureVisible(context,
-                        duration: const Duration(milliseconds: 600));
-                  },
+                  commentFunc: commentFunc,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
