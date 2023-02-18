@@ -1,11 +1,10 @@
-import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../constants/constants.dart';
-import '../../../Components/circle_profile_pic.dart';
-import '../../../Components/person_detail.dart';
+import '../../../components/circle_profile_pic.dart';
+import '../../../components/person_detail.dart';
 import '../../Components/application_status.dart';
 import '../../components/tags.dart';
 import '../../job_detail_screen.dart';

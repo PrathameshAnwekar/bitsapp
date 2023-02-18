@@ -1,4 +1,4 @@
-import 'package:bitsapp/views/Feed_Screen/components/feed_description.dart';
+import 'package:bitsapp/views/feed_screen/components/feed_description.dart';
 import 'package:flutter/material.dart';
 
 import '../Feed_Detail_Screen/feed_detail_screen.dart';

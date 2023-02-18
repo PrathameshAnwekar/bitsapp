@@ -1,9 +1,9 @@
-import 'package:bitsapp/views/Components/circle_profile_pic.dart';
+import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../Components/person_detail.dart';
+import '../../components/person_detail.dart';
 import '../job_detail_screen.dart';
 import 'tags.dart';
 

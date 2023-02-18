@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../chat/chats_screen.dart';
-import 'Feed_Container/feed_container.dart';
+import 'feed_container/feed_container.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});

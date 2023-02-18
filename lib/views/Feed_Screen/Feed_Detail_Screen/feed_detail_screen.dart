@@ -1,4 +1,4 @@
-import 'package:bitsapp/views/Feed_Screen/components/comment_box.dart';
+import 'package:bitsapp/views/feed_screen/components/comment_box.dart';
 import 'package:flutter/material.dart';
 
 import '../components/feed_description.dart';

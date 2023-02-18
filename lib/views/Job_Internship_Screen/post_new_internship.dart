@@ -1,9 +1,9 @@
-import 'package:bitsapp/views/Components/person_detail.dart';
+import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Components/circle_profile_pic.dart';
-import 'Components/title1.dart';
+import '../components/circle_profile_pic.dart';
+import 'components/title1.dart';
 
 class PostNewInternship extends StatelessWidget {
   const PostNewInternship({super.key});

@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../constants/constants.dart';
-import '../../Components/circle_profile_pic.dart';
-import '../../Components/person_detail.dart';
+import '../../components/circle_profile_pic.dart';
+import '../../components/person_detail.dart';
 
 class FeedDesc extends StatelessWidget {
   final bool isFeedScreen;

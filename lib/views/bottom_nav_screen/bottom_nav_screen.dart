@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants.dart';
-import '../Feed_Screen/feed_screen.dart';
-import '../Job_Internship_Screen/job_internship_screen.dart';
-import '../New_Post_Screen.dart/new_post_screen.dart';
-import '../Profile_Screen/profile_screen.dart';
+import '../feed_screen/feed_screen.dart';
+import '../job_internship_screen/job_internship_screen.dart';
+import '../new_post_screen.dart/new_post_screen.dart';
+import '../profile_screen/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
