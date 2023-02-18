@@ -112,13 +112,17 @@ class FeedScreen extends StatelessWidget {
                 ),
               ],
               centerTitle: true,
-            )
+            ),
           ],
-          body: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return const FeedContainer();
-            },
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: ListView.separated(
+              itemCount: 5,
+              itemBuilder: (BuildContext context, int index) {
+                return const FeedContainer();
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+            ),
           ),
         ),
       ),

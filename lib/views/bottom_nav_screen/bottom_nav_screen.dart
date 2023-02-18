@@ -72,12 +72,14 @@ class _BottomBarState extends State<BottomBar> {
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           height: index == _pageindex ? 30 : 28,
-                          width: index == _pageindex ? 30 : 28,
+                          width: index == _pageindex ? 34 : 32,
                           child: Opacity(
                             opacity: index == _pageindex ? 1 : 0.5,
                             child: SvgPicture.asset(
                               Constants.bottomBarIcons[index],
-                              color: Colors.white60,
+                              color: index == _pageindex
+                                  ? Colors.white.withOpacity(0.65)
+                                  : Colors.white.withOpacity(0.5),
                             ),
                           ),
                         ),

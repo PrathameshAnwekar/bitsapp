@@ -14,7 +14,6 @@ class FeedContainer extends StatelessWidget {
               const FeedDetailScreen(isCommentPressed: false))),
       child: Container(
         padding: const EdgeInsets.all(5),
-        margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
