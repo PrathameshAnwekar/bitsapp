@@ -20,6 +20,8 @@ class BitsUser {
   final String uid;
   final String? fcmID;
   final List<String> chatRooms;
+  final List<String>? appliedInternships;
+  final List<String>? postedInternships;
 
   BitsUser(
       {required this.name,
@@ -28,7 +30,10 @@ class BitsUser {
       required this.bitsID,
       required this.chatRooms,
       required this.uid,
-      required this.fcmID});
+      required this.fcmID,
+      required this.appliedInternships,required this.postedInternships, 
+      
+      });
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.
@@ -47,7 +52,9 @@ class BitsUser {
         bitsID: "NOT SET",
         chatRooms: [],
         uid: result.user!.uid,
-        fcmID: await FirebaseMessaging.instance.getToken());
+        fcmID: await FirebaseMessaging.instance.getToken(),
+        appliedInternships: [],
+        postedInternships: []);
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
@@ -63,7 +70,9 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
             bitsID: "bitsID",
             chatRooms: [],
             uid: "uid",
-            fcmID: "fcmID"));
+            fcmID: "fcmID",
+            appliedInternships: [],
+            postedInternships: []));
 
   void setUser(BitsUser user) {
     state = user;

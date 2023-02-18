@@ -15,6 +15,12 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
           (json['chatRooms'] as List<dynamic>).map((e) => e as String).toList(),
       uid: json['uid'] as String,
       fcmID: json['fcmID'] as String?,
+      appliedInternships: (json['appliedInternships'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      postedInternships: (json['postedInternships'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
@@ -25,4 +31,6 @@ Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'uid': instance.uid,
       'fcmID': instance.fcmID,
       'chatRooms': instance.chatRooms,
+      'appliedInternships': instance.appliedInternships,
+      'postedInternships': instance.postedInternships,
     };
