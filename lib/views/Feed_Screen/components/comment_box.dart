@@ -1,4 +1,4 @@
-import 'package:bitsapp/views/Components/circle_profile_pic.dart';
+import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

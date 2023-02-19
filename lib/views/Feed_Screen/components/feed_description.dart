@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../Components/circle_profile_pic.dart';
-import '../../Components/person_detail.dart';
-import 'components/post_options.dart';
+import '../../../constants/constants.dart';
+import '../../components/circle_profile_pic.dart';
+import '../../components/person_detail.dart';
 
 class FeedDesc extends StatelessWidget {
   final bool isFeedScreen;
-  final GlobalKey itemKey;
-  const FeedDesc(
-      {super.key, required this.itemKey, required this.isFeedScreen});
+  final Function commentFunc;
+  const FeedDesc({
+    super.key,
+    required this.isFeedScreen,
+    required this.commentFunc,
+  });
 
   @override
   Widget build(BuildContext context) {
+    void like() {}
+    void bookmark() {}
+    void share() {}
+    final listOfFunctions = [like, commentFunc, bookmark, share];
     return Column(
       children: <Widget>[
         Row(
@@ -63,25 +71,17 @@ class FeedDesc extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            PostOptionButtons(
-              onPressed: () {},
-              icon: 'assets/Icons/like.svg',
-            ),
-            PostOptionButtons(
-              onPressed: () async {
-                final context = itemKey.currentContext!;
-                await Scrollable.ensureVisible(context,
-                    duration: const Duration(milliseconds: 600));
-              },
-              icon: 'assets/Icons/comment.svg',
-            ),
-            PostOptionButtons(
-              onPressed: () {},
-              icon: 'assets/Icons/comment.svg',
-            ),
-            PostOptionButtons(
-              onPressed: () {},
-              icon: 'assets/Icons/share.svg',
+            ...List.generate(
+              4,
+              (index) => GestureDetector(
+                onTap: () => listOfFunctions[index](),
+                child: SvgPicture.asset(
+                  Constants.postOptionIcons[index],
+                  width: 26,
+                  height: 26,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ],
         ),

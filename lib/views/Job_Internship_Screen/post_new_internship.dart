@@ -1,10 +1,9 @@
-import 'package:bitsapp/views/Components/person_detail.dart';
+import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Components/circle_profile_pic.dart';
-
-import 'Components/title1.dart';
+import '../components/circle_profile_pic.dart';
+import 'components/title1.dart';
 
 class PostNewInternship extends StatelessWidget {
   const PostNewInternship({super.key});
@@ -48,9 +47,6 @@ class PostNewInternship extends StatelessWidget {
             width: 72,
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color(0xFF4D5470),
-              ),
               color: const Color(0xFF4D5470),
               borderRadius: BorderRadius.circular(20),
             ),

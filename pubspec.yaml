@@ -30,11 +30,15 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_widgets: ^1.1.0
+  auto_size_text: ^3.0.0
   badges: ^3.0.2
+  blurrycontainer: ^1.0.2
   cached_network_image: ^3.2.3
+  cloud_firestore: ^4.3.2
   comment_tree: ^0.3.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
+  expandable: ^5.0.1
   firebase_auth: ^4.2.5
   firebase_core: ^2.5.0
   firebase_messaging: ^14.2.2
@@ -42,6 +46,7 @@ dependencies:
     sdk: flutter
   flutter_displaymode: ^0.5.0
   flutter_snake_navigationbar: ^0.6.1
+  flutter_speed_dial: ^6.2.0
   flutter_svg: ^2.0.0+1
   google_fonts: ^4.0.3
   google_sign_in: ^5.4.2
@@ -55,12 +60,8 @@ dependencies:
   shared_preferences: ^2.0.15
   swipe_to: ^1.0.2
   video_player: ^2.4.10
-  auto_size_text: ^3.0.0
-  cloud_firestore: ^4.3.2
-  expandable: ^5.0.1
 dev_dependencies:
   build_runner: ^2.3.3
-  json_serializable: ^6.5.4
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -69,7 +70,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
+  json_serializable: ^6.5.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

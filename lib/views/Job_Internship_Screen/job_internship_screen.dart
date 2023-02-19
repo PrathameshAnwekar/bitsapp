@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Tab_Viewer/internship_tabview_screen.dart';
 import 'components/internships_list_view.dart';
 import 'components/search_bar.dart';
 import 'post_new_internship.dart';
+import 'tab_viewer/internship_tabview_screen.dart';
 
 class JobInternhipScreen extends StatelessWidget {
   const JobInternhipScreen({super.key});
