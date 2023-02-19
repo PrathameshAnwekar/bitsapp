@@ -24,10 +24,20 @@ class FirestoreService {
     }
   }
 
-  static Future<void> initUser(WidgetRef ref) async {
+
+  static Future<void> initEverything(WidgetRef ref) async {
     try {
+      await FirestoreService.initUser(ref);
+      await FirestoreService.initInternshipData(ref);
       await FirestoreService.updateContactsList(ref);
       await FirestoreService.initialiseChatRooms(ref);
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
+
+  static Future<void> initUser(WidgetRef ref) async {
+    try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
       final userDoc = await _usersRef.doc(uid).get();
       final user = BitsUser.fromJson(userDoc.data()!);
@@ -124,6 +134,15 @@ class FirestoreService {
       String internshipUid, InternshipApplication internshipApplication) async {
     await _internshipsRef.doc(internshipUid).update({
       "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
+    });
+  }
+
+  static Future<void> initInternshipData(WidgetRef ref) async {
+    await _internshipsRef.get().then((value) {
+      final internships =
+          value.docs.map((e) => InternshipData.fromJson(e.data())).toList();
+      ref.read(internshipDataProvider.notifier).initInternshipsData(internships);
+      dlog("initialised ${internships.length} internships");
     });
   }
 }

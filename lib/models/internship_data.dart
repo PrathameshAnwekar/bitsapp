@@ -29,7 +29,7 @@ class InternshipData {
   final String description;
   final String posterUID;
   final int time;
-  final String skills;
+  final List<String> skills;
   final String? contactEmail;
   final String compensation;
   List<InternshipApplication>? applications;
@@ -44,6 +44,11 @@ class InternshipData {
 class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //list of internships constructor
   InternshipDataNotifier() : super([]);
+
+
+  void initInternshipsData(List<InternshipData> internshipData)  {
+    state = internshipData;
+  }
 
   //add internship to list
   void addInternship(InternshipData internshipData) async {

@@ -17,7 +17,8 @@ InternshipData _$InternshipDataFromJson(Map<String, dynamic> json) =>
           .toList(),
       posterUID: json['posterUID'] as String,
       time: json['time'] as int,
-      skills: json['skills'] as String,
+      skills:
+          (json['skills'] as List<dynamic>).map((e) => e as String).toList(),
       contactEmail: json['contactEmail'] as String?,
       compensation: json['compensation'] as String,
     );

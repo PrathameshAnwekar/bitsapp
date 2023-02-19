@@ -27,7 +27,7 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
-    FirestoreService.initUser(ref);
+    FirestoreService.initEverything(ref);
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
