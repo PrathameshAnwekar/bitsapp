@@ -11,10 +11,10 @@ InternshipData _$InternshipDataFromJson(Map<String, dynamic> json) =>
       uid: json['uid'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      applicantUIDandCoverLetter:
-          (json['applicantUIDandCoverLetter'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+      applications: (json['applications'] as List<dynamic>?)
+          ?.map(
+              (e) => InternshipApplication.fromJson(e as Map<String, dynamic>))
+          .toList(),
       posterUID: json['posterUID'] as String,
       time: json['time'] as int,
       skills: json['skills'] as String,
@@ -32,5 +32,5 @@ Map<String, dynamic> _$InternshipDataToJson(InternshipData instance) =>
       'skills': instance.skills,
       'contactEmail': instance.contactEmail,
       'compensation': instance.compensation,
-      'applicantUIDandCoverLetter': instance.applicantUIDandCoverLetter,
+      'applications': instance.applications,
     };

@@ -1,9 +1,10 @@
-
+import 'package:bitsapp/models/internship_application.dart';
+import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'internship_data.g.dart';
-
 
 final internshipDataProvider =
     StateNotifierProvider<InternshipDataNotifier, List<InternshipData>>(
@@ -15,7 +16,7 @@ class InternshipData {
     required this.uid,
     required this.title,
     required this.description,
-    required this.applicantUIDandCoverLetter,
+    required this.applications,
     required this.posterUID,
     required this.time,
     required this.skills,
@@ -31,7 +32,7 @@ class InternshipData {
   final String skills;
   final String? contactEmail;
   final String compensation;
-  Map<String, String>? applicantUIDandCoverLetter;
+  List<InternshipApplication>? applications;
 
   factory InternshipData.fromJson(Map<String, dynamic> json) =>
       _$InternshipDataFromJson(json);
@@ -40,45 +41,59 @@ class InternshipData {
   Map<String, dynamic> toJson() => _$InternshipDataToJson(this);
 }
 
-
-class InternshipDataNotifier extends StateNotifier<List<InternshipData>>{
+class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //list of internships constructor
   InternshipDataNotifier() : super([]);
 
-
   //add internship to list
   void addInternship(InternshipData internshipData) async {
-    state = state..add(internshipData);
-    // await FirestoreService.addInternship(internshipData);
+    try {
+      await FirestoreService.addInternship(internshipData);
+      state = state..add(internshipData);
+      dlog('Internship ${internshipData.title} added to list');
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
   //update internship in list
-  void updateInternship(String internshipUid, InternshipData internshipData) async {
-    state = state.map((internship) {
-      if (internship.uid == internshipUid) {
-        internship = internshipData;
-      }
-      return internship;
-    }).toList();
-    // await FirestoreService.updateInternship(internshipUid, internshipData);
+  void updateInternship(InternshipData internshipData) async {
+    try {
+      await FirestoreService.updateInternship(internshipData);
+      state = state.map((internship) {
+        if (internship.uid == internshipData.uid) {
+          internship = internshipData;
+        }
+        return internship;
+      }).toList();
+      dlog('Internship ${internshipData.title} updated in list');
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
   //delete internship from list
   void deleteInternship(String internshipUid) async {
-    state = state.where((internship) => internship.uid != internshipUid).toList();
-    // await FirestoreService.deleteInternship(internshipUid);
+    try {
+      await FirestoreService.deleteInternship(internshipUid);
+      state =
+          state.where((internship) => internship.uid != internshipUid).toList();
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
-  //add applicant to internship
-  void addApplicant(String internshipUid, String applicantUid, String coverLetter) async {
+  //add applicantion to internship
+  void addApplication(
+      String internshipUid, InternshipApplication application) async {
+    try{await FirestoreService.addInternshipApplication(internshipUid, application);
     state = state.map((internship) {
       if (internship.uid == internshipUid) {
-        internship.applicantUIDandCoverLetter = {...?internship.applicantUIDandCoverLetter, applicantUid: coverLetter};
+        internship.applications!.add(application);
       }
       return internship;
-    }).toList();
-    // await FirestoreService.addApplicant(internshipUid, applicantUid, coverLetter);
+    }).toList();}catch(e){
+      elog(e.toString());
+    }
   }
-
-
 }

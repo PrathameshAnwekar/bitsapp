@@ -1,5 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/models/internship_application.dart';
+import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +12,7 @@ class FirestoreService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
   static final _usersRef = _firestore.collection("Users");
+  static final _internshipsRef = _firestore.collection("Internships");
   static void init() {
     try {
       _firestore.settings = const Settings(
@@ -101,5 +104,26 @@ class FirestoreService {
     } catch (e) {
       elog(e.toString());
     }
+  }
+
+  static Future<void> addInternship(InternshipData internshipData) async {
+    await _internshipsRef.doc(internshipData.uid).set(internshipData.toJson());
+  }
+
+  static Future<void> updateInternship(InternshipData internshipData) async {
+    await _internshipsRef
+        .doc(internshipData.uid)
+        .update(internshipData.toJson());
+  }
+
+  static Future<void> deleteInternship(String internshipUid) async {
+    await _internshipsRef.doc(internshipUid).delete();
+  }
+
+  static Future<void> addInternshipApplication(
+      String internshipUid, InternshipApplication internshipApplication) async {
+    await _internshipsRef.doc(internshipUid).update({
+      "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
+    });
   }
 }
