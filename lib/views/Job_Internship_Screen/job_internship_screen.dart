@@ -46,7 +46,7 @@ class JobInternhipScreen extends HookConsumerWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) => const PostNewInternship()),
+                  builder: ((context) =>  PostNewInternship()),
                 ),
               ),
               child: Icon(

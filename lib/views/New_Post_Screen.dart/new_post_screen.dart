@@ -1,14 +1,17 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/circle_profile_pic.dart';
 
-class NewPostScreen extends StatelessWidget {
+class NewPostScreen extends HookConsumerWidget {
   const NewPostScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -68,11 +71,11 @@ class NewPostScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
-                children: const [
-                  CircleProfilePic(radius: 20),
-                  Spacer(flex: 1),
-                  PersonDetail(),
-                  Spacer(flex: 25),
+                children:  [
+                  const CircleProfilePic(radius: 20),
+                  const Spacer(flex: 1),
+                  PersonDetail(user: localUser,),
+                  const Spacer(flex: 25),
                 ],
               ),
               const SizedBox(height: 10),

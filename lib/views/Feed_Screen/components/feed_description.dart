@@ -1,13 +1,15 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../constants/constants.dart';
 import '../../components/circle_profile_pic.dart';
 import '../../components/person_detail.dart';
 
-class FeedDesc extends StatelessWidget {
+class FeedDesc extends HookConsumerWidget {
   final bool isFeedScreen;
   final Function commentFunc;
   const FeedDesc({
@@ -17,7 +19,8 @@ class FeedDesc extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
     void like() {}
     void bookmark() {}
     void share() {}
@@ -25,10 +28,10 @@ class FeedDesc extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          children: const [
+          children:  [
             CircleProfilePic(radius: 20),
             Spacer(flex: 1),
-            PersonDetail(),
+            PersonDetail(user: localUser,),
             Spacer(flex: 25),
             Icon(
               Icons.more_vert_outlined,

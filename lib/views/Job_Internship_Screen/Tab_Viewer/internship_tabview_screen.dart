@@ -38,7 +38,7 @@ class InternshipTabView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: TabBarView(
             children: [
-              AppliedInternships(),
+              // AppliedInternships(),
               PostedInternships(),
             ],
           ),

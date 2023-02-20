@@ -61,7 +61,7 @@ class InternshipCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: ((context) => const JobDetailScreen()),
+          builder: ((context) =>  JobDetailScreen(internshipData: internshipData, poster: poster,)),
         ),
       ),
       child: Container(

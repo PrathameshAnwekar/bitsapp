@@ -1,3 +1,5 @@
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
 
 import '../components/circle_profile_pic.dart';
@@ -7,8 +9,9 @@ import 'components/heading2.dart';
 import 'components/tags.dart';
 
 class JobDetailScreen extends StatelessWidget {
-  const JobDetailScreen({super.key});
-
+  const JobDetailScreen({super.key, required this.internshipData, required this.poster});
+  final InternshipData internshipData;
+  final BitsUser poster;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,11 +51,11 @@ class JobDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Row(
-              children: const [
-                CircleProfilePic(radius: 16),
-                Spacer(flex: 1),
-                PersonDetail(),
-                Spacer(flex: 15),
+              children:  [
+                const CircleProfilePic(radius: 16),
+                const Spacer(flex: 1),
+                PersonDetail(user: poster),
+                const Spacer(flex: 15),
               ],
             ),
             const SizedBox(height: 20),
