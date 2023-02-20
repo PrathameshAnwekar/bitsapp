@@ -16,7 +16,6 @@ class JobInternhipScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
-    final internData = ref.watch(internshipDataProvider);
 
     return Scaffold(
       appBar: AppBar(

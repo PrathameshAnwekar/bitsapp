@@ -1,4 +1,6 @@
+import 'package:bitsapp/controllers/internship_data_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,7 +92,6 @@ class PostNewInternship extends HookConsumerWidget {
                         return 'Please enter a valid title';
                       }
                       return null;
-                    
                     },
                     controller: titleController,
                     cursorColor: Colors.black54,
@@ -306,6 +307,25 @@ class PostNewInternship extends HookConsumerWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            InternshipDataController.postNewInternship(ref, context,
+                title: titleController.text,
+                compensation: compensationController.text,
+                contactEmail: contactEmailController.text,
+                description: descriptionController.text,
+                posterUID: localUser.uid,
+                skills: skillController.text);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please fill all the fields'),
+              ),
+            );
+          }
+        },
       ),
     );
   }

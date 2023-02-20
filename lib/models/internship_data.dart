@@ -51,7 +51,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   }
 
   //add internship to list
-  void addInternship(InternshipData internshipData) async {
+  Future<void> addInternship(InternshipData internshipData) async {
     try {
       await FirestoreService.addInternship(internshipData);
       state = state..add(internshipData);
@@ -89,7 +89,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   }
 
   //add applicantion to internship
-  void addApplication(
+  Future<void> addApplication(
       String internshipUid, InternshipApplication application) async {
     try{await FirestoreService.addInternshipApplication(internshipUid, application);
     state = state.map((internship) {
