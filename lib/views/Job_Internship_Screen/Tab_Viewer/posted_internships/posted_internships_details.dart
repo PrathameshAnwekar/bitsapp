@@ -1,15 +1,18 @@
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/internship_data.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../components/heading2.dart';
 import '../../components/tags.dart';
 
-class PostedInternshipDetails extends StatelessWidget {
-  const PostedInternshipDetails({super.key});
-
+class PostedInternshipDetails extends HookConsumerWidget {
+  const PostedInternshipDetails({super.key, required this.internshipData});
+  final InternshipData internshipData;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -58,8 +61,8 @@ class PostedInternshipDetails extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: <Widget>[
-            _expandable(),
-            Expanded(child: _listView()),
+            _expandable(internshipData),
+            Expanded(child: _listView(internshipData, ref)),
           ],
         ),
       ),
@@ -67,7 +70,7 @@ class PostedInternshipDetails extends StatelessWidget {
   }
 }
 
-Widget _expandable() {
+Widget _expandable(InternshipData internshipData) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
     margin: const EdgeInsets.symmetric(vertical: 20),
@@ -96,7 +99,7 @@ Widget _expandable() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Social media manager",
+            internshipData.title,
             style: GoogleFonts.dmSans(
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w300,
@@ -107,7 +110,7 @@ Widget _expandable() {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Text(
-              "Planning and develpoing social media campaigns. Crafitng compelling content or getting it developed. Posting content across scocial media",
+              internshipData.description,
               textAlign: TextAlign.start,
               style: GoogleFonts.dmSans(
                 color: const Color(0xFF383D51),
@@ -121,40 +124,41 @@ Widget _expandable() {
             direction: Axis.horizontal,
             runSpacing: 6,
             spacing: 10,
-            children: const <Widget>[
-              Tags(
-                text: "Python",
-                inPadding: 5,
-                borderRadius: 10,
-                textSize: 13,
-              ),
-              Tags(
-                text: "Machine Learning",
-                inPadding: 5,
-                borderRadius: 10,
-                textSize: 13,
-              ),
-              Tags(
-                text: "Data Structures and Algorithms",
-                inPadding: 5,
-                borderRadius: 10,
-                textSize: 13,
-              ),
-            ],
+            children: _tagBuilder(internshipData.skills)
           ),
           const SizedBox(height: 10),
-          const Heading2(txt1: "Compensation type : ", txt2: "Paid"),
+           Heading2(txt1: "Compensation type : ", txt2: internshipData.compensation),
         ],
       ),
     ),
   );
 }
 
-Widget _listView() {
-  return ListView.separated(
+List<Tags> _tagBuilder(List<String> tags) {
+  final List<Tags> tagList = [];
+  for (final tag in tags) {
+    tagList.add(
+      Tags(
+        text: tag,
+        inPadding: 5,
+        borderRadius: 10,
+        textSize: 13,
+      ),
+    );
+  }
+  return tagList;
+}
+
+Widget _listView(
+  InternshipData internshipData, WidgetRef ref,
+) {
+  final contactList = ref.read(contactsListProvider);
+  return ListView.builder(
     shrinkWrap: true,
     scrollDirection: Axis.vertical,
     itemBuilder: (BuildContext context, int index) {
+      final application = internshipData.applications![index];
+      final user = contactList.where((element) => element.uid == application.uid).first;
       return GestureDetector(
         onTap: () {},
         child: Container(
@@ -166,8 +170,8 @@ Widget _listView() {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Prathamesh Anwekar",
+              Text(
+                 user.name,
                 style: TextStyle(fontSize: 16),
               ),
               IconButton(
@@ -182,11 +186,8 @@ Widget _listView() {
         ),
       );
     },
-    separatorBuilder: (BuildContext context, int index) {
-      return const SizedBox(
-        height: 10,
-      );
-    },
-    itemCount: 5,
+    itemCount: internshipData.applications == null
+        ? 0
+        : internshipData.applications!.length,
   );
 }

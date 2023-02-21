@@ -4,8 +4,9 @@ import '../apply_now_screen.dart';
 
 class ApplyNow extends StatelessWidget {
   const ApplyNow({
-    super.key,
+    super.key, required this.internshipUid,
   });
+  final String internshipUid;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ApplyNow extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) =>  ApplyNowScreen()),
+                  builder: ((context) =>  ApplyNowScreen(internshipUid: internshipUid,)),
                 ),
               );
             },

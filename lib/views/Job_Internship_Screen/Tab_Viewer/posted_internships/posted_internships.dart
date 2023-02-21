@@ -1,22 +1,31 @@
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
 
 import 'posted_internships_details.dart';
 
-class PostedInternships extends StatelessWidget {
+class PostedInternships extends HookConsumerWidget {
   const PostedInternships({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
+    final internData = ref.watch(internshipDataProvider);
+    final postedInternData = internData
+        .where((element) => element.posterUID == localUser.uid)
+        .toList();
+    return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
+        final internship = postedInternData[index];
         return GestureDetector(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: ((context) => const PostedInternshipDetails()),
+              builder: ((context) =>  PostedInternshipDetails(internshipData: internship)),
             ),
           ),
           child: Container(
@@ -31,7 +40,7 @@ class PostedInternships extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Social media manager",
+                    internship.title,
                     style: GoogleFonts.dmSans(
                       color: Colors.black.withOpacity(0.7),
                       fontWeight: FontWeight.w300,
@@ -42,7 +51,7 @@ class PostedInternships extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: ReadMoreText(
-                      "Planning and develpoing social media campaigns. Crafitng compelling content or getting it developed. Posting content across scocial media",
+                      internship.description,
                       textAlign: TextAlign.start,
                       trimLines: 5,
                       trimMode: TrimMode.Line,
@@ -60,12 +69,8 @@ class PostedInternships extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(
-          height: 20,
-        );
-      },
-      itemCount: 5,
+
+      itemCount: postedInternData.length,
     );
   }
 }
