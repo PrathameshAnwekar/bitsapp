@@ -18,7 +18,7 @@ class ApplyNow extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) => const ApplyNowScreen()),
+                  builder: ((context) =>  ApplyNowScreen()),
                 ),
               );
             },
