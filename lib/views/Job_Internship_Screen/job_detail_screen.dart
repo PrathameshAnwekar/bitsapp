@@ -60,7 +60,7 @@ class JobDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              "Social Media Manager",
+              internshipData.title,
               style: TextStyle(
                 // color: const Color(0xFF383D51).withOpacity(0.9),
                 color: Colors.black.withOpacity(0.7),
@@ -88,7 +88,7 @@ class JobDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Planning and develpoing social media campaigns. Crafitng compelling content or getting it developed. Posting content across scocial media accounts. Enaging with customers on different channels. Analzing running campaigns. Being on top of the latest social media trends",
+                    internshipData.description,
                     style: TextStyle(
                       color: const Color(0xFF383D51).withOpacity(0.8),
                     ),
@@ -102,33 +102,29 @@ class JobDetailScreen extends StatelessWidget {
               direction: Axis.horizontal,
               runSpacing: 6,
               spacing: 10,
-              children: const <Widget>[
-                Tags(
-                  text: "Python",
-                  inPadding: 5,
-                  borderRadius: 10,
-                  textSize: 13,
-                ),
-                Tags(
-                  text: "Machine Learning",
-                  inPadding: 5,
-                  borderRadius: 10,
-                  textSize: 13,
-                ),
-                Tags(
-                  text: "Dsa",
-                  inPadding: 5,
-                  borderRadius: 10,
-                  textSize: 13,
-                ),
-              ],
+              children: _tagBuilder(internshipData.skills),
             ),
             const SizedBox(height: 10),
-            const Heading2(txt1: "Compensation type : ", txt2: "Paid"),
+             Heading2(txt1: "Compensation type : ", txt2: internshipData.compensation),
           ],
         ),
       ),
       bottomNavigationBar:  ApplyNow( internshipUid:  internshipData.uid),
     );
   }
+
+ List<Tags> _tagBuilder(List<String> tags) {
+  final List<Tags> tagList = [];
+  for (final tag in tags) {
+    tagList.add(
+      Tags(
+        text: tag,
+        inPadding: 5,
+        borderRadius: 10,
+        textSize: 13,
+      ),
+    );
+  }
+  return tagList;
+}
 }
