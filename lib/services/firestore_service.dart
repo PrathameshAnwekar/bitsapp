@@ -115,8 +115,12 @@ class FirestoreService {
     }
   }
 
-  static Future<void> addInternship(InternshipData internshipData) async {
+  static Future<void> postInternship(InternshipData internshipData, String localUserUid) async {
     await _internshipsRef.doc(internshipData.uid).set(internshipData.toJson());
+    await _usersRef.doc(localUserUid).set({
+      "postedInternships": FieldValue.arrayUnion([internshipData.uid])
+    }, SetOptions(merge: true)
+    );
   }
 
   static Future<void> updateInternship(InternshipData internshipData) async {
@@ -130,10 +134,14 @@ class FirestoreService {
   }
 
   static Future<void> addInternshipApplication(
-      String internshipUid, InternshipApplication internshipApplication) async {
+      String internshipUid, InternshipApplication internshipApplication, String localUserUid) async {
     await _internshipsRef.doc(internshipUid).set({
       "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
     }, SetOptions(merge: true));
+    _usersRef.doc(localUserUid).set({
+      "appliedInternships": FieldValue.arrayUnion([internshipUid])
+    }, SetOptions(merge: true));
+    
   }
 
   static Future<void> initInternshipData(WidgetRef ref) async {

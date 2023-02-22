@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_application.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/services/logger_service.dart';
@@ -14,6 +15,7 @@ class InternshipDataController {
       required String compensation}) async {
     dlog("Form is valid, posting new internship");
     final skillList = skills.split(",");
+    final localUser = ref.read(localUserProvider);
     final internshipData = InternshipData(
         uid: DateTime.now().millisecondsSinceEpoch.toString(),
         title: title,
@@ -26,7 +28,7 @@ class InternshipDataController {
         compensation: compensation);
     await ref
         .read(internshipDataProvider.notifier)
-        .addInternship(internshipData)
+        .postInternship(internshipData, localUser.uid)
         .then((value) {
       dlog("Internship posted successfully");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -46,7 +48,7 @@ class InternshipDataController {
         uid: applicantUid, coverLetter: coverLetter, status: "Pending");
     await ref
         .read(internshipDataProvider.notifier)
-        .addApplication(internshipUid, application)
+        .addApplication(internshipUid, application, applicantUid)
         .then((value) {
       dlog("Internship posted successfully");
       ScaffoldMessenger.of(context)
