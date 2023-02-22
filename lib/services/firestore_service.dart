@@ -24,7 +24,6 @@ class FirestoreService {
     }
   }
 
-
   static Future<void> initEverything(WidgetRef ref) async {
     try {
       await FirestoreService.initUser(ref);
@@ -132,16 +131,18 @@ class FirestoreService {
 
   static Future<void> addInternshipApplication(
       String internshipUid, InternshipApplication internshipApplication) async {
-    await _internshipsRef.doc(internshipUid).update({
+    await _internshipsRef.doc(internshipUid).set({
       "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
-    });
+    }, SetOptions(merge: true));
   }
 
   static Future<void> initInternshipData(WidgetRef ref) async {
     await _internshipsRef.get().then((value) {
       final internships =
           value.docs.map((e) => InternshipData.fromJson(e.data())).toList();
-      ref.read(internshipDataProvider.notifier).initInternshipsData(internships);
+      ref
+          .read(internshipDataProvider.notifier)
+          .initInternshipsData(internships);
       dlog("initialised ${internships.length} internships");
     });
   }

@@ -3,8 +3,8 @@ import 'package:bitsapp/controllers/internship_data_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ApplyNowScreen extends HookConsumerWidget {
   ApplyNowScreen({super.key, required this.internshipUid});
@@ -14,7 +14,10 @@ class ApplyNowScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
     final coverLetterController = useTextEditingController();
-    final internshipData = ref.watch(internshipDataProvider).where((element) => element.uid == internshipUid).first;
+    final internshipData = ref
+        .watch(internshipDataProvider)
+        .where((element) => element.uid == internshipUid)
+        .first;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +32,8 @@ class ApplyNowScreen extends HookConsumerWidget {
         ),
         elevation: 0,
       ),
-      bottomNavigationBar: _bottomWidget(context, _formKey, coverLetterController, ref, localUser, internshipUid),
+      bottomNavigationBar: _bottomWidget(context, _formKey,
+          coverLetterController, ref, localUser, internshipUid),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -83,7 +87,7 @@ class ApplyNowScreen extends HookConsumerWidget {
                   //   );
                   // },
                   validator: (val) {
-                    if (val == null ||  val.isEmpty) {
+                    if (val == null || val.isEmpty) {
                       return "Description cannot be empty";
                     } else {
                       return null;
@@ -113,7 +117,6 @@ class ApplyNowScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      
     );
   }
 }
@@ -161,7 +164,8 @@ Widget _heading2(String txt, String txt2) {
   );
 }
 
-Widget _bottomWidget(BuildContext context, _formKey, coverLetterController, ref, localUser, internshipUid) {
+Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
+    localUser, internshipUid) {
   return Material(
     elevation: 14,
     child: SizedBox(
@@ -193,19 +197,15 @@ Widget _bottomWidget(BuildContext context, _formKey, coverLetterController, ref,
           ),
           GestureDetector(
             onTap: () {
-
-if (_formKey.currentState!.validate()) {
-            InternshipDataController.addApplication(
-                ref: ref,
-                applicantUid: localUser.uid,
-                internshipUid: internshipUid,
-                coverLetter: coverLetterController.text,
-                context: context);
-          }
-
-
-
-              
+              if (formKey.currentState!.validate()) {
+                InternshipDataController.addApplication(
+                  ref: ref,
+                  applicantUid: localUser.uid,
+                  internshipUid: internshipUid,
+                  coverLetter: coverLetterController.text,
+                  context: context,
+                );
+              }
             },
             child: Card(
               color: const Color(0xFF149fda),

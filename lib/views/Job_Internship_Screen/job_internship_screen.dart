@@ -1,5 +1,4 @@
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +24,7 @@ class JobInternhipScreen extends HookConsumerWidget {
         title: Padding(
           padding: const EdgeInsets.only(left: 5),
           child: Text(
-            "Hello ${localUser.name}}",
+            "Hello ${localUser.name}",
             style: GoogleFonts.dmSans(
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w400,
@@ -45,7 +44,7 @@ class JobInternhipScreen extends HookConsumerWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) =>  PostNewInternship()),
+                  builder: ((context) => PostNewInternship()),
                 ),
               ),
               child: Icon(
