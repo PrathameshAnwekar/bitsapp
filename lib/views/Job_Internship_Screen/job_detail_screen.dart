@@ -128,7 +128,7 @@ class JobDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const ApplyNow(),
+      bottomNavigationBar:  ApplyNow( internshipUid:  internshipData.uid),
     );
   }
 }
