@@ -1,6 +1,8 @@
+import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:bitsapp/services/notif_service.dart';
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   dlog('background message ${message.notification!.body}');
@@ -22,6 +24,10 @@ class FcmService {
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       dlog("message recieved");
       dlog(event.notification!.body!);
+      final notif = event.notification;
+      NotifService.showLocalNotification(
+        ReceivedNotification(id: 0, title: notif!.title!, body: notif.body!, payload: event.messageType)
+      );
     });
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       dlog('Message clicked!');
