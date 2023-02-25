@@ -1,4 +1,5 @@
 import 'package:bitsapp/constants.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
@@ -12,8 +13,8 @@ import 'text_message.dart';
 
 class Body extends ConsumerWidget {
   final String chatRoomUid;
-
-  const Body({super.key, required this.chatRoomUid});
+  final BitsUser receiver;
+  const Body({super.key, required this.chatRoomUid, required this.receiver});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatStream = ref.watch(chatStreamProvider(chatRoomUid));
@@ -27,7 +28,7 @@ class Body extends ConsumerWidget {
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: chatStream.when(
-                  data: ( snapshot)  {
+                  data: (snapshot) {
                     return ListView.builder(
                       itemCount: messages.length,
                       itemBuilder: (context, index) =>
@@ -38,7 +39,7 @@ class Body extends ConsumerWidget {
                       Text("Please check you Internet Connection $e"),
                   loading: () => CircularProgressIndicator.adaptive())),
         ),
-        ChatInputField(chatRoomUid: chatRoomUid),
+        ChatInputField(chatRoomUid: chatRoomUid, receiverFcmUid: receiver.fcmID),
       ],
     );
   }

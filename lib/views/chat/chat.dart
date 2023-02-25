@@ -53,6 +53,7 @@ class ChatRoomScreen extends ConsumerWidget {
       appBar: buildAppBar(otherUser.name),
       body: Body(
         chatRoomUid: chatRoomUid,
+        receiver: otherUser,
       ),
     );
   }

@@ -37,7 +37,9 @@ class NotifService {
   );
 
   static Future<bool> init() async {
-    await _notif.initialize(
+    bool permission = await requestPermission() ?? false;
+    if(permission) {
+      await _notif.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
@@ -46,11 +48,12 @@ class NotifService {
       },
       onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );
+    }
     return Future.value(true);
   }
 
-  static void requestPermission() {
-    _notif
+  static requestPermission() async {
+    return _notif
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()!
         .requestPermission();
@@ -100,7 +103,8 @@ class NotifService {
     return platformChannelSpecifics;
   }
 
-  static Future<void> showLocalNotification(ReceivedNotification notification) async {
+  static Future<void> showLocalNotification(
+      ReceivedNotification notification) async {
     final platformChannelSpecifics = await _notificationDetails();
     await _notif.show(
       notification.id,
@@ -109,5 +113,9 @@ class NotifService {
       platformChannelSpecifics,
       payload: notification.payload,
     );
+  }
+
+  sendNotif(){
+    
   }
 }

@@ -6,14 +6,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatController {
   static void sendMessage(
-      WidgetRef ref, TextEditingController textController, String chatRoomUid) {
+      WidgetRef ref, TextEditingController textController, String chatRoomUid, String recieverFcmUid) {
     final Message m = Message(
       sender: ref.read(localUserProvider).uid,
       text: textController.text,
       time: DateTime.now().millisecondsSinceEpoch,
     );
 
-    ref.read(chatRoomsProvider.notifier).addMessage(chatRoomUid, m);
+    ref.read(chatRoomsProvider.notifier).addMessage(chatRoomUid, m, recieverFcmUid);
     textController.clear();
   }
 }

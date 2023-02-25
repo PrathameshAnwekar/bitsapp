@@ -4,6 +4,7 @@ import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
+    
     FirestoreService.initEverything(ref);
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

@@ -1,4 +1,5 @@
 import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/services/fcm_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -46,7 +47,7 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
   }
 
-  void addMessage(String chatRoomUid, Message message) async {
+  void addMessage(String chatRoomUid, Message message, String fcmUid) async {
     state = state.map((chatRoom) {
       if (chatRoom.uid == chatRoomUid) {
         chatRoom.messages = [...chatRoom.messages, message];
@@ -54,5 +55,6 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
       return chatRoom;
     }).toList();
     await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
+    // await FcmService.sendChatNotification(fcmUid);
   }
 }
