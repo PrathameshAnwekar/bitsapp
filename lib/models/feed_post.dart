@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'feedPost.g.dart';
+part 'feed_post.g.dart';
 
 @JsonSerializable()
 class FeedPost {

@@ -1,3 +1,5 @@
+import 'package:bitsapp/models/recieved_notification.dart';
+import 'package:bitsapp/services/notif_service.dart';
 import 'package:flutter/material.dart';
 
 import '../profile_screen/components/data_widget.dart';
@@ -9,6 +11,17 @@ class Screen4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          NotifService.showLocalNotification(ReceivedNotification(
+              id: 1,
+              title: "Hello",
+              body: "This is a notification",
+              payload: "This is a payload"
+          ));
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         actions: [
           IconButton(

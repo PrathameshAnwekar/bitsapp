@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'chat_room.dart';
-import 'message.dart';
 
 part 'bits_user.g.dart';
 

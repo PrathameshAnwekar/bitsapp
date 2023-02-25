@@ -27,9 +27,10 @@ class FirestoreService {
   static Future<void> initEverything(WidgetRef ref) async {
     try {
       await FirestoreService.initUser(ref);
-      await FirestoreService.initInternshipData(ref);
-      await FirestoreService.updateContactsList(ref);
-      await FirestoreService.initialiseChatRooms(ref);
+      await FirestoreService.updateContactsList(ref).then((value) async {
+        await FirestoreService.initInternshipData(ref);
+        await FirestoreService.initialiseChatRooms(ref);
+      });
     } catch (e) {
       elog(e.toString());
     }
@@ -115,12 +116,12 @@ class FirestoreService {
     }
   }
 
-  static Future<void> postInternship(InternshipData internshipData, String localUserUid) async {
+  static Future<void> postInternship(
+      InternshipData internshipData, String localUserUid) async {
     await _internshipsRef.doc(internshipData.uid).set(internshipData.toJson());
     await _usersRef.doc(localUserUid).set({
       "postedInternships": FieldValue.arrayUnion([internshipData.uid])
-    }, SetOptions(merge: true)
-    );
+    }, SetOptions(merge: true));
   }
 
   static Future<void> updateInternship(InternshipData internshipData) async {
@@ -133,15 +134,14 @@ class FirestoreService {
     await _internshipsRef.doc(internshipUid).delete();
   }
 
-  static Future<void> addInternshipApplication(
-      String internshipUid, InternshipApplication internshipApplication, String localUserUid) async {
+  static Future<void> addInternshipApplication(String internshipUid,
+      InternshipApplication internshipApplication, String localUserUid) async {
     await _internshipsRef.doc(internshipUid).set({
       "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
     }, SetOptions(merge: true));
     _usersRef.doc(localUserUid).set({
       "appliedInternships": FieldValue.arrayUnion([internshipUid])
     }, SetOptions(merge: true));
-    
   }
 
   static Future<void> initInternshipData(WidgetRef ref) async {
@@ -153,5 +153,11 @@ class FirestoreService {
           .initInternshipsData(internships);
       dlog("initialised ${internships.length} internships");
     });
+  }
+
+  static updateFcmToken(String token)async {
+    await _usersRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({"fcmToken": token});
   }
 }
