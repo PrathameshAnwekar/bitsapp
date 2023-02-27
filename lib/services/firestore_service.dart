@@ -1,5 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/models/comment.dart';
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/internship_application.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/models/message.dart';
@@ -13,6 +15,7 @@ class FirestoreService {
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
   static final _usersRef = _firestore.collection("Users");
   static final _internshipsRef = _firestore.collection("Internships");
+  static final _feedPostsRef = _firestore.collection("FeedPosts");
   static void init() {
     try {
       _firestore.settings = const Settings(
@@ -36,6 +39,8 @@ class FirestoreService {
     }
   }
 
+
+  // ************* USER SERVICES ************* //
   static Future<void> initUser(WidgetRef ref) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
@@ -71,6 +76,9 @@ class FirestoreService {
     }
   }
 
+
+
+  // ************* CHAT ROOM SERVICES ************* //
   static Future<void> initialiseChatRooms(WidgetRef ref) async {
     try {
       await _chatRoomsRef
@@ -116,6 +124,8 @@ class FirestoreService {
     }
   }
 
+
+  // ************* iNTERNSHIP SERVICES ************* //
   static Future<void> postInternship(
       InternshipData internshipData, String localUserUid) async {
     await _internshipsRef.doc(internshipData.uid).set(internshipData.toJson());
@@ -155,10 +165,41 @@ class FirestoreService {
     });
   }
 
+
+
+  // ************* FIREBASEMESSAGING SERVICES ************* //
   static updateFcmToken(String token)async {
     await _usersRef
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({"fcmToken": token});
+  }
 
+  // ************* FEED POST SERVICES ************* //
+
+  static Future<void> addFeedPost(FeedPost feedPost) async {
+    await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
+  }
+
+  static Future<void> deleteFeedPost(String timeuid) async {
+    await _feedPostsRef.doc(timeuid).delete();
+  }
+
+  static Future<void> addCommentToFeedPost(
+      String feedPostUid, Comment comment) async {
+    await _feedPostsRef.doc(feedPostUid).update({
+      "comments": FieldValue.arrayUnion([comment.toJson()])
+    });
+  }
+
+  static Future<void> addLikeToFeedPost(String feedPostUid, String userUid) async {
+    await _feedPostsRef.doc(feedPostUid).update({
+      "likes": FieldValue.arrayUnion([userUid])
+    });
+  }
+
+  static Future<void> removeLikeFromFeedPost(String feedPostUid, String userUid) async {
+    await _feedPostsRef.doc(feedPostUid).update({
+      "likes": FieldValue.arrayRemove([userUid])
+    });
   }
 }
