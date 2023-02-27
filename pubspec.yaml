@@ -37,7 +37,7 @@ dependencies:
   cloud_firestore: ^4.3.2
   comment_tree: ^0.3.0
   cupertino_icons: ^1.0.2
-  dio: ^4.0.6
+  dio: ^5.0.1
   expandable: ^5.0.1
   firebase_auth: ^4.2.5
   firebase_core: ^2.5.0

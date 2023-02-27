@@ -31,6 +31,7 @@ class FirestoreService {
       await FirestoreService.updateContactsList(ref).then((value) async {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
+        dlog(await FirebaseMessaging.instance.getToken().toString());
       });
     } catch (e) {
       elog(e.toString());
