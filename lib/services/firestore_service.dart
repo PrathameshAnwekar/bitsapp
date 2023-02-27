@@ -6,7 +6,6 @@ import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreService {
@@ -31,7 +30,6 @@ class FirestoreService {
       await FirestoreService.updateContactsList(ref).then((value) async {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
-        dlog(await FirebaseMessaging.instance.getToken().toString());
       });
     } catch (e) {
       elog(e.toString());
@@ -41,7 +39,7 @@ class FirestoreService {
   static Future<void> initUser(WidgetRef ref) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
-      final userDoc = await _usersRef.doc(uid).get();
+      final userDoc = await _usersRef.doc(uid).get(const GetOptions(source: Source.serverAndCache));
       final user = BitsUser.fromJson(userDoc.data()!);
 
       ref.read(localUserProvider.notifier).setUser(user);
@@ -60,7 +58,7 @@ class FirestoreService {
 
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {
-      final response = await _usersRef.get();
+      final response = await _usersRef.get(const GetOptions(source: Source.serverAndCache));
       final allUsersList = response.docs.map((e) {
         final profile = e.data();
         return BitsUser.fromJson(profile);
@@ -77,7 +75,7 @@ class FirestoreService {
     try {
       await _chatRoomsRef
           .where("userUidList", arrayContains: ref.read(localUserProvider).uid)
-          .get()
+          .get(const GetOptions(source: Source.serverAndCache))
           .then((value) {
         final chatRooms =
             value.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
@@ -147,7 +145,7 @@ class FirestoreService {
   }
 
   static Future<void> initInternshipData(WidgetRef ref) async {
-    await _internshipsRef.get().then((value) {
+    await _internshipsRef.get(const GetOptions(source: Source.serverAndCache)).then((value) {
       final internships =
           value.docs.map((e) => InternshipData.fromJson(e.data())).toList();
       ref
@@ -161,5 +159,6 @@ class FirestoreService {
     await _usersRef
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({"fcmToken": token});
+
   }
 }

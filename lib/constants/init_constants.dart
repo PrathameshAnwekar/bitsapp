@@ -19,7 +19,7 @@ class InitConstants {
       NotifService.dismissAllNotifs();
     });
     //set notif panel to transpaernt
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));

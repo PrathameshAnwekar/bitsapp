@@ -1,8 +1,15 @@
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bitsapp/services/notif_service.dart';
+
+class LocalFcmObject {
+  String? token;
+  int? lastUpdated;
+  LocalFcmObject({required this.token, required this.lastUpdated});
+}
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   dlog('background message ${message.notification!.body}');
@@ -12,7 +19,8 @@ class FcmService {
   static final _fcm = FirebaseMessaging.instance;
 
   static init() async {
-   final settings = await _fcm.requestPermission(
+    await checkFcmToken();
+    final settings = await _fcm.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -25,9 +33,11 @@ class FcmService {
       dlog("message recieved");
       dlog(event.notification!.body!);
       final notif = event.notification;
-      NotifService.showLocalNotification(
-        ReceivedNotification(id: 0, title: notif!.title!, body: notif.body!, payload: event.messageType)
-      );
+      NotifService.showLocalNotification(ReceivedNotification(
+          id: 0,
+          title: notif!.title!,
+          body: notif.body!,
+          payload: event.messageType));
     });
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       dlog('Message clicked!');
@@ -35,11 +45,29 @@ class FcmService {
     FirebaseMessaging.onBackgroundMessage(_backgroundMessageHandler);
   }
 
-  static void updateToken() async {
+  static Future<void> updateToken() async {
     await _fcm.getToken().then((value) async {
       await FirestoreService.updateFcmToken(value!);
+      await HiveStore.storage.put(
+          "fcmToken",
+          LocalFcmObject(
+              token: value,
+              lastUpdated: DateTime.now().millisecondsSinceEpoch));
       dlog(value);
     });
+  }
+
+  static Future<void> checkFcmToken() async {
+    final LocalFcmObject? fcmToken = HiveStore.storage.get("fcmToken");
+    if (fcmToken == null ||
+        DateTime.now().millisecondsSinceEpoch - fcmToken.lastUpdated! >
+            15*86400000) {
+      try {
+        await updateToken();
+      } catch (e) {
+        elog(e.toString());
+      }
+    }
   }
 
   // static Future<void> sendChatNotification(String fcmToken) async {

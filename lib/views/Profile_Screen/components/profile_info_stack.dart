@@ -1,7 +1,12 @@
+import 'package:bitsapp/services/logger_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfileInfoStack extends StatelessWidget {
-  const ProfileInfoStack({super.key});
+  final String name;
+  final String? imageUrl;
+  final String? profileDescription;
+   const ProfileInfoStack({super.key, required this.name, this.imageUrl, this.profileDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class ProfileInfoStack extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Arya D",
+                      name,
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.65),
                         fontSize: 21,
@@ -40,7 +45,7 @@ class ProfileInfoStack extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "BITS Pilani | Upcoming Summer Intern @Samsung | Front-End App Developer | ML/AI Enthusiast",
+                      profileDescription ?? "Your friendly neighbourhood bitsian",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.45),
@@ -55,11 +60,15 @@ class ProfileInfoStack extends StatelessWidget {
           CircleAvatar(
             radius: 75,
             backgroundColor: const Color(0xFF69708C).withOpacity(0.2),
-            child: const CircleAvatar(
+            child:  CircleAvatar(
               radius: 70,
               backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(
-                "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80",
+              backgroundImage: CachedNetworkImageProvider(
+                imageUrl ?? "https://picsum.photos/200",
+                errorListener: () {
+                  elog("Error loading image");
+                },
+                cacheKey: "localUser.profilePicUrl"
               ),
             ),
           ),
