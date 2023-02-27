@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/media_file.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'feed_post.g.dart';
@@ -10,11 +11,10 @@ class FeedPost {
   final String time;
   final String desc;
   final String profilePicURL;
-  final List<String> imageUrlList;
-  final List<String> videoUrlList;
+  final List<MediaFile> mediaFilesList;
 
-  FeedPost({required this.name,required this.time,required this.desc,required this.profilePicURL,
-      required this.imageUrlList,required this.videoUrlList, required this.uid});
+  FeedPost(this.mediaFilesList, {required this.name,required this.time,required this.desc,required this.profilePicURL,
+       required this.uid});
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.

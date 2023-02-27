@@ -121,7 +121,7 @@ class FeedScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return const FeedContainer();
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              separatorBuilder: (context, index) => const SizedBox(height: 1),
             ),
           ),
         ),

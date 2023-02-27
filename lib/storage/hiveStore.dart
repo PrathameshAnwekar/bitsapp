@@ -1,3 +1,5 @@
+import 'package:bitsapp/models/local_fcm_object.dart';
+import 'package:bitsapp/services/fcm_service.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:hive/hive.dart';
@@ -10,7 +12,10 @@ class HiveStore {
   static final chatRooms = Hive.box("chatStorage");
   static init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
-    Hive.init(appDocumentDirectory.path);
+    Hive
+    ..init(appDocumentDirectory.path)
+    ..registerAdapter(LocalFcmObjectAdapter());
+    
     await Hive.openBox("defaultStorage");
     await Hive.openBox("chatStorage");
   }

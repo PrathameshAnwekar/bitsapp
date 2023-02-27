@@ -9,8 +9,8 @@ part of 'bits_user.dart';
 BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
       name: json['name'] as String,
       profilePicUrl: json['profilePicUrl'] as String?,
-      profileDescription: json['profileDescription'] as String?,
       email: json['email'] as String,
+      profileDescription: json['profileDescription'] as String?,
       bitsID: json['bitsID'] as String,
       chatRooms:
           (json['chatRooms'] as List<dynamic>).map((e) => e as String).toList(),
@@ -27,9 +27,9 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
 Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'name': instance.name,
       'profilePicUrl': instance.profilePicUrl,
+      'profileDescription': instance.profileDescription,
       'email': instance.email,
       'bitsID': instance.bitsID,
-      "profileDescription": instance.profileDescription,
       'uid': instance.uid,
       'fcmID': instance.fcmID,
       'chatRooms': instance.chatRooms,

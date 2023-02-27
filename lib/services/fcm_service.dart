@@ -1,15 +1,11 @@
+import 'package:bitsapp/models/local_fcm_object.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bitsapp/services/notif_service.dart';
-
-class LocalFcmObject {
-  String? token;
-  int? lastUpdated;
-  LocalFcmObject({required this.token, required this.lastUpdated});
-}
+import 'package:hive/hive.dart';
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   dlog('background message ${message.notification!.body}');
@@ -48,12 +44,12 @@ class FcmService {
   static Future<void> updateToken() async {
     await _fcm.getToken().then((value) async {
       await FirestoreService.updateFcmToken(value!);
+      dlog("updating fcm token $value");
       await HiveStore.storage.put(
           "fcmToken",
           LocalFcmObject(
               token: value,
               lastUpdated: DateTime.now().millisecondsSinceEpoch));
-      dlog(value);
     });
   }
 
@@ -61,12 +57,14 @@ class FcmService {
     final LocalFcmObject? fcmToken = HiveStore.storage.get("fcmToken");
     if (fcmToken == null ||
         DateTime.now().millisecondsSinceEpoch - fcmToken.lastUpdated! >
-            15*86400000) {
+            15 * 86400000) {
       try {
         await updateToken();
       } catch (e) {
         elog(e.toString());
       }
+    } else {
+      dlog("fcm token is up to date");
     }
   }
 

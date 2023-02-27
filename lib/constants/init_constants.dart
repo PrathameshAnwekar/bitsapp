@@ -14,7 +14,7 @@ class InitConstants {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FcmService.init();
+    
     await NotifService.init().then((value) {
       NotifService.dismissAllNotifs();
     });
@@ -29,5 +29,6 @@ class InitConstants {
     if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
 
     await HiveStore.init();
+    FcmService.init();
   }
 }
