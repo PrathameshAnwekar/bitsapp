@@ -1,47 +1,67 @@
-import 'package:cached_video_player/cached_video_player.dart';
+import 'dart:io';
+
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// Stateful widget to fetch and then display video content.
-class VideoContainer extends StatefulWidget {
+class VideoContainer extends StatefulHookConsumerWidget {
   const VideoContainer({Key? key, required this.url}) : super(key: key);
   final String url;
   @override
   _VideoContainerState createState() => _VideoContainerState();
 }
 
-class _VideoContainerState extends State<VideoContainer> {
-  late CachedVideoPlayerController _controller;
+class _VideoContainerState extends ConsumerState<VideoContainer> {
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = CachedVideoPlayerController.network(
-        widget.url )
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
   }
+
+  bool init = true;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: _controller.value.isInitialized
-          ? AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: GestureDetector(
-                  onTap: () {
+    return FutureBuilder(
+        future:
+            DefaultCacheManager().getSingleFile(widget.url, key: widget.url),
+        builder: (context, file) {
+          if (file.connectionState == ConnectionState.done) {
+            if (file.hasData) {
+              _controller = VideoPlayerController.file(file.data as File)
+                ..initialize().then((_) {
+                  if(init) {
                     setState(() {
-                      _controller.value.isPlaying
-                          ? _controller.pause()
-                          : _controller.play();
-                    });
-                  },
-                  child: CachedVideoPlayer(_controller )),
-            )
-          : SizedBox(width: 150,child: const Center(child: CircularProgressIndicator.adaptive())),
-    );
+                    dlog( "file data is ${file.data}");
+                    init = false;
+                  });
+                  }
+                });
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          } else {
+            return const CircularProgressIndicator(color: Colors.red,);
+          }
+        });
   }
 
   @override
