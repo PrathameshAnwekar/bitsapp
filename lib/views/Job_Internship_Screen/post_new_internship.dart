@@ -1,11 +1,10 @@
 import 'package:bitsapp/controllers/internship_data_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../components/circle_profile_pic.dart';
 import 'components/title1.dart';
@@ -54,16 +53,35 @@ class PostNewInternship extends HookConsumerWidget {
         ),
         elevation: 0,
         actions: [
-          Container(
-            width: 72,
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFF4D5470),
-              borderRadius: BorderRadius.circular(20),
+          GestureDetector(
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                InternshipDataController.postNewInternship(ref, context,
+                    title: titleController.text,
+                    compensation: compensationController.text,
+                    contactEmail: contactEmailController.text,
+                    description: descriptionController.text,
+                    posterUID: localUser.uid,
+                    skills: skillController.text);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please fill all the fields'),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              width: 72,
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF4D5470),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              child: const Text("Post",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-            child: const Text("Post",
-                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
       ),
@@ -79,10 +97,10 @@ class PostNewInternship extends HookConsumerWidget {
                 children: <Widget>[
                   Row(
                     children: [
-                      CircleProfilePic(radius: 16),
-                      Spacer(flex: 1),
+                      const CircleProfilePic(radius: 16),
+                      const Spacer(flex: 1),
                       PersonDetail(user: localUser),
-                      Spacer(flex: 15),
+                      const Spacer(flex: 15),
                     ],
                   ),
                   const Title1(txt: "Title"),
@@ -307,25 +325,6 @@ class PostNewInternship extends HookConsumerWidget {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            InternshipDataController.postNewInternship(ref, context,
-                title: titleController.text,
-                compensation: compensationController.text,
-                contactEmail: contactEmailController.text,
-                description: descriptionController.text,
-                posterUID: localUser.uid,
-                skills: skillController.text);
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Please fill all the fields'),
-              ),
-            );
-          }
-        },
       ),
     );
   }
