@@ -21,8 +21,14 @@ class FeedPost {
   final List<MediaFile> mediaFilesList;
   final List<Comment> comments;
   final List<String> likes;
-  FeedPost(this.mediaFilesList, this.posterUid, this.likes,
-      {required this.timeuid, required this.text, required this.comments});
+  FeedPost({
+    required this.timeuid,
+    required this.text,
+    required this.comments,
+    required this.mediaFilesList,
+    required this.posterUid,
+    required this.likes,
+  });
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.
@@ -31,14 +37,32 @@ class FeedPost {
 
   /// Connect the generated [_$FeedPostToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$FeedPostToJson(this);
+
+  //dummy feed post list
+  static final dummyFeedPost = FeedPost(
+      timeuid: DateTime.now().millisecondsSinceEpoch.toString(),
+      text: 'This is a dummy feed post',
+      comments: [],
+      mediaFilesList: [
+        MediaFile(url: "https://picsum.photos/200", type: 'image'),
+        MediaFile(url: "https://picsum.photos/200", type: 'image'),
+        MediaFile(url: "https://picsum.photos/200", type: 'image'),
+        MediaFile(
+            url:
+                'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
+            type: 'video'),
+        MediaFile(url: "https://picsum.photos/200", type: 'image'),
+      ],
+      posterUid: 'dummy',
+      likes: []);
 }
 
 class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   //list of feedPosts constructor
   FeedPostDataNotifier() : super([]);
 
-  void initfeedPostsData(List<FeedPost> FeedPost) {
-    state = FeedPost;
+  void initfeedPostsData(List<FeedPost> feedPost) {
+    state = feedPost;
   }
 
   //add feedPost to list
@@ -66,9 +90,11 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
       elog(e.toString());
     }
   }
+
   Future<void> addComment(String feedPostUid, Comment comment) async {
     try {
-      await FirestoreService.addCommentToFeedPost(feedPostUid, comment).then((value) {
+      await FirestoreService.addCommentToFeedPost(feedPostUid, comment)
+          .then((value) {
         state = state
           ..where((feedPost) => feedPost.timeuid == feedPostUid)
               .first
@@ -98,7 +124,8 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
 
   Future<void> removeLike(String feedPostUid, String uid) async {
     try {
-      await FirestoreService.removeLikeFromFeedPost(feedPostUid, uid).then((value) {
+      await FirestoreService.removeLikeFromFeedPost(feedPostUid, uid)
+          .then((value) {
         state = state
           ..where((feedPost) => feedPost.timeuid == feedPostUid)
               .first
@@ -110,5 +137,4 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
       elog(e.toString());
     }
   }
-
 }

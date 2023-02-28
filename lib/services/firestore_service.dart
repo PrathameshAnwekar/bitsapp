@@ -33,6 +33,7 @@ class FirestoreService {
       await FirestoreService.updateContactsList(ref).then((value) async {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
+        await FirestoreService.initFeedPosts(ref);
       });
     } catch (e) {
       elog(e.toString());
@@ -175,6 +176,15 @@ class FirestoreService {
   }
 
   // ************* FEED POST SERVICES ************* //
+
+  static Future<void> initFeedPosts(WidgetRef ref) async {
+    await _feedPostsRef.get(const GetOptions(source: Source.serverAndCache)).then((value) {
+      final posts =
+          value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
+      ref.read(feedPostDataProvider.notifier).initfeedPostsData(posts);
+      dlog("initialised ${posts.length} posts");
+    });
+  }
 
   static Future<void> addFeedPost(FeedPost feedPost) async {
     await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());

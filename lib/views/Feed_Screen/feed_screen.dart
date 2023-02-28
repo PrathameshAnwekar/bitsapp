@@ -117,7 +117,7 @@ class FeedScreen extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ListView.separated(
-              itemCount: 5,
+              itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
                 return const FeedContainer();
               },

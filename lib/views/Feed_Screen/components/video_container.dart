@@ -1,3 +1,4 @@
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -10,13 +11,13 @@ class VideoContainer extends StatefulWidget {
 }
 
 class _VideoContainerState extends State<VideoContainer> {
-  late VideoPlayerController _controller;
+  late CachedVideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-        widget.url)
+    _controller = CachedVideoPlayerController.network(
+        widget.url )
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
@@ -37,9 +38,9 @@ class _VideoContainerState extends State<VideoContainer> {
                           : _controller.play();
                     });
                   },
-                  child: VideoPlayer(_controller)),
+                  child: CachedVideoPlayer(_controller )),
             )
-          : const Center(child: CircularProgressIndicator.adaptive()),
+          : SizedBox(width: 150,child: const Center(child: CircularProgressIndicator.adaptive())),
     );
   }
 
