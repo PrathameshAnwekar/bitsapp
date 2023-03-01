@@ -14,7 +14,7 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: Colors.grey.withOpacity(0.3),
+      backgroundColor: Colors.grey.withOpacity(.17),
       body: SafeArea(
         bottom: false,
         child: NestedScrollView(

@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../models/media_source.dart';
 import '../components/circle_profile_pic.dart';
 
 class NewPostScreen extends HookConsumerWidget {
@@ -11,6 +15,7 @@ class NewPostScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    File file;
     final localUser = ref.watch(localUserProvider);
     return Scaffold(
       appBar: AppBar(
@@ -52,14 +57,14 @@ class NewPostScreen extends HookConsumerWidget {
                 Icons.add_photo_alternate_rounded,
                 color: Color(0xFF4D5470),
               ),
-              onTap: () {},
+              onTap: () => capture(MediaSource.image),
             ),
             SpeedDialChild(
               child: const Icon(
                 Icons.video_camera_back_rounded,
                 color: Color(0xFF4D5470),
               ),
-              onTap: () {},
+              onTap: () => capture(MediaSource.video),
             ),
           ],
         ),
@@ -71,10 +76,10 @@ class NewPostScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
-                children:  [
+                children: [
                   const CircleProfilePic(radius: 20),
                   const Spacer(flex: 1),
-                  PersonDetail(user: localUser,),
+                  PersonDetail(user: localUser),
                   const Spacer(flex: 25),
                 ],
               ),
@@ -100,10 +105,20 @@ class NewPostScreen extends HookConsumerWidget {
                   color: Color.fromRGBO(27, 27, 27, 1),
                 ),
               ),
+              // const SizedBox(height: 100),
+              // Image.asset(file),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Future capture(MediaSource source) async {
+  final getMedia = source == MediaSource.image
+      ? ImagePicker().pickImage
+      : ImagePicker().pickVideo;
+  final media = await getMedia(source: ImageSource.gallery);
+  final file = File(media!.path);
 }

@@ -89,7 +89,7 @@ class InternshipCard extends StatelessWidget {
                 Tags(
                   text: internshipData.compensation,
                   inPadding: 4,
-                  borderRadius: 15,
+                  borderRadius: 20,
                   textSize: 13,
                 ),
               ],

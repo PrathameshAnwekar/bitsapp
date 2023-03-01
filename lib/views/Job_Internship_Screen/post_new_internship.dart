@@ -74,9 +74,9 @@ class PostNewInternship extends HookConsumerWidget {
             child: Container(
               width: 72,
               margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF4D5470),
-                borderRadius: BorderRadius.circular(20),
+              decoration: const ShapeDecoration(
+                color: Color(0xFF4D5470),
+                shape: StadiumBorder(),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
               child: const Text("Post",

@@ -9,7 +9,8 @@ import 'components/heading2.dart';
 import 'components/tags.dart';
 
 class JobDetailScreen extends StatelessWidget {
-  const JobDetailScreen({super.key, required this.internshipData, required this.poster});
+  const JobDetailScreen(
+      {super.key, required this.internshipData, required this.poster});
   final InternshipData internshipData;
   final BitsUser poster;
   @override
@@ -51,7 +52,7 @@ class JobDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Row(
-              children:  [
+              children: [
                 const CircleProfilePic(radius: 16),
                 const Spacer(flex: 1),
                 PersonDetail(user: poster),
@@ -69,6 +70,7 @@ class JobDetailScreen extends StatelessWidget {
               ),
             ),
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
               margin: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
@@ -105,26 +107,28 @@ class JobDetailScreen extends StatelessWidget {
               children: _tagBuilder(internshipData.skills),
             ),
             const SizedBox(height: 10),
-             Heading2(txt1: "Compensation type : ", txt2: internshipData.compensation),
+            Heading2(
+                txt1: "Compensation type : ",
+                txt2: internshipData.compensation),
           ],
         ),
       ),
-      bottomNavigationBar:  ApplyNow( internshipUid:  internshipData.uid),
+      bottomNavigationBar: ApplyNow(internshipUid: internshipData.uid),
     );
   }
 
- List<Tags> _tagBuilder(List<String> tags) {
-  final List<Tags> tagList = [];
-  for (final tag in tags) {
-    tagList.add(
-      Tags(
-        text: tag,
-        inPadding: 5,
-        borderRadius: 10,
-        textSize: 13,
-      ),
-    );
+  List<Tags> _tagBuilder(List<String> tags) {
+    final List<Tags> tagList = [];
+    for (final tag in tags) {
+      tagList.add(
+        Tags(
+          text: tag,
+          inPadding: 5,
+          borderRadius: 10,
+          textSize: 13,
+        ),
+      );
+    }
+    return tagList;
   }
-  return tagList;
-}
 }
