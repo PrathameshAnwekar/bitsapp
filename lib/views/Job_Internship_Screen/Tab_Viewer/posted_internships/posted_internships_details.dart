@@ -120,14 +120,14 @@ Widget _expandable(InternshipData internshipData) {
           ),
           const Heading2(txt1: "Skill(s) required", txt2: ""),
           Wrap(
-            alignment: WrapAlignment.start,
-            direction: Axis.horizontal,
-            runSpacing: 6,
-            spacing: 10,
-            children: _tagBuilder(internshipData.skills)
-          ),
+              alignment: WrapAlignment.start,
+              direction: Axis.horizontal,
+              runSpacing: 6,
+              spacing: 10,
+              children: _tagBuilder(internshipData.skills)),
           const SizedBox(height: 10),
-           Heading2(txt1: "Compensation type : ", txt2: internshipData.compensation),
+          Heading2(
+              txt1: "Compensation type : ", txt2: internshipData.compensation),
         ],
       ),
     ),
@@ -150,7 +150,8 @@ List<Tags> _tagBuilder(List<String> tags) {
 }
 
 Widget _listView(
-  InternshipData internshipData, WidgetRef ref,
+  InternshipData internshipData,
+  WidgetRef ref,
 ) {
   final contactList = ref.read(contactsListProvider);
   return ListView.builder(
@@ -158,7 +159,8 @@ Widget _listView(
     scrollDirection: Axis.vertical,
     itemBuilder: (BuildContext context, int index) {
       final application = internshipData.applications![index];
-      final user = contactList.where((element) => element.uid == application.uid).first;
+      final user =
+          contactList.where((element) => element.uid == application.uid).first;
       return GestureDetector(
         onTap: () {},
         child: Container(
@@ -171,8 +173,8 @@ Widget _listView(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                 user.name,
-                style: TextStyle(fontSize: 16),
+                user.name,
+                style: const TextStyle(fontSize: 16),
               ),
               IconButton(
                 onPressed: () {},

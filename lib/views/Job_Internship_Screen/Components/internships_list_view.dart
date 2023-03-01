@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
 
-
 import '../job_detail_screen.dart';
 import 'tags.dart';
 
@@ -24,9 +23,12 @@ class InternshipsListView extends HookConsumerWidget {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
-        final poster = contactsList
-            .firstWhere((element) => element.uid == internData[index].posterUID);
-        return InternshipCard(internshipData: internData[index], poster: poster,);
+        final poster = contactsList.firstWhere(
+            (element) => element.uid == internData[index].posterUID);
+        return InternshipCard(
+          internshipData: internData[index],
+          poster: poster,
+        );
       },
       itemCount: internData.length,
     );
@@ -36,7 +38,8 @@ class InternshipsListView extends HookConsumerWidget {
 class InternshipCard extends StatelessWidget {
   const InternshipCard({
     super.key,
-    required this.internshipData, required this.poster,
+    required this.internshipData,
+    required this.poster,
   });
   final InternshipData internshipData;
   final BitsUser poster;
@@ -61,7 +64,10 @@ class InternshipCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: ((context) =>  JobDetailScreen(internshipData: internshipData, poster: poster,)),
+          builder: ((context) => JobDetailScreen(
+                internshipData: internshipData,
+                poster: poster,
+              )),
         ),
       ),
       child: Container(
@@ -76,10 +82,10 @@ class InternshipCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CircleProfilePic(radius: 16),
-                Spacer(flex: 1),
+                const CircleProfilePic(radius: 16),
+                const Spacer(flex: 1),
                 PersonDetail(user: poster),
-                Spacer(flex: 15),
+                const Spacer(flex: 15),
                 Tags(
                   text: internshipData.compensation,
                   inPadding: 4,

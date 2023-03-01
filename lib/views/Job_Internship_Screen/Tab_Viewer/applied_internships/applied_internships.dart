@@ -49,13 +49,13 @@ class AppliedInternships extends HookConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    CircleProfilePic(radius: 16),
-                    Spacer(flex: 1),
+                    const CircleProfilePic(radius: 16),
+                    const Spacer(flex: 1),
                     PersonDetail(
                       user: contactsList.firstWhere(
                           (element) => element.uid == internData.posterUID),
                     ),
-                    Spacer(flex: 15),
+                    const Spacer(flex: 15),
                     Tags(
                       text: internData.compensation,
                       inPadding: 4,
@@ -102,9 +102,9 @@ class AppliedInternships extends HookConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Yet to be done feature time",
-                      style: const TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 14),
                     ),
                     ApplicationStatus(
                       text: applicationData.status,

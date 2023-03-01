@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 /// Stateful widget to fetch and then display video content.
 class VideoContainer extends StatefulHookConsumerWidget {
@@ -35,11 +34,11 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
             if (file.hasData) {
               _controller = VideoPlayerController.file(file.data as File)
                 ..initialize().then((_) {
-                  if(init) {
+                  if (init) {
                     setState(() {
-                    dlog( "file data is ${file.data}");
-                    init = false;
-                  });
+                      dlog("file data is ${file.data}");
+                      init = false;
+                    });
                   }
                 });
               return GestureDetector(
@@ -59,7 +58,9 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
               return const CircularProgressIndicator();
             }
           } else {
-            return const CircularProgressIndicator(color: Colors.red,);
+            return const CircularProgressIndicator(
+              color: Colors.red,
+            );
           }
         });
   }

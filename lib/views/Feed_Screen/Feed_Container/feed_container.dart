@@ -1,5 +1,3 @@
-import 'package:bitsapp/models/feed_post.dart';
-import 'package:bitsapp/views/Feed_Screen/components/media_container.dart';
 import 'package:bitsapp/views/feed_screen/components/feed_description.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +20,6 @@ class FeedContainer extends StatelessWidget {
         ),
         child: Column(
           children: [
-            
             FeedDesc(
               isFeedScreen: true,
               commentFunc: () => Navigator.of(context).push(
