@@ -95,6 +95,14 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
   void initChatRoomsUidList(List<ChatRoom> chatRoomsList) {
     state = state..chatRooms.addAll(chatRoomsList.map((e) => e.uid).toList());
   }
+
+  Future<void> addInternshipApplication(String internshipUid) async {
+    try {
+      state = state..appliedInternships!.add(internshipUid);
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
 }
 
 final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(

@@ -50,7 +50,10 @@ class InternshipDataController {
         .read(internshipDataProvider.notifier)
         .addApplication(internshipUid, application, applicantUid)
         .then((value) {
-      dlog("Internship posted successfully");
+      ref
+          .read(localUserProvider.notifier)
+          .addInternshipApplication(internshipUid);
+
       ScaffoldMessenger.of(context)
           .showSnackBar(
             const SnackBar(
