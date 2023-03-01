@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:bitsapp/models/recieved_notification.dart';
@@ -53,11 +54,17 @@ class NotifService {
   }
 
   static requestPermission() async {
-    return _notif
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()!
-        // .requestPermission();
-        .requestPermissions();
+    if (Platform.isIOS) {
+      return _notif
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()!
+          .requestPermissions();
+    } else {
+      return _notif
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()!
+          .requestPermission();
+    }
   }
 
   static void dismissAllNotifs() async {

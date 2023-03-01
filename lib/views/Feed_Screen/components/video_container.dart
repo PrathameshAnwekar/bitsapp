@@ -32,15 +32,17 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
         builder: (context, file) {
           if (file.connectionState == ConnectionState.done) {
             if (file.hasData) {
-              _controller = VideoPlayerController.file(file.data as File)
+             if (init) {
+               _controller = VideoPlayerController.file(file.data as File)
                 ..initialize().then((_) {
-                  if (init) {
+                  {
                     setState(() {
                       dlog("file data is ${file.data}");
                       init = false;
                     });
                   }
                 });
+             }
               return GestureDetector(
                 onTap: () {
                   setState(() {
