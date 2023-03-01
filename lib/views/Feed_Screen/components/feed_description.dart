@@ -30,12 +30,14 @@ class FeedDesc extends HookConsumerWidget {
     return Column(
       children: <Widget>[
         Row(
-          children:  [
-            CircleProfilePic(radius: 20),
-            Spacer(flex: 1),
-            PersonDetail(user: localUser,),
-            Spacer(flex: 25),
-            Icon(
+          children: [
+            const CircleProfilePic(radius: 20),
+            const Spacer(flex: 1),
+            PersonDetail(
+              user: localUser,
+            ),
+            const Spacer(flex: 25),
+            const Icon(
               Icons.more_vert_outlined,
               color: Color.fromRGBO(32, 33, 37, 1),
               size: 24,

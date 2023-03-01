@@ -1,10 +1,7 @@
-import 'package:bitsapp/constants.dart';
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
-import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/chat/chat.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,7 +23,8 @@ class Body extends ConsumerWidget {
       children: [
         Expanded(
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Constants.kDefaultPadding),
               child: chatStream.when(
                   data: (snapshot) {
                     return ListView.builder(
@@ -37,9 +35,10 @@ class Body extends ConsumerWidget {
                   },
                   error: (e, stackTrace) =>
                       Text("Please check you Internet Connection $e"),
-                  loading: () => CircularProgressIndicator.adaptive())),
+                  loading: () => const CircularProgressIndicator.adaptive())),
         ),
-        ChatInputField(chatRoomUid: chatRoomUid, receiverFcmUid: receiver.fcmID),
+        ChatInputField(
+            chatRoomUid: chatRoomUid, receiverFcmUid: receiver.fcmID),
       ],
     );
   }

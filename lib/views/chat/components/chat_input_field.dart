@@ -1,13 +1,9 @@
-import 'package:bitsapp/constants.dart';
 import 'package:bitsapp/controllers/chat_controller.dart';
-import 'package:bitsapp/controllers/chats_screen_controller.dart';
-import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/chat_room.dart';
+import '../../../constants/constants.dart';
 
 class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
@@ -15,7 +11,7 @@ class ChatInputField extends HookConsumerWidget {
   const ChatInputField({
     Key? key,
     required this.chatRoomUid,
-    required this.receiverFcmUid, 
+    required this.receiverFcmUid,
   }) : super(key: key);
 
   @override
@@ -23,8 +19,8 @@ class ChatInputField extends HookConsumerWidget {
     final textController = useTextEditingController();
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: kDefaultPadding,
-        vertical: kDefaultPadding / 2,
+        horizontal: Constants.kDefaultPadding,
+        vertical: Constants.kDefaultPadding / 2,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -39,15 +35,15 @@ class ChatInputField extends HookConsumerWidget {
       child: SafeArea(
         child: Row(
           children: [
-            const Icon(Icons.mic, color: kPrimaryColor),
-            const SizedBox(width: kDefaultPadding),
+            const Icon(Icons.mic, color: Constants.kPrimaryColor),
+            const SizedBox(width: Constants.kDefaultPadding),
             Expanded(
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: kDefaultPadding * 0.75,
+                  horizontal: Constants.kDefaultPadding * 0.75,
                 ),
                 decoration: BoxDecoration(
-                  color: kPrimaryColor.withOpacity(0.05),
+                  color: Constants.kPrimaryColor.withOpacity(0.05),
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Row(
@@ -60,7 +56,7 @@ class ChatInputField extends HookConsumerWidget {
                           .color!
                           .withOpacity(0.64),
                     ),
-                    const SizedBox(width: kDefaultPadding / 4),
+                    const SizedBox(width: Constants.kDefaultPadding / 4),
                     Expanded(
                       child: TextField(
                         controller: textController,
@@ -78,15 +74,11 @@ class ChatInputField extends HookConsumerWidget {
                           .color!
                           .withOpacity(0.64),
                     ),
-                    const SizedBox(width: kDefaultPadding / 4),
+                    const SizedBox(width: Constants.kDefaultPadding / 4),
                     GestureDetector(
                       onTap: () {
                         ChatController.sendMessage(
-                          ref,
-                          textController,
-                          chatRoomUid,
-                          receiverFcmUid
-                        );
+                            ref, textController, chatRoomUid, receiverFcmUid);
                       },
                       child: Icon(
                         Icons.send,

@@ -3,7 +3,7 @@ import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 
 class TextMessage extends ConsumerWidget {
   const TextMessage({
@@ -17,12 +17,13 @@ class TextMessage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: kDefaultPadding * 0.75,
-        vertical: kDefaultPadding / 2,
+      padding: const EdgeInsets.symmetric(
+        horizontal: Constants.kDefaultPadding * 0.75,
+        vertical: Constants.kDefaultPadding / 2,
       ),
       decoration: BoxDecoration(
-        color: kPrimaryColor.withOpacity(message.sender == localUser.uid ? 1 : 0.1),
+        color: Constants.kPrimaryColor
+            .withOpacity(message.sender == localUser.uid ? 1 : 0.1),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Text(

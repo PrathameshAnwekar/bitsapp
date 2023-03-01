@@ -1,7 +1,7 @@
-import 'package:bitsapp/constants.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/constants.dart';
 import 'text_message.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -19,7 +19,7 @@ class MessageBubble extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(top: kDefaultPadding),
+      padding: const EdgeInsets.only(top: Constants.kDefaultPadding),
       child: Row(
         mainAxisAlignment: message.sender == "me"
             ? MainAxisAlignment.end
@@ -30,7 +30,7 @@ class MessageBubble extends StatelessWidget {
               radius: 12,
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
-            const SizedBox(width: kDefaultPadding / 2),
+            const SizedBox(width: Constants.kDefaultPadding / 2),
           ],
           messageContent(message),
           if (message.sender == "me") const MessageStatusDot()
@@ -45,11 +45,11 @@ class MessageStatusDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color dotColor() {
-      return kPrimaryColor;
+      return Constants.kPrimaryColor;
     }
 
     return Container(
-      margin: const EdgeInsets.only(left: kDefaultPadding / 2),
+      margin: const EdgeInsets.only(left: Constants.kDefaultPadding / 2),
       height: 12,
       width: 12,
       decoration: BoxDecoration(

@@ -38,16 +38,16 @@ class NotifService {
 
   static Future<bool> init() async {
     bool permission = await requestPermission() ?? false;
-    if(permission) {
+    if (permission) {
       await _notif.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse:
-          (NotificationResponse notificationResponse) async {
-        // handle action
-        dlog("Notification tapped");
-      },
-      onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
-    );
+        initializationSettings,
+        onDidReceiveNotificationResponse:
+            (NotificationResponse notificationResponse) async {
+          // handle action
+          dlog("Notification tapped");
+        },
+        onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
+      );
     }
     return Future.value(true);
   }
@@ -55,8 +55,9 @@ class NotifService {
   static requestPermission() async {
     return _notif
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestPermission();
+            IOSFlutterLocalNotificationsPlugin>()!
+        // .requestPermission();
+        .requestPermissions();
   }
 
   static void dismissAllNotifs() async {
@@ -115,7 +116,5 @@ class NotifService {
     );
   }
 
-  sendNotif(){
-    
-  }
+  sendNotif() {}
 }
