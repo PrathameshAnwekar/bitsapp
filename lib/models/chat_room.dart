@@ -1,5 +1,4 @@
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/fcm_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';

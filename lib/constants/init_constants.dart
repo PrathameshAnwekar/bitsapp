@@ -14,12 +14,12 @@ class InitConstants {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FcmService.init();
+    
     await NotifService.init().then((value) {
       NotifService.dismissAllNotifs();
     });
     //set notif panel to transpaernt
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
@@ -29,5 +29,6 @@ class InitConstants {
     if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
 
     await HiveStore.init();
+    FcmService.init();
   }
 }

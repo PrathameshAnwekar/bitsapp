@@ -14,6 +14,7 @@ class BitsUser {
   /// The generated code assumes these values exist in JSON.
   final String name;
   final String? profilePicUrl;
+  final String? profileDescription;
   final String email;
   final String bitsID;
   final String uid;
@@ -21,18 +22,21 @@ class BitsUser {
   final List<String> chatRooms;
   final List<String>? appliedInternships;
   final List<String>? postedInternships;
+  final List<String>? feedPosts;
 
-  BitsUser(
-      {required this.name,
-      required this.profilePicUrl,
-      required this.email,
-      required this.bitsID,
-      required this.chatRooms,
-      required this.uid,
-      required this.fcmID,
-      required this.appliedInternships,required this.postedInternships, 
-      
-      });
+  BitsUser({
+    required this.name,
+    required this.profilePicUrl,
+    required this.email,
+    required this.profileDescription,
+    required this.bitsID,
+    required this.chatRooms,
+    required this.uid,
+    required this.fcmID,
+    required this.appliedInternships,
+    required this.postedInternships,
+    required this.feedPosts,
+  });
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.
@@ -44,20 +48,23 @@ class BitsUser {
 
   static Future<void> createNewUser(
       WidgetRef ref, UserCredential result) async {
+    String name = properCase(result.user!.displayName ?? "name");
+
     BitsUser bitsUser = BitsUser(
-        name: result.user!.displayName!,
+        name: name,
         profilePicUrl: null,
         email: result.user!.email!,
+        profileDescription: "BITSian",
         bitsID: "NOT SET",
         chatRooms: [],
         uid: result.user!.uid,
         fcmID: await FirebaseMessaging.instance.getToken(),
         appliedInternships: [],
-        postedInternships: []);
+        postedInternships: [],
+        feedPosts: []);
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
-
 }
 
 class BitsUserNotifier extends StateNotifier<BitsUser> {
@@ -65,13 +72,15 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
       : super(BitsUser(
             name: "name",
             profilePicUrl: "profilePicUrl",
+            profileDescription: "profileDescription",
             email: "email",
             bitsID: "bitsID",
             chatRooms: [],
             uid: "uid",
             fcmID: "fcmID",
             appliedInternships: [],
-            postedInternships: []));
+            postedInternships: [],
+            feedPosts: []));
 
   void setUser(BitsUser user) {
     state = user;
@@ -79,7 +88,7 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
 
   void addChatRoom(String uid) {
     dlog("creating a new chatRoom for uid $uid");
-    
+
     state = state..chatRooms.add(uid);
   }
 
@@ -92,3 +101,16 @@ final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(
     (ref) => BitsUserNotifier());
 
 final contactsListProvider = StateProvider((ref) => List<BitsUser>.empty());
+
+//function to properly capitalise the name
+String properCase(String s) {
+  String proper = s[0].toUpperCase();
+  for (int i = 1; i < s.length; i++) {
+    if (s[i - 1] == ' ') {
+      proper += s[i].toUpperCase();
+    } else {
+      proper += s[i].toLowerCase();
+    }
+  }
+  return proper;
+}

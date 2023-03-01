@@ -7,25 +7,23 @@ part of 'feed_post.dart';
 // **************************************************************************
 
 FeedPost _$FeedPostFromJson(Map<String, dynamic> json) => FeedPost(
-      name: json['name'] as String,
-      time: json['time'] as String,
-      desc: json['desc'] as String,
-      profilePicURL: json['profilePicURL'] as String,
-      imageUrlList: (json['imageUrlList'] as List<dynamic>)
-          .map((e) => e as String)
+      timeuid: json['timeuid'] as String,
+      text: json['text'] as String,
+      comments: (json['comments'] as List<dynamic>)
+          .map((e) => Comment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      videoUrlList: (json['videoUrlList'] as List<dynamic>)
-          .map((e) => e as String)
+      mediaFilesList: (json['mediaFilesList'] as List<dynamic>)
+          .map((e) => MediaFile.fromJson(e as Map<String, dynamic>))
           .toList(),
-      uid: json['uid'] as String,
+      posterUid: json['posterUid'] as String,
+      likes: (json['likes'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$FeedPostToJson(FeedPost instance) => <String, dynamic>{
-      'name': instance.name,
-      'uid': instance.uid,
-      'time': instance.time,
-      'desc': instance.desc,
-      'profilePicURL': instance.profilePicURL,
-      'imageUrlList': instance.imageUrlList,
-      'videoUrlList': instance.videoUrlList,
+      'posterUid': instance.posterUid,
+      'timeuid': instance.timeuid,
+      'text': instance.text,
+      'mediaFilesList': instance.mediaFilesList,
+      'comments': instance.comments,
+      'likes': instance.likes,
     };

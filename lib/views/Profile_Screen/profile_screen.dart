@@ -1,15 +1,19 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../profile_screen/components/data_widget.dart';
-import '../profile_screen/components/profile_info_stack.dart';
+import 'components/profile_info_stack.dart';
 
-class Screen4 extends StatelessWidget {
+
+class Screen4 extends ConsumerWidget {
   const Screen4({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -48,7 +52,7 @@ class Screen4 extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: <Widget>[
-            const ProfileInfoStack(),
+            ProfileInfoStack(name: localUser.name, imageUrl: localUser.profilePicUrl, profileDescription: localUser.profileDescription),
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.only(top: 15),

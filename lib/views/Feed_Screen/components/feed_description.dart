@@ -1,4 +1,5 @@
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,7 @@ import 'package:readmore/readmore.dart';
 import '../../../constants/constants.dart';
 import '../../components/circle_profile_pic.dart';
 import '../../components/person_detail.dart';
+import 'media_container.dart';
 
 class FeedDesc extends HookConsumerWidget {
   final bool isFeedScreen;
@@ -40,6 +42,7 @@ class FeedDesc extends HookConsumerWidget {
             ),
           ],
         ),
+        MediaContainer(post: FeedPost.dummyFeedPost),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ReadMoreText(

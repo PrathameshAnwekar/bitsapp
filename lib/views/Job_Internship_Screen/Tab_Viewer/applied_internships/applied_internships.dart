@@ -18,9 +18,9 @@ class AppliedInternships extends HookConsumerWidget {
     final contactsList = ref.watch(contactsListProvider);
     final localUser = ref.watch(localUserProvider);
     final internData = ref.watch(internshipDataProvider);
-    final applicationUids = localUser.appliedInternships;
+    final applicationUids = localUser.appliedInternships ?? [];
 
-    final applicationsList = applicationUids!
+    final applicationsList = applicationUids
         .map(
           (e) => internData.firstWhere(
             (element) => element.uid == e,
