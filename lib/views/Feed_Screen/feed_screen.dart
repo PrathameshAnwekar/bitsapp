@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as bd;
+import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/views/search/profile_search_delegate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -51,38 +52,33 @@ class FeedScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              title: Container(
-                margin: const EdgeInsets.only(left: 6, right: 6, bottom: 3),
-                height: 42,
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.04),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                    color: const Color.fromRGBO(49, 50, 54, 1),
+              title: GestureDetector(
+                onTap: (){
+                  FeedScreenController.goToSearch(context, ref);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: 6, right: 6, bottom: 3),
+                  height: 42,
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.04),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                      color: const Color.fromRGBO(49, 50, 54, 1),
+                    ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        showSearch(
-                            context: context, delegate: ProfileSearchDelegate(ref: ref));
-                      },
-                      child: SvgPicture.asset(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SvgPicture.asset(
                         'assets/Icons/search.svg',
                         height: 22,
                         color: const Color.fromRGBO(49, 50, 54, 1),
                       ),
-                    ),
-                    SvgPicture.asset(
-                      'assets/Icons/filter.svg',
-                      height: 22,
-                      color: const Color.fromRGBO(49, 50, 54, 1),
-                    ),
-                  ],
+                      
+                    ],
+                  ),
                 ),
               ),
               actions: [
@@ -96,23 +92,28 @@ class FeedScreen extends ConsumerWidget {
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 14, bottom: 7),
-                    child: SizedBox(
-                      width: 40,
-                      child: bd.Badge(
-                        position: bd.BadgePosition.custom(top: -7, end: 1.8),
-                        badgeContent: Text(
-                          "2",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.dmSans(
-                            color: Colors.white,
-                            fontSize: 15,
+                    child: GestureDetector(
+                      onTap: () {
+                        FeedScreenController.goToSearch(context, ref);
+                      },
+                      child: SizedBox(
+                        width: 40,
+                        child: bd.Badge(
+                          position: bd.BadgePosition.custom(top: -7, end: 1.8),
+                          badgeContent: Text(
+                            "2",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.dmSans(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                        child: SvgPicture.asset(
-                          'assets/Icons/message.svg',
-                          width: 38,
-                          height: 38,
-                          color: const Color.fromRGBO(49, 50, 54, 1),
+                          child: SvgPicture.asset(
+                            'assets/Icons/message.svg',
+                            width: 38,
+                            height: 38,
+                            color: const Color.fromRGBO(49, 50, 54, 1),
+                          ),
                         ),
                       ),
                     ),
