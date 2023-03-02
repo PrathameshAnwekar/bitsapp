@@ -2,6 +2,7 @@ import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/constants.dart';
 import '../feed_screen/feed_screen.dart';
@@ -11,6 +12,7 @@ import '../profile_screen/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
+
   static const routeName = '/bottom-nav-screen';
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -23,7 +25,7 @@ class _BottomBarState extends State<BottomBar> {
     const JobInternhipScreen(),
     const NewPostScreen(),
     const ChatsScreen(),
-    const Screen4(),
+    const Screen4(null),
   ];
   @override
   Widget build(BuildContext context) {

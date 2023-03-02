@@ -7,13 +7,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../profile_screen/components/data_widget.dart';
 import 'components/profile_info_stack.dart';
 
-
 class Screen4 extends ConsumerWidget {
-  const Screen4({Key? key}) : super(key: key);
+  final BitsUser? user;
 
+   const Screen4(this.user, {super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localUser = ref.watch(localUserProvider);
+    final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -21,8 +21,7 @@ class Screen4 extends ConsumerWidget {
               id: 1,
               title: "Hello",
               body: "This is a notification",
-              payload: "This is a payload"
-          ));
+              payload: "This is a payload"));
         },
         child: const Icon(Icons.add),
       ),
@@ -52,7 +51,10 @@ class Screen4 extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: <Widget>[
-            ProfileInfoStack(name: localUser.name, imageUrl: localUser.profilePicUrl, profileDescription: localUser.profileDescription),
+            ProfileInfoStack(
+                name: localUser.name,
+                imageUrl: localUser.profilePicUrl,
+                profileDescription: localUser.profileDescription),
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.only(top: 15),

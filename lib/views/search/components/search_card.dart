@@ -1,14 +1,14 @@
-import 'package:bitsapp/controllers/contacts_screen_controller.dart';
+import 'package:bitsapp/controllers/search_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ContactCard extends HookConsumerWidget {
-  const ContactCard({
+class SearchCard extends HookConsumerWidget {
+  const SearchCard({
     Key? key,
     required this.user,
   }) : super(key: key);
-  
+
   final BitsUser user;
 
   @override
@@ -17,8 +17,7 @@ class ContactCard extends HookConsumerWidget {
 
     return InkWell(
       onTap: () {
-        ContactsScreenController.addNewChatRoom(
-            localUser.uid, user.uid, context, ref);
+        SearchController.goToUserProfile(context, user);
       },
       child: Padding(
         padding:

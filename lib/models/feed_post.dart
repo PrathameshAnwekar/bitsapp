@@ -51,6 +51,10 @@ class FeedPost {
             url:
                 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
             type: 'video'),
+            MediaFile(
+            url:
+                'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
+            type: 'video'),
         MediaFile(url: "https://picsum.photos/200", type: 'image'),
       ],
       posterUid: 'dummy',

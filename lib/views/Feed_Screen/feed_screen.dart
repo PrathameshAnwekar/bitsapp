@@ -1,17 +1,19 @@
 import 'package:badges/badges.dart' as bd;
+import 'package:bitsapp/views/search/profile_search_delegate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../chat/chats_screen.dart';
 import 'feed_container/feed_container.dart';
 
-class FeedScreen extends StatelessWidget {
+class FeedScreen extends ConsumerWidget {
   const FeedScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.grey.withOpacity(.17),
@@ -64,10 +66,16 @@ class FeedScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    SvgPicture.asset(
-                      'assets/Icons/search.svg',
-                      height: 22,
-                      color: const Color.fromRGBO(49, 50, 54, 1),
+                    GestureDetector(
+                      onTap: () {
+                        showSearch(
+                            context: context, delegate: ProfileSearchDelegate(ref: ref));
+                      },
+                      child: SvgPicture.asset(
+                        'assets/Icons/search.svg',
+                        height: 22,
+                        color: const Color.fromRGBO(49, 50, 54, 1),
+                      ),
                     ),
                     SvgPicture.asset(
                       'assets/Icons/filter.svg',

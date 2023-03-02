@@ -17,7 +17,7 @@ class ContactsScreen extends HookConsumerWidget {
               child: ListView.builder(
                   itemCount: contactsList.length,
                   itemBuilder: (context, index) {
-                    return ContactCard(user: contactsList[index]);
+                    return ContactCard(user: contactsList[index], );
                   })),
         ],
       ),

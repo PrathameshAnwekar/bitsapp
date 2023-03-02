@@ -12,9 +12,9 @@ class FeedDetailScreen extends StatefulWidget {
 }
 
 class _FeedDetailScreenState extends State<FeedDetailScreen> {
-  final itemKey = GlobalKey();
+  final _itemKey = GlobalKey();
   void commentFunc() async {
-    final context = itemKey.currentContext!;
+    final context = _itemKey.currentContext!;
     await Scrollable.ensureVisible(
       context,
       duration: const Duration(milliseconds: 800),
@@ -50,7 +50,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
-                    key: itemKey,
+                    key: _itemKey,
                     "Comments",
                     style: const TextStyle(fontSize: 16),
                   ),
