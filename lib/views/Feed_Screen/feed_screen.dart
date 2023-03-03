@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart' as bd;
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
-import 'package:bitsapp/views/search/profile_search_delegate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,7 +52,7 @@ class FeedScreen extends ConsumerWidget {
                 ),
               ),
               title: GestureDetector(
-                onTap: (){
+                onTap: () {
                   FeedScreenController.goToSearch(context, ref);
                 },
                 child: Container(
@@ -72,11 +71,10 @@ class FeedScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       SvgPicture.asset(
-                        'assets/Icons/search.svg',
+                        'assets/icons/search.svg',
                         height: 22,
                         color: const Color.fromRGBO(49, 50, 54, 1),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -109,7 +107,7 @@ class FeedScreen extends ConsumerWidget {
                             ),
                           ),
                           child: SvgPicture.asset(
-                            'assets/Icons/message.svg',
+                            'assets/icons/message.svg',
                             width: 38,
                             height: 38,
                             color: const Color.fromRGBO(49, 50, 54, 1),

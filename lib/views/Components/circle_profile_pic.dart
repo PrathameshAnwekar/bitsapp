@@ -16,7 +16,7 @@ class CircleProfilePic extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: SvgPicture.asset(
-          'assets/Icons/person.svg',
+          'assets/icons/person.svg',
           fit: BoxFit.cover,
         ),
       ),
