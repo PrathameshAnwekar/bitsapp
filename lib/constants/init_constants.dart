@@ -8,9 +8,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:motion/motion.dart';
 
 class InitConstants {
   init() async {
+    await Motion.instance.initialize();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

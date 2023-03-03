@@ -23,7 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pagelist = <Widget>[
     const FeedScreen(),
     const JobInternhipScreen(),
-    const NewPostScreen(),
+     NewPostScreen(),
     const ChatsScreen(),
     const Screen4(null),
   ];

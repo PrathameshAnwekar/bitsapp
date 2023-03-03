@@ -17,11 +17,6 @@ class VideoContainer extends StatefulHookConsumerWidget {
 class _VideoContainerState extends ConsumerState<VideoContainer> {
   late VideoPlayerController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   bool init = true;
 
   @override

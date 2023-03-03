@@ -1,6 +1,7 @@
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:motion/motion.dart';
 
 class ProfileInfoStack extends StatelessWidget {
   final String name;

@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart' as bd;
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
-import 'package:bitsapp/views/search/profile_search_delegate.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,7 +52,7 @@ class FeedScreen extends ConsumerWidget {
                 ),
               ),
               title: GestureDetector(
-                onTap: (){
+                onTap: () {
                   FeedScreenController.goToSearch(context, ref);
                 },
                 child: Container(
@@ -76,7 +75,6 @@ class FeedScreen extends ConsumerWidget {
                         height: 22,
                         color: const Color.fromRGBO(49, 50, 54, 1),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -94,6 +92,7 @@ class FeedScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(right: 14, bottom: 7),
                     child: GestureDetector(
                       onTap: () {
+                        
                         FeedScreenController.goToSearch(context, ref);
                       },
                       child: SizedBox(
@@ -135,6 +134,6 @@ class FeedScreen extends ConsumerWidget {
           ),
         ),
       ),
-    );
+);
   }
 }

@@ -1,22 +1,26 @@
 import 'dart:io';
 
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/services/logger_service.dart';
+import 'package:bitsapp/views/New_Post_Screen.dart/components/local_media_container.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../models/media_source.dart';
 import '../components/circle_profile_pic.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class NewPostScreen extends HookConsumerWidget {
-  const NewPostScreen({super.key});
-
+  NewPostScreen({super.key});
+  static const String routeName = "/new_post_screen";
+  Map<File, String> mp = {};
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    File file;
+    final files = useState(mp);
     final localUser = ref.watch(localUserProvider);
+    dlog(files.value.toString());
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -57,14 +61,14 @@ class NewPostScreen extends HookConsumerWidget {
                 Icons.add_photo_alternate_rounded,
                 color: Color(0xFF4D5470),
               ),
-              onTap: () => capture(MediaSource.image),
+              onTap: () => capture("image", files),
             ),
             SpeedDialChild(
               child: const Icon(
                 Icons.video_camera_back_rounded,
                 color: Color(0xFF4D5470),
               ),
-              onTap: () => capture(MediaSource.video),
+              onTap: () => capture("video", files),
             ),
           ],
         ),
@@ -105,8 +109,7 @@ class NewPostScreen extends HookConsumerWidget {
                   color: Color.fromRGBO(27, 27, 27, 1),
                 ),
               ),
-              // const SizedBox(height: 100),
-              // Image.asset(file),
+              LocalMediaContainer(files: files.value)
             ],
           ),
         ),
@@ -115,10 +118,11 @@ class NewPostScreen extends HookConsumerWidget {
   }
 }
 
-Future capture(MediaSource source) async {
-  final getMedia = source == MediaSource.image
-      ? ImagePicker().pickImage
-      : ImagePicker().pickVideo;
+Future capture(String source, ValueNotifier files) async {
+  final getMedia =
+      source == "image" ? ImagePicker().pickImage : ImagePicker().pickVideo;
   final media = await getMedia(source: ImageSource.gallery);
   final file = File(media!.path);
+  files.value.addAll({file: source});
+  files.notifyListeners();
 }
