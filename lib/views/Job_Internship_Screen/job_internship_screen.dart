@@ -90,7 +90,7 @@ class JobInternhipScreen extends HookConsumerWidget {
                     height: 65,
                     width: 60,
                     child: SvgPicture.asset(
-                      'assets/Icons/vertical_filter.svg',
+                      'assets/icons/vertical_filter.svg',
                       color: const Color.fromRGBO(248, 251, 254, 0.95),
                     ),
                   ),

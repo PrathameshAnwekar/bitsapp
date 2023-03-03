@@ -8,18 +8,18 @@ class Constants {
   };
 
   static final bottomBarIcons = [
-    "assets/Icons/home.svg",
-    "assets/Icons/freelance.svg",
-    "assets/Icons/addnewad.svg",
-    "assets/Icons/message.svg",
-    "assets/Icons/person.svg",
+    "assets/icons/home.svg",
+    "assets/icons/freelance.svg",
+    "assets/icons/addnewad.svg",
+    "assets/icons/message.svg",
+    "assets/icons/person.svg",
   ];
 
   static final postOptionIcons = [
-    'assets/Icons/like.svg',
-    'assets/Icons/comment.svg',
-    'assets/Icons/bookmark.svg',
-    'assets/Icons/share.svg',
+    'assets/icons/like.svg',
+    'assets/icons/comment.svg',
+    'assets/icons/bookmark.svg',
+    'assets/icons/share.svg',
   ];
 
   static const kPrimaryColor = Color(0xFF00BF6D);

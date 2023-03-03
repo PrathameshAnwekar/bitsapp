@@ -71,7 +71,7 @@ class FeedScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       SvgPicture.asset(
-                        'assets/Icons/search.svg',
+                        'assets/icons/search.svg',
                         height: 22,
                         color: const Color.fromRGBO(49, 50, 54, 1),
                       ),
@@ -108,7 +108,7 @@ class FeedScreen extends ConsumerWidget {
                             ),
                           ),
                           child: SvgPicture.asset(
-                            'assets/Icons/message.svg',
+                            'assets/icons/message.svg',
                             width: 38,
                             height: 38,
                             color: const Color.fromRGBO(49, 50, 54, 1),
