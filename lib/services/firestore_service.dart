@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/internship_application.dart';
 import 'package:bitsapp/models/internship_data.dart';
+import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreService {
@@ -16,6 +21,7 @@ class FirestoreService {
   static final _usersRef = _firestore.collection("Users");
   static final _internshipsRef = _firestore.collection("Internships");
   static final _feedPostsRef = _firestore.collection("FeedPosts");
+  static final _firebaseStorage = FirebaseStorage.instance.ref();
   static void init() {
     try {
       _firestore.settings = const Settings(
@@ -40,12 +46,13 @@ class FirestoreService {
     }
   }
 
-
   // ************* USER SERVICES ************* //
   static Future<void> initUser(WidgetRef ref) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
-      final userDoc = await _usersRef.doc(uid).get(const GetOptions(source: Source.serverAndCache));
+      final userDoc = await _usersRef
+          .doc(uid)
+          .get(const GetOptions(source: Source.serverAndCache));
       final user = BitsUser.fromJson(userDoc.data()!);
 
       ref.read(localUserProvider.notifier).setUser(user);
@@ -64,7 +71,8 @@ class FirestoreService {
 
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {
-      final response = await _usersRef.get(const GetOptions(source: Source.serverAndCache));
+      final response =
+          await _usersRef.get(const GetOptions(source: Source.serverAndCache));
       final allUsersList = response.docs.map((e) {
         final profile = e.data();
         return BitsUser.fromJson(profile);
@@ -76,8 +84,6 @@ class FirestoreService {
       elog(e.toString());
     }
   }
-
-
 
   // ************* CHAT ROOM SERVICES ************* //
   static Future<void> initialiseChatRooms(WidgetRef ref) async {
@@ -125,7 +131,6 @@ class FirestoreService {
     }
   }
 
-
   // ************* iNTERNSHIP SERVICES ************* //
   static Future<void> postInternship(
       InternshipData internshipData, String localUserUid) async {
@@ -156,7 +161,9 @@ class FirestoreService {
   }
 
   static Future<void> initInternshipData(WidgetRef ref) async {
-    await _internshipsRef.get(const GetOptions(source: Source.serverAndCache)).then((value) {
+    await _internshipsRef
+        .get(const GetOptions(source: Source.serverAndCache))
+        .then((value) {
       final internships =
           value.docs.map((e) => InternshipData.fromJson(e.data())).toList();
       ref
@@ -166,10 +173,8 @@ class FirestoreService {
     });
   }
 
-
-
   // ************* FIREBASEMESSAGING SERVICES ************* //
-  static updateFcmToken(String token)async {
+  static updateFcmToken(String token) async {
     await _usersRef
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({"fcmToken": token});
@@ -178,16 +183,30 @@ class FirestoreService {
   // ************* FEED POST SERVICES ************* //
 
   static Future<void> initFeedPosts(WidgetRef ref) async {
-    await _feedPostsRef.get(const GetOptions(source: Source.serverAndCache)).then((value) {
-      final posts =
-          value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
+    await _feedPostsRef
+        .get(const GetOptions(source: Source.serverAndCache))
+        .then((value) {
+      final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
       ref.read(feedPostDataProvider.notifier).initfeedPostsData(posts);
       dlog("initialised ${posts.length} posts");
     });
   }
 
-  static Future<void> addFeedPost(FeedPost feedPost) async {
-    await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
+  static Future<void> addFeedPost(
+      FeedPost FeedPost, Map<File, String> files) async {
+    //upload files list and get urls in a list
+    try {
+      for (var file in files.keys) {
+        final url = await _firebaseStorage
+            .child("feedPosts/${FeedPost.posterUid}/${files[file]}")
+            .putFile(file)
+            .then((value) => value.ref.getDownloadURL());
+        FeedPost.mediaFilesList.add(MediaFile(type: files[file]!, url: url));
+      }
+      await _feedPostsRef.doc(FeedPost.timeuid).set(FeedPost.toJson());
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
   static Future<void> deleteFeedPost(String timeuid) async {
@@ -201,13 +220,15 @@ class FirestoreService {
     });
   }
 
-  static Future<void> addLikeToFeedPost(String feedPostUid, String userUid) async {
+  static Future<void> addLikeToFeedPost(
+      String feedPostUid, String userUid) async {
     await _feedPostsRef.doc(feedPostUid).update({
       "likes": FieldValue.arrayUnion([userUid])
     });
   }
 
-  static Future<void> removeLikeFromFeedPost(String feedPostUid, String userUid) async {
+  static Future<void> removeLikeFromFeedPost(
+      String feedPostUid, String userUid) async {
     await _feedPostsRef.doc(feedPostUid).update({
       "likes": FieldValue.arrayRemove([userUid])
     });

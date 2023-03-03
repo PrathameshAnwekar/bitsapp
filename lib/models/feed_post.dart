@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/services/firestore_service.dart';
@@ -70,9 +72,9 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   }
 
   //add feedPost to list
-  Future<void> addFeedPost(FeedPost feedPost) async {
+  Future<void> addFeedPost(FeedPost feedPost, Map<File, String> files) async {
     try {
-      await FirestoreService.addFeedPost(feedPost).then((value) {
+      await FirestoreService.addFeedPost(feedPost, files).then((value) {
         state = state..add(feedPost);
       });
 
