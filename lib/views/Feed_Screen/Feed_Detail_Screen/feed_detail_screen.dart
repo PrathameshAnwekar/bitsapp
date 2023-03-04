@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/comment_box.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,8 @@ import '../components/feed_description.dart';
 
 class FeedDetailScreen extends StatefulWidget {
   final bool isCommentPressed;
-  const FeedDetailScreen({super.key, required this.isCommentPressed});
+  final FeedPost feedPost;
+  const FeedDetailScreen({super.key, required this.isCommentPressed,required this.feedPost});
 
   @override
   State<FeedDetailScreen> createState() => _FeedDetailScreenState();
@@ -46,6 +48,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                 FeedDesc(
                   isFeedScreen: false,
                   commentFunc: commentFunc,
+                  feedPost: widget.feedPost,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),

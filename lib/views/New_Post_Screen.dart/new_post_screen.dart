@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/New_Post_Screen.dart/components/local_media_container.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
@@ -17,10 +19,11 @@ class NewPostScreen extends HookConsumerWidget {
   Map<File, String> mp = {};
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final textController = useTextEditingController();
     final files = useState(mp);
     final localUser = ref.watch(localUserProvider);
     dlog(files.value.toString());
-
+    final loading = useState(false);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -32,16 +35,32 @@ class NewPostScreen extends HookConsumerWidget {
           child: Divider(thickness: 0.4),
         ),
         actions: [
-          Container(
-            width: 72,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFF4D5470),
-              borderRadius: BorderRadius.circular(20),
+          GestureDetector(
+            onTap: () async {
+              final FeedPost feedPost = FeedPost(
+                timeuid: DateTime.now().millisecondsSinceEpoch.toString(),
+                posterUid: localUser.uid,
+                comments: [],
+                likes: [],
+                mediaFilesList: [],
+                text: textController.text,
+              );
+              loading.value = true;
+              await FirestoreService
+                  .addFeedPost(feedPost, files.value, ref)
+                  .then((value) => loading.value = false);
+            },
+            child: Container(
+              width: 72,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF4D5470),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              child: const Text("Post",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-            child: const Text("Post",
-                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
       ),
@@ -73,47 +92,51 @@ class NewPostScreen extends HookConsumerWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: [
-                  const CircleProfilePic(radius: 20),
-                  const Spacer(flex: 1),
-                  PersonDetail(user: localUser),
-                  const Spacer(flex: 25),
-                ],
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                cursorColor: Colors.black54,
-                minLines: 10,
-                maxLines: 20,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 20, left: 3, right: 3),
-                  hintText: 'What do you want to talk about?',
-                  hintStyle: TextStyle(
-                    fontSize: 17,
-                    color: Color.fromRGBO(0, 0, 0, 0.25),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
+      body: loading.value
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        const CircleProfilePic(radius: 20),
+                        const Spacer(flex: 1),
+                        PersonDetail(user: localUser),
+                        const Spacer(flex: 25),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: textController,
+                      cursorColor: Colors.black54,
+                      minLines: 10,
+                      maxLines: 20,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.only(top: 20, left: 3, right: 3),
+                        hintText: 'What do you want to talk about?',
+                        hintStyle: TextStyle(
+                          fontSize: 17,
+                          color: Color.fromRGBO(0, 0, 0, 0.25),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)),
+                      ),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: Color.fromRGBO(27, 27, 27, 1),
+                      ),
+                    ),
+                    LocalMediaContainer(files: files.value)
+                  ],
                 ),
-                style: const TextStyle(
-                  fontSize: 17,
-                  color: Color.fromRGBO(27, 27, 27, 1),
-                ),
               ),
-              LocalMediaContainer(files: files.value)
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreService {
@@ -186,6 +187,7 @@ class FirestoreService {
     await _feedPostsRef
         .get(const GetOptions(source: Source.serverAndCache))
         .then((value) {
+      debugPrint(value.docs.toString());
       final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
       ref.read(feedPostDataProvider.notifier).initfeedPostsData(posts);
       dlog("initialised ${posts.length} posts");
@@ -193,19 +195,27 @@ class FirestoreService {
   }
 
   static Future<void> addFeedPost(
-      FeedPost FeedPost, Map<File, String> files) async {
+      FeedPost feedPost, Map<File, String> files, WidgetRef ref) async {
     //upload files list and get urls in a list
     try {
+      int i = 0;
       for (var file in files.keys) {
+        debugPrint("UploadTaskFlow: uploading ${files[file]}");
         final url = await _firebaseStorage
-            .child("feedPosts/${FeedPost.posterUid}/${files[file]}")
+            .child("feedPosts/${feedPost.posterUid}/${feedPost.timeuid}-$i")
             .putFile(file)
             .then((value) => value.ref.getDownloadURL());
-        FeedPost.mediaFilesList.add(MediaFile(type: files[file]!, url: url));
+        i++;
+        debugPrint("UploadTaskFlow: uploaded ${files[file]} $i. url : $url");
+
+        feedPost.mediaFilesList.add(MediaFile(type: files[file]!, url: url));
+        debugPrint("UploadTaskFlow: added ${files[file]} to mediaFilesList");
       }
-      await _feedPostsRef.doc(FeedPost.timeuid).set(FeedPost.toJson());
+      await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
+      ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
     } catch (e) {
       elog(e.toString());
+      rethrow;
     }
   }
 

@@ -20,7 +20,7 @@ class FeedPost {
   final String posterUid;
   final String timeuid;
   final String text;
-  final List<MediaFile> mediaFilesList;
+  List<MediaFile> mediaFilesList;
   final List<Comment> comments;
   final List<String> likes;
   FeedPost({
@@ -53,7 +53,7 @@ class FeedPost {
             url:
                 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
             type: 'video'),
-            MediaFile(
+        MediaFile(
             url:
                 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
             type: 'video'),
@@ -72,12 +72,11 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   }
 
   //add feedPost to list
-  Future<void> addFeedPost(FeedPost feedPost, Map<File, String> files) async {
+  Future<void> addFeedPost(FeedPost feedPost) async {
     try {
-      await FirestoreService.addFeedPost(feedPost, files).then((value) {
-        state = state..add(feedPost);
-      });
-
+      
+      dlog('feedPost ${feedPost.toString()} added to firestore');
+      state = state..add(feedPost);
       dlog('feedPost ${feedPost.timeuid} added to list');
     } catch (e) {
       elog(e.toString());

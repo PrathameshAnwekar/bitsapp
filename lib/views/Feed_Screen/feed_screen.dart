@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart' as bd;
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -125,9 +126,9 @@ class FeedScreen extends ConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ListView.separated(
-              itemCount: 1,
+              itemCount: ref.read(feedPostDataProvider).length,
               itemBuilder: (BuildContext context, int index) {
-                return const FeedContainer();
+                return  FeedContainer(feedPost: ref.read(feedPostDataProvider)[index]);
               },
               separatorBuilder: (context, index) => const SizedBox(height: 1),
             ),

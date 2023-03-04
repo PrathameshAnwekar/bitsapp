@@ -14,10 +14,12 @@ import 'media_container.dart';
 class FeedDesc extends HookConsumerWidget {
   final bool isFeedScreen;
   final Function commentFunc;
+  final FeedPost feedPost;
   const FeedDesc({
     super.key,
     required this.isFeedScreen,
     required this.commentFunc,
+    required this.feedPost, 
   });
 
   @override
@@ -44,7 +46,7 @@ class FeedDesc extends HookConsumerWidget {
             ),
           ],
         ),
-        MediaContainer(post: FeedPost.dummyFeedPost),
+        MediaContainer(post: feedPost),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ReadMoreText(
