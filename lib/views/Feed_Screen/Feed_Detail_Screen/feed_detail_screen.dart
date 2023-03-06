@@ -7,7 +7,8 @@ import '../components/feed_description.dart';
 class FeedDetailScreen extends StatefulWidget {
   final bool isCommentPressed;
   final FeedPost feedPost;
-  const FeedDetailScreen({super.key, required this.isCommentPressed,required this.feedPost});
+  const FeedDetailScreen(
+      {super.key, required this.isCommentPressed, required this.feedPost});
 
   @override
   State<FeedDetailScreen> createState() => _FeedDetailScreenState();
@@ -58,13 +59,11 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
-                SizedBox(
-                  height: 2000,
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) => const CommentBox(),
-                  ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) => const CommentBox(),
                 ),
               ],
             ),

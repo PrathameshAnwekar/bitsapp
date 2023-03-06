@@ -2,10 +2,9 @@ import 'package:bitsapp/models/local_fcm_object.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
+import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:bitsapp/services/notif_service.dart';
-import 'package:hive/hive.dart';
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   dlog('background message ${message.notification!.body}');

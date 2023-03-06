@@ -19,7 +19,7 @@ class FeedDesc extends HookConsumerWidget {
     super.key,
     required this.isFeedScreen,
     required this.commentFunc,
-    required this.feedPost, 
+    required this.feedPost,
   });
 
   @override
@@ -46,6 +46,7 @@ class FeedDesc extends HookConsumerWidget {
             ),
           ],
         ),
+        const SizedBox(height: 10),
         MediaContainer(post: feedPost),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
