@@ -3,6 +3,7 @@ import 'package:bitsapp/models/feed_post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'feed_container/feed_container.dart';
@@ -56,22 +57,29 @@ class FeedScreen extends ConsumerWidget {
                 child: Container(
                   margin: const EdgeInsets.only(left: 6, right: 6, bottom: 3),
                   height: 42,
-                  width: double.infinity,
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.04),
+                    color: Colors.grey.withOpacity(0.1),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
-                      color: const Color.fromRGBO(49, 50, 54, 1),
+                      color: Colors.black.withOpacity(0.8),
                     ),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       SvgPicture.asset(
                         'assets/icons/search.svg',
                         height: 22,
-                        color: const Color.fromRGBO(49, 50, 54, 1),
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Search",
+                        style: GoogleFonts.dmSans(
+                          fontSize: 16,
+                          color: Colors.black.withOpacity(0.8),
+                        ),
                       ),
                     ],
                   ),
