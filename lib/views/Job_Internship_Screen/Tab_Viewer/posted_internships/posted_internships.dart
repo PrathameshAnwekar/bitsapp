@@ -25,7 +25,8 @@ class PostedInternships extends HookConsumerWidget {
         return GestureDetector(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: ((context) =>  PostedInternshipDetails(internshipData: internship)),
+              builder: ((context) =>
+                  PostedInternshipDetails(internshipData: internship)),
             ),
           ),
           child: Container(
@@ -69,7 +70,6 @@ class PostedInternships extends HookConsumerWidget {
           ),
         );
       },
-
       itemCount: postedInternData.length,
     );
   }

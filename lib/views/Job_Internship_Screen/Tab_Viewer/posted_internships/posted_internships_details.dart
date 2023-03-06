@@ -2,6 +2,7 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -31,7 +32,7 @@ class PostedInternshipDetails extends HookConsumerWidget {
             },
           ),
         ),
-        backgroundColor: const Color(0xFFF7F6F8),
+        backgroundColor: Colors.white,
         title: const Text(
           "Responses",
           style: TextStyle(color: Color(0xFF4D5470), fontSize: 20),
@@ -56,13 +57,13 @@ class PostedInternshipDetails extends HookConsumerWidget {
         ],
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF7F6F8),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: <Widget>[
             _expandable(internshipData),
-            Expanded(child: _listView(internshipData, ref)),
+            _listView(internshipData, ref),
           ],
         ),
       ),
@@ -103,7 +104,6 @@ Widget _expandable(InternshipData internshipData) {
             style: GoogleFonts.dmSans(
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w300,
-              // color: const Color.fromRGBO(248, 248, 253, 1),
               fontSize: 22,
             ),
           ),
@@ -154,42 +154,63 @@ Widget _listView(
   WidgetRef ref,
 ) {
   final contactList = ref.read(contactsListProvider);
-  return ListView.builder(
-    shrinkWrap: true,
-    scrollDirection: Axis.vertical,
-    itemBuilder: (BuildContext context, int index) {
-      final application = internshipData.applications![index];
-      final user =
-          contactList.where((element) => element.uid == application.uid).first;
-      return GestureDetector(
-        onTap: () {},
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: const Color(0xFFdfdee8),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                user.name,
-                style: const TextStyle(fontSize: 16),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chat_rounded,
-                  size: 26,
+  return Expanded(
+    child: ListView.separated(
+      physics: const ClampingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemBuilder: (BuildContext context, int index) {
+        final application = internshipData.applications![index];
+        final user = contactList
+            .where((element) => element.uid == application.uid)
+            .first;
+        return GestureDetector(
+          onTap: () {},
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: const Color(0xFFdfdee8),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  user.name,
+                  style: const TextStyle(fontSize: 14),
                 ),
-              )
-            ],
+                const Expanded(child: SizedBox()),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    FontAwesomeIcons.squareXmark,
+                    color: Colors.red,
+                    size: 26,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    FontAwesomeIcons.squareCheck,
+                    color: Colors.green,
+                    size: 26,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.chat_rounded,
+                    size: 26,
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    },
-    itemCount: internshipData.applications == null
-        ? 0
-        : internshipData.applications!.length,
+        );
+      },
+      itemCount: internshipData.applications == null
+          ? 0
+          : internshipData.applications!.length,
+      separatorBuilder: (BuildContext context, int index) =>
+          const SizedBox(height: 8),
+    ),
   );
 }

@@ -15,15 +15,18 @@ class Screen4 extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          NotifService.showLocalNotification(ReceivedNotification(
-              id: 1,
-              title: "Hello",
-              body: "This is a notification",
-              payload: "This is a payload"));
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 12, bottom: 100),
+        child: FloatingActionButton(
+          onPressed: () {
+            NotifService.showLocalNotification(ReceivedNotification(
+                id: 1,
+                title: "Hello",
+                body: "This is a notification",
+                payload: "This is a payload"));
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
       appBar: AppBar(
         actions: [

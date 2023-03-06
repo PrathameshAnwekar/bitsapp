@@ -15,7 +15,7 @@ class InternshipTabView extends StatelessWidget {
           preferredSize: const Size.fromHeight(50.0),
           child: AppBar(
             scrolledUnderElevation: 0,
-            backgroundColor: const Color(0xFFF7F6F8),
+            backgroundColor: Colors.white,
             elevation: 0,
             automaticallyImplyLeading: false,
             bottom: TabBar(
@@ -34,6 +34,7 @@ class InternshipTabView extends StatelessWidget {
             ),
           ),
         ),
+        backgroundColor: Colors.white,
         body: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: TabBarView(
