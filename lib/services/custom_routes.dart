@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 
 var customRoutes = <String, WidgetBuilder>{
   MyApp.routeName: (context) => const MyApp(),
-  BottomBar.routeName: (context) =>  BottomBar(),
+  BottomBar.routeName: (context) => const BottomBar(),
   AuthScreen.routeName: (context) => const AuthScreen(),
   ChatsScreen.routeName: (context) => const ChatsScreen(),
 };

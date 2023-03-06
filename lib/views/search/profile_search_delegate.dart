@@ -19,7 +19,7 @@ class ProfileSearchDelegate extends SearchDelegate {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.search))
+          icon: const Icon(Icons.search))
     ];
   }
 
@@ -29,7 +29,7 @@ class ProfileSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
     );
   }
 

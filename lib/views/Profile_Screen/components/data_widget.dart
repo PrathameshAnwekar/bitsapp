@@ -5,12 +5,13 @@ class ExperienceWidget extends StatelessWidget {
   final String txt1;
   final String txt2;
   final String txt3;
-  const ExperienceWidget(
-      {super.key,
-      required this.url,
-      required this.txt1,
-      required this.txt2,
-      required this.txt3});
+  const ExperienceWidget({
+    super.key,
+    required this.url,
+    required this.txt1,
+    required this.txt2,
+    required this.txt3,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,11 @@ class ExperienceWidget extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              txt3 == ""
+              txt3.isEmpty
                   ? const SizedBox()
                   : Text(
                       txt3,
-                      style: const TextStyle(
-                        color: Colors.black54,
-                      ),
+                      style: const TextStyle(color: Colors.black54),
                     ),
             ],
           ),

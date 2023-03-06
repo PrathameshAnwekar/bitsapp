@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Constants {
-  static Map<String, dynamic> statusList = {
+  static final Map<String, Color> statusList = {
     "Accepted": Colors.green,
     "Pending": Colors.yellow.shade700,
     "Rejected": Colors.red,
   };
+
+  static final List<IconData> socialIcons = [
+    FontAwesomeIcons.instagram,
+    FontAwesomeIcons.linkedin,
+    FontAwesomeIcons.github,
+    FontAwesomeIcons.twitter,
+  ];
+
+  static final List<Color> socialIconColors = [
+    const Color(0xffBE2289),
+    const Color(0xff0085E0),
+    const Color(0xff202020),
+    const Color(0xff00ABEA),
+  ];
 
   static final bottomBarIcons = [
     "assets/icons/home.svg",

@@ -2,7 +2,6 @@ import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/constants.dart';
 import '../feed_screen/feed_screen.dart';
@@ -23,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pagelist = <Widget>[
     const FeedScreen(),
     const JobInternhipScreen(),
-     NewPostScreen(),
+    NewPostScreen(),
     const ChatsScreen(),
     const Screen4(null),
   ];
@@ -38,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
           child: BlurryContainer(
             height: 62,
             blur: 4.5,
@@ -59,7 +58,6 @@ class _BottomBarState extends State<BottomBar> {
                       }
                     },
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
@@ -80,7 +78,7 @@ class _BottomBarState extends State<BottomBar> {
                             child: SvgPicture.asset(
                               Constants.bottomBarIcons[index],
                               color: index == _pageindex
-                                  ? Colors.white.withOpacity(0.65)
+                                  ? Colors.white.withOpacity(0.7)
                                   : Colors.white.withOpacity(0.5),
                             ),
                           ),

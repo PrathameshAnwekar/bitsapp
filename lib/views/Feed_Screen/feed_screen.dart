@@ -1,13 +1,10 @@
-import 'package:badges/badges.dart' as bd;
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../chat/chats_screen.dart';
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
@@ -81,42 +78,11 @@ class FeedScreen extends ConsumerWidget {
                 ),
               ),
               actions: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) => const ChatsScreen(),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 14, bottom: 7),
-                    child: GestureDetector(
-                      onTap: () {
-                        
-                        FeedScreenController.goToSearch(context, ref);
-                      },
-                      child: SizedBox(
-                        width: 40,
-                        child: bd.Badge(
-                          position: bd.BadgePosition.custom(top: -7, end: 1.8),
-                          badgeContent: Text(
-                            "2",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.dmSans(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                          child: SvgPicture.asset(
-                            'assets/icons/message.svg',
-                            width: 38,
-                            height: 38,
-                            color: const Color.fromRGBO(49, 50, 54, 1),
-                          ),
-                        ),
-                      ),
-                    ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.settings_rounded,
+                    size: 32,
                   ),
                 ),
               ],
@@ -124,17 +90,21 @@ class FeedScreen extends ConsumerWidget {
             ),
           ],
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.only(bottom: 10),
             child: ListView.separated(
               itemCount: ref.read(feedPostDataProvider).length,
               itemBuilder: (BuildContext context, int index) {
-                return  FeedContainer(feedPost: ref.read(feedPostDataProvider)[index]);
+                return Padding(
+                  padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
+                  child: FeedContainer(
+                      feedPost: ref.read(feedPostDataProvider)[index]),
+                );
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 1),
+              separatorBuilder: (context, index) => const SizedBox(height: 10),
             ),
           ),
         ),
       ),
-);
+    );
   }
 }

@@ -19,7 +19,7 @@ class JobInternhipScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        backgroundColor: const Color(0xFFF7F6F8),
+        backgroundColor: Colors.white,
         centerTitle: false,
         title: Padding(
           padding: const EdgeInsets.only(left: 5),
@@ -68,7 +68,7 @@ class JobInternhipScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      backgroundColor: const Color(0xFFF7F6F8),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(

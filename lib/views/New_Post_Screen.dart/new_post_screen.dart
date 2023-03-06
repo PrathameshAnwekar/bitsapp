@@ -7,11 +7,12 @@ import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/New_Post_Screen.dart/components/local_media_container.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../components/circle_profile_pic.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 class NewPostScreen extends HookConsumerWidget {
   NewPostScreen({super.key});
@@ -26,6 +27,7 @@ class NewPostScreen extends HookConsumerWidget {
     final loading = useState(false);
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         automaticallyImplyLeading: false,
         title: const Text("Create a post"),
         centerTitle: false,
@@ -46,8 +48,7 @@ class NewPostScreen extends HookConsumerWidget {
                 text: textController.text,
               );
               loading.value = true;
-              await FirestoreService
-                  .addFeedPost(feedPost, files.value, ref)
+              await FirestoreService.addFeedPost(feedPost, files.value, ref)
                   .then((value) => loading.value = false);
             },
             child: Container(

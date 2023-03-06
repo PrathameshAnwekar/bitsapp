@@ -7,19 +7,39 @@
     <list default="true" id="47e1ed92-8bb1-4700-af37-1c1fa0458c3b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitsapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bitsapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/Components/internships_list_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/Components/internships_list_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/job_detail_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/job_detail_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/post_new_internship.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Job_Internship_Screen/post_new_internship.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/New_Post_Screen.dart/new_post_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/New_Post_Screen.dart/new_post_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/feed_post.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/feed_post.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/feed_post.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/feed_post.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/custom_routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/custom_routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/firestore_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/firestore_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/Profile_Screen/components/data_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Profile_Screen/components/data_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/Profile_Screen/components/profile_info_stack.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/Profile_Screen/components/profile_info_stack.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/bottom_nav_screen/bottom_nav_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/bottom_nav_screen/bottom_nav_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/search/components/search_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/search/components/search_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/search/profile_search_delegate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/search/profile_search_delegate.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,7 +70,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="Gradle.D:/flutter_projects/bitsapp [signingreport]">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="D:/flutter_projects/bitsapp [signingreport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -72,8 +92,30 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="/Users/arya/Library/CloudStorage/OneDrive-BIRLAINSTITUTEOFTECHNOLOGYandSCIENCE/Flutter Apps/bitsapp/android [signingreport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/android" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="signingreport" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle./Users/arya/Library/CloudStorage/OneDrive-BIRLAINSTITUTEOFTECHNOLOGYandSCIENCE/Flutter Apps/bitsapp/android [signingreport]" />
         <item itemvalue="Gradle.D:/flutter_projects/bitsapp [signingreport]" />
       </list>
     </recent_temporary>

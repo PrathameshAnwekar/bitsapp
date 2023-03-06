@@ -5,6 +5,7 @@ import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'views/bottom_nav_screen/bottom_nav_screen.dart';
@@ -27,22 +28,30 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
-    
     FirestoreService.initEverything(ref);
     return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          return SafeArea(
-            child: MaterialApp(
-              title: 'BITSocial',
-              debugShowCheckedModeBanner: false,
-              theme:
-                  ThemeData(useMaterial3: true, colorSchemeSeed: Colors.amber),
-              home: snapshot.hasData ?const  BottomBar() : const AuthScreen(),
-              // home: const BottomBar(),
-              routes: customRoutes,
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        return SafeArea(
+          child: MaterialApp(
+            title: 'BITSocial',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              useMaterial3: true,
+              colorSchemeSeed: Colors.amber,
+              appBarTheme: const AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.white,
+                  statusBarIconBrightness: Brightness.dark,
+                  statusBarBrightness: Brightness.light,
+                ),
+              ),
             ),
-          );
-        });
+            home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
+            routes: customRoutes,
+          ),
+        );
+      },
+    );
   }
 }

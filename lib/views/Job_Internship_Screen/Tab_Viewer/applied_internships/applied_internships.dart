@@ -108,7 +108,7 @@ class AppliedInternships extends HookConsumerWidget {
                     ),
                     ApplicationStatus(
                       text: applicationData.status,
-                      color: Constants.statusList[applicationData.status],
+                      color: Constants.statusList[applicationData.status]!,
                     ),
                   ],
                 )

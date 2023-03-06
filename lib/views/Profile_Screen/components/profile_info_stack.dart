@@ -1,18 +1,20 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:motion/motion.dart';
 
 class ProfileInfoStack extends StatelessWidget {
   final String name;
   final String? imageUrl;
   final String? profileDescription;
-   const ProfileInfoStack({super.key, required this.name, this.imageUrl, this.profileDescription});
+  const ProfileInfoStack(
+      {super.key, required this.name, this.imageUrl, this.profileDescription});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 270,
+      width: double.infinity,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -46,12 +48,34 @@ class ProfileInfoStack extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      profileDescription ?? "Your friendly neighbourhood bitsian",
+                      profileDescription ??
+                          "Your friendly neighbourhood bitsian",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.45),
                         fontSize: 15,
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ...List.generate(
+                          4,
+                          (index) => GestureDetector(
+                            onTap: () {},
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 7),
+                              child: Icon(
+                                Constants.socialIcons[index],
+                                color: Constants.socialIconColors[index],
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -61,16 +85,13 @@ class ProfileInfoStack extends StatelessWidget {
           CircleAvatar(
             radius: 75,
             backgroundColor: const Color(0xFF69708C).withOpacity(0.2),
-            child:  CircleAvatar(
+            child: CircleAvatar(
               radius: 70,
               backgroundColor: Colors.white,
               backgroundImage: CachedNetworkImageProvider(
-                imageUrl ?? "https://picsum.photos/200",
-                errorListener: () {
-                  elog("Error loading image");
-                },
-                cacheKey: "localUser.profilePicUrl"
-              ),
+                  imageUrl ?? "https://picsum.photos/200", errorListener: () {
+                elog("Error loading image");
+              }, cacheKey: "localUser.profilePicUrl"),
             ),
           ),
         ],

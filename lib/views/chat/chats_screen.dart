@@ -14,6 +14,7 @@ class ChatsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatrooms = ref.watch(chatRoomsProvider);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: buildAppBar(context),
       body: buildBody(chatrooms),
       floatingActionButton: Padding(
@@ -36,6 +37,7 @@ class ChatsScreen extends HookConsumerWidget {
 
   AppBar buildAppBar(context) {
     return AppBar(
+      backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
       title: const Text("Chats"),
       actions: [

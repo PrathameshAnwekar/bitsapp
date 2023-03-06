@@ -41,11 +41,12 @@ class SearchCard extends HookConsumerWidget {
                         color: Colors.blue,
                         shape: BoxShape.circle,
                         border: Border.all(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            width: 3),
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          width: 3,
+                        ),
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
             Expanded(
@@ -57,7 +58,9 @@ class SearchCard extends HookConsumerWidget {
                     Text(
                       user.name,
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(height: 8),
                   ],

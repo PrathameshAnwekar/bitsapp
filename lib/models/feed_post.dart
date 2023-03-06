@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -74,7 +71,6 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   //add feedPost to list
   Future<void> addFeedPost(FeedPost feedPost) async {
     try {
-      
       dlog('feedPost ${feedPost.toString()} added to firestore');
       state = state..add(feedPost);
       dlog('feedPost ${feedPost.timeuid} added to list');
