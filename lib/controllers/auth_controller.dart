@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:bitsapp/main.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:bitsapp/views/bottom_nav_screen/bottom_nav_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,7 +18,7 @@ class AuthController {
         ),
       );
       Navigator.of(context)
-          .pushNamedAndRemoveUntil(BottomBar.routeName, (route) => false);
+          .pushNamedAndRemoveUntil(MyApp.routeName, (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

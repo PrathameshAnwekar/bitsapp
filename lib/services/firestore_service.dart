@@ -33,16 +33,19 @@ class FirestoreService {
     }
   }
 
-  static Future<void> initEverything(WidgetRef ref) async {
+  static Future<bool> initEverything(WidgetRef ref) async {
     try {
       await FirestoreService.initUser(ref);
       await FirestoreService.updateContactsList(ref).then((value) async {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
         await FirestoreService.initFeedPosts(ref);
+        
       });
+      return Future.value(true);
     } catch (e) {
       elog(e.toString());
+      return Future.value(false);
     }
   }
 

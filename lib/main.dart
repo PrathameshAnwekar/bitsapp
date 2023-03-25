@@ -28,28 +28,36 @@ class MyApp extends HookConsumerWidget {
       init = false;
       SizeConfig.init(context);
     }
-    FirestoreService.initEverything(ref);
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        return SafeArea(
-          child: MaterialApp(
-            title: 'BITSocial',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              useMaterial3: true,
-              colorSchemeSeed: Colors.amber,
-              appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.white,
-                  statusBarIconBrightness: Brightness.dark,
-                  statusBarBrightness: Brightness.light,
+
+    return FutureBuilder(
+      future: FirestoreService.initEverything(ref),
+      builder: (context, snapshot1) {
+        return StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            return MaterialApp(
+              title: 'BITSocial',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: Colors.amber,
+                appBarTheme: const AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark,
+                    statusBarBrightness: Brightness.light,
+                  ),
                 ),
               ),
-            ),
-            home: snapshot.hasData ? const BottomBar() : const AuthScreen(),
-            routes: customRoutes,
-          ),
+              home: (snapshot1.connectionState == ConnectionState.waiting ||
+                      snapshot1.connectionState == ConnectionState.none)
+                  ? Center(child: CircularProgressIndicator(),)
+                  : snapshot.hasData
+                      ? const BottomBar()
+                      : const AuthScreen(),
+              routes: customRoutes,
+            );
+          },
         );
       },
     );
