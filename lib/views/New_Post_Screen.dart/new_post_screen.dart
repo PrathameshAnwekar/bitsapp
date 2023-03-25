@@ -69,6 +69,7 @@ class NewPostScreen extends HookConsumerWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12, bottom: 100),
         child: SpeedDial(
+          heroTag: "speedDial",
           animationDuration: const Duration(milliseconds: 300),
           animatedIcon: AnimatedIcons.menu_close,
           animatedIconTheme: const IconThemeData(color: Colors.white),

@@ -18,6 +18,7 @@ class Screen4 extends ConsumerWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12, bottom: 100),
         child: FloatingActionButton(
+          heroTag: "profile",
           onPressed: () {
             NotifService.showLocalNotification(ReceivedNotification(
                 id: 1,

@@ -13,6 +13,7 @@ class FeedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final feedPosts = ref.watch(feedPostDataProvider);
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.grey.withOpacity(.17),
@@ -99,16 +100,16 @@ class FeedScreen extends ConsumerWidget {
           ],
           body: Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: ListView.separated(
-              itemCount: ref.read(feedPostDataProvider).length,
+            child: ListView.builder(
+              itemCount: feedPosts.length,
               itemBuilder: (BuildContext context, int index) {
+                final key = ObjectKey(feedPosts[index]);
                 return Padding(
                   padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
-                  child: FeedContainer(
-                      feedPost: ref.read(feedPostDataProvider)[index]),
+                  child: FeedContainer(key: key,
+                      feedPost: feedPosts[index]),
                 );
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 10),
             ),
           ),
         ),
