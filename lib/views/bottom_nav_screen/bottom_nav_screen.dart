@@ -20,7 +20,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-    const FeedScreen(),
+     FeedScreen(),
     const JobInternhipScreen(),
     NewPostScreen(),
     const ChatsScreen(),

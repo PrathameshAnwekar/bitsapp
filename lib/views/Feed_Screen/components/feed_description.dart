@@ -51,7 +51,7 @@ class FeedDesc extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ReadMoreText(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis nunc ut magna efficitur feugiat id id sapien. Nam mi quam, lobortis eu venenatis ultrices, consequat et tortor. Morbi nibh quam, euismod ut porttitor id, mollis scelerisque tellus. Nunc commodo dui id fringilla consequat. Quisque odio nulla, blandit eu est quis, pulvinar dictum ipsum. Ut ut sagittis lorem, tempus blandit eros. ",
+            feedPost.text,
             style: const TextStyle(
               fontSize: 16,
             ),

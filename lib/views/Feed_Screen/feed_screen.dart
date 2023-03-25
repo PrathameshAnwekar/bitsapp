@@ -1,19 +1,40 @@
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
-  const FeedScreen({super.key});
+   FeedScreen({super.key});
 
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: true);
+
+  void _onRefresh(WidgetRef ref) async{
+    // monitor network fetch
+    await FirestoreService.initFeedPosts(ref);
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading(List<FeedPost> feedposts) async{
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    // items.add((items.length+1).toString());
+    
+    _refreshController.loadComplete();
+  }
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final feedPosts = ref.watch(feedPostDataProvider);
+    final feedPosts = ref.watch(feedPostDataProvider).reversed.toList();
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.grey.withOpacity(.17),
@@ -100,16 +121,25 @@ class FeedScreen extends ConsumerWidget {
           ],
           body: Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: ListView.builder(
-              itemCount: feedPosts.length,
-              itemBuilder: (BuildContext context, int index) {
-                final key = ObjectKey(feedPosts[index]);
-                return Padding(
-                  padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
-                  child: FeedContainer(key: key,
-                      feedPost: feedPosts[index]),
-                );
-              },
+            child: SmartRefresher(
+              enablePullDown: true,
+        enablePullUp: false,
+        controller: _refreshController,
+        header: WaterDropHeader(),
+        onLoading: () => _onLoading(feedPosts),
+        onRefresh: () => _onRefresh(ref),
+              child: ListView.builder(
+                addAutomaticKeepAlives: false,
+                addRepaintBoundaries: false,
+                itemCount: feedPosts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final key = ObjectKey(feedPosts[index]);
+                  return Padding(
+                    padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
+                    child: FeedContainer(key: key, feedPost: feedPosts[index]),
+                  );
+                },
+              ),
             ),
           ),
         ),
