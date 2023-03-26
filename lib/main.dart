@@ -51,7 +51,7 @@ class MyApp extends HookConsumerWidget {
               ),
               home: (snapshot1.connectionState == ConnectionState.waiting ||
                       snapshot1.connectionState == ConnectionState.none)
-                  ? Center(child: CircularProgressIndicator(),)
+                  ? Center(child: CircularProgressIndicator())
                   : snapshot.hasData
                       ? const BottomBar()
                       : const AuthScreen(),
