@@ -14,9 +14,14 @@ bool init = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
-
-  runApp(const ProviderScope(
-      child: MediaQuery(data: MediaQueryData(), child: MyApp())));
+  runApp(
+    const ProviderScope(
+      child: MediaQuery(
+        data: MediaQueryData(),
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends HookConsumerWidget {
@@ -51,7 +56,9 @@ class MyApp extends HookConsumerWidget {
               ),
               home: (snapshot1.connectionState == ConnectionState.waiting ||
                       snapshot1.connectionState == ConnectionState.none)
-                  ? Center(child: CircularProgressIndicator(),)
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
                   : snapshot.hasData
                       ? const BottomBar()
                       : const AuthScreen(),

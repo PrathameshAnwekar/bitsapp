@@ -55,6 +55,7 @@ class FeedDesc extends HookConsumerWidget {
             style: const TextStyle(
               fontSize: 16,
             ),
+            textAlign: TextAlign.start,
             trimCollapsedText: isFeedScreen ? "" : "read more",
             trimExpandedText: isFeedScreen ? "" : "show less",
             trimMode: isFeedScreen ? TrimMode.Length : TrimMode.Line,

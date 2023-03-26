@@ -20,7 +20,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
-     FeedScreen(),
+    FeedScreen(),
     const JobInternhipScreen(),
     NewPostScreen(),
     const ChatsScreen(),
@@ -39,11 +39,11 @@ class _BottomBarState extends State<BottomBar> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
           child: BlurryContainer(
-            height: 62,
+            height: 64,
             blur: 4.5,
             color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
             borderRadius: const BorderRadius.all(Radius.circular(24)),
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,7 +63,7 @@ class _BottomBarState extends State<BottomBar> {
                           duration: const Duration(milliseconds: 200),
                           margin: const EdgeInsets.only(bottom: 2),
                           height: 4,
-                          width: index == _pageindex ? 20 : 0,
+                          width: index == _pageindex ? 25 : 0,
                           decoration: const BoxDecoration(
                             color: Color(0xFF81B4FF),
                             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -73,14 +73,11 @@ class _BottomBarState extends State<BottomBar> {
                           duration: const Duration(milliseconds: 200),
                           height: index == _pageindex ? 30 : 28,
                           width: index == _pageindex ? 34 : 32,
-                          child: Opacity(
-                            opacity: index == _pageindex ? 1 : 0.5,
-                            child: SvgPicture.asset(
-                              Constants.bottomBarIcons[index],
-                              color: index == _pageindex
-                                  ? Colors.white.withOpacity(0.7)
-                                  : Colors.white.withOpacity(0.5),
-                            ),
+                          child: SvgPicture.asset(
+                            Constants.bottomBarIcons[index],
+                            color: index == _pageindex
+                                ? Colors.white.withOpacity(0.8)
+                                : Colors.white.withOpacity(0.35),
                           ),
                         ),
                       ],

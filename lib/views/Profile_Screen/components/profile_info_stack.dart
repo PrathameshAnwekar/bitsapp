@@ -85,17 +85,50 @@ class ProfileInfoStack extends StatelessWidget {
           CircleAvatar(
             radius: 75,
             backgroundColor: const Color(0xFF69708C).withOpacity(0.2),
-            child: CircleAvatar(
-              radius: 70,
-              backgroundColor: Colors.white,
-              backgroundImage: CachedNetworkImageProvider(
-                  imageUrl ?? "https://picsum.photos/200", errorListener: () {
-                elog("Error loading image");
-              }, cacheKey: "localUser.profilePicUrl"),
+            child: GestureDetector(
+              onTap: () => showPopUp(
+                  "https://images.unsplash.com/photo-1514222709107-a180c68d72b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1049&q=80",
+                  context),
+              child: CircleAvatar(
+                radius: 70,
+                backgroundColor: Colors.white,
+                backgroundImage: CachedNetworkImageProvider(
+                    imageUrl ?? "https://picsum.photos/200", errorListener: () {
+                  elog("Error loading image");
+                }, cacheKey: "localUser.profilePicUrl"),
+              ),
             ),
           ),
         ],
       ),
     );
   }
+}
+
+showPopUp(String imageUrl, BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
+          height: 500,
+          child: ClipRRect(
+            // borderRadius: BorderRadius.circular(15),
+            // child: Image.network(
+            //   imageUrl,
+            //   fit: BoxFit.fitWidth,
+            // ),
+            borderRadius: BorderRadius.circular(15), // Image border
+            child: Image.network(imageUrl, fit: BoxFit.cover),
+          ),
+        ),
+      );
+    },
+  );
 }
