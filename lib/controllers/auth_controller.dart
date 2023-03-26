@@ -2,7 +2,6 @@
 
 import 'package:bitsapp/main.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
-import 'package:bitsapp/views/bottom_nav_screen/bottom_nav_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

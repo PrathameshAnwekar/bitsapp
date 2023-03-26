@@ -39,7 +39,7 @@ class FeedScreen extends ConsumerWidget {
     final feedPosts = ref.watch(feedPostDataProvider).reversed.toList();
     return Scaffold(
       extendBody: true,
-      backgroundColor: Colors.grey.withOpacity(.17),
+      backgroundColor: const Color.fromARGB(44, 98, 98, 98),
       body: SafeArea(
         bottom: false,
         child: NestedScrollView(
@@ -137,7 +137,7 @@ class FeedScreen extends ConsumerWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final key = ObjectKey(feedPosts[index]);
                   return Padding(
-                    padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
+                    padding: const EdgeInsets.only(top: 10),
                     child: GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -154,7 +154,7 @@ class FeedScreen extends ConsumerWidget {
                     ),
                   );
                 },
-                separatorBuilder: (_, __) => const SizedBox(height: 10),
+                separatorBuilder: (_, __) => const SizedBox(height: 0),
               ),
             ),
           ),

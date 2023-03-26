@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class CircleProfilePic extends StatelessWidget {
   final double radius;
@@ -13,12 +12,8 @@ class CircleProfilePic extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: const Color.fromRGBO(226, 210, 254, 1),
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: SvgPicture.asset(
-          'assets/icons/person.svg',
-          fit: BoxFit.cover,
-        ),
+      backgroundImage: const NetworkImage(
+        "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
       ),
     );
   }
