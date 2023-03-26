@@ -1,17 +1,16 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/notif_service.dart';
-import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../profile_screen/components/data_widget.dart';
 import 'components/profile_info_stack.dart';
 
-class ProfileScreen extends ConsumerWidget {
+class ProfileEditScreen extends ConsumerWidget {
   final BitsUser? user;
 
-  const ProfileScreen(this.user, {super.key});
+  const ProfileEditScreen(this.user, {super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
@@ -33,15 +32,9 @@ class ProfileScreen extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ProfileEditScreen(user)),
-              );
-            },
+            onPressed: () {},
             icon: const Icon(
-              Icons.edit_rounded,
+              Icons.check,
               size: 26,
               color: Color(0xFF69708C),
             ),

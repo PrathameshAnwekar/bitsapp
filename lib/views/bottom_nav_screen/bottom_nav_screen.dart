@@ -24,7 +24,7 @@ class _BottomBarState extends State<BottomBar> {
     const JobInternhipScreen(),
     NewPostScreen(),
     const ChatsScreen(),
-    const Screen4(null),
+    const ProfileScreen(null),
   ];
   @override
   Widget build(BuildContext context) {
