@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -46,8 +47,8 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
                         : _controller.play();
                   });
                 },
-                child: AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
+                child: SizedBox(
+                
                   child: VideoPlayer(_controller),
                 ),
               );

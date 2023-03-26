@@ -11,27 +11,27 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
-   FeedScreen({super.key});
+  FeedScreen({super.key});
 
   final RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: false);
 
-  void _onRefresh(WidgetRef ref) async{
+  void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initFeedPosts(ref);
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading(List<FeedPost> feedposts) async{
+  void _onLoading(List<FeedPost> feedposts) async {
     // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     // items.add((items.length+1).toString());
-    
+
     _refreshController.loadComplete();
   }
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final feedPosts = ref.watch(feedPostDataProvider).reversed.toList();
@@ -123,13 +123,13 @@ class FeedScreen extends ConsumerWidget {
             padding: const EdgeInsets.only(bottom: 10),
             child: SmartRefresher(
               enablePullDown: true,
-        enablePullUp: false,
-        controller: _refreshController,
-        header: WaterDropHeader(),
-        onLoading: () => _onLoading(feedPosts),
-        onRefresh: () => _onRefresh(ref),
+              enablePullUp: false,
+              controller: _refreshController,
+              header: const WaterDropHeader(),
+              onLoading: () => _onLoading(feedPosts),
+              onRefresh: () => _onRefresh(ref),
               child: ListView.builder(
-                addAutomaticKeepAlives: false,
+                addAutomaticKeepAlives: true,
                 addRepaintBoundaries: false,
                 itemCount: feedPosts.length,
                 itemBuilder: (BuildContext context, int index) {

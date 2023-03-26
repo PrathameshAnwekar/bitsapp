@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class FeedDesc extends HookConsumerWidget {
             style: const TextStyle(
               fontSize: 16,
             ),
+            textAlign: TextAlign.start,
             trimCollapsedText: isFeedScreen ? "" : "read more",
             trimExpandedText: isFeedScreen ? "" : "show less",
             trimMode: isFeedScreen ? TrimMode.Length : TrimMode.Line,

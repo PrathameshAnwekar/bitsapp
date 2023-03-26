@@ -3,6 +3,7 @@ import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
+import 'package:bitsapp/views/initializer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,9 +15,11 @@ bool init = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await InitConstants().init();
-
-  runApp(const ProviderScope(
-      child: MediaQuery(data: MediaQueryData(), child: MyApp())));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends HookConsumerWidget {
@@ -24,11 +27,6 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (init) {
-      init = false;
-      SizeConfig.init(context);
-    }
-
     return FutureBuilder(
       future: FirestoreService.initEverything(ref),
       builder: (context, snapshot1) {
@@ -49,12 +47,7 @@ class MyApp extends HookConsumerWidget {
                   ),
                 ),
               ),
-              home: (snapshot1.connectionState == ConnectionState.waiting ||
-                      snapshot1.connectionState == ConnectionState.none)
-                  ? Center(child: CircularProgressIndicator())
-                  : snapshot.hasData
-                      ? const BottomBar()
-                      : const AuthScreen(),
+              home:  InitializerWidget(snapshot1: snapshot1, snapshot: snapshot),
               routes: customRoutes,
             );
           },
