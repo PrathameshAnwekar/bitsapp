@@ -5,7 +5,6 @@ import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'views/bottom_nav_screen/bottom_nav_screen.dart';
@@ -46,13 +45,6 @@ class MyApp extends HookConsumerWidget {
               theme: ThemeData(
                 useMaterial3: true,
                 colorSchemeSeed: Colors.amber,
-                appBarTheme: const AppBarTheme(
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: Colors.white,
-                    statusBarIconBrightness: Brightness.dark,
-                    statusBarBrightness: Brightness.light,
-                  ),
-                ),
               ),
               home: (snapshot1.connectionState == ConnectionState.waiting ||
                       snapshot1.connectionState == ConnectionState.none)

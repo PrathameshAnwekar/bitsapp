@@ -24,6 +24,7 @@ class InitConstants {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
     ));
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

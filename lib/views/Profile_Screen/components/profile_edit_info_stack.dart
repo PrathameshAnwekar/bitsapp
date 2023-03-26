@@ -8,11 +8,11 @@ import 'package:image_picker/image_picker.dart';
 import '../../../services/logger_service.dart';
 import 'profile_image_zoom.dart';
 
-class ProfileEditInfoStack extends StatefulWidget {
+class ProfileInfoStack extends StatefulWidget {
   final String name;
   final String? imageUrl;
   final String? profileDescription;
-  const ProfileEditInfoStack({
+  const ProfileInfoStack({
     super.key,
     required this.name,
     this.imageUrl,
@@ -20,10 +20,10 @@ class ProfileEditInfoStack extends StatefulWidget {
   });
 
   @override
-  State<ProfileEditInfoStack> createState() => _ProfileEditInfoStack();
+  State<ProfileInfoStack> createState() => _ProfileInfoStack();
 }
 
-class _ProfileEditInfoStack extends State<ProfileEditInfoStack> {
+class _ProfileInfoStack extends State<ProfileInfoStack> {
   File? fileMedia;
   @override
   Widget build(BuildContext context) {

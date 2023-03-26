@@ -5,6 +5,7 @@ import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../profile_screen/components/data_widget.dart';
 import 'components/profile_edit_info_stack.dart';
@@ -37,8 +38,12 @@ class ProfileScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ProfileEditScreen(user)),
+                PageTransition(
+                  type: PageTransitionType.bottomToTop,
+                  child: const ProfileEditScreen(),
+                  childCurrent: this,
+                  duration: const Duration(milliseconds: 250),
+                ),
               );
             },
             icon: const Icon(
@@ -64,7 +69,7 @@ class ProfileScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              ProfileEditInfoStack(
+              ProfileInfoStack(
                 name: localUser.name,
                 imageUrl: localUser.profilePicUrl,
                 profileDescription: localUser.profileDescription,
