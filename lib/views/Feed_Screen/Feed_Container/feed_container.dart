@@ -10,27 +10,18 @@ class FeedContainer extends StatelessWidget {
   final FeedPost feedPost;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-  
-      child: GestureDetector(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                 FeedDetailScreen(isCommentPressed: false, feedPost: feedPost))),
-        child: Container(
-          width: SizeConfig.screenWidth,
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(1),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          child: FeedDesc(
-            isFeedScreen: true,
-            feedPost: feedPost,
-            commentFunc: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                     FeedDetailScreen(isCommentPressed: true, feedPost: feedPost,),
-              ),
+    return Container(
+      width: SizeConfig.screenWidth,
+      padding: const EdgeInsets.all(10),
+      color: Colors.white,
+      child: FeedDesc(
+        isFeedScreen: true,
+        feedPost: feedPost,
+        commentFunc: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => FeedDetailScreen(
+              isCommentPressed: true,
+              feedPost: feedPost,
             ),
           ),
         ),

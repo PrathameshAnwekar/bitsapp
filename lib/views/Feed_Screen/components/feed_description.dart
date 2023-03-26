@@ -1,4 +1,3 @@
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class FeedDesc extends HookConsumerWidget {
       children: <Widget>[
         Row(
           children: [
-            const CircleProfilePic(radius: 20),
+            const CircleProfilePic(radius: 22.5),
             const Spacer(flex: 1),
             PersonDetail(
               user: localUser,
@@ -47,23 +46,28 @@ class FeedDesc extends HookConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
-        MediaContainer(post: feedPost),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ReadMoreText(
-            feedPost.text,
-            style: const TextStyle(
-              fontSize: 16,
+            // feedPost.text,
+            "In the previous section, we saw changing the status bar color using the appbar. But what if you want to change the status bar color without the appbar. Here’s the solution. You can simply wrap your top widget inside another widget called AnnotatedRegion. Using the AnnotatedRegion’s value property, you can set the status bar color.",
+            style: GoogleFonts.firaSans(
+              fontSize: 16.5,
+              letterSpacing: 0.1,
+              height: 1.25,
             ),
+            moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
+            lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
             textAlign: TextAlign.start,
-            trimCollapsedText: isFeedScreen ? "" : "read more",
-            trimExpandedText: isFeedScreen ? "" : "show less",
+            trimCollapsedText: " read more",
+            trimExpandedText: " show less",
             trimMode: isFeedScreen ? TrimMode.Length : TrimMode.Line,
             trimLines: 100000,
             trimLength: 240,
           ),
         ),
+        MediaContainer(post: feedPost),
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

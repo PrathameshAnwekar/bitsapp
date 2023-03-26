@@ -3,8 +3,8 @@ import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -51,11 +51,6 @@ class FeedScreen extends ConsumerWidget {
               floating: true,
               snap: true,
               toolbarHeight: 55,
-              // systemOverlayStyle: const SystemUiOverlayStyle(
-              //   statusBarColor: Colors.white,
-              //   statusBarIconBrightness: Brightness.dark,
-              //   statusBarBrightness: Brightness.light,
-              // ),
               leading: Padding(
                 padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
                 child: Container(
@@ -86,7 +81,7 @@ class FeedScreen extends ConsumerWidget {
                 child: Container(
                   margin: const EdgeInsets.only(left: 6, right: 6, bottom: 3),
                   height: 42,
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     color: Colors.grey.withOpacity(0.1),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -118,7 +113,7 @@ class FeedScreen extends ConsumerWidget {
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.settings_rounded,
+                    FontAwesomeIcons.anglesLeft,
                     size: 32,
                   ),
                 ),

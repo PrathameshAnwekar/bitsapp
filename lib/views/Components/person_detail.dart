@@ -15,18 +15,20 @@ class PersonDetail extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          user.name,
-          style: GoogleFonts.dmSans(
-            color: const Color(0xFF383D51),
-            fontSize: 16,
+          // user.name,
+          "James Andrew",
+          style: GoogleFonts.firaSans(
+            color: const Color.fromRGBO(15, 15, 18, 0.9),
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
           ),
         ),
         Text(
           '1d ago',
-          style: GoogleFonts.dmSans(
-            color: const Color(0xFF383D51),
+          style: GoogleFonts.firaSans(
+            color: const Color.fromARGB(255, 166, 166, 166),
             letterSpacing: 0.2,
-            fontSize: 12,
+            fontSize: 14.5,
           ),
         ),
       ],
