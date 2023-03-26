@@ -1,14 +1,11 @@
 import 'package:bitsapp/constants/init_constants.dart';
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
-import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:bitsapp/views/initializer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'views/bottom_nav_screen/bottom_nav_screen.dart';
 
 bool init = true;
 void main() async {
@@ -38,8 +35,15 @@ class MyApp extends HookConsumerWidget {
               theme: ThemeData(
                 useMaterial3: true,
                 colorSchemeSeed: Colors.amber,
+                appBarTheme: const AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    statusBarIconBrightness: Brightness.dark,
+                    statusBarBrightness: Brightness.light,
+                  ),
+                ),
               ),
-              home:  InitializerWidget(snapshot1: snapshot1, snapshot: snapshot),
+              home: InitializerWidget(snapshot1: snapshot1, snapshot: snapshot),
               routes: customRoutes,
             );
           },

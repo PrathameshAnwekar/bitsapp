@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InitializerWidget extends ConsumerStatefulWidget {
-  InitializerWidget({Key? key, required this.snapshot1, required this.snapshot})
+  const InitializerWidget(
+      {Key? key, required this.snapshot1, required this.snapshot})
       : super(key: key);
   final snapshot1, snapshot;
   static const routeName = '/initializer';
