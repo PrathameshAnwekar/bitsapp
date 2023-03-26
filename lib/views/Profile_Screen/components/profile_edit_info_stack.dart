@@ -1,15 +1,30 @@
+import 'dart:io';
+
 import 'package:bitsapp/constants/constants.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProfileInfoStack extends StatelessWidget {
+import '../../../services/logger_service.dart';
+import 'profile_image_zoom.dart';
+
+class ProfileInfoStack extends StatefulWidget {
   final String name;
   final String? imageUrl;
   final String? profileDescription;
-  const ProfileInfoStack(
-      {super.key, required this.name, this.imageUrl, this.profileDescription});
+  const ProfileInfoStack({
+    super.key,
+    required this.name,
+    this.imageUrl,
+    this.profileDescription,
+  });
 
+  @override
+  State<ProfileInfoStack> createState() => _ProfileInfoStack();
+}
+
+class _ProfileInfoStack extends State<ProfileInfoStack> {
+  File? fileMedia;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -40,7 +55,7 @@ class ProfileInfoStack extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      name,
+                      widget.name,
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.65),
                         fontSize: 21,
@@ -48,7 +63,7 @@ class ProfileInfoStack extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      profileDescription ??
+                      widget.profileDescription ??
                           "Your friendly neighbourhood bitsian",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -89,46 +104,67 @@ class ProfileInfoStack extends StatelessWidget {
               onTap: () => showPopUp(
                   "https://images.unsplash.com/photo-1514222709107-a180c68d72b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1049&q=80",
                   context),
-              child: CircleAvatar(
-                radius: 70,
-                backgroundColor: Colors.white,
-                backgroundImage: CachedNetworkImageProvider(
-                    imageUrl ?? "https://picsum.photos/200", errorListener: () {
-                  elog("Error loading image");
-                }, cacheKey: "localUser.profilePicUrl"),
+              child: fileMedia == null
+                  ? CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Colors.white,
+                      backgroundImage: CachedNetworkImageProvider(
+                          widget.imageUrl ?? "https://picsum.photos/200",
+                          errorListener: () {
+                        elog("Error loading image");
+                      }, cacheKey: "localUser.profilePicUrl"),
+                    )
+                  : CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Colors.white,
+                      backgroundImage: FileImage(fileMedia!),
+                    ),
+            ),
+          ),
+          Positioned(
+            top: 95,
+            right: 120,
+            child: buildCircle(
+              child: buildCircle(
+                child: GestureDetector(
+                  onTap: () => capture(),
+                  child: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+                color: const Color(0xFF69708C),
+                padding: 8,
               ),
+              color: Colors.white,
+              padding: 3,
             ),
           ),
         ],
       ),
     );
   }
+
+  Future capture() async {
+    final getMedia = ImagePicker().pickImage;
+    final media = await getMedia(source: ImageSource.gallery);
+    final file = File(media!.path);
+    setState(() {
+      fileMedia = file;
+    });
+  }
 }
 
-showPopUp(String imageUrl, BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return Center(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          height: 500,
-          child: ClipRRect(
-            // borderRadius: BorderRadius.circular(15),
-            // child: Image.network(
-            //   imageUrl,
-            //   fit: BoxFit.fitWidth,
-            // ),
-            borderRadius: BorderRadius.circular(15), // Image border
-            child: Image.network(imageUrl, fit: BoxFit.cover),
-          ),
-        ),
-      );
-    },
-  );
-}
+Widget buildCircle({
+  required Widget child,
+  required Color color,
+  required double padding,
+}) =>
+    ClipOval(
+      child: Container(
+        padding: EdgeInsets.all(padding),
+        color: color,
+        child: child,
+      ),
+    );

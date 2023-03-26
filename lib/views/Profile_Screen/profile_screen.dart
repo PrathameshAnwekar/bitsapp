@@ -1,16 +1,19 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/notif_service.dart';
+import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../profile_screen/components/data_widget.dart';
-import 'components/profile_info_stack.dart';
+import 'components/profile_edit_info_stack.dart';
 
-class Screen4 extends ConsumerWidget {
+class ProfileScreen extends ConsumerWidget {
   final BitsUser? user;
 
-  const Screen4(this.user, {super.key});
+  const ProfileScreen(this.user, {super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
@@ -32,9 +35,19 @@ class Screen4 extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.bottomToTop,
+                  child: const ProfileEditScreen(),
+                  childCurrent: this,
+                  duration: const Duration(milliseconds: 250),
+                ),
+              );
+            },
             icon: const Icon(
-              Icons.edit_rounded,
+              FontAwesomeIcons.penToSquare,
               size: 26,
               color: Color(0xFF69708C),
             ),

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'Feed_Detail_Screen/feed_detail_screen.dart';
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
@@ -128,7 +129,7 @@ class FeedScreen extends ConsumerWidget {
               header: const WaterDropHeader(),
               onLoading: () => _onLoading(feedPosts),
               onRefresh: () => _onRefresh(ref),
-              child: ListView.builder(
+              child: ListView.separated(
                 addAutomaticKeepAlives: true,
                 addRepaintBoundaries: false,
                 itemCount: feedPosts.length,
@@ -136,9 +137,23 @@ class FeedScreen extends ConsumerWidget {
                   final key = ObjectKey(feedPosts[index]);
                   return Padding(
                     padding: EdgeInsets.only(top: index == 0 ? 10 : 0),
-                    child: FeedContainer(key: key, feedPost: feedPosts[index]),
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => FeedDetailScreen(
+                            isCommentPressed: false,
+                            feedPost: feedPosts[index],
+                          ),
+                        ),
+                      ),
+                      child: FeedContainer(
+                        key: key,
+                        feedPost: feedPosts[index],
+                      ),
+                    ),
                   );
                 },
+                separatorBuilder: (_, __) => const SizedBox(height: 10),
               ),
             ),
           ),
