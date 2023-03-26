@@ -82,7 +82,7 @@ class InternshipCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const CircleProfilePic(radius: 16),
+                const CircleProfilePic(radius: 22.5),
                 const Spacer(flex: 1),
                 PersonDetail(user: poster),
                 const Spacer(flex: 15),

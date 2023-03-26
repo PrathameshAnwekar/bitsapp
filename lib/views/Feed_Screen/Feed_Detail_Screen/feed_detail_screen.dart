@@ -1,6 +1,7 @@
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/comment_box.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/feed_description.dart';
 
@@ -56,7 +57,9 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   child: Text(
                     key: _itemKey,
                     "Comments",
-                    style: const TextStyle(fontSize: 16),
+                    style: GoogleFonts.firaSans(
+                      fontSize: 17.5,
+                    ),
                   ),
                 ),
                 ListView.builder(
