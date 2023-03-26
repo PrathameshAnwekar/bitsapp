@@ -3,10 +3,11 @@ import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../profile_screen/components/data_widget.dart';
-import 'components/profile_info_stack.dart';
+import 'components/profile_edit_info_stack.dart';
 
 class ProfileScreen extends ConsumerWidget {
   final BitsUser? user;
@@ -41,7 +42,7 @@ class ProfileScreen extends ConsumerWidget {
               );
             },
             icon: const Icon(
-              Icons.edit_rounded,
+              FontAwesomeIcons.penToSquare,
               size: 26,
               color: Color(0xFF69708C),
             ),
@@ -63,7 +64,7 @@ class ProfileScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              ProfileInfoStack(
+              ProfileEditInfoStack(
                 name: localUser.name,
                 imageUrl: localUser.profilePicUrl,
                 profileDescription: localUser.profileDescription,

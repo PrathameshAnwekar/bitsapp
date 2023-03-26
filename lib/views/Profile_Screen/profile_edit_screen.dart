@@ -2,9 +2,11 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../profile_screen/components/data_widget.dart';
+import 'components/profile_edit_info_stack.dart';
 import 'components/profile_info_stack.dart';
 
 class ProfileEditScreen extends ConsumerWidget {
@@ -32,17 +34,19 @@ class ProfileEditScreen extends ConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: const Icon(
-              Icons.check,
+              FontAwesomeIcons.check,
               size: 26,
-              color: Color(0xFF69708C),
+              color: Colors.green,
             ),
           )
         ],
         scrolledUnderElevation: 0,
         title: Text(
-          "Profile",
+          "Edit Profile",
           style: TextStyle(
             color: Colors.black.withOpacity(0.65),
             fontWeight: FontWeight.w500,
@@ -56,7 +60,7 @@ class ProfileEditScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              ProfileInfoStack(
+              ProfileEditInfoStack(
                 name: localUser.name,
                 imageUrl: localUser.profilePicUrl,
                 profileDescription: localUser.profileDescription,

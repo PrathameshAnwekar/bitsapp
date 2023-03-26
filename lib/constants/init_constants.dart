@@ -16,17 +16,16 @@ class InitConstants {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    
+
     await NotifService.init().then((value) {
       NotifService.dismissAllNotifs();
     });
     //set notif panel to transpaernt
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
     ));
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  
 
     if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
 
