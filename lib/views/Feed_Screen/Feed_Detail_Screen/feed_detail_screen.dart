@@ -66,13 +66,40 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 10,
-                  itemBuilder: (context, index) => const CommentBox(),
+                  itemBuilder: (context, index) => const CommentsBox(),
                 ),
               ],
             ),
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: TextFormField(
+        style: GoogleFonts.firaSans(
+          color: Colors.white,
+          fontSize: 17,
+        ),
+        cursorColor: const Color(0xFF0073B1),
+        decoration: InputDecoration(
+          hintText: "Add a comment",
+          hintStyle: GoogleFonts.firaSans(
+            color: Colors.white,
+            fontSize: 17,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: const Color.fromARGB(255, 30, 30, 31),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        ),
+      ),
+      // bottomNavigationBar: Padding(
+      //   padding: MediaQuery.of(context).viewInsets,
+      //   child: Container(height: 60, color: Colors.red),
+      // ),
     );
   }
 }

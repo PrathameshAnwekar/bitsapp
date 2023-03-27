@@ -2,8 +2,8 @@ import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CommentBox extends StatelessWidget {
-  const CommentBox({super.key});
+class CommentsBox extends StatelessWidget {
+  const CommentsBox({super.key});
 
   @override
   Widget build(BuildContext context) {
