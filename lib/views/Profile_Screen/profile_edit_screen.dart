@@ -26,6 +26,11 @@ class ProfileEditScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: const <Widget>[],
+        ),
+      ),
     );
   }
 }
