@@ -23,19 +23,17 @@ class JobInternhipScreen extends HookConsumerWidget {
     void showMultiSelect(BuildContext context) async {
       await showDialog(
         context: context,
-        builder: (ctx) => Material(
-          child: MultiSelectDialog(
-            initialValue: filteredSkills,
-            backgroundColor: Colors.white,
-            height: 400,
-            searchable: true,
-            title: const Title1(txt: "Filter by skills"),
-            items: Constants.skills.map((e) => MultiSelectItem(e, e)).toList(),
-            listType: MultiSelectListType.CHIP,
-            onConfirm: (values) {
-              filteredSkills = values;
-            },
-          ),
+        builder: (ctx) => MultiSelectDialog(
+          initialValue: filteredSkills,
+          backgroundColor: Colors.white,
+          height: 400,
+          searchable: true,
+          title: const Title1(txt: "Filter by skills"),
+          items: Constants.skills.map((e) => MultiSelectItem(e, e)).toList(),
+          listType: MultiSelectListType.CHIP,
+          onConfirm: (values) {
+            filteredSkills = values;
+          },
         ),
       );
     }
