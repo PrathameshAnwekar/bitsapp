@@ -85,27 +85,48 @@ class FeedContainerController {
   static Future<bool> shareFeedPostInternally(
       FeedPost feedpost, WidgetRef ref, List<String> uids) async {
     try {
-      final String shareString = "InternalShare@${feedpost.timeuid}";
+      //CUSTOM STRING FOR POSTS TO BE INTERPRETED BY THE APP
+      final String shareString = "ApplicationInternalShare@${feedpost.timeuid}";
       final chatRooms = ref.read(chatRoomsProvider);
       final localUser = ref.read(localUserProvider);
-      List chatRoomToShare = [];
+      final contacts = ref.read(contactsListProvider);
+      List<ChatRoom> chatRoomToShare = [];
 
-      //TODO: Add support for new chat rooms
-      //TODO: Add FcmId to Message
+      
       for (int i = 0; i < uids.length; i++) {
         ChatRoom chatRoom = chatRooms.firstWhere(
-            (element) => element.userUidList.contains(uids[i]),
-            orElse: () => ChatRoom(uid: "null", userUidList: [], messages: []));
-        if (chatRoom.uid != "null") chatRoomToShare.add(chatRoom);
+            (element) => element.userUidList.contains(uids[i]), orElse: () {
+          ///CREATING NEW CHATROOM IF IT DOESN'T EXIST ALREADY
+          final otherUser =
+              contacts.firstWhere((element) => element.uid == uids[i]);
+          final chatRoomUid = localUser.uid.compareTo(uids[i]) < 0
+              ? localUser.uid + otherUser.uid
+              : otherUser.uid + localUser.uid;
+          final newChatRoom = ChatRoom(
+              uid: chatRoomUid,
+              userUidList: [localUser.uid, otherUser.uid],
+              messages: []);
+          ref.read(localUserProvider.notifier).addChatRoom(chatRoomUid);
+          ref
+              .read(chatRoomsProvider.notifier)
+              .addChatRoom(newChatRoom, localUser.uid, otherUser.uid);
+          return newChatRoom;
+        });
+        chatRoomToShare.add(chatRoom);
       }
       for (int i = 0; i < chatRoomToShare.length; i++) {
+        final otherUserUid = chatRoomToShare[i]
+            .userUidList
+            .firstWhere((element) => localUser.uid != element);
+        final fcmId =
+            contacts.firstWhere((element) => element.uid == otherUserUid).fcmID;
         final message = Message(
             sender: localUser.uid,
             text: shareString,
             time: DateTime.now().millisecondsSinceEpoch);
         ref
             .read(chatRoomsProvider.notifier)
-            .addMessage(chatRoomToShare[i].uid, message, "null");
+            .addMessage(chatRoomToShare[i].uid, message, fcmId ?? "null");
       }
       return Future.value(true);
     } catch (e) {
