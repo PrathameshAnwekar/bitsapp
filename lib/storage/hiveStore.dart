@@ -10,6 +10,8 @@ final hiveP = StateProvider((ref) => null);
 class HiveStore {
   static final storage = Hive.box("defaultStorage");
   static final chatRooms = Hive.box("chatStorage");
+  static final bookmarkedPosts = Hive.box("bookmarkedPosts");
+
   static init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     Hive
@@ -18,5 +20,6 @@ class HiveStore {
     
     await Hive.openBox("defaultStorage");
     await Hive.openBox("chatStorage");
+    await Hive.openBox("bookmarkedPosts");
   }
 }

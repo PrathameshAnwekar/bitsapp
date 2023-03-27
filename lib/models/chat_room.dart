@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -42,18 +43,27 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
   }
 
   void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) async {
-    state = state..add(chatRoom);
-    await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
+    try {
+      await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
+      state = state..add(chatRoom);
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
   void addMessage(String chatRoomUid, Message message, String fcmUid) async {
-    state = state.map((chatRoom) {
-      if (chatRoom.uid == chatRoomUid) {
-        chatRoom.messages = [...chatRoom.messages, message];
-      }
-      return chatRoom;
-    }).toList();
-    await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
+    try {
+      await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
+      state = state.map((chatRoom) {
+        if (chatRoom.uid == chatRoomUid) {
+          chatRoom.messages = [...chatRoom.messages, message];
+        }
+        return chatRoom;
+      }).toList();
+    } catch (e) {
+      elog(e.toString());
+    }
+
     // await FcmService.sendChatNotification(fcmUid);
   }
 }

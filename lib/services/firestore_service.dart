@@ -186,13 +186,30 @@ class FirestoreService {
   // ************* FEED POST SERVICES ************* //
 
   static Future<void> initFeedPosts(WidgetRef ref) async {
+    //get last 10 posts
     await _feedPostsRef
+        .orderBy("timeuid", descending: true)
+        .limit(10)
         .get(const GetOptions(source: Source.serverAndCache))
         .then((value) {
-      debugPrint(value.docs.toString());
       final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
-      ref.read(feedPostDataProvider.notifier).initfeedPostsData(posts);
+      ref.read(feedPostDataProvider.notifier).initFeedPostsData(posts);
       dlog("initialised ${posts.length} posts");
+    });
+  }
+
+  static Future<void> fetchExtra10FeedPosts(WidgetRef ref) async {
+    //get 10 more posts
+    final feedPosts = ref.read(feedPostDataProvider);
+    await _feedPostsRef
+        .orderBy("timeuid", descending: true)
+        .startAfter([feedPosts[feedPosts.length - 1].timeuid])
+        .limit(10)
+        .get(const GetOptions(source: Source.serverAndCache))
+        .then((value) {
+      final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
+      ref.read(feedPostDataProvider.notifier).addExtraFeedPosts(posts);
+      dlog("added ${posts.length} posts");
     });
   }
 
@@ -229,6 +246,13 @@ class FirestoreService {
       String feedPostUid, Comment comment) async {
     await _feedPostsRef.doc(feedPostUid).update({
       "comments": FieldValue.arrayUnion([comment.toJson()])
+    });
+  }
+
+  static Future<void> deleteCommentFromFeedPost(
+      String feedPostUid, Comment comment) async {
+    await _feedPostsRef.doc(feedPostUid).update({
+      "comments": FieldValue.arrayRemove([comment.toJson()])
     });
   }
 
