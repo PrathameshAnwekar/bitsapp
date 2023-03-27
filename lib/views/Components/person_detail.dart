@@ -6,8 +6,10 @@ class PersonDetail extends StatelessWidget {
   const PersonDetail({
     super.key,
     required this.user,
+    required this.isSmall,
   });
   final BitsUser user;
+  final bool isSmall;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class PersonDetail extends StatelessWidget {
           "James Andrew",
           style: GoogleFonts.firaSans(
             color: const Color.fromRGBO(15, 15, 18, 0.9),
-            fontSize: 18,
+            fontSize: isSmall ? 16 : 18,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -28,7 +30,7 @@ class PersonDetail extends StatelessWidget {
           style: GoogleFonts.firaSans(
             color: const Color.fromARGB(255, 166, 166, 166),
             letterSpacing: 0.2,
-            fontSize: 14.5,
+            fontSize: isSmall ? 12.5 : 14.5,
           ),
         ),
       ],

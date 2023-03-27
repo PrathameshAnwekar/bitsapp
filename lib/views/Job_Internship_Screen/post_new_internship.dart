@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 import '../components/circle_profile_pic.dart';
 import 'components/title1.dart';
@@ -20,11 +23,61 @@ class PostNewInternship extends HookConsumerWidget {
     final compensationController = useTextEditingController();
     final contactEmailController = useTextEditingController();
     final skillController = useTextEditingController();
+    final List<String> skills = [
+      "Python",
+      "Flutter",
+      "Django",
+      "React",
+      "C++",
+      "Node JS",
+      "Java",
+      "C",
+      "C#",
+      "PHP",
+      "Ruby",
+      "Go",
+      "Rust",
+      "Kotlin",
+      "Swift",
+      "Dart",
+      "SQL",
+      "Python",
+      "Flutter",
+      "Django",
+      "React",
+      "C++",
+      "Node JS",
+      "Java",
+      "C",
+      "C#",
+      "PHP",
+      "Ruby",
+      "Go",
+      "Rust",
+      "Kotlin",
+      "Swift",
+      "Dart",
+      "SQL",
+      "NoSQL",
+      "MongoDB",
+      "C#",
+      "PHP",
+      "Ruby",
+      "Go",
+      "Rust",
+      "Kotlin",
+      "Swift",
+      "Dart",
+      "SQL",
+      "NoSQL",
+      "MongoDB",
+    ];
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFF7F6F8),
+        backgroundColor: Colors.white,
         leadingWidth: 40,
         centerTitle: false,
         leading: Padding(
@@ -78,7 +131,7 @@ class PostNewInternship extends HookConsumerWidget {
                 color: Color(0xFF4D5470),
                 shape: StadiumBorder(),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              padding: const EdgeInsets.fromLTRB(15, 4, 15, 8),
               child: const Text("Post",
                   style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
@@ -97,9 +150,9 @@ class PostNewInternship extends HookConsumerWidget {
                 children: <Widget>[
                   Row(
                     children: [
-                      const CircleProfilePic(radius: 16),
+                      const CircleProfilePic(radius: 18),
                       const Spacer(flex: 1),
-                      PersonDetail(user: localUser),
+                      PersonDetail(user: localUser, isSmall: true),
                       const Spacer(flex: 15),
                     ],
                   ),
@@ -118,10 +171,10 @@ class PostNewInternship extends HookConsumerWidget {
                       contentPadding:
                           const EdgeInsets.only(bottom: -10.0, left: 12),
                       hintText: 'Flutter app developer or Co-Founder',
-                      hintStyle: const TextStyle(
-                        fontFamily: 'ManRope Regular',
+                      hintStyle: GoogleFonts.firaSans(
+                        // fontFamily: 'ManRope Regular',
                         fontSize: 16,
-                        color: Color.fromRGBO(0, 0, 0, 0.25),
+                        color: const Color.fromRGBO(0, 0, 0, 0.25),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
@@ -183,50 +236,39 @@ class PostNewInternship extends HookConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  Row(
-                    children: [
-                      const Title1(txt: "Skill(s) required: "),
-                      Expanded(
-                        child: TextFormField(
-                          controller: skillController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter atleast one skill';
-                            }
-                            return null;
-                          },
-                          cursorColor: Colors.black54,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                bottom: -10.0, left: 10, right: 10),
-                            hintText: 'Separate skills using commas',
-                            hintStyle: const TextStyle(
-                              fontFamily: 'ManRope Regular',
-                              fontSize: 16,
-                              color: Color.fromRGBO(0, 0, 0, 0.25),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(6),
-                              ),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
-                              ),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                          ),
-                          style: const TextStyle(
-                            fontFamily: 'ManRope Regular',
-                            fontSize: 16,
-                            color: Color.fromRGBO(27, 27, 27, 1),
-                          ),
-                        ),
+                  MultiSelectDialogField(
+                    backgroundColor: Colors.white,
+                    buttonIcon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: Colors.black,
+                    ),
+                    buttonText: Text(
+                      "Select Skill(s) required",
+                      style: GoogleFonts.dmSans(
+                        color: Colors.black.withOpacity(0.7),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
+                    ),
+                    dialogHeight: 500,
+                    searchable: true,
+                    title: const Title1(txt: "Skill(s) required: "),
+                    items: skills.map((e) => MultiSelectItem(e, e)).toList(),
+                    listType: MultiSelectListType.CHIP,
+                    onConfirm: (values) {
+                      // _selectedAnimals = values;
+                    },
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    // chipDisplay: MultiSelectChipDisplay(
+                    //   onTap: (item) {
+                    //     setState(() {
+                    //       skills.remove(item);
+                    //     });
+                    // },
+                    // ),
                   ),
                   const SizedBox(height: 20),
                   Row(

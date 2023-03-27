@@ -51,7 +51,7 @@ class FeedScreen extends ConsumerWidget {
               backgroundColor: Colors.white,
               floating: true,
               snap: true,
-              toolbarHeight: 55,
+              toolbarHeight: 60,
               systemOverlayStyle: const SystemUiOverlayStyle(
                 statusBarColor: Colors.white,
                 statusBarIconBrightness: Brightness.dark,
