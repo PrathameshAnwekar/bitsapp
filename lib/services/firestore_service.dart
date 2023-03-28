@@ -40,7 +40,6 @@ class FirestoreService {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
         await FirestoreService.initFeedPosts(ref);
-        
       });
       return Future.value(true);
     } catch (e) {
@@ -53,6 +52,7 @@ class FirestoreService {
   static Future<void> initUser(WidgetRef ref) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
+
       final userDoc = await _usersRef
           .doc(uid)
           .get(const GetOptions(source: Source.serverAndCache));
@@ -74,8 +74,10 @@ class FirestoreService {
 
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {
+          //get documents order by "name" field in each document
       final response =
-          await _usersRef.get(const GetOptions(source: Source.serverAndCache));
+          await _usersRef.orderBy(FieldPath(["name"])).
+          get(const GetOptions(source: Source.serverAndCache));
       final allUsersList = response.docs.map((e) {
         final profile = e.data();
         return BitsUser.fromJson(profile);
@@ -207,10 +209,11 @@ class FirestoreService {
         .limit(10)
         .get(const GetOptions(source: Source.serverAndCache))
         .then((value) {
-      final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
-      ref.read(feedPostDataProvider.notifier).addExtraFeedPosts(posts);
-      dlog("added ${posts.length} posts");
-    });
+          final posts =
+              value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
+          ref.read(feedPostDataProvider.notifier).addExtraFeedPosts(posts);
+          dlog("added ${posts.length} posts");
+        });
   }
 
   static Future<void> addFeedPost(

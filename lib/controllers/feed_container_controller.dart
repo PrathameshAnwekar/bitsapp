@@ -6,6 +6,8 @@ import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
+import 'package:bitsapp/views/Feed_Screen/components/share_sheet.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/file.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -49,6 +51,8 @@ class FeedContainerController {
     }
   }
 
+
+
   static Future<bool> removeCommentFromPost(
       FeedPost feedpost, Comment comment) async {
     try {
@@ -82,6 +86,10 @@ class FeedContainerController {
     }
   }
 
+  static Future<void> openShareSheet(context, FeedPost feedPost)async {
+    return showModalBottomSheet<dynamic>(context: context, isScrollControlled: true, builder: (context) => ShareSheet(feedPost: feedPost,));
+  }
+  //TODO: Refresh chatscreen for new chatroom
   static Future<bool> shareFeedPostInternally(
       FeedPost feedpost, WidgetRef ref, List<String> uids) async {
     try {

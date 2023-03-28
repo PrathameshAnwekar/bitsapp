@@ -1,6 +1,7 @@
 import 'package:bitsapp/controllers/feed_container_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../constants/constants.dart';
 import '../../components/circle_profile_pic.dart';
-import '../../components/person_detail.dart';
+
 import 'media_container.dart';
 
 class FeedDesc extends HookConsumerWidget {
@@ -34,7 +35,10 @@ class FeedDesc extends HookConsumerWidget {
           children: [
             const CircleProfilePic(radius: 22.5),
             const Spacer(flex: 1),
-            PersonDetail(user: localUser, isSmall: false),
+            PersonDetail(
+              user: localUser,
+              isSmall: true,
+            ),
             const Spacer(flex: 25),
             const Icon(
               Icons.more_vert_outlined,
@@ -114,16 +118,17 @@ class FeedDesc extends HookConsumerWidget {
               ),
             ),
             GestureDetector(
-              onTap: () async{
-                final res = await FeedContainerController.bookmarkFeedPost(feedPost);
-                
-                if(res) {
+              onTap: () async {
+                final res =
+                    await FeedContainerController.bookmarkFeedPost(feedPost);
+
+                if (res) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Post Bookmarked'),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
+                    const SnackBar(
+                      content: Text('Post Bookmarked'),
+                      duration: const Duration(seconds: 1),
+                    ),
+                  );
                 }
               },
               child: SvgPicture.asset(
@@ -134,8 +139,9 @@ class FeedDesc extends HookConsumerWidget {
               ),
             ),
             GestureDetector(
-              onTap: () async{
-                await FeedContainerController.shareFeedPostExternally(feedPost, ref);
+              onTap: () async {
+                await FeedContainerController.openShareSheet(context, feedPost);
+                // await FeedContainerController.shareFeedPostExternally(feedPost, ref);
               },
               child: SvgPicture.asset(
                 Constants.postOptionIcons[3],

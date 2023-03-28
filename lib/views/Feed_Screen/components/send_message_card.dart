@@ -2,21 +2,28 @@ import 'package:bitsapp/controllers/search_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class SearchCard extends HookConsumerWidget {
-  const SearchCard({
+class SendMessageCard extends HookConsumerWidget {
+  const SendMessageCard({
     Key? key,
     required this.user,
+    required this.shareList,
   }) : super(key: key);
 
   final BitsUser user;
-
+  final ValueNotifier<List<String>> shareList;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
+    final selectStatus = useState(false);
     return InkWell(
       onTap: () {
-        SearchController.goToUserProfile(context, user);
+        selectStatus.value = !selectStatus.value;
+        if (selectStatus.value) {
+          shareList.value.add(user.uid);
+        } else {
+          shareList.value.remove(user.uid);
+        }
       },
       child: Padding(
         padding:
@@ -66,6 +73,11 @@ class SearchCard extends HookConsumerWidget {
                 ),
               ),
             ),
+            Icon(Icons.circle, 
+            color: selectStatus.value ? Colors.green : Colors.grey
+            
+            
+            ,)
           ],
         ),
       ),
