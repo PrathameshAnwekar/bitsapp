@@ -106,7 +106,7 @@ class NewPostScreen extends HookConsumerWidget {
                       children: [
                         const CircleProfilePic(radius: 20),
                         const Spacer(flex: 1),
-                        PersonDetail(user: localUser),
+                        PersonDetail(user: localUser, isSmall: true),
                         const Spacer(flex: 25),
                       ],
                     ),

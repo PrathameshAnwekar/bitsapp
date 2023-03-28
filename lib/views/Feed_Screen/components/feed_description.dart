@@ -34,9 +34,7 @@ class FeedDesc extends HookConsumerWidget {
           children: [
             const CircleProfilePic(radius: 22.5),
             const Spacer(flex: 1),
-            PersonDetail(
-              user: localUser,
-            ),
+            PersonDetail(user: localUser, isSmall: false),
             const Spacer(flex: 25),
             const Icon(
               Icons.more_vert_outlined,

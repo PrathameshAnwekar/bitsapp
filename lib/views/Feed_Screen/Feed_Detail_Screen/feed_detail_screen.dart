@@ -66,13 +66,64 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 10,
-                  itemBuilder: (context, index) => const CommentBox(),
+                  itemBuilder: (context, index) => const CommentsBox(),
                 ),
               ],
             ),
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: TextFormField(
+        style: GoogleFonts.firaSans(
+          color: Colors.white,
+          fontSize: 17,
+        ),
+        cursorColor: const Color(0xFF0073B1),
+        decoration: InputDecoration(
+          hintText: "Add a comment",
+          hintStyle: GoogleFonts.firaSans(
+            color: Colors.white,
+            fontSize: 17,
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: const Color.fromARGB(255, 30, 30, 31),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+        ),
+      ),
+
+      // bottomNavigationBar: Padding(
+      //   padding: MediaQuery.of(context).viewInsets,
+      //   child: TextFormField(
+      //     style: GoogleFonts.firaSans(
+      //       color: Colors.white,
+      //       fontSize: 17,
+      //     ),
+      //     cursorColor: const Color(0xFF0073B1),
+      //     decoration: InputDecoration(
+      //       hintText: "Add a comment",
+      //       hintStyle: GoogleFonts.firaSans(
+      //         color: Colors.white,
+      //         fontSize: 17,
+      //       ),
+      //       border: const OutlineInputBorder(
+      //         borderRadius: BorderRadius.only(
+      //             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      //         borderSide: BorderSide.none,
+      //       ),
+      //       filled: true,
+      //       fillColor: const Color.fromARGB(255, 30, 30, 31),
+      //       contentPadding:
+      //           const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
