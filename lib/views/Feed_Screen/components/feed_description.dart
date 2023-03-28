@@ -1,3 +1,4 @@
+import 'package:bitsapp/controllers/feed_container_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../constants/constants.dart';
 import '../../components/circle_profile_pic.dart';
@@ -25,10 +27,7 @@ class FeedDesc extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
-    void like() {}
-    void bookmark() {}
-    void share() {}
-    final listOfFunctions = [like, commentFunc, bookmark, share];
+    final likeStatus = useState(feedPost.likes.contains(localUser.uid));
     return Column(
       children: <Widget>[
         Row(
@@ -88,16 +87,63 @@ class FeedDesc extends HookConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            ...List.generate(
-              4,
-              (index) => GestureDetector(
-                onTap: () => listOfFunctions[index](),
-                child: SvgPicture.asset(
-                  Constants.postOptionIcons[index],
-                  width: 26,
-                  height: 26,
-                  color: const Color(0xFF0073B1),
-                ),
+            GestureDetector(
+              onTap: () async {
+                if (likeStatus.value) {
+                  final res = await FeedContainerController.removeLikeFromPost(
+                      feedPost, localUser.uid);
+                  likeStatus.value = !res;
+                } else {
+                  final res = await FeedContainerController.addLikeToPost(
+                      feedPost, localUser.uid);
+                  likeStatus.value = res;
+                }
+              },
+              child: SvgPicture.asset(
+                Constants.postOptionIcons[0],
+                width: 26,
+                height: 26,
+                color: likeStatus.value ? const Color(0xFF0073B1) : Colors.red,
+              ),
+            ),
+            GestureDetector(
+              onTap: () => commentFunc(),
+              child: SvgPicture.asset(
+                Constants.postOptionIcons[1],
+                width: 26,
+                height: 26,
+                color: const Color(0xFF0073B1),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async{
+                final res = await FeedContainerController.bookmarkFeedPost(feedPost);
+                
+                if(res) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Post Bookmarked'),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+                }
+              },
+              child: SvgPicture.asset(
+                Constants.postOptionIcons[2],
+                width: 26,
+                height: 26,
+                color: const Color(0xFF0073B1),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async{
+                await FeedContainerController.shareFeedPostExternally(feedPost, ref);
+              },
+              child: SvgPicture.asset(
+                Constants.postOptionIcons[3],
+                width: 26,
+                height: 26,
+                color: const Color(0xFF0073B1),
               ),
             ),
           ],
