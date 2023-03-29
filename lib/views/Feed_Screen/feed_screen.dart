@@ -136,7 +136,7 @@ class FeedScreen extends ConsumerWidget {
               header: const WaterDropHeader(),
               onLoading: () => _onLoading(feedPosts),
               onRefresh: () => _onRefresh(ref),
-              child: ListView.separated(
+              child: ListView.builder(
                 addAutomaticKeepAlives: true,
                 addRepaintBoundaries: false,
                 itemCount: feedPosts.length,
@@ -160,7 +160,6 @@ class FeedScreen extends ConsumerWidget {
                     ),
                   );
                 },
-                separatorBuilder: (_, __) => const SizedBox(height: 0),
               ),
             ),
           ),
