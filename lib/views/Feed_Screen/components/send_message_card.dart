@@ -1,8 +1,7 @@
-import 'package:bitsapp/controllers/search_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SendMessageCard extends HookConsumerWidget {
   const SendMessageCard({
@@ -73,11 +72,10 @@ class SendMessageCard extends HookConsumerWidget {
                 ),
               ),
             ),
-            Icon(Icons.circle, 
-            color: selectStatus.value ? Colors.green : Colors.grey
-            
-            
-            ,)
+            Icon(
+              Icons.circle,
+              color: selectStatus.value ? Colors.green : Colors.grey,
+            )
           ],
         ),
       ),

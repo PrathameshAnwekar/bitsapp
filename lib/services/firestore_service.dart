@@ -74,10 +74,10 @@ class FirestoreService {
 
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {
-          //get documents order by "name" field in each document
-      final response =
-          await _usersRef.orderBy(FieldPath(["name"])).
-          get(const GetOptions(source: Source.serverAndCache));
+      //get documents order by "name" field in each document
+      final response = await _usersRef
+          .orderBy(FieldPath(const ["name"]))
+          .get(const GetOptions(source: Source.serverAndCache));
       final allUsersList = response.docs.map((e) {
         final profile = e.data();
         return BitsUser.fromJson(profile);
