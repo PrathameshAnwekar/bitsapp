@@ -19,6 +19,7 @@ class BitsUser {
   final String bitsID;
   final String uid;
   final String? fcmID;
+  final String? fcmToken;
   final List<String> chatRooms;
   final List<String>? appliedInternships;
   final List<String>? postedInternships;
@@ -36,6 +37,7 @@ class BitsUser {
     required this.appliedInternships,
     required this.postedInternships,
     required this.feedPosts,
+    required this.fcmToken,
   });
 
   /// The generated code below handles if the corresponding JSON value doesn't
@@ -61,7 +63,8 @@ class BitsUser {
         fcmID: await FirebaseMessaging.instance.getToken(),
         appliedInternships: [],
         postedInternships: [],
-        feedPosts: []);
+        feedPosts: [],
+        fcmToken: "NOT SET");
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
@@ -80,6 +83,7 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
             fcmID: "fcmID",
             appliedInternships: [],
             postedInternships: [],
+            fcmToken: "",
             feedPosts: []));
 
   void setUser(BitsUser user) {

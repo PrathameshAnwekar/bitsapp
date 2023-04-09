@@ -9,6 +9,7 @@ import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
+import 'package:bitsapp/services/notif_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -130,6 +131,7 @@ class FirestoreService {
       await _chatRoomsRef.doc(chatRoomUid).update({
         "messages": FieldValue.arrayUnion([message.toJson()])
       });
+      
       dlog("added message ${message.text} to chat room $chatRoomUid");
     } catch (e) {
       elog(e.toString());
@@ -177,6 +179,23 @@ class FirestoreService {
       dlog("initialised ${internships.length} internships");
     });
   }
+
+  static Future<void> updateInternshipApplicationStatus(
+      InternshipApplication application, InternshipData internship, String status) async {
+    try {
+      _internshipsRef.doc(internship.uid).update({
+        "applications": FieldValue.arrayRemove([application.toJson()]),
+      });
+
+      application.status = status;
+      _internshipsRef.doc(internship.uid).update({
+        "applications": FieldValue.arrayUnion([application.toJson()]),
+      });
+      
+    }catch(e){
+      elog(e.toString());
+    }
+      }
 
   // ************* FIREBASEMESSAGING SERVICES ************* //
   static updateFcmToken(String token) async {
@@ -235,6 +254,7 @@ class FirestoreService {
       }
       await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
       ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
+      await NotifService.sendPostNotification(sender: feedPost.posterUid, text: feedPost.text);
     } catch (e) {
       elog(e.toString());
       rethrow;

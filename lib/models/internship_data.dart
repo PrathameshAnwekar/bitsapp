@@ -101,4 +101,23 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
       elog(e.toString());
     }
   }
+
+  Future<void> updateInternshipApplicationStatus(InternshipApplication application, InternshipData internship, String status)async{
+    try{
+      await FirestoreService.updateInternshipApplicationStatus(application, internship, status);
+      state = state.map((internship) {
+        if (internship.uid == internship.uid) {
+          internship.applications!.map((application) {
+            if (application.uid == application.uid) {
+              application.status = status;
+            }
+            return application;
+          }).toList();
+        }
+        return internship;
+      }).toList();
+    }catch(e){
+      elog(e.toString());
+    }
+  }
 }

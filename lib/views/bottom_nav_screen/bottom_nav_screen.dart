@@ -1,4 +1,5 @@
 import 'package:bitsapp/views/chat/chats_screen.dart';
+import 'package:bitsapp/views/new_post_screen/new_post_screen.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../constants/constants.dart';
 import '../feed_screen/feed_screen.dart';
 import '../job_internship_screen/job_internship_screen.dart';
-import '../new_post_screen.dart/new_post_screen.dart';
 import '../profile_screen/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {

@@ -15,6 +15,7 @@ class FcmService {
 
   static init() async {
     await checkFcmToken();
+    _fcm.subscribeToTopic('post');
     final settings = await _fcm.requestPermission(
       alert: true,
       announcement: false,
@@ -29,7 +30,7 @@ class FcmService {
       dlog(event.notification!.body!);
       final notif = event.notification;
       NotifService.showLocalNotification(ReceivedNotification(
-          id: 0,
+          id: DateTime.now().microsecondsSinceEpoch % 10000,
           title: notif!.title!,
           body: notif.body!,
           payload: event.messageType));

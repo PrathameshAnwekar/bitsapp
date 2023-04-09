@@ -7,7 +7,7 @@ part 'internship_application.g.dart';
 class InternshipApplication {
   final String uid;
   final String coverLetter;
-  final String status;
+  String status;
 
   InternshipApplication({
     required this.uid,
