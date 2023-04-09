@@ -5,12 +5,14 @@ class ExperienceWidget extends StatelessWidget {
   final String txt1;
   final String txt2;
   final String txt3;
+  final bool showEdit;
   const ExperienceWidget({
     super.key,
     required this.url,
     required this.txt1,
     required this.txt2,
     required this.txt3,
+    required this.showEdit,
   });
 
   @override
@@ -50,6 +52,17 @@ class ExperienceWidget extends StatelessWidget {
                       style: const TextStyle(color: Colors.black54),
                     ),
             ],
+          ),
+          const Spacer(),
+          Visibility(
+            visible: showEdit,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.edit_rounded,
+                size: 24,
+              ),
+            ),
           ),
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
+import 'package:bitsapp/views/profile_screen/edit_education_screen.dart';
+import 'package:bitsapp/views/profile_screen/edit_experience_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,7 +68,7 @@ class ProfileScreen extends ConsumerWidget {
                               context,
                               PageTransition(
                                 type: PageTransitionType.bottomToTop,
-                                child: const ProfileEditScreen(),
+                                child: const ExperienceEditScreen(),
                                 childCurrent: this,
                                 duration: const Duration(milliseconds: 250),
                               ),
@@ -85,8 +86,9 @@ class ProfileScreen extends ConsumerWidget {
                       url:
                           "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
                       txt1: "Summer Intern",
-                      txt2: "Jio Platforms Limited (JPL) · Internship",
+                      txt2: "Jio Platforms Limited · Internship",
                       txt3: "Jun 2022 - Jul 2022 · 2 mos",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -94,6 +96,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "App Developer",
                       txt2: "Rentalz · Part-time",
                       txt3: "Sep 2021 - Feb 2022 · 6 mos",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -101,6 +104,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "Summer Intern",
                       txt2: "CRISS Robotics · Internship",
                       txt3: "Jul 2021 - Feb 2022 · 8 mos",
+                      showEdit: false,
                     ),
                   ],
                 ),
@@ -134,7 +138,7 @@ class ProfileScreen extends ConsumerWidget {
                               context,
                               PageTransition(
                                 type: PageTransitionType.bottomToTop,
-                                child: const ProfileEditScreen(),
+                                child: const EducationEditScreen(),
                                 childCurrent: this,
                                 duration: const Duration(milliseconds: 250),
                               ),
@@ -154,6 +158,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "Bits Pilani",
                       txt2: "Electronics and Instrumentation",
                       txt3: "2022 - 2024",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -161,6 +166,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "The Camford International School",
                       txt2: "2018-2020",
                       txt3: "",
+                      showEdit: false,
                     ),
                   ],
                 ),
