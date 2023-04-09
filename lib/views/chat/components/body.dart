@@ -22,20 +22,21 @@ class Body extends ConsumerWidget {
     return Column(
       children: [
         Expanded(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: Constants.kDefaultPadding),
-              child: chatStream.when(
-                  data: (snapshot) {
-                    return ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) =>
-                          TextMessage(message: messages[index]),
-                    );
-                  },
-                  error: (e, stackTrace) =>
-                      Text("Please check you Internet Connection $e"),
-                  loading: () => const CircularProgressIndicator.adaptive())),
+          child: chatStream.when(
+              data: (snapshot) {
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Constants.kDefaultPadding),
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) =>
+                      TextMessage(message: messages[index]),
+                );
+              },
+              error: (e, stackTrace) =>
+                  Text("Please check you Internet Connection $e"),
+              loading: () => const CircularProgressIndicator.adaptive()),
         ),
         ChatInputField(
             chatRoomUid: chatRoomUid, receiverFcmToken: receiver.fcmToken.toString(), senderName: receiver.name.toString()),

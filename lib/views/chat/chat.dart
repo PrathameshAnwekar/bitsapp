@@ -3,6 +3,7 @@ import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/constants.dart';
@@ -55,16 +56,23 @@ class ChatRoomScreen extends ConsumerWidget {
         chatRoomUid: chatRoomUid,
         receiver: otherUser,
       ),
+      backgroundColor: Colors.white,
     );
   }
 
   AppBar buildAppBar(String name) {
     return AppBar(
+      toolbarHeight: 63,
       automaticallyImplyLeading: false,
+      scrolledUnderElevation: 0,
+      backgroundColor: Colors.white,
+      centerTitle: false,
+      titleSpacing: 0.0,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const BackButton(),
           const CircleAvatar(
+            radius: 23,
             backgroundImage: AssetImage("assets/images/user2.png"),
           ),
           const SizedBox(width: Constants.kDefaultPadding * 0.75),
@@ -73,27 +81,21 @@ class ChatRoomScreen extends ConsumerWidget {
             children: [
               Text(
                 name,
-                style: const TextStyle(fontSize: 16),
+                style: GoogleFonts.dmSans(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-              const Text(
-                "Active 3m ago",
-                style: TextStyle(fontSize: 12),
-              )
+              Text(
+                "Online Now",
+                style: GoogleFonts.dmSans(
+                  fontSize: 12,
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.local_phone),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: const Icon(Icons.videocam),
-          onPressed: () {},
-        ),
-        const SizedBox(width: Constants.kDefaultPadding / 2),
-      ],
     );
   }
 }
