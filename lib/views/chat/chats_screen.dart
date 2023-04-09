@@ -99,12 +99,13 @@ class ChatsScreen extends HookConsumerWidget {
         Expanded(
           child: ListView.separated(
             itemCount: chatsData.length,
-            itemBuilder: (context, index) => ChatCard(
-              chatRoom: chatsData[index],
-              index: index,
-              press: () {
-                ChatsScreenController.gotoChatRoom(context, chatsData, index);
-              },
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () =>
+                  ChatsScreenController.gotoChatRoom(context, chatsData, index),
+              child: ChatCard(
+                chatRoom: chatsData[index],
+                index: index,
+              ),
             ),
             separatorBuilder: (context, index) => const Divider(
               indent: 77,

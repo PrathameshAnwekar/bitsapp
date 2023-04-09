@@ -32,7 +32,10 @@ class TextMessage extends ConsumerWidget {
               ),
               constraints: const BoxConstraints(maxWidth: 300),
               decoration: BoxDecoration(
-                color: Constants.kPrimaryColor.withOpacity(isSender ? 1 : 0.1),
+                color: isSender
+                    ? const Color.fromRGBO(221, 221, 221, 0.7)
+                    : const Color(0xFFFB6D62).withOpacity(0.32),
+                // color: Constants.kPrimaryColor.withOpacity(isSender ? 1 : 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
