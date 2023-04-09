@@ -1,6 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatCard extends HookConsumerWidget {
@@ -8,75 +9,85 @@ class ChatCard extends HookConsumerWidget {
     Key? key,
     required this.chatRoom,
     required this.press,
+    required this.index,
   }) : super(key: key);
 
   final ChatRoom chatRoom;
   final VoidCallback press;
+  final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
     final contactsList = ref.watch(contactsListProvider);
-    return InkWell(
+    return GestureDetector(
       onTap: press,
-      child: Padding(
+      child: Container(
+        height: 75,
         padding:
             const EdgeInsets.symmetric(horizontal: 10, vertical: 10 * 0.75),
         child: Row(
           children: [
-            Stack(
-              children: [
-                const CircleAvatar(
-                  radius: 24,
-                  // backgroundImage: AssetImage(chat.image),
-                ),
-                if (true)
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      height: 16,
-                      width: 16,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            width: 3),
-                      ),
-                    ),
-                  )
-              ],
+            CircleAvatar(
+              radius: 28,
+              backgroundImage: NetworkImage(index < 1
+                  ? "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                  : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80"),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.only(left: 10, right: 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      chatRoom.userUidList[0] == localUser.uid
-                          ? contactsList.singleWhere((element) => element.uid == chatRoom.userUidList[1]).name 
-                          : contactsList.singleWhere((element) => element.uid == chatRoom.userUidList[0]).name ,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          chatRoom.userUidList[0] == localUser.uid
+                              ? contactsList
+                                  .singleWhere((element) =>
+                                      element.uid == chatRoom.userUidList[1])
+                                  .name
+                              : contactsList
+                                  .singleWhere((element) =>
+                                      element.uid == chatRoom.userUidList[0])
+                                  .name,
+                          style: GoogleFonts.dmSans(
+                            fontSize: 16,
+                            height: 1.2,
+                            fontWeight:
+                                index < 1 ? FontWeight.w800 : FontWeight.w400,
+                          ),
+                        ),
+                        Text(
+                          '11:56',
+                          style: GoogleFonts.rubik(
+                            fontSize: 13,
+                            color: const Color.fromRGBO(131, 144, 159, 1),
+                            fontWeight:
+                                index < 1 ? FontWeight.w500 : FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    const Opacity(
-                      opacity: 0.64,
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
                       child: Text(
-                        "chat.lastMessage",
+                        "let's meet on friday",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.rubik(
+                          color: const Color.fromRGBO(131, 144, 159, 1),
+                          fontWeight:
+                              index < 1 ? FontWeight.w500 : FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const Opacity(
-              opacity: 0.64,
-              child: Text("chat.time"),
             ),
           ],
         ),

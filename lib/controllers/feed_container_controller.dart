@@ -51,8 +51,6 @@ class FeedContainerController {
     }
   }
 
-
-
   static Future<bool> removeCommentFromPost(
       FeedPost feedpost, Comment comment) async {
     try {
@@ -86,9 +84,15 @@ class FeedContainerController {
     }
   }
 
-  static Future<void> openShareSheet(context, FeedPost feedPost)async {
-    return showModalBottomSheet<dynamic>(context: context, isScrollControlled: true, builder: (context) => ShareSheet(feedPost: feedPost,));
+  static Future<void> openShareSheet(context, FeedPost feedPost) async {
+    return showModalBottomSheet<dynamic>(
+        context: context,
+        isScrollControlled: true,
+        builder: (context) => ShareSheet(
+              feedPost: feedPost,
+            ));
   }
+
   //TODO: Refresh chatscreen for new chatroom
   static Future<bool> shareFeedPostInternally(
       FeedPost feedpost, WidgetRef ref, List<String> uids) async {
@@ -100,7 +104,6 @@ class FeedContainerController {
       final contacts = ref.read(contactsListProvider);
       List<ChatRoom> chatRoomToShare = [];
 
-      
       for (int i = 0; i < uids.length; i++) {
         ChatRoom chatRoom = chatRooms.firstWhere(
             (element) => element.userUidList.contains(uids[i]), orElse: () {
@@ -172,7 +175,7 @@ class FeedContainerController {
       xfiles.add(XFile(fileList[i].path,
           name: "BitsApp_${DateTime.now().millisecondsSinceEpoch}"));
     }
-    dlog("Sharing ${xfiles} files");
+    dlog("Sharing $xfiles files");
     return Future.value(xfiles);
   }
 }

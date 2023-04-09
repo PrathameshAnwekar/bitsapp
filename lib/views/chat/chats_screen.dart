@@ -4,6 +4,7 @@ import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatsScreen extends HookConsumerWidget {
@@ -15,7 +16,63 @@ class ChatsScreen extends HookConsumerWidget {
     final chatrooms = ref.watch(chatRoomsProvider);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "Chat",
+            style: GoogleFonts.rubik(
+              color: const Color(0xFF2D3F65),
+              fontSize: 28,
+            ),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(30),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
+              cursorColor: const Color(0xFF676767),
+              style: GoogleFonts.rubik(
+                color: const Color(0xFF676767),
+                fontSize: 17,
+              ),
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(top: 15),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 1.2,
+                    color: Color(0xFF2D3F65),
+                  ),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 1.2,
+                    color: Color(0xFF2D3F65),
+                  ),
+                ),
+                hintText: "Search...",
+                hintStyle: GoogleFonts.rubik(
+                  color: const Color(0xFF2D3F65),
+                  fontSize: 14,
+                ),
+                suffixIcon: const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Icon(
+                    Icons.search,
+                    color: Color(0xFF2D3F65),
+                    size: 22,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: buildBody(chatrooms),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12, bottom: 100),
@@ -35,37 +92,30 @@ class ChatsScreen extends HookConsumerWidget {
     );
   }
 
-  AppBar buildAppBar(context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      automaticallyImplyLeading: false,
-      title: const Text("Chats"),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {
-            ChatsScreenController.gotoContactsScreen(context);
-          },
+  buildBody(chatsData) {
+    return Column(
+      children: [
+        const SizedBox(height: 20),
+        Expanded(
+          child: ListView.separated(
+            itemCount: chatsData.length,
+            itemBuilder: (context, index) => ChatCard(
+              chatRoom: chatsData[index],
+              index: index,
+              press: () {
+                ChatsScreenController.gotoChatRoom(context, chatsData, index);
+              },
+            ),
+            separatorBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.only(left: 75, right: 10),
+              child: Divider(
+                color: Color.fromRGBO(131, 144, 159, 0.7),
+                height: 1.5,
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
-}
-
-buildBody(chatsData) {
-  return Column(
-    children: [
-      Expanded(
-        child: ListView.builder(
-          itemCount: chatsData.length,
-          itemBuilder: (context, index) => ChatCard(
-            chatRoom: chatsData[index],
-            press: () {
-              ChatsScreenController.gotoChatRoom(context, chatsData, index);
-            },
-          ),
-        ),
-      ),
-    ],
-  );
 }
