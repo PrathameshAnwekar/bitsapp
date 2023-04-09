@@ -62,7 +62,7 @@ class ChatCard extends HookConsumerWidget {
                           ),
                         ),
                         Text(
-                          '11:56',
+                          index < 1 ? '11:56' : '12 feb',
                           style: GoogleFonts.rubik(
                             fontSize: 13,
                             color: const Color.fromRGBO(131, 144, 159, 1),
@@ -75,7 +75,7 @@ class ChatCard extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: Text(
-                        "let's meet on friday",
+                        "This is a very long text and let's meet on friday",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.rubik(

@@ -1,6 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/constants.dart';
@@ -16,22 +17,42 @@ class TextMessage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Constants.kDefaultPadding * 0.75,
-        vertical: Constants.kDefaultPadding / 2,
-      ),
-      decoration: BoxDecoration(
-        color: Constants.kPrimaryColor
-            .withOpacity(message.sender == localUser.uid ? 1 : 0.1),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Text(
-        message.text,
-        style: TextStyle(
-          color: message.sender == localUser.uid
-              ? Colors.white
-              : Theme.of(context).textTheme.bodyLarge!.color,
+    bool isSender = message.sender == localUser.uid;
+    return Align(
+      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Constants.kDefaultPadding * 0.75 + 3,
+                vertical: Constants.kDefaultPadding / 2 + 3,
+              ),
+              constraints: const BoxConstraints(maxWidth: 300),
+              decoration: BoxDecoration(
+                color: Constants.kPrimaryColor.withOpacity(isSender ? 1 : 0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                message.text,
+                style: GoogleFonts.dmSans(
+                  fontSize: 15,
+                  height: 1.2,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Text(
+              '11:59',
+              style: GoogleFonts.dmSans(
+                fontSize: 12,
+                height: 2,
+                fontWeight: FontWeight.w400,
+              ),
+            )
+          ],
         ),
       ),
     );

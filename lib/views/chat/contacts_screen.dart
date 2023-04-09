@@ -14,11 +14,15 @@ class ContactsScreen extends HookConsumerWidget {
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-                  itemCount: contactsList.length,
-                  itemBuilder: (context, index) {
-                    return ContactCard(user: contactsList[index], );
-                  })),
+            child: ListView.builder(
+              itemCount: contactsList.length,
+              itemBuilder: (context, index) {
+                return ContactCard(
+                  user: contactsList[index],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
