@@ -6,7 +6,7 @@ import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
-import 'package:bitsapp/views/Feed_Screen/components/share_sheet.dart';
+import 'package:bitsapp/views/feed_screen/components/share_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/file.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -93,7 +93,7 @@ class FeedContainerController {
             ));
   }
 
-  //TODO: Refresh chatscreen for new chatroom
+ 
   static Future<bool> shareFeedPostInternally(
       FeedPost feedpost, WidgetRef ref, List<String> uids) async {
     try {
@@ -137,7 +137,7 @@ class FeedContainerController {
             time: DateTime.now().millisecondsSinceEpoch);
         ref
             .read(chatRoomsProvider.notifier)
-            .addMessage(chatRoomToShare[i].uid, message, fcmId ?? "null");
+            .addMessage(chatRoomToShare[i].uid, message, fcmId ?? "null", "Someone new");
       }
       return Future.value(true);
     } catch (e) {

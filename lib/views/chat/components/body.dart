@@ -39,9 +39,7 @@ class Body extends ConsumerWidget {
               loading: () => const CircularProgressIndicator.adaptive()),
         ),
         ChatInputField(
-          chatRoomUid: chatRoomUid,
-          receiverFcmUid: receiver.fcmID,
-        ),
+            chatRoomUid: chatRoomUid, receiverFcmToken: receiver.fcmToken.toString(), senderName: receiver.name.toString()),
       ],
     );
   }

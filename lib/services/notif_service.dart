@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 
 import 'package:bitsapp/models/recieved_notification.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
+
+final serverUrl = "clownfish-app-cuv9z.ondigitalocean.app";
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
@@ -123,5 +127,34 @@ class NotifService {
     );
   }
 
-  sendNotif() {}
+  static Future<void> sendChatNotification(
+      {required String text,
+      required String sender,
+      required String token}) async {
+    var url = Uri.parse(
+        'https://$serverUrl/chat?sender=$sender&token=$token&text=$text');
+    var response = await http.get(url);
+    dlog("Sent get request to $url");
+    if (response.statusCode == 200) {
+      if (response.body.isNotEmpty) {
+        final jsonResponse = json.decode(response.body);
+        print('Response: $jsonResponse');
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  static Future<void> sendPostNotification(
+      {required String text, required String sender}) async {
+    var url = Uri.parse('https://$serverUrl/topic?sender=$sender&text=$text');
+    var response = await http.get(url);
+    dlog("Sent get request to $url");
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      print('Response: $jsonResponse');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
 }

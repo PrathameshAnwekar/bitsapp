@@ -7,11 +7,13 @@ import '../../../constants/constants.dart';
 
 class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
-  final receiverFcmUid;
+  final String receiverFcmToken;
+  final String senderName;
   const ChatInputField({
     Key? key,
     required this.chatRoomUid,
-    required this.receiverFcmUid,
+    required this.receiverFcmToken,
+    required this.senderName
   }) : super(key: key);
 
   @override
@@ -78,7 +80,7 @@ class ChatInputField extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         ChatController.sendMessage(
-                            ref, textController, chatRoomUid, receiverFcmUid);
+                            ref, textController, chatRoomUid, receiverFcmToken, senderName);
                       },
                       child: Icon(
                         Icons.send,

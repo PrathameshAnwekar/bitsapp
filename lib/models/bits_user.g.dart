@@ -25,6 +25,7 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
       feedPosts: (json['feedPosts'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+          fcmToken: json['fcmToken'] as String?
     );
 
 Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
@@ -39,4 +40,5 @@ Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'appliedInternships': instance.appliedInternships,
       'postedInternships': instance.postedInternships,
       'feedPosts': instance.feedPosts,
+      'fcmToken': instance.fcmToken,
     };

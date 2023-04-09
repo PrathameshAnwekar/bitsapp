@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bitsapp/views/New_Post_Screen.dart/components/local_image_container.dart';
-import 'package:bitsapp/views/New_Post_Screen.dart/components/local_video_container.dart';
+import 'package:bitsapp/views/new_post_screen/components/local_image_container.dart';
+import 'package:bitsapp/views/new_post_screen/components/local_video_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
