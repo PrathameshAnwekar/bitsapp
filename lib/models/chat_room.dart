@@ -55,12 +55,6 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
   void addMessage(String chatRoomUid, Message message, String fcmUid, String senderName) async {
     try {
       await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
-      state = state.map((chatRoom) {
-        if (chatRoom.uid == chatRoomUid) {
-          chatRoom.messages = [...chatRoom.messages, message];
-        }
-        return chatRoom;
-      }).toList();
       final sender = 
       await NotifService.sendChatNotification(
           text: message.text, sender: senderName, token: fcmUid);
