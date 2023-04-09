@@ -216,13 +216,6 @@ class PostNewInternship extends HookConsumerWidget {
                       border: Border.all(color: Colors.grey.shade300),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    // chipDisplay: MultiSelectChipDisplay(
-                    //   onTap: (item) {
-                    //     setState(() {
-                    //       skills.remove(item);
-                    //     });
-                    // },
-                    // ),
                   ),
                   const SizedBox(height: 20),
                   Row(

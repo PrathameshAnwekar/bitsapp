@@ -1,6 +1,4 @@
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/models/recieved_notification.dart';
-import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,41 +16,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 12, bottom: 100),
-        child: FloatingActionButton(
-          heroTag: "profile",
-          onPressed: () {
-            NotifService.showLocalNotification(ReceivedNotification(
-                id: 1,
-                title: "Hello",
-                body: "This is a notification",
-                payload: "This is a payload"));
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTop,
-                  child: const ProfileEditScreen(),
-                  childCurrent: this,
-                  duration: const Duration(milliseconds: 250),
-                ),
-              );
-            },
-            icon: const Icon(
-              FontAwesomeIcons.penToSquare,
-              size: 26,
-              color: Color(0xFF69708C),
-            ),
-          )
-        ],
         scrolledUnderElevation: 0,
         title: Text(
           "Profile",
@@ -86,13 +50,36 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Experience",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.65),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Experience",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.65),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.bottomToTop,
+                                child: const ProfileEditScreen(),
+                                childCurrent: this,
+                                duration: const Duration(milliseconds: 250),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            FontAwesomeIcons.penToSquare,
+                            size: 22,
+                            color: Color(0xFF69708C),
+                          ),
+                        ),
+                      ],
                     ),
                     const ExperienceWidget(
                       url:
@@ -130,13 +117,36 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Education",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.65),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Education",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.65),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.bottomToTop,
+                                child: const ProfileEditScreen(),
+                                childCurrent: this,
+                                duration: const Duration(milliseconds: 250),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            FontAwesomeIcons.penToSquare,
+                            size: 22,
+                            color: Color(0xFF69708C),
+                          ),
+                        ),
+                      ],
                     ),
                     const ExperienceWidget(
                       url:

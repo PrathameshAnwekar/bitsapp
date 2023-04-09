@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:bitsapp/constants/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../services/logger_service.dart';
+import '../profile_edit_screen.dart';
 import 'profile_image_zoom.dart';
 
 class ProfileInfoStack extends StatefulWidget {
@@ -94,6 +97,28 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 10,
+            top: 72,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    child: const ProfileEditScreen(),
+                    childCurrent: widget,
+                    duration: const Duration(milliseconds: 250),
+                  ),
+                );
+              },
+              icon: const Icon(
+                FontAwesomeIcons.penToSquare,
+                size: 22,
+                color: Color(0xFF69708C),
               ),
             ),
           ),
