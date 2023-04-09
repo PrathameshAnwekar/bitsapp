@@ -254,7 +254,8 @@ class FirestoreService {
       }
       await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
       ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
-      await NotifService.sendPostNotification(sender: feedPost.posterUid, text: feedPost.text);
+      final senderName = ref.read(contactsListProvider).where((element) => element.uid == feedPost.posterUid).first.name;
+      await NotifService.sendPostNotification(sender: senderName, text: feedPost.text);
     } catch (e) {
       elog(e.toString());
       rethrow;
