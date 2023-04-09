@@ -37,7 +37,7 @@ class FeedDesc extends HookConsumerWidget {
             const Spacer(flex: 1),
             PersonDetail(
               user: localUser,
-              isSmall: true,
+              isSmall: false,
             ),
             const Spacer(flex: 25),
             const Icon(
