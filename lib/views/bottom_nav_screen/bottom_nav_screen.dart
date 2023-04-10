@@ -1,7 +1,10 @@
 import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:bitsapp/views/new_post_screen/new_post_screen.dart';
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../constants/constants.dart';
 import '../feed_screen/feed_screen.dart';
 import '../job_internship_screen/job_internship_screen.dart';
 import '../profile_screen/profile_screen.dart';
@@ -32,43 +35,43 @@ class _BottomBarState extends State<BottomBar> {
         index: _pageindex,
         children: pagelist,
       ),
-      bottomNavigationBar: NavigationBar(
-        height: 70,
-        selectedIndex: _pageindex,
-        onDestinationSelected: (value) {
-          setState(() {
-            _pageindex = value;
-          });
-        },
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_filled),
-            label: "Home",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.work_outline_rounded),
-            selectedIcon: Icon(Icons.work_rounded),
-            label: "Internships",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.post_add_rounded),
-            // selectedIcon: Icon(Icons.post_add),
-            label: "New Post",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.chat_bubble_outline),
-            selectedIcon: Icon(Icons.chat_bubble_rounded),
-            label: "Chat",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline_rounded),
-            selectedIcon: Icon(Icons.person_rounded),
-            label: "Profile",
-          ),
-        ],
-      ),
+      // bottomNavigationBar: NavigationBar(
+      //   height: 70,
+      //   selectedIndex: _pageindex,
+      //   onDestinationSelected: (value) {
+      //     setState(() {
+      //       _pageindex = value;
+      //     });
+      //   },
+      //   labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      //   destinations: const [
+      //     NavigationDestination(
+      //       icon: Icon(Icons.home_outlined),
+      //       selectedIcon: Icon(Icons.home_filled),
+      //       label: "Home",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.work_outline_rounded),
+      //       selectedIcon: Icon(Icons.work_rounded),
+      //       label: "Internships",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.post_add_rounded),
+      //       // selectedIcon: Icon(Icons.post_add),
+      //       label: "New Post",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.chat_bubble_outline),
+      //       selectedIcon: Icon(Icons.chat_bubble_rounded),
+      //       label: "Chat",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.person_outline_rounded),
+      //       selectedIcon: Icon(Icons.person_rounded),
+      //       label: "Profile",
+      //     ),
+      //   ],
+      // ),
       // bottomNavigationBar: BottomNavigationBar(
       //   currentIndex: _pageindex,
       //   onTap: (value) {
@@ -165,60 +168,60 @@ class _BottomBarState extends State<BottomBar> {
       //     ),
       //   ],
       // ),
-      // bottomNavigationBar: SafeArea(
-      //   child: Padding(
-      //     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
-      //     child: BlurryContainer(
-      //       height: 64,
-      //       blur: 4.5,
-      //       color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
-      //       borderRadius: const BorderRadius.all(Radius.circular(24)),
-      //       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           ...List.generate(
-      //             pagelist.length,
-      //             (index) => GestureDetector(
-      //               onTap: () {
-      //                 if (index != _pageindex) {
-      //                   setState(() {
-      //                     _pageindex = index;
-      //                   });
-      //                 }
-      //               },
-      //               child: Column(
-      //                 children: [
-      //                   AnimatedContainer(
-      //                     duration: const Duration(milliseconds: 200),
-      //                     margin: const EdgeInsets.only(bottom: 2),
-      //                     height: 4,
-      //                     width: index == _pageindex ? 25 : 0,
-      //                     decoration: const BoxDecoration(
-      //                       color: Color(0xFF81B4FF),
-      //                       borderRadius: BorderRadius.all(Radius.circular(12)),
-      //                     ),
-      //                   ),
-      //                   AnimatedContainer(
-      //                     duration: const Duration(milliseconds: 200),
-      //                     height: index == _pageindex ? 30 : 28,
-      //                     width: index == _pageindex ? 34 : 32,
-      //                     child: SvgPicture.asset(
-      //                       Constants.bottomBarIcons[index],
-      //                       color: index == _pageindex
-      //                           ? Colors.white.withOpacity(0.8)
-      //                           : Colors.white.withOpacity(0.35),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 25),
+          child: BlurryContainer(
+            height: 64,
+            blur: 4.5,
+            color: const Color.fromRGBO(49, 50, 54, 1).withOpacity(0.75),
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ...List.generate(
+                  pagelist.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      if (index != _pageindex) {
+                        setState(() {
+                          _pageindex = index;
+                        });
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: const EdgeInsets.only(bottom: 2),
+                          height: 4,
+                          width: index == _pageindex ? 25 : 0,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF81B4FF),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          height: index == _pageindex ? 30 : 28,
+                          width: index == _pageindex ? 34 : 32,
+                          child: SvgPicture.asset(
+                            Constants.bottomBarIcons[index],
+                            color: index == _pageindex
+                                ? Colors.white.withOpacity(0.8)
+                                : Colors.white.withOpacity(0.35),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
