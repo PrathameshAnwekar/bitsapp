@@ -31,8 +31,8 @@ class Body extends ConsumerWidget {
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: messages.length,
-                  itemBuilder: (context, index) => TextMessage(
-                      message: messages[messages.length - index - 1]),
+                  itemBuilder: (context, index) =>
+                      TextMessage(message: messages[index]),
                 );
               },
               error: (e, stackTrace) =>

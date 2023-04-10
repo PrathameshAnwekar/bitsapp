@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
 bool init = true;
 void main() async {
@@ -30,6 +31,9 @@ class MyApp extends HookConsumerWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             return MaterialApp(
+              localizationsDelegates: const [
+                MonthYearPickerLocalizations.delegate,
+              ],
               title: 'BITSocial',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(

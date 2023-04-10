@@ -4,11 +4,12 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
-import 'package:bitsapp/views/new_post_screen/components/local_media_container.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
+import 'package:bitsapp/views/new_post_screen/components/local_media_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,6 +27,7 @@ class NewPostScreen extends HookConsumerWidget {
     dlog(files.value.toString());
     final loading = useState(false);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 70,
         automaticallyImplyLeading: false,
@@ -69,7 +71,6 @@ class NewPostScreen extends HookConsumerWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12, bottom: 100),
         child: SpeedDial(
-          heroTag: "speedDial",
           animationDuration: const Duration(milliseconds: 300),
           animatedIcon: AnimatedIcons.menu_close,
           animatedIconTheme: const IconThemeData(color: Colors.white),
@@ -116,17 +117,17 @@ class NewPostScreen extends HookConsumerWidget {
                       cursorColor: Colors.black54,
                       minLines: 10,
                       maxLines: 20,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding:
-                            EdgeInsets.only(top: 20, left: 3, right: 3),
+                            const EdgeInsets.only(top: 20, left: 3, right: 3),
                         hintText: 'What do you want to talk about?',
-                        hintStyle: TextStyle(
+                        hintStyle: GoogleFonts.dmSans(
                           fontSize: 17,
-                          color: Color.fromRGBO(0, 0, 0, 0.25),
+                          color: const Color.fromRGBO(0, 0, 0, 0.25),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
                       ),
                       style: const TextStyle(

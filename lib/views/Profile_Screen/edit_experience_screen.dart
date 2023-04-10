@@ -2,7 +2,9 @@ import 'package:bitsapp/views/profile_screen/components/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 
+import '../job_internship_screen/components/title1.dart';
 import 'components/data_widget.dart';
 
 class ExperienceEditScreen extends StatelessWidget {
@@ -10,6 +12,14 @@ class ExperienceEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final employmentType = [
+      "Full-Time",
+      "Part-Time",
+      "Self-Employed",
+      "Freelance",
+      "Internship",
+      "Trainee"
+    ];
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -29,7 +39,7 @@ class ExperienceEditScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => showPopUp(context, employmentType),
             icon: Icon(
               FontAwesomeIcons.plus,
               color: Colors.black.withOpacity(0.65),
@@ -76,11 +86,183 @@ class ExperienceEditScreen extends StatelessWidget {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: GoogleFonts.dmSans(fontSize: 20),
+        ),
+      );
+  showPopUp(BuildContext context, List<String> employmentType) => showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              String? selectedEmploymentType;
+              return AlertDialog(
+                scrollable: true,
+                insetPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                title: const Text("Add experience"),
+                titleTextStyle: GoogleFonts.dmSans(
+                  color: Colors.black.withOpacity(0.8),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+                backgroundColor: Colors.white,
+                titlePadding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+                contentPadding:
+                    const EdgeInsets.only(left: 18, right: 18, bottom: 15),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(width: MediaQuery.of(context).size.width),
+                    const Title1(txt: "Title"),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a valid title';
+                        }
+                        return null;
+                      },
+                      // controller: titleController,
+                      cursorColor: Colors.black54,
+                      maxLength: 100,
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.only(bottom: -10.0, left: 12),
+                        hintText: 'Ex: App Developer',
+                        hintStyle: GoogleFonts.firaSans(
+                          fontSize: 16,
+                          color: const Color.fromRGBO(0, 0, 0, 0.25),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(6),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey.shade500),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                      style: GoogleFonts.dmSans(
+                        fontSize: 16,
+                        color: const Color.fromRGBO(27, 27, 27, 1),
+                      ),
+                    ),
+                    const Title1(txt: "Company Name"),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a valid company name';
+                        }
+                        return null;
+                      },
+                      // controller: titleController,
+                      cursorColor: Colors.black54,
+                      maxLength: 100,
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.only(bottom: -10.0, left: 12),
+                        hintText: 'Ex: Google India',
+                        hintStyle: GoogleFonts.firaSans(
+                          fontSize: 16,
+                          color: const Color.fromRGBO(0, 0, 0, 0.25),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(6),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey.shade500),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(6),
+                          ),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
+                      style: GoogleFonts.dmSans(
+                        fontSize: 16,
+                        color: const Color.fromRGBO(27, 27, 27, 1),
+                      ),
+                    ),
+                    const Title1(txt: "Employment Type"),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey.shade500),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          hint: const Text("Please Select"),
+                          value: selectedEmploymentType,
+                          isExpanded: true,
+                          items: employmentType.map(buildMenuItem).toList(),
+                          onChanged: (value) => setState(() {
+                            selectedEmploymentType = value;
+                          }),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        DateWidget(start: true),
+                        DateWidget(start: false),
+                      ],
+                    ),
+
+                    // DateTime(year)
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      );
 }
 
-shpowPopUp(BuildContext context) => showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog();
-      },
+class DateWidget extends StatelessWidget {
+  final bool start;
+  const DateWidget({
+    super.key,
+    required this.start,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Title1(txt: start ? "Start Date" : "End Date"),
+        GestureDetector(
+          onTap: () => pickDate(context),
+          child: Container(
+            height: 50,
+            width: 150,
+            color: start ? Colors.red : Colors.green,
+          ),
+        ),
+      ],
     );
+  }
+}
+
+Future pickDate(BuildContext context) async {
+  final initialDate = DateTime.now();
+  final newDate = await showMonthYearPicker(
+    context: context,
+    initialDate: initialDate,
+    firstDate: DateTime(DateTime.now().year - 30),
+    lastDate: DateTime(DateTime.now().year + 1),
+  );
+}
