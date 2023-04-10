@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -119,7 +118,7 @@ class FeedScreen extends ConsumerWidget {
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    FontAwesomeIcons.anglesLeft,
+                    Icons.more_vert_rounded,
                     size: 32,
                   ),
                 ),

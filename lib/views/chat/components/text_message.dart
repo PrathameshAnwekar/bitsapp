@@ -49,8 +49,8 @@ class TextMessage extends ConsumerWidget {
             Text(
               '11:59',
               style: GoogleFonts.dmSans(
-                fontSize: 12,
-                height: 2,
+                fontSize: 11,
+                height: 1.8,
                 fontWeight: FontWeight.w400,
               ),
             )

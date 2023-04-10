@@ -1,3 +1,4 @@
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/profile_screen/components/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,7 +99,7 @@ class ExperienceEditScreen extends StatelessWidget {
         context: context,
         builder: (context) {
           return StatefulBuilder(
-            builder: (context, setState) {
+            builder: (BuildContext context, StateSetter setState) {
               String? selectedEmploymentType;
               return AlertDialog(
                 actions: [
@@ -246,7 +247,7 @@ class ExperienceEditScreen extends StatelessWidget {
       );
 }
 
-class DateWidget extends StatelessWidget {
+class DateWidget extends StatefulWidget {
   final bool start;
   const DateWidget({
     super.key,
@@ -254,17 +255,51 @@ class DateWidget extends StatelessWidget {
   });
 
   @override
+  State<DateWidget> createState() => _DateWidgetState();
+}
+
+class _DateWidgetState extends State<DateWidget> {
+  @override
   Widget build(BuildContext context) {
+    DateTime? date = DateTime.now();
+    List months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Title1(txt: start ? "Start Date" : "End Date"),
+        Title1(txt: widget.start ? "Start Date" : "End Date"),
         GestureDetector(
-          onTap: () => pickDate(context),
+          onTap: () async {
+            final getDate = await pickDate(context);
+            setState(() {
+              date = getDate;
+            });
+          },
           child: Container(
             height: 50,
             width: 150,
-            color: start ? Colors.red : Colors.green,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade500),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Center(
+              child: Text(
+                '${months[date.month - 1]} ${date.year}',
+                style: GoogleFonts.dmSans(fontSize: 17),
+              ),
+            ),
           ),
         ),
       ],
@@ -272,7 +307,7 @@ class DateWidget extends StatelessWidget {
   }
 }
 
-Future pickDate(BuildContext context) async {
+Future<DateTime?> pickDate(BuildContext context) async {
   final initialDate = DateTime.now();
   final newDate = await showMonthYearPicker(
     context: context,
