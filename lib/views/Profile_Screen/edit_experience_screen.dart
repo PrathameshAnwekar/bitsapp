@@ -101,6 +101,21 @@ class ExperienceEditScreen extends StatelessWidget {
             builder: (context, setState) {
               String? selectedEmploymentType;
               return AlertDialog(
+                actions: [
+                  GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF4D5470),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 6),
+                      child: const Text("Save",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                    ),
+                  )
+                ],
                 scrollable: true,
                 insetPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -110,17 +125,18 @@ class ExperienceEditScreen extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
-                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.white,
                 titlePadding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
                 contentPadding:
-                    const EdgeInsets.only(left: 18, right: 18, bottom: 15),
+                    const EdgeInsets.only(left: 18, right: 18, bottom: 10),
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width),
                     const Title1(txt: "Title"),
                     TextFormField(
+                      textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a valid title';
@@ -151,6 +167,7 @@ class ExperienceEditScreen extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                       ),
+
                       style: GoogleFonts.dmSans(
                         fontSize: 16,
                         color: const Color.fromRGBO(27, 27, 27, 1),
@@ -220,8 +237,6 @@ class ExperienceEditScreen extends StatelessWidget {
                         DateWidget(start: false),
                       ],
                     ),
-
-                    // DateTime(year)
                   ],
                 ),
               );
@@ -265,4 +280,5 @@ Future pickDate(BuildContext context) async {
     firstDate: DateTime(DateTime.now().year - 30),
     lastDate: DateTime(DateTime.now().year + 1),
   );
+  return newDate;
 }
