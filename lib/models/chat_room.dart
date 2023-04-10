@@ -62,6 +62,5 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
       elog(e.toString());
     }
 
-    // await FcmService.sendChatNotification(fcmUid);
   }
 }

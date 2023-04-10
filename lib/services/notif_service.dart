@@ -8,7 +8,7 @@ import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
 
-final serverUrl = "clownfish-app-cuv9z.ondigitalocean.app";
+final serverUrl = "clownfish-app-iz2im.ondigitalocean.app";
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
