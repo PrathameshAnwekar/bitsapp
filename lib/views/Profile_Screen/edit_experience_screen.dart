@@ -1,4 +1,3 @@
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/profile_screen/components/divider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -104,6 +103,7 @@ class ExperienceEditScreen extends StatelessWidget {
               return AlertDialog(
                 actions: [
                   GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
                     child: Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFF4D5470),
