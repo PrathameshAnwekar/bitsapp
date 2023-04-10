@@ -104,7 +104,7 @@ class PostNewInternship extends HookConsumerWidget {
                     children: [
                       const CircleProfilePic(radius: 18),
                       const Spacer(flex: 1),
-                      PersonDetail(user: localUser, isSmall: true),
+                      PersonDetail(user: localUser, isSmall: true,time: null),
                       const Spacer(flex: 15),
                     ],
                   ),

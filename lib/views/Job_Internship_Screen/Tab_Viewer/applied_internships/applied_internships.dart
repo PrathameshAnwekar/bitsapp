@@ -55,6 +55,7 @@ class AppliedInternships extends HookConsumerWidget {
                       user: contactsList.firstWhere(
                           (element) => element.uid == internData.posterUID),
                       isSmall: true,
+                      time: internData.time,
                     ),
                     const Spacer(flex: 15),
                     Tags(

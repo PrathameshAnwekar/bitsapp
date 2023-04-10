@@ -137,8 +137,8 @@ class NotifService {
     dlog("Sent get request to $url");
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
-        final jsonResponse = json.decode(response.body);
-        print('Response: $jsonResponse');
+        // final jsonResponse = json.decode(response.body);
+        print('Response: ${response.statusCode}');
       }
     } else {
       print('Request failed with status: ${response.statusCode}.');
@@ -151,8 +151,8 @@ class NotifService {
     var response = await http.get(url);
     dlog("Sent get request to $url");
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      print('Response: $jsonResponse');
+      // var jsonResponse = json.decode(response.body);
+      print('Response: ${response.statusCode}');
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }

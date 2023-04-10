@@ -84,7 +84,7 @@ class InternshipCard extends StatelessWidget {
               children: <Widget>[
                 const CircleProfilePic(radius: 18),
                 const Spacer(flex: 1),
-                PersonDetail(user: poster, isSmall: true),
+                PersonDetail(user: poster, isSmall: true, time: internshipData.time),
                 const Spacer(flex: 15),
                 Tags(
                   text: internshipData.compensation,

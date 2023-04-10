@@ -14,6 +14,7 @@ class Body extends ConsumerWidget {
   const Body({super.key, required this.chatRoomUid, required this.receiver});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.read(localUserProvider);
     final chatStream = ref.watch(chatStreamProvider(chatRoomUid));
     final messages = ref
         .watch(chatRoomsProvider)
@@ -32,7 +33,7 @@ class Body extends ConsumerWidget {
                   shrinkWrap: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) =>
-                      TextMessage(message: messages[index]),
+                      TextMessage(message: messages[messages.length - index - 1]),
                 );
               },
               error: (e, stackTrace) =>
@@ -42,7 +43,7 @@ class Body extends ConsumerWidget {
         ChatInputField(
           chatRoomUid: chatRoomUid,
           receiverFcmToken: receiver.fcmToken.toString(),
-          senderName: receiver.name.toString(),
+          senderName: localUser.name.toString(),
         ),
       ],
     );

@@ -30,6 +30,7 @@ class FeedDesc extends HookConsumerWidget {
     final localUser = ref.watch(localUserProvider);
     final likeStatus = useState(feedPost.likes.contains(localUser.uid));
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
           children: [
@@ -38,6 +39,7 @@ class FeedDesc extends HookConsumerWidget {
             PersonDetail(
               user: localUser,
               isSmall: false,
+              time: int.tryParse(feedPost.timeuid)
             ),
             const Spacer(flex: 25),
             const Icon(
@@ -50,9 +52,9 @@ class FeedDesc extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: ReadMoreText(
-            // feedPost.text,
-            "In the previous section, we saw changing the status bar color using the appbar. But what if you want to change the status bar color without the appbar. Here’s the solution. You can simply wrap your top widget inside another widget called AnnotatedRegion. Using the AnnotatedRegion’s value property, you can set the status bar color.",
+            feedPost.text,
             style: GoogleFonts.firaSans(
+              
               fontSize: 16.5,
               letterSpacing: 0.1,
               height: 1.25,

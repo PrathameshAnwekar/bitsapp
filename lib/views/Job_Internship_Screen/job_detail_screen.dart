@@ -55,7 +55,7 @@ class JobDetailScreen extends StatelessWidget {
               children: [
                 const CircleProfilePic(radius: 16),
                 const Spacer(flex: 1),
-                PersonDetail(user: poster, isSmall: true),
+                PersonDetail(user: poster, isSmall: true, time: internshipData.time,),
                 const Spacer(flex: 15),
               ],
             ),
