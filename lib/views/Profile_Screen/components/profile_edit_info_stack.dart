@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:bitsapp/constants/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../services/logger_service.dart';
+import '../profile_edit_screen.dart';
 import 'profile_image_zoom.dart';
 
 class ProfileInfoStack extends StatefulWidget {
@@ -97,19 +100,42 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
               ),
             ),
           ),
+          Positioned(
+            right: 10,
+            top: 72,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    child: const ProfileEditScreen(),
+                    childCurrent: widget,
+                    duration: const Duration(milliseconds: 250),
+                  ),
+                );
+              },
+              icon: const Icon(
+                FontAwesomeIcons.penToSquare,
+                size: 22,
+                color: Color(0xFF69708C),
+              ),
+            ),
+          ),
           CircleAvatar(
             radius: 75,
             backgroundColor: const Color(0xFF69708C).withOpacity(0.2),
             child: GestureDetector(
               onTap: () => showPopUp(
-                  "https://images.unsplash.com/photo-1514222709107-a180c68d72b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1049&q=80",
+                  "https://media.licdn.com/dms/image/D4D03AQGUfeCsI0M43A/profile-displayphoto-shrink_400_400/0/1680925107700?e=1686787200&v=beta&t=z2bRyfd5TA-jO3CIcmCwJ3IbbRey_mdyrC6gSeV316I",
                   context),
               child: fileMedia == null
                   ? CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.white,
                       backgroundImage: CachedNetworkImageProvider(
-                          widget.imageUrl ?? "https://picsum.photos/200",
+                          widget.imageUrl ??
+                              "https://media.licdn.com/dms/image/D4D03AQGUfeCsI0M43A/profile-displayphoto-shrink_400_400/0/1680925107700?e=1686787200&v=beta&t=z2bRyfd5TA-jO3CIcmCwJ3IbbRey_mdyrC6gSeV316I",
                           errorListener: () {
                         elog("Error loading image");
                       }, cacheKey: "localUser.profilePicUrl"),

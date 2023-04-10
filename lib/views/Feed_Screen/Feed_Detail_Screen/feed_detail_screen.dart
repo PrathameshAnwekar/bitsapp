@@ -41,7 +41,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.fromLTRB(10, 5, 10, 60),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(

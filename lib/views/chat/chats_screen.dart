@@ -1,7 +1,5 @@
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
-import 'package:bitsapp/main.dart';
 import 'package:bitsapp/models/chat_room.dart';
-import 'package:bitsapp/services/google_auth_service.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,21 +72,21 @@ class ChatsScreen extends HookConsumerWidget {
         ),
       ),
       body: buildBody(chatrooms),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 12, bottom: 100),
-        child: FloatingActionButton(
-          onPressed: () async {
-            if (await GoogleAuthService.signOut()) {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(MyApp.routeName, (route) => false);
-            }
-          },
-          child: const Icon(
-            Icons.person_add_alt_1,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(right: 12, bottom: 100),
+      //   child: FloatingActionButton(
+      //     onPressed: () async {
+      //       if (await GoogleAuthService.signOut()) {
+      //         Navigator.of(context)
+      //             .pushNamedAndRemoveUntil(MyApp.routeName, (route) => false);
+      //       }
+      //     },
+      //     child: const Icon(
+      //       Icons.person_add_alt_1,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // ),
     );
   }
 

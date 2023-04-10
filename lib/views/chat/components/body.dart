@@ -25,6 +25,7 @@ class Body extends ConsumerWidget {
           child: chatStream.when(
               data: (snapshot) {
                 return ListView.builder(
+                  reverse: true,
                   padding: const EdgeInsets.symmetric(
                       horizontal: Constants.kDefaultPadding),
                   physics: const ClampingScrollPhysics(),
@@ -36,10 +37,13 @@ class Body extends ConsumerWidget {
               },
               error: (e, stackTrace) =>
                   Text("Please check you Internet Connection $e"),
-              loading: () => const CircularProgressIndicator.adaptive()),
+              loading: () => const CircularProgressIndicator()),
         ),
         ChatInputField(
-            chatRoomUid: chatRoomUid, receiverFcmToken: receiver.fcmToken.toString(), senderName: receiver.name.toString()),
+          chatRoomUid: chatRoomUid,
+          receiverFcmToken: receiver.fcmToken.toString(),
+          senderName: receiver.name.toString(),
+        ),
       ],
     );
   }

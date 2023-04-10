@@ -1,7 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/models/recieved_notification.dart';
-import 'package:bitsapp/services/notif_service.dart';
-import 'package:bitsapp/views/profile_screen/profile_edit_screen.dart';
+import 'package:bitsapp/views/profile_screen/edit_education_screen.dart';
+import 'package:bitsapp/views/profile_screen/edit_experience_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,41 +17,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 12, bottom: 100),
-        child: FloatingActionButton(
-          heroTag: "profile",
-          onPressed: () {
-            NotifService.showLocalNotification(ReceivedNotification(
-                id: 1,
-                title: "Hello",
-                body: "This is a notification",
-                payload: "This is a payload"));
-          },
-          child: const Icon(Icons.add),
-        ),
-      ),
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTop,
-                  child: const ProfileEditScreen(),
-                  childCurrent: this,
-                  duration: const Duration(milliseconds: 250),
-                ),
-              );
-            },
-            icon: const Icon(
-              FontAwesomeIcons.penToSquare,
-              size: 26,
-              color: Color(0xFF69708C),
-            ),
-          )
-        ],
         scrolledUnderElevation: 0,
         title: Text(
           "Profile",
@@ -86,20 +51,44 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Experience",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.65),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Experience",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.65),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.bottomToTop,
+                                child: const ExperienceEditScreen(),
+                                childCurrent: this,
+                                duration: const Duration(milliseconds: 250),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            FontAwesomeIcons.penToSquare,
+                            size: 22,
+                            color: Color(0xFF69708C),
+                          ),
+                        ),
+                      ],
                     ),
                     const ExperienceWidget(
                       url:
                           "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
                       txt1: "Summer Intern",
-                      txt2: "Jio Platforms Limited (JPL) · Internship",
+                      txt2: "Jio Platforms Limited · Internship",
                       txt3: "Jun 2022 - Jul 2022 · 2 mos",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -107,6 +96,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "App Developer",
                       txt2: "Rentalz · Part-time",
                       txt3: "Sep 2021 - Feb 2022 · 6 mos",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -114,6 +104,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "Summer Intern",
                       txt2: "CRISS Robotics · Internship",
                       txt3: "Jul 2021 - Feb 2022 · 8 mos",
+                      showEdit: false,
                     ),
                   ],
                 ),
@@ -130,13 +121,36 @@ class ProfileScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Education",
-                      style: TextStyle(
-                        color: Colors.black.withOpacity(0.65),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Education",
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.65),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.bottomToTop,
+                                child: const EducationEditScreen(),
+                                childCurrent: this,
+                                duration: const Duration(milliseconds: 250),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            FontAwesomeIcons.penToSquare,
+                            size: 22,
+                            color: Color(0xFF69708C),
+                          ),
+                        ),
+                      ],
                     ),
                     const ExperienceWidget(
                       url:
@@ -144,6 +158,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "Bits Pilani",
                       txt2: "Electronics and Instrumentation",
                       txt3: "2022 - 2024",
+                      showEdit: false,
                     ),
                     const ExperienceWidget(
                       url:
@@ -151,6 +166,7 @@ class ProfileScreen extends ConsumerWidget {
                       txt1: "The Camford International School",
                       txt2: "2018-2020",
                       txt3: "",
+                      showEdit: false,
                     ),
                   ],
                 ),
