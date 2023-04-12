@@ -51,7 +51,17 @@ class NewPostScreen extends HookConsumerWidget {
               );
               loading.value = true;
               await FirestoreService.addFeedPost(feedPost, files.value, ref)
-                  .then((value) => loading.value = false);
+                  .then((value) {
+                files.value = {};
+                textController.text = "";
+                loading.value = false;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content:  Text("Posted Successfully!"),
+                    duration:  Duration(seconds: 3),
+                  ),
+                );
+              });
             },
             child: Container(
               width: 72,
@@ -107,7 +117,11 @@ class NewPostScreen extends HookConsumerWidget {
                       children: [
                         const CircleProfilePic(radius: 20),
                         const Spacer(flex: 1),
-                        PersonDetail(user: localUser, isSmall: true, time: null,),
+                        PersonDetail(
+                          user: localUser,
+                          isSmall: true,
+                          time: null,
+                        ),
                         const Spacer(flex: 25),
                       ],
                     ),

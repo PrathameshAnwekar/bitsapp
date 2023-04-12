@@ -27,6 +27,9 @@ class FeedDesc extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final poster = ref
+        .read(contactsListProvider)
+        .firstWhere((element) => element.uid == feedPost.posterUid);
     final localUser = ref.watch(localUserProvider);
     final likeStatus = useState(feedPost.likes.contains(localUser.uid));
     return Column(
@@ -37,10 +40,9 @@ class FeedDesc extends HookConsumerWidget {
             const CircleProfilePic(radius: 22.5),
             const Spacer(flex: 1),
             PersonDetail(
-              user: localUser,
-              isSmall: false,
-              time: int.tryParse(feedPost.timeuid)
-            ),
+                user: poster,
+                isSmall: false,
+                time: int.tryParse(feedPost.timeuid)),
             const Spacer(flex: 25),
             const Icon(
               Icons.more_vert_outlined,
@@ -54,7 +56,6 @@ class FeedDesc extends HookConsumerWidget {
           child: ReadMoreText(
             feedPost.text,
             style: GoogleFonts.firaSans(
-              
               fontSize: 16.5,
               letterSpacing: 0.1,
               height: 1.25,

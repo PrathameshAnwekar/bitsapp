@@ -15,6 +15,14 @@ class ChatsScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            ChatsScreenController.gotoContactsScreen(context);
+          },
+        ),
+      ],
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -28,48 +36,48 @@ class ChatsScreen extends HookConsumerWidget {
             ),
           ),
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(30),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              cursorColor: const Color(0xFF676767),
-              style: GoogleFonts.rubik(
-                color: const Color(0xFF676767),
-                fontSize: 17,
-              ),
-              textCapitalization: TextCapitalization.words,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(top: 15),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.2,
-                    color: Color(0xFF2D3F65),
-                  ),
-                ),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.2,
-                    color: Color(0xFF2D3F65),
-                  ),
-                ),
-                hintText: "Search...",
-                hintStyle: GoogleFonts.rubik(
-                  color: const Color(0xFF2D3F65),
-                  fontSize: 14,
-                ),
-                suffixIcon: const Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Icon(
-                    Icons.search,
-                    color: Color(0xFF2D3F65),
-                    size: 22,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size.fromHeight(30),
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 20),
+        //     child: TextFormField(
+        //       cursorColor: const Color(0xFF676767),
+        //       style: GoogleFonts.rubik(
+        //         color: const Color(0xFF676767),
+        //         fontSize: 17,
+        //       ),
+        //       textCapitalization: TextCapitalization.words,
+        //       decoration: InputDecoration(
+        //         contentPadding: const EdgeInsets.only(top: 15),
+        //         focusedBorder: const UnderlineInputBorder(
+        //           borderSide: BorderSide(
+        //             width: 1.2,
+        //             color: Color(0xFF2D3F65),
+        //           ),
+        //         ),
+        //         enabledBorder: const UnderlineInputBorder(
+        //           borderSide: BorderSide(
+        //             width: 1.2,
+        //             color: Color(0xFF2D3F65),
+        //           ),
+        //         ),
+        //         hintText: "Search...",
+        //         hintStyle: GoogleFonts.rubik(
+        //           color: const Color(0xFF2D3F65),
+        //           fontSize: 14,
+        //         ),
+        //         suffixIcon: const Padding(
+        //           padding: EdgeInsets.only(top: 8.0),
+        //           child: Icon(
+        //             Icons.search,
+        //             color: Color(0xFF2D3F65),
+        //             size: 22,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
       body: buildBody(chatrooms),
       // floatingActionButton: Padding(

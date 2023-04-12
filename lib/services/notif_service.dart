@@ -131,30 +131,30 @@ class NotifService {
       {required String text,
       required String sender,
       required String token}) async {
-    var url = Uri.parse(
-        'https://$serverUrl/chat?sender=$sender&token=$token&text=$text');
-    var response = await http.get(url);
-    dlog("Sent get request to $url");
-    if (response.statusCode == 200) {
-      if (response.body.isNotEmpty) {
-        // final jsonResponse = json.decode(response.body);
-        print('Response: ${response.statusCode}');
-      }
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
+    // var url = Uri.parse(
+    //     'https://$serverUrl/chat?sender=$sender&token=$token&text=$text');
+    // var response = await http.get(url);
+    // dlog("Sent get request to $url");
+    // if (response.statusCode == 200) {
+    //   if (response.body.isNotEmpty) {
+    //     // final jsonResponse = json.decode(response.body);
+    //     print('Response: ${response.statusCode}');
+    //   }
+    // } else {
+    //   print('Request failed with status: ${response.statusCode}.');
+    // }
   }
 
   static Future<void> sendPostNotification(
       {required String text, required String sender}) async {
-    var url = Uri.parse('https://$serverUrl/topic?sender=$sender&text=$text');
-    var response = await http.get(url);
-    dlog("Sent get request to $url");
-    if (response.statusCode == 200) {
-      // var jsonResponse = json.decode(response.body);
-      print('Response: ${response.statusCode}');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
+    // var url = Uri.parse('https://$serverUrl/topic?sender=$sender&text=$text');
+    // var response = await http.get(url);
+    // dlog("Sent get request to $url");
+    // if (response.statusCode == 200) {
+    //   // var jsonResponse = json.decode(response.body);
+    //   print('Response: ${response.statusCode}');
+    // } else {
+    //   print('Request failed with status: ${response.statusCode}.');
+    // }
   }
 }

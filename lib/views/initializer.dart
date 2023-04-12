@@ -24,8 +24,11 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
 
           return (widget.snapshot1.connectionState == ConnectionState.waiting ||
                   widget.snapshot1.connectionState == ConnectionState.none)
-              ? const Center(
-                  child: CircularProgressIndicator(),
+              ? Scaffold(
+                  backgroundColor: Colors.white,
+                  body: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 )
               : widget.snapshot.hasData
                   ? const BottomBar()
