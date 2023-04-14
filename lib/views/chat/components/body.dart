@@ -3,6 +3,8 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/views/chat/chat.dart';
+import 'package:bitsapp/views/chat/components/chat_post_container.dart';
+import 'package:bitsapp/views/feed_screen/components/media_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,22 +40,12 @@ class Body extends HookConsumerWidget {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[messages.length - index - 1];
-                      String? replyText = null;
-                      if (message.replyOf != null) {
-                        final replyOfMessage = messages.firstWhere(
-                            (element) => element.time.toString() == message.replyOf);
-                        replyText = replyOfMessage.text;
-                        print("REply of message: $replyText");
+                      if (message.type == MessageType.text) {
+                        return showTextMessage(
+                            message, messages, replyOfHook, index, replyOfText);
+                      } else if (message.type == MessageType.feedpost) {
+                        return ChatPostContainer(message: message);
                       }
-                      return GestureDetector(
-                          onDoubleTap: () {
-                            selectMessageForReply(
-                                replyOfHook, message, index, replyOfText);
-                          },
-                          child: TextMessage(
-                            message: message,
-                            replyText: replyText,
-                          ));
                     });
               },
               error: (e, stackTrace) =>
@@ -73,6 +65,28 @@ class Body extends HookConsumerWidget {
         ),
       ],
     );
+  }
+
+  GestureDetector showTextMessage(
+      Message message,
+      List<Message> messages,
+      ValueNotifier<String?> replyOfHook,
+      int index,
+      ValueNotifier<String?> replyOfText) {
+    String? replyText = null;
+    if (message.replyOf != null) {
+      final replyOfMessage = messages
+          .firstWhere((element) => element.time.toString() == message.replyOf);
+      replyText = replyOfMessage.text;
+    }
+    return GestureDetector(
+        onDoubleTap: () {
+          selectMessageForReply(replyOfHook, message, index, replyOfText);
+        },
+        child: TextMessage(
+          message: message,
+          replyText: replyText,
+        ));
   }
 
   void selectMessageForReply(ValueNotifier<String?> replyOfHook,

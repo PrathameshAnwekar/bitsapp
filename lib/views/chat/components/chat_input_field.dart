@@ -100,13 +100,18 @@ class ChatInputField extends HookConsumerWidget {
                         const SizedBox(width: Constants.kDefaultPadding / 4),
                         GestureDetector(
                           onTap: () {
-                            ChatController.sendMessage(
+                            if(textController.text.trim() != "") {
+                              ChatController.sendMessage(
                                 ref: ref,
                                 textController: textController,
                                 chatRoomUid: chatRoomUid,
                                 receiverFcmToken: receiverFcmToken,
                                 senderName: senderName,
                                 replyOf: replyOf);
+                            }
+                            else {
+                              textController.clear();
+                            }
                             reset();
                           },
                           child: Icon(
