@@ -34,9 +34,10 @@ class ChatPostContainer extends ConsumerWidget {
                 .read(contactsListProvider)
                 .firstWhere((element) => element.uid == post.posterUid);
             return Container(
+              margin: EdgeInsets.only(bottom: 10),
               height: SizeConfig.screenHeight * 0.4,
               width: SizeConfig.screenWidth * 0.4,
-              clipBehavior: Clip.hardEdge,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: Stack(
