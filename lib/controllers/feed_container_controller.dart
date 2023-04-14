@@ -129,15 +129,17 @@ class FeedContainerController {
         final otherUserUid = chatRoomToShare[i]
             .userUidList
             .firstWhere((element) => localUser.uid != element);
-        final fcmId =
-            contacts.firstWhere((element) => element.uid == otherUserUid).fcmID;
+        final fcmToken =
+            contacts.firstWhere((element) => element.uid == otherUserUid).fcmToken;
         final message = Message(
             sender: localUser.uid,
             text: shareString,
+            type: MessageType.feedpost,
+            replyOf: null,
             time: DateTime.now().millisecondsSinceEpoch);
         ref
             .read(chatRoomsProvider.notifier)
-            .addMessage(chatRoomToShare[i].uid, message, fcmId ?? "null", "Someone new");
+            .addMessage(chatRoomToShare[i].uid, message, fcmToken ?? "null", "Someone new");
       }
       return Future.value(true);
     } catch (e) {

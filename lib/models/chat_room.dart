@@ -43,10 +43,12 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     }).toList();
   }
 
-  void addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) async {
+  Future<void> addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) async {
     try {
-      await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
       state = state..add(chatRoom);
+      await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
+      
+      
     } catch (e) {
       elog(e.toString());
     }
