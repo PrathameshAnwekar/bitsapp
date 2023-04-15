@@ -108,7 +108,7 @@ class FeedDesc extends HookConsumerWidget {
                 Constants.postOptionIcons[0],
                 width: 26,
                 height: 26,
-                color: likeStatus.value ? const Color(0xFF0073B1) : Colors.red,
+                color: !likeStatus.value ? const Color(0xFF0073B1) : Colors.red,
               ),
             ),
             GestureDetector(

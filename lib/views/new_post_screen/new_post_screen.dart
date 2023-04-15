@@ -24,7 +24,7 @@ class NewPostScreen extends HookConsumerWidget {
     final textController = useTextEditingController();
     final files = useState(mp);
     final localUser = ref.watch(localUserProvider);
-    dlog(files.value.toString());
+    vlog(files.value.toString());
     final loading = useState(false);
     return Scaffold(
       resizeToAvoidBottomInset: false,

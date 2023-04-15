@@ -36,13 +36,19 @@ class FirestoreService {
     }
   }
 
-  static Future<bool> initEverything(WidgetRef ref, BuildContext context) async {
+  static Future<bool> initEverything(
+      WidgetRef ref, BuildContext context) async {
     try {
       await FirestoreService.initUser(ref, context);
+      dlog("User initialised");
       await FirestoreService.updateContactsList(ref).then((value) async {
+        dlog("Contacts list updated");
         await FirestoreService.initInternshipData(ref);
+        dlog("Internship data initialised");
         await FirestoreService.initialiseChatRooms(ref);
+        dlog("Chat rooms initialised");
         await FirestoreService.initFeedPosts(ref);
+
       });
       return Future.value(true);
     } catch (e) {
@@ -63,8 +69,10 @@ class FirestoreService {
 
       ref.read(localUserProvider.notifier).setUser(user);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("You've been logged out, please log in again.")));
-      Navigator.of(context).pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("You've been logged out, please log in again.")));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
       elog(e.toString());
     }
   }
@@ -135,7 +143,7 @@ class FirestoreService {
       await _chatRoomsRef.doc(chatRoomUid).update({
         "messages": FieldValue.arrayUnion([message.toJson()])
       });
-      
+
       dlog("added message ${message.text} to chat room $chatRoomUid");
     } catch (e) {
       elog(e.toString());
@@ -185,7 +193,9 @@ class FirestoreService {
   }
 
   static Future<void> updateInternshipApplicationStatus(
-      InternshipApplication application, InternshipData internship, String status) async {
+      InternshipApplication application,
+      InternshipData internship,
+      String status) async {
     try {
       _internshipsRef.doc(internship.uid).update({
         "applications": FieldValue.arrayRemove([application.toJson()]),
@@ -195,11 +205,10 @@ class FirestoreService {
       _internshipsRef.doc(internship.uid).update({
         "applications": FieldValue.arrayUnion([application.toJson()]),
       });
-      
-    }catch(e){
+    } catch (e) {
       elog(e.toString());
     }
-      }
+  }
 
   // ************* FIREBASEMESSAGING SERVICES ************* //
   static updateFcmToken(String token) async {
@@ -245,21 +254,27 @@ class FirestoreService {
     try {
       int i = 0;
       for (var file in files.keys) {
-        debugPrint("UploadTaskFlow: uploading ${files[file]}");
+        vlog("UploadTaskFlow: uploading ${files[file]}");
         final url = await _firebaseStorage
             .child("feedPosts/${feedPost.posterUid}/${feedPost.timeuid}-$i")
             .putFile(file)
             .then((value) => value.ref.getDownloadURL());
         i++;
-        debugPrint("UploadTaskFlow: uploaded ${files[file]} $i. url : $url");
+        vlog("UploadTaskFlow: uploaded ${files[file]} $i. url : $url");
 
         feedPost.mediaFilesList.add(MediaFile(type: files[file]!, url: url));
-        debugPrint("UploadTaskFlow: added ${files[file]} to mediaFilesList");
+        vlog("UploadTaskFlow: added ${files[file]} to mediaFilesList");
       }
       await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
       ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
-      final senderName = ref.read(contactsListProvider).where((element) => element.uid == feedPost.posterUid).first.name;
-      await NotifService.sendPostNotification(sender: senderName, text: feedPost.text);
+      final senderName = ref
+          .read(contactsListProvider)
+          .where((element) => element.uid == feedPost.posterUid)
+          .first
+          .name;
+      await NotifService.sendPostNotification(
+          sender: senderName, text: feedPost.text);
+      
     } catch (e) {
       elog(e.toString());
       rethrow;

@@ -107,6 +107,22 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
       elog(e.toString());
     }
   }
+
+  void clearUser(){
+    state = BitsUser(
+        name: "name",
+        profilePicUrl: "profilePicUrl",
+        profileDescription: "profileDescription",
+        email: "email",
+        bitsID: "bitsID",
+        chatRooms: [],
+        uid: "uid",
+        fcmID: "fcmID",
+        appliedInternships: [],
+        postedInternships: [],
+        fcmToken: "",
+        feedPosts: []);
+  }
 }
 
 final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(

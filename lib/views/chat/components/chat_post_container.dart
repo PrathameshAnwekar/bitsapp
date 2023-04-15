@@ -21,7 +21,7 @@ class ChatPostContainer extends ConsumerWidget {
         future: FirebaseFirestore.instance
             .collection("FeedPosts")
             .doc(postUid)
-            .get(),
+            .get(const GetOptions(source: Source.serverAndCache)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

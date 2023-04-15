@@ -1,3 +1,4 @@
+import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/profile_screen/edit_education_screen.dart';
 import 'package:bitsapp/views/profile_screen/edit_experience_screen.dart';
@@ -18,6 +19,14 @@ class ProfileScreen extends ConsumerWidget {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              AuthController.signOut(context, ref);
+            },
+          )
+        ],
         scrolledUnderElevation: 0,
         title: Text(
           "Profile",

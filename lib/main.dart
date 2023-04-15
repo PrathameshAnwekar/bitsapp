@@ -26,31 +26,26 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder(
       future: FirestoreService.initEverything(ref, context),
-      builder: (context, snapshot1) {
-        return StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            return MaterialApp(
-              localizationsDelegates: const [
-                MonthYearPickerLocalizations.delegate,
-              ],
-              title: 'BITSocial',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                useMaterial3: true,
-                colorSchemeSeed: Colors.amber,
-                appBarTheme: const AppBarTheme(
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: Colors.white,
-                    statusBarIconBrightness: Brightness.dark,
-                    statusBarBrightness: Brightness.light,
-                  ),
-                ),
+      builder: (context, initSnapshot) {
+        return MaterialApp(
+          localizationsDelegates: const [
+            MonthYearPickerLocalizations.delegate,
+          ],
+          title: 'BITSocial',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Colors.amber,
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.white,
+                statusBarIconBrightness: Brightness.dark,
+                statusBarBrightness: Brightness.light,
               ),
-              home: InitializerWidget(snapshot1: snapshot1, snapshot: snapshot),
-              routes: customRoutes,
-            );
-          },
+            ),
+          ),
+          home: InitializerWidget(initSnapshot: initSnapshot),
+          routes: customRoutes,
         );
       },
     );

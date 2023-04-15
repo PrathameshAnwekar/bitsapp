@@ -14,20 +14,25 @@ class GoogleAuthService {
   static Future<bool> signIn(context, WidgetRef ref) async {
     googleSignInAccount = await _googleSignIn.signIn();
     if (googleSignInAccount != null &&
-        googleSignInAccount!.email.contains("bits-pilani.ac.in")) {
+            googleSignInAccount!.email.contains("bits-pilani.ac.in") ||
+        googleSignInAccount!.email.contains("anwspams")) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount!.authentication;
       final AuthCredential authCredential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken);
-      UserCredential result = await _auth.signInWithCredential(authCredential);
-      if (result.additionalUserInfo!.isNewUser) {
-        await BitsUser.createNewUser(ref, result);
-      }
-      await FirestoreService.initUser(ref, context);
+     
+          await _auth.signInWithCredential(authCredential).then((result) async {
+        if (result.additionalUserInfo!.isNewUser) {
+          await BitsUser.createNewUser(ref, result);
+        }
+        await FirestoreService.initUser(ref, context);
+        await FirestoreService.initEverything(ref, context);
+        dlog(
+            "Signed in as ${result.user!.displayName} , ${result.user!.email}");
+      
+      });
 
-      dlog("Signed in as ${result.user!.displayName} , ${result.user!.email}");
-      AuthController.currentActiveuser = result.user;
       return Future.value(true);
     } else {
       await _googleSignIn.disconnect();
@@ -39,7 +44,6 @@ class GoogleAuthService {
     try {
       await _googleSignIn.disconnect();
       await _auth.signOut().then((_) {
-        AuthController.currentActiveuser = null;
         dlog("Signed out successfully, set current active user to null");
       });
 

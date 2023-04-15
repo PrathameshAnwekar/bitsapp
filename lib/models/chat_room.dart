@@ -65,4 +65,7 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     }
 
   }
+  void clear(){
+    state = [];
+  }
 }

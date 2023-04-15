@@ -1,14 +1,16 @@
 import 'package:bitsapp/constants/size_config.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:bitsapp/views/bottom_nav_screen/bottom_nav_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InitializerWidget extends ConsumerStatefulWidget {
   const InitializerWidget(
-      {Key? key, required this.snapshot1, required this.snapshot})
+      {Key? key, required this.initSnapshot})
       : super(key: key);
-  final snapshot1, snapshot;
+  final initSnapshot;
   static const routeName = '/initializer';
   @override
   ConsumerState<InitializerWidget> createState() => _InitializerWidgetState();
@@ -21,16 +23,16 @@ class _InitializerWidgetState extends ConsumerState<InitializerWidget> {
       return LayoutBuilder(
         builder: (context, orientation) {
           SizeConfig().init(context);
-
-          return (widget.snapshot1.connectionState == ConnectionState.waiting ||
-                  widget.snapshot1.connectionState == ConnectionState.none)
-              ? Scaffold(
+          return (widget.initSnapshot.connectionState ==
+                      ConnectionState.waiting ||
+                  widget.initSnapshot.connectionState == ConnectionState.none)
+              ? const Scaffold(
                   backgroundColor: Colors.white,
-                  body: const Center(
+                  body: Center(
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : widget.snapshot.hasData
+              : FirebaseAuth.instance.currentUser != null
                   ? const BottomBar()
                   : const AuthScreen();
         },

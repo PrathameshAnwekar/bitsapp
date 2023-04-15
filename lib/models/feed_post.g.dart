@@ -23,7 +23,7 @@ Map<String, dynamic> _$FeedPostToJson(FeedPost instance) => <String, dynamic>{
       'posterUid': instance.posterUid,
       'timeuid': instance.timeuid,
       'text': instance.text,
-      'mediaFilesList': instance.mediaFilesList,
+      'mediaFilesList': instance.mediaFilesList.map((e) => e.toJson()).toList(),
       'comments': instance.comments,
       'likes': instance.likes,
     };
