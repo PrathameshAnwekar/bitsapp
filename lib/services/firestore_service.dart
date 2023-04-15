@@ -10,10 +10,12 @@ import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
+import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FirestoreService {
@@ -34,9 +36,9 @@ class FirestoreService {
     }
   }
 
-  static Future<bool> initEverything(WidgetRef ref) async {
+  static Future<bool> initEverything(WidgetRef ref, BuildContext context) async {
     try {
-      await FirestoreService.initUser(ref);
+      await FirestoreService.initUser(ref, context);
       await FirestoreService.updateContactsList(ref).then((value) async {
         await FirestoreService.initInternshipData(ref);
         await FirestoreService.initialiseChatRooms(ref);
@@ -50,7 +52,7 @@ class FirestoreService {
   }
 
   // ************* USER SERVICES ************* //
-  static Future<void> initUser(WidgetRef ref) async {
+  static Future<void> initUser(WidgetRef ref, BuildContext context) async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -61,6 +63,8 @@ class FirestoreService {
 
       ref.read(localUserProvider.notifier).setUser(user);
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("You've been logged out, please log in again.")));
+      Navigator.of(context).pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
       elog(e.toString());
     }
   }

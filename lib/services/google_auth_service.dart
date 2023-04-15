@@ -24,7 +24,7 @@ class GoogleAuthService {
       if (result.additionalUserInfo!.isNewUser) {
         await BitsUser.createNewUser(ref, result);
       }
-      await FirestoreService.initUser(ref);
+      await FirestoreService.initUser(ref, context);
 
       dlog("Signed in as ${result.user!.displayName} , ${result.user!.email}");
       AuthController.currentActiveuser = result.user;

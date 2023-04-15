@@ -23,8 +23,8 @@ class ChatsScreenController {
   static void addNewChatRoom(String localUserUid, String userUid,
       BuildContext context, WidgetRef ref) async {
     final uid = localUserUid.compareTo(userUid) < 0
-        ? '$localUserUid-$userUid'
-        : '$userUid-$localUserUid';
+        ? '$localUserUid$userUid'
+        : '$userUid$localUserUid';
     if (ref.read(localUserProvider).chatRooms.contains(uid)) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) {

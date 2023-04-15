@@ -25,7 +25,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FutureBuilder(
-      future: FirestoreService.initEverything(ref),
+      future: FirestoreService.initEverything(ref, context),
       builder: (context, snapshot1) {
         return StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
