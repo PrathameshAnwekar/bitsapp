@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/chat_controller.dart';
+import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,22 +10,22 @@ class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
   final String receiverFcmToken;
   final String senderName;
-  final String? replyOf;
-  final String? replyOfText;
+ 
   final VoidCallback reset;
   const ChatInputField(
       {Key? key,
       required this.chatRoomUid,
       required this.receiverFcmToken,
       required this.senderName,
-      required this.replyOf,
-      required this.replyOfText,
+    
       required this.reset})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
+     final String? replyOf = ref.watch(replyOfProvider);
+  final String? replyOfText = ref.watch(replyOfTextProvider);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Constants.kDefaultPadding,
@@ -43,13 +44,13 @@ class ChatInputField extends HookConsumerWidget {
       child: SafeArea(
         child: Column(
           children: [
-            if (replyOf != null)
+        
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: replyOfText != null
                     ? AutoSizeText(
-                        replyOfText!,
+                        replyOfText,
                         minFontSize: 15,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

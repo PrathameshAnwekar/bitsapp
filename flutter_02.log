@@ -1,0 +1,75 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run
+
+## exception
+
+RPCError: _flutter.renderFrameWithRasterStats: (-32000) Failed to render the last frame with raster stats. Rasterizer does not hold a valid last layer tree. This could happen if this method was invoked before a frame was rendered
+
+```
+#0      new _OutstandingRequest (package:vm_service/src/vm_service.dart:1746:45)
+#1      VmService._call (package:vm_service/src/vm_service.dart:2262:21)
+#2      VmService.callServiceExtension (package:vm_service/src/vm_service.dart:2233:14)
+#3      VmService.callMethod (package:vm_service/src/vm_service.dart:2215:12)
+#4      FlutterVmService.callMethodWrapper (package:flutter_tools/src/vmservice.dart:462:28)
+#5      FlutterVmService.renderFrameWithRasterStats (package:flutter_tools/src/vmservice.dart:562:49)
+#6      ResidentHandlers.debugFrameJankMetrics (package:flutter_tools/src/resident_runner.dart:711:35)
+<asynchronous suspension>
+#7      TerminalHandler.processTerminalInput (package:flutter_tools/src/resident_runner.dart:1760:7)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, 3.7.11, on Microsoft Windows [Version 10.0.22621.1555], locale en-US)
+    [32m•[39m Flutter version 3.7.11 on channel stable at C:\flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision f72efea43c (5 days ago), 2023-04-11 11:57:21 -0700
+    [32m•[39m Engine revision 1a65d409c7
+    [32m•[39m Dart version 2.19.6
+    [32m•[39m DevTools version 2.20.1
+
+[32m[✓][39m Windows Version (Installed version of Windows is version 10 or higher)
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 33.0.0)
+    [32m•[39m Android SDK at C:\Users\prath\AppData\Local\Android\sdk
+    [32m•[39m Platform android-33, build-tools 33.0.0
+    [32m•[39m Java binary at: C:\Program Files\Android\Android Studio\jre\bin\java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 11.0.12+7-b1504.28-7817840)
+    [32m•[39m All Android licenses accepted.
+
+[31m[✗][39m Chrome - develop for the web (Cannot find Chrome executable at
+    .\Google\Chrome\Application\chrome.exe)
+    [33m![39m Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
+
+[32m[✓][39m Visual Studio - develop for Windows (Visual Studio Community 2019 16.11.19)
+    [32m•[39m Visual Studio at C:\Program Files (x86)\Microsoft Visual Studio\2019\Community
+    [32m•[39m Visual Studio Community 2019 version 16.11.32901.82
+    [32m•[39m Windows 10 SDK version 10.0.19041.0
+
+[32m[✓][39m Android Studio (version 2021.2)
+    [32m•[39m Android Studio at C:\Program Files\Android\Android Studio
+    [32m•[39m Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    [32m•[39m Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    [32m•[39m Java version OpenJDK Runtime Environment (build 11.0.12+7-b1504.28-7817840)
+
+[32m[✓][39m VS Code (version 1.77.3)
+    [32m•[39m VS Code at C:\Users\prath\AppData\Local\Programs\Microsoft VS Code
+    [32m•[39m Flutter extension version 3.48.0
+
+[32m[✓][39m Connected device (3 available)
+    [32m•[39m Pixel 7 (mobile)  • 2B191FDH200CPY • android-arm64  • Android 13 (API 33)
+    [32m•[39m Windows (desktop) • windows        • windows-x64    • Microsoft Windows [Version 10.0.22621.1555]
+    [32m•[39m Edge (web)        • edge           • web-javascript • Microsoft Edge 112.0.1722.46
+
+[32m[✓][39m HTTP Host Availability
+    [32m•[39m All required HTTP hosts are available
+
+[33m![39m Doctor found issues in 1 category.
+```
