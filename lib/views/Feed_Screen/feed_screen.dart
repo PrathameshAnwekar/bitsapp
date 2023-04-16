@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
@@ -39,7 +41,7 @@ class FeedScreen extends ConsumerWidget {
     final feedPosts = ref.watch(feedPostDataProvider).toList();
     return Scaffold(
       extendBody: true,
-      backgroundColor: const Color.fromARGB(44, 98, 98, 98),
+      backgroundColor: const Color(0xFFf0f3fa),
       body: SafeArea(
         bottom: false,
         child: NestedScrollView(
@@ -60,7 +62,7 @@ class FeedScreen extends ConsumerWidget {
                 padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color.fromRGBO(32, 33, 37, 1),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(28),
                   ),
                   child: ClipRRect(
@@ -84,15 +86,15 @@ class FeedScreen extends ConsumerWidget {
                   FeedScreenController.goToSearch(context, ref);
                 },
                 child: Container(
-                  margin: const EdgeInsets.only(left: 6, right: 6, bottom: 3),
-                  height: 42,
+                  margin: const EdgeInsets.only(left: 6, right: 6, bottom: 2),
+                  height: 45,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.1),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(
-                      color: Colors.black.withOpacity(0.8),
-                    ),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFf0f3fa),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    // border: Border.all(
+                    //   color: Colors.grey.withOpacity(0.8),
+                    // ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -100,14 +102,15 @@ class FeedScreen extends ConsumerWidget {
                       SvgPicture.asset(
                         'assets/icons/search.svg',
                         height: 22,
-                        color: Colors.black.withOpacity(0.8),
+                        color: Colors.blueGrey.shade700,
                       ),
                       const SizedBox(width: 10),
                       Text(
                         "Search",
                         style: GoogleFonts.dmSans(
                           fontSize: 16,
-                          color: Colors.black.withOpacity(0.8),
+                          fontWeight: FontWeight.w500,
+                          color: Colors.blueGrey.shade700,
                         ),
                       ),
                     ],
@@ -117,9 +120,15 @@ class FeedScreen extends ConsumerWidget {
               actions: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    Icons.more_vert_rounded,
-                    size: 32,
+                  icon: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(pi),
+                    child: SvgPicture.asset(
+                      'assets/icons/menu.svg',
+                      height: 35,
+                      width: 35,
+                      color: Colors.blueGrey.shade600,
+                    ),
                   ),
                 ),
               ],

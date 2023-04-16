@@ -20,7 +20,7 @@ class PersonDetail extends StatelessWidget {
       children: <Widget>[
         Text(
           user.name,
-          style: GoogleFonts.firaSans(
+          style: GoogleFonts.roboto(
             color: const Color.fromRGBO(15, 15, 18, 0.9),
             fontSize: isSmall ? 16 : 18,
             fontWeight: FontWeight.w500,
@@ -30,7 +30,7 @@ class PersonDetail extends StatelessWidget {
           time != null
               ? timeAgo(DateTime.fromMillisecondsSinceEpoch(time!))
               : "",
-          style: GoogleFonts.firaSans(
+          style: GoogleFonts.roboto(
             color: const Color.fromARGB(255, 166, 166, 166),
             letterSpacing: 0.2,
             fontSize: isSmall ? 12.5 : 14.5,
