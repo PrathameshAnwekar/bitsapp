@@ -35,6 +35,7 @@ class MyApp extends HookConsumerWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
+            
             colorSchemeSeed: Colors.amber,
             appBarTheme: const AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle(

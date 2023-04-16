@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:bitsapp/views/new_post_screen/new_post_screen.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
@@ -18,6 +19,8 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
+  
+
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     FeedScreen(),
@@ -28,6 +31,7 @@ class _BottomBarState extends State<BottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
+    print("rebuilding bottom nav screen");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
