@@ -142,8 +142,8 @@ List<BitsUser> bitsUserList = List.generate(
                     transform: Matrix4.rotationY(pi),
                     child: SvgPicture.asset(
                       'assets/icons/menu.svg',
-                      height: 35,
-                      width: 35,
+                      height: 32,
+                      width: 32,
                       color: Colors.blueGrey.shade600,
                     ),
                   ),

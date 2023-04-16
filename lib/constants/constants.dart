@@ -31,7 +31,8 @@ class Constants {
   ];
 
   static final postOptionIcons = [
-    'assets/icons/like.svg',
+    'assets/icons/like_outline.svg',
+    'assets/icons/like_filled.svg',
     'assets/icons/comment.svg',
     'assets/icons/bookmark.svg',
     'assets/icons/share.svg',
@@ -94,4 +95,6 @@ class Constants {
   static const kWarninngColor = Color(0xFFF3BB1C);
   static const kErrorColor = Color(0xFFF03738);
   static const kDefaultPadding = 20.0;
+  static const activeIconColor = Color(0xFF2394c9);
+  static const inactiveIconColor = Colors.grey;
 }

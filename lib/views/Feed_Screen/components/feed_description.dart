@@ -81,7 +81,9 @@ class FeedDesc extends HookConsumerWidget {
                 }
               },
               child: SvgPicture.asset(
-                Constants.postOptionIcons[0],
+                likeStatus.value
+                    ? Constants.postOptionIcons[1]
+                    : Constants.postOptionIcons[0],
                 width: 25,
                 height: 25,
                 color: !likeStatus.value
@@ -99,7 +101,7 @@ class FeedDesc extends HookConsumerWidget {
             GestureDetector(
               onTap: () => commentFunc(),
               child: SvgPicture.asset(
-                Constants.postOptionIcons[1],
+                Constants.postOptionIcons[2],
                 width: 25,
                 height: 25,
                 color: const Color.fromRGBO(32, 33, 37, 1),
@@ -139,7 +141,7 @@ class FeedDesc extends HookConsumerWidget {
                 await FeedContainerController.openShareSheet(context, feedPost);
               },
               child: SvgPicture.asset(
-                Constants.postOptionIcons[3],
+                Constants.postOptionIcons[4],
                 width: 25,
                 height: 25,
                 color: const Color.fromRGBO(32, 33, 37, 1),
