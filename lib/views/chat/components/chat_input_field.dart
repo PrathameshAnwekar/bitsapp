@@ -4,7 +4,6 @@ import 'package:bitsapp/controllers/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:readmore/readmore.dart';
 
 class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
@@ -100,16 +99,15 @@ class ChatInputField extends HookConsumerWidget {
                         const SizedBox(width: Constants.kDefaultPadding / 4),
                         GestureDetector(
                           onTap: () {
-                            if(textController.text.trim() != "") {
+                            if (textController.text.trim() != "") {
                               ChatController.sendMessage(
-                                ref: ref,
-                                textController: textController,
-                                chatRoomUid: chatRoomUid,
-                                receiverFcmToken: receiverFcmToken,
-                                senderName: senderName,
-                                replyOf: replyOf);
-                            }
-                            else {
+                                  ref: ref,
+                                  textController: textController,
+                                  chatRoomUid: chatRoomUid,
+                                  receiverFcmToken: receiverFcmToken,
+                                  senderName: senderName,
+                                  replyOf: replyOf);
+                            } else {
                               textController.clear();
                             }
                             reset();

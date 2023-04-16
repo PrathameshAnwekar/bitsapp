@@ -3,6 +3,7 @@ import 'package:bitsapp/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants/constants.dart';
 
@@ -25,12 +26,9 @@ class TextMessage extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment:
+              isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            if (replyText != null)
-              Container(
-                child: Text(replyText!),
-              ),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: Constants.kDefaultPadding * 0.75 + 3,
@@ -43,17 +41,28 @@ class TextMessage extends ConsumerWidget {
                     : const Color(0xFFFB6D62).withOpacity(0.32),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Text(
-                message.text,
-                style: GoogleFonts.dmSans(
-                  fontSize: 15,
-                  height: 1.2,
-                  fontWeight: FontWeight.w400,
-                ),
+              child: Column(
+                children: [
+                  if (replyText != null)
+                    Container(
+                      // color: Colors.transparent.withOpacity(0.1),
+                      color: Colors.white,
+                      child: Text(replyText!),
+                    ),
+                  Text(
+                    message.text,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 15,
+                      height: 1.2,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
             ),
             Text(
-              timeAgo(DateTime.fromMillisecondsSinceEpoch(message.time)),
+              DateFormat('HH:mm')
+                  .format(DateTime.fromMillisecondsSinceEpoch(message.time)),
               style: GoogleFonts.dmSans(
                 fontSize: 11,
                 height: 1.8,
@@ -65,21 +74,4 @@ class TextMessage extends ConsumerWidget {
       ),
     );
   }
-}
-
-String timeAgo(DateTime d) {
-  Duration diff = DateTime.now().difference(d);
-  if (diff.inDays > 365)
-    return "${(diff.inDays / 365).floor()} ${(diff.inDays / 365).floor() == 1 ? "year" : "years"} ago";
-  if (diff.inDays > 30)
-    return "${(diff.inDays / 30).floor()} ${(diff.inDays / 30).floor() == 1 ? "month" : "months"} ago";
-  if (diff.inDays > 7)
-    return "${(diff.inDays / 7).floor()} ${(diff.inDays / 7).floor() == 1 ? "week" : "weeks"} ago";
-  if (diff.inDays > 0)
-    return "${diff.inDays} ${diff.inDays == 1 ? "day" : "days"} ago";
-  if (diff.inHours > 0)
-    return "${diff.inHours} ${diff.inHours == 1 ? "hour" : "hours"} ago";
-  if (diff.inMinutes > 0)
-    return "${diff.inMinutes} ${diff.inMinutes == 1 ? "minute" : "minutes"} ago";
-  return "just now";
 }
