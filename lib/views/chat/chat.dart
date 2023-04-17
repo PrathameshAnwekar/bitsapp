@@ -1,6 +1,8 @@
+import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/logger_service.dart';
+import 'package:bitsapp/views/chat/components/chat_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -52,7 +54,7 @@ class ChatRoomScreen extends ConsumerWidget {
                 orElse: () => "-1"),
         orElse: () => ref.read(localUserProvider));
     return Scaffold(
-      appBar: buildAppBar(otherUser.name),
+      appBar: ChatAppBar(name: otherUser.name),
       body: Body(
         chatRoomUid: chatRoomUid,
         receiver: otherUser,
@@ -61,42 +63,6 @@ class ChatRoomScreen extends ConsumerWidget {
     );
   }
 
-  AppBar buildAppBar(String name) {
-    return AppBar(
-      toolbarHeight: 63,
-      automaticallyImplyLeading: false,
-      scrolledUnderElevation: 0,
-      backgroundColor: Colors.white,
-      centerTitle: false,
-      titleSpacing: 0.0,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const CircleAvatar(
-            radius: 23,
-            backgroundImage: AssetImage("assets/images/user2.png"),
-          ),
-          const SizedBox(width: Constants.kDefaultPadding * 0.75),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: GoogleFonts.dmSans(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                "Online Now",
-                style: GoogleFonts.dmSans(
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  
 }
+

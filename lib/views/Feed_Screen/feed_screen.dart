@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +21,21 @@ class FeedScreen extends ConsumerWidget {
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
+List<BitsUser> bitsUserList = List.generate(
+      50000,
+      (index) => BitsUser(
+          name: "name",
+          profilePicUrl: "profilePicUrl",
+          profileDescription: "profileDescription",
+          email: "email",
+          bitsID: "bitsID",
+          chatRooms: [],
+          uid: "uid",
+          fcmID: "fcmID",
+          appliedInternships: [],
+          postedInternships: [],
+          fcmToken: "",
+          feedPosts: []));
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initFeedPosts(ref);
@@ -38,6 +54,7 @@ class FeedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    dlog("FeedScreen build ${bitsUserList.length}");
     final feedPosts = ref.watch(feedPostDataProvider).toList();
     return Scaffold(
       extendBody: true,

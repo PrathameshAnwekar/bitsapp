@@ -2,21 +2,31 @@ import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/Feed_Screen/components/image_container.dart';
 import 'package:bitsapp/views/Feed_Screen/components/video_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ChatPostContainer extends ConsumerWidget {
-  const ChatPostContainer({super.key, required this.message});
+class ChatPostContainer extends ConsumerStatefulWidget {
   final Message message;
+
+  const ChatPostContainer({required super.key, required this.message});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final postUid = message.text.substring(25, message.text.length);
-    print(postUid);
+  ChatPostContainerState createState() {
+    return ChatPostContainerState();
+  }
+}
+
+class ChatPostContainerState extends ConsumerState<ChatPostContainer>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // This line is important
+    final postUid = widget.message.text.substring(
+        25,
+        widget.message.text
+            .length); // 25 is the length of the string "InternalPostShare@"
     return FutureBuilder(
         future: FirebaseFirestore.instance
             .collection("FeedPosts")
@@ -24,8 +34,9 @@ class ChatPostContainer extends ConsumerWidget {
             .get(const GetOptions(source: Source.serverAndCache)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return SizedBox(
+              height: SizeConfig.screenHeight * 0.4,
+              child: const Center(child: CircularProgressIndicator()),
             );
           }
           if (snapshot.hasData) {
@@ -34,7 +45,7 @@ class ChatPostContainer extends ConsumerWidget {
                 .read(contactsListProvider)
                 .firstWhere((element) => element.uid == post.posterUid);
             return Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 10),
               height: SizeConfig.screenHeight * 0.4,
               width: SizeConfig.screenWidth * 0.4,
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -85,4 +96,7 @@ class ChatPostContainer extends ConsumerWidget {
           }
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
