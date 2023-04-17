@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
+import 'package:simple_shadow/simple_shadow.dart';
 
 import '../job_detail_screen.dart';
 import 'tags.dart';
@@ -19,7 +20,7 @@ class InternshipsListView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final contactsList = ref.watch(contactsListProvider);
     final internData = ref.watch(internshipDataProvider);
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
@@ -30,6 +31,7 @@ class InternshipsListView extends HookConsumerWidget {
           poster: poster,
         );
       },
+      separatorBuilder: (context, index) => const SizedBox(height: 20),
       itemCount: internData.length,
     );
   }
@@ -70,61 +72,68 @@ class InternshipCard extends StatelessWidget {
               )),
         ),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: const Color(0xFFdfdee8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const CircleProfilePic(radius: 18),
-                const Spacer(flex: 1),
-                PersonDetail(user: poster, isSmall: true, time: internshipData.time),
-                const Spacer(flex: 15),
-                Tags(
-                  text: internshipData.compensation,
-                  inPadding: 4,
-                  borderRadius: 20,
-                  textSize: 13,
+      child: SimpleShadow(
+        sigma: 10,
+        color: Colors.grey.withOpacity(0.8),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const CircleProfilePic(radius: 18),
+                  const Spacer(flex: 1),
+                  PersonDetail(
+                      user: poster, isSmall: true, time: internshipData.time),
+                  const Spacer(flex: 15),
+                  Tags(
+                    text: internshipData.compensation,
+                    inPadding: 4,
+                    borderRadius: 20,
+                    textSize: 13,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                internshipData.title,
+                style: GoogleFonts.dmSans(
+                  color: Colors.black.withOpacity(0.7),
+                  fontWeight: FontWeight.w300,
+                  // color: const Color.fromRGBO(248, 248, 253, 1),
+                  fontSize: 22,
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              internshipData.title,
-              style: GoogleFonts.dmSans(
-                color: Colors.black.withOpacity(0.7),
-                fontWeight: FontWeight.w300,
-                // color: const Color.fromRGBO(248, 248, 253, 1),
-                fontSize: 22,
               ),
-            ),
-            const SizedBox(height: 12),
-            ReadMoreText(
-              internshipData.description,
-              textAlign: TextAlign.start,
-              trimLines: 2,
-              trimMode: TrimMode.Line,
-              trimExpandedText: ' show less',
-              trimCollapsedText: ' ',
-              style: GoogleFonts.dmSans(
-                color: const Color(0xFF383D51),
+              const SizedBox(height: 12),
+              ReadMoreText(
+                internshipData.description,
+                textAlign: TextAlign.start,
+                trimLines: 2,
+                trimMode: TrimMode.Line,
+                trimExpandedText: ' show less',
+                trimCollapsedText: ' ',
+                style: GoogleFonts.dmSans(
+                  color: const Color(0xFF383D51),
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.start,
-              direction: Axis.horizontal,
-              runSpacing: 6,
-              spacing: 10,
-              children: skillTagBuilder(),
-            ),
-          ],
+              const SizedBox(height: 12),
+              Wrap(
+                alignment: WrapAlignment.start,
+                direction: Axis.horizontal,
+                runSpacing: 6,
+                spacing: 10,
+                children: skillTagBuilder(),
+              ),
+            ],
+          ),
         ),
       ),
     );

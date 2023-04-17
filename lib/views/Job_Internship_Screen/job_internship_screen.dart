@@ -40,18 +40,33 @@ class JobInternhipScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         centerTitle: false,
         title: Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Text(
-            "Hello ${localUser.name}",
-            style: GoogleFonts.dmSans(
-              color: Colors.black.withOpacity(0.7),
-              fontWeight: FontWeight.w400,
-              fontSize: 23,
-            ),
+          padding: const EdgeInsets.only(left: 5, top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Hi, ${localUser.name.split(' ')[0]}",
+                style: GoogleFonts.roboto(
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 21,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Let's discover perfect job for you",
+                style: GoogleFonts.roboto(
+                  color: const Color.fromARGB(255, 123, 123, 123),
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
           ),
         ),
         elevation: 0,
@@ -60,7 +75,9 @@ class JobInternhipScreen extends HookConsumerWidget {
             padding: const EdgeInsets.all(1),
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(49, 50, 54, 1),
+              // color: Colors.black.withOpacity(0.7),
+              // color: const Color.fromARGB(255, 150, 149, 170),
+              color: Colors.blueGrey.shade800,
               borderRadius: BorderRadius.circular(6),
             ),
             child: GestureDetector(
@@ -82,22 +99,30 @@ class JobInternhipScreen extends HookConsumerWidget {
                 builder: ((context) => const InternshipTabView()),
               ),
             ),
-            icon: Icon(
-              Icons.format_align_left_rounded,
-              size: 28,
-              color: Colors.black.withOpacity(0.7),
+            icon: const Icon(
+              Icons.assignment_rounded,
+              size: 35,
+              // color: Colors.black.withOpacity(0.7),
+              color: Color.fromARGB(255, 150, 149, 170),
             ),
           ),
         ],
       ),
       backgroundColor: Colors.white,
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFFf0f3fa),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 15),
+              padding: const EdgeInsets.only(top: 25, bottom: 25),
               child: Row(
                 children: <Widget>[
                   const Flexible(
@@ -107,12 +132,13 @@ class JobInternhipScreen extends HookConsumerWidget {
                     onTap: () => showMultiSelect(context),
                     child: Container(
                       margin: const EdgeInsets.only(left: 10),
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          color: const Color.fromRGBO(255, 118, 84, 1),
+                          // color: const Color.fromRGBO(255, 118, 84, 1),
+                          color: Constants.activeIconColor,
                           borderRadius: BorderRadius.circular(15)),
-                      height: 65,
-                      width: 60,
+                      height: 55,
+                      width: 50,
                       child: SvgPicture.asset(
                         'assets/icons/vertical_filter.svg',
                         color: const Color.fromRGBO(248, 251, 254, 0.95),

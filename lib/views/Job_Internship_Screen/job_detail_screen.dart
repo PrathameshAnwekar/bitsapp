@@ -33,14 +33,14 @@ class JobDetailScreen extends StatelessWidget {
             },
           ),
         ),
-        backgroundColor: const Color(0xFFF7F6F8),
+        backgroundColor: Colors.white,
         title: const Text(
           "Internship details",
           style: TextStyle(color: Color(0xFF4D5470), fontSize: 20),
         ),
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF7F6F8),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(
@@ -55,7 +55,11 @@ class JobDetailScreen extends StatelessWidget {
               children: [
                 const CircleProfilePic(radius: 16),
                 const Spacer(flex: 1),
-                PersonDetail(user: poster, isSmall: true, time: internshipData.time,),
+                PersonDetail(
+                  user: poster,
+                  isSmall: true,
+                  time: internshipData.time,
+                ),
                 const Spacer(flex: 15),
               ],
             ),

@@ -92,9 +92,6 @@ class FeedScreen extends ConsumerWidget {
                   decoration: const BoxDecoration(
                     color: Color(0xFFf0f3fa),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    // border: Border.all(
-                    //   color: Colors.grey.withOpacity(0.8),
-                    // ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
