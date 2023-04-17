@@ -27,7 +27,6 @@ class _BottomBarState extends State<BottomBar> {
   ];
   @override
   Widget build(BuildContext context) {
-    print("rebuilding bottom nav screen");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -77,8 +76,8 @@ class _BottomBarState extends State<BottomBar> {
               label: "Ads Alive",
               activeIcon: SvgPicture.asset(
                 'assets/icons/internship_filled.svg',
-                width: 28,
-                height: 28,
+                width: 29,
+                height: 29,
                 color: Constants.activeIconColor,
               ),
             ),
@@ -92,8 +91,8 @@ class _BottomBarState extends State<BottomBar> {
               label: "Lending",
               activeIcon: SvgPicture.asset(
                 'assets/icons/newPost_filled.svg',
-                width: 28,
-                height: 28,
+                width: 29,
+                height: 29,
                 color: Constants.activeIconColor,
               ),
             ),
@@ -107,8 +106,8 @@ class _BottomBarState extends State<BottomBar> {
               label: "Profile",
               activeIcon: SvgPicture.asset(
                 'assets/icons/chat_filled.svg',
-                width: 28,
-                height: 28,
+                width: 29,
+                height: 29,
                 color: Constants.activeIconColor,
               ),
             ),
@@ -122,8 +121,8 @@ class _BottomBarState extends State<BottomBar> {
               label: "Profile",
               activeIcon: SvgPicture.asset(
                 'assets/icons/user_filled.svg',
-                width: 28,
-                height: 28,
+                width: 29,
+                height: 29,
                 color: Constants.activeIconColor,
               ),
             ),

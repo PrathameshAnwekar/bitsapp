@@ -104,7 +104,7 @@ class PostNewInternship extends HookConsumerWidget {
                     children: [
                       const CircleProfilePic(radius: 18),
                       const Spacer(flex: 1),
-                      PersonDetail(user: localUser, isSmall: true,time: null),
+                      PersonDetail(user: localUser, isSmall: true, time: null),
                       const Spacer(flex: 15),
                     ],
                   ),
@@ -189,6 +189,11 @@ class PostNewInternship extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 25),
                   MultiSelectDialogField(
+                    itemsTextStyle: GoogleFonts.roboto(),
+                    searchTextStyle: GoogleFonts.roboto(),
+                    searchHintStyle: GoogleFonts.roboto(),
+                    selectedItemsTextStyle: GoogleFonts.roboto(),
+                    separateSelectedItems: true,
                     backgroundColor: Colors.white,
                     buttonIcon: const Icon(
                       Icons.keyboard_arrow_down_rounded,
@@ -202,7 +207,7 @@ class PostNewInternship extends HookConsumerWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    dialogHeight: 500,
+                    dialogHeight: 450,
                     searchable: true,
                     title: const Title1(txt: "Skill(s) required: "),
                     items: Constants.skills

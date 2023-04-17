@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../constants/constants.dart';
 import 'Feed_Detail_Screen/feed_detail_screen.dart';
 import 'feed_container/feed_container.dart';
 
@@ -21,7 +22,7 @@ class FeedScreen extends ConsumerWidget {
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-List<BitsUser> bitsUserList = List.generate(
+  List<BitsUser> bitsUserList = List.generate(
       50000,
       (index) => BitsUser(
           name: "name",
@@ -107,7 +108,7 @@ List<BitsUser> bitsUserList = List.generate(
                   height: 45,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: const BoxDecoration(
-                    color: Color(0xFFf0f3fa),
+                    color: Constants.kSecondaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(

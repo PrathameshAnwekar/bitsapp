@@ -24,6 +24,11 @@ class JobInternhipScreen extends HookConsumerWidget {
       await showDialog(
         context: context,
         builder: (ctx) => MultiSelectDialog(
+          itemsTextStyle: GoogleFonts.roboto(),
+          searchTextStyle: GoogleFonts.roboto(),
+          searchHintStyle: GoogleFonts.roboto(),
+          selectedItemsTextStyle: GoogleFonts.roboto(),
+          separateSelectedItems: true,
           initialValue: filteredSkills,
           backgroundColor: Colors.white,
           height: 400,
@@ -40,7 +45,7 @@ class JobInternhipScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 85,
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         centerTitle: false,
@@ -65,7 +70,7 @@ class JobInternhipScreen extends HookConsumerWidget {
                   fontSize: 15,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
             ],
           ),
         ),
@@ -73,11 +78,8 @@ class JobInternhipScreen extends HookConsumerWidget {
         actions: [
           Container(
             padding: const EdgeInsets.all(1),
-            margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              // color: Colors.black.withOpacity(0.7),
-              // color: const Color.fromARGB(255, 150, 149, 170),
-              color: Colors.blueGrey.shade800,
+              color: const Color.fromARGB(255, 150, 149, 170),
               borderRadius: BorderRadius.circular(6),
             ),
             child: GestureDetector(
@@ -111,7 +113,7 @@ class JobInternhipScreen extends HookConsumerWidget {
       backgroundColor: Colors.white,
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFFf0f3fa),
+          color: Constants.kSecondaryColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25),
             topRight: Radius.circular(25),
