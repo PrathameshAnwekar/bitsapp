@@ -1,5 +1,6 @@
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/views/chat/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,16 +14,22 @@ class ChatsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chatrooms = ref.watch(chatRoomsProvider);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const ChannelChatScreen())));
+        },
+        child: const Icon(Icons.message),
+      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {
-            ChatsScreenController.gotoContactsScreen(context);
-          },
-        ),
-      ],
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              ChatsScreenController.gotoContactsScreen(context);
+            },
+          ),
+        ],
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
