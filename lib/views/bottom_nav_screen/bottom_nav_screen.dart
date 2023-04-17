@@ -1,4 +1,3 @@
-import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:bitsapp/views/new_post_screen/new_post_screen.dart';
 import 'package:flutter/material.dart';
