@@ -137,7 +137,7 @@ class JobInternhipScreen extends HookConsumerWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           // color: const Color.fromRGBO(255, 118, 84, 1),
-                          color: Constants.activeIconColor,
+                          color: Constants.kPrimaryColor,
                           borderRadius: BorderRadius.circular(15)),
                       height: 55,
                       width: 50,

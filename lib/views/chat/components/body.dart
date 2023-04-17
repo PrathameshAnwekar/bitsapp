@@ -31,7 +31,7 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
     super.build(context);
 
     final localUser = ref.read(localUserProvider);
-   
+
     final messages = ref
         .watch(chatRoomsProvider)
         .firstWhere((element) => element.uid == widget.chatRoomUid)
@@ -67,7 +67,7 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
                   } else if (message.type == MessageType.feedpost) {
                     return ChatPostContainer(key: key, message: message);
                   }
-                  return SizedBox();
+                  return const SizedBox();
                 })),
         ChatInputField(
           chatRoomUid: widget.chatRoomUid,
@@ -84,7 +84,11 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
 
   @override
   bool get wantKeepAlive => true;
-  void selectMessageForReply(WidgetRef ref, Message message, int index, ) {
+  void selectMessageForReply(
+    WidgetRef ref,
+    Message message,
+    int index,
+  ) {
     if (ref.read(replyOfProvider) == null) {
       ref.read(replyOfProvider.notifier).state = message.time.toString();
       ref.read(replyOfTextProvider.notifier).state = message.text;

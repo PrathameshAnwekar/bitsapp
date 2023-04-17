@@ -24,7 +24,7 @@ class TextMessage extends ConsumerWidget {
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.only(top: 15),
         child: Column(
           crossAxisAlignment:
               isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -36,10 +36,13 @@ class TextMessage extends ConsumerWidget {
               ),
               constraints: const BoxConstraints(maxWidth: 300),
               decoration: BoxDecoration(
-                color: isSender
-                    ? const Color.fromRGBO(221, 221, 221, 0.7)
-                    : const Color(0xFFFB6D62).withOpacity(0.32),
-                borderRadius: BorderRadius.circular(10),
+                color: isSender ? Constants.kPrimaryColor : Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                  bottomLeft: Radius.circular(isSender ? 10 : 0),
+                  bottomRight: Radius.circular(isSender ? 0 : 10),
+                ),
               ),
               child: Column(
                 children: [
@@ -51,10 +54,11 @@ class TextMessage extends ConsumerWidget {
                     ),
                   Text(
                     message.text,
-                    style: GoogleFonts.dmSans(
+                    style: GoogleFonts.roboto(
                       fontSize: 15,
                       height: 1.2,
-                      fontWeight: FontWeight.w400,
+                      // fontWeight: FontWeight.w400,
+                      color: isSender ? Colors.white : Colors.black,
                     ),
                   ),
                 ],
@@ -63,7 +67,7 @@ class TextMessage extends ConsumerWidget {
             Text(
               DateFormat('HH:mm')
                   .format(DateTime.fromMillisecondsSinceEpoch(message.time)),
-              style: GoogleFonts.dmSans(
+              style: GoogleFonts.roboto(
                 fontSize: 11,
                 height: 1.8,
                 fontWeight: FontWeight.w400,

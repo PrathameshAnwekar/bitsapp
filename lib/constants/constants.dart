@@ -88,8 +88,8 @@ class Constants {
     "MongoDB",
   ];
 
-  static const kPrimaryColor = Color(0xFF00BF6D);
-  static const kSecondaryColor = Color(0xFFf0f3fa);
+  static const kPrimaryColor = Color(0xFF246ff1);
+  static const kSecondaryColor = Color(0xFFF3F5FB);
   static const kContentColorLightTheme = Color(0xFF1D1D35);
   static const kContentColorDarkTheme = Color(0xFFF5FCF9);
   static const kWarninngColor = Color(0xFFF3BB1C);

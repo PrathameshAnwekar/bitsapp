@@ -3,6 +3,7 @@ import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:readmore/readmore.dart';
@@ -94,12 +95,14 @@ class InternshipCard extends StatelessWidget {
                   PersonDetail(
                       user: poster, isSmall: true, time: internshipData.time),
                   const Spacer(flex: 15),
-                  Tags(
-                    text: internshipData.compensation,
-                    inPadding: 4,
-                    borderRadius: 20,
-                    textSize: 13,
-                  ),
+                  SvgPicture.asset("assets/icons/add_bookmark.svg"),
+                  SvgPicture.asset("assets/icons/remove_bookmark.svg"),
+                  // Tags(
+                  //   text: internshipData.compensation,
+                  //   inPadding: 4,
+                  //   borderRadius: 20,
+                  //   textSize: 13,
+                  // ),
                 ],
               ),
               const SizedBox(height: 12),

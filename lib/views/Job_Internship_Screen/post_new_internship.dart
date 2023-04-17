@@ -116,6 +116,7 @@ class PostNewInternship extends HookConsumerWidget {
                       }
                       return null;
                     },
+                    textCapitalization: TextCapitalization.words,
                     controller: titleController,
                     cursorColor: Colors.black54,
                     maxLength: 100,

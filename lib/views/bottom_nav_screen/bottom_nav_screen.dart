@@ -63,7 +63,7 @@ class _BottomBarState extends State<BottomBar> {
                 'assets/icons/home_filled.svg',
                 width: 28,
                 height: 28,
-                color: Constants.activeIconColor,
+                color: Constants.kPrimaryColor,
               ),
             ),
             BottomNavigationBarItem(
@@ -78,7 +78,7 @@ class _BottomBarState extends State<BottomBar> {
                 'assets/icons/internship_filled.svg',
                 width: 29,
                 height: 29,
-                color: Constants.activeIconColor,
+                color: Constants.kPrimaryColor,
               ),
             ),
             BottomNavigationBarItem(
@@ -93,7 +93,7 @@ class _BottomBarState extends State<BottomBar> {
                 'assets/icons/newPost_filled.svg',
                 width: 29,
                 height: 29,
-                color: Constants.activeIconColor,
+                color: Constants.kPrimaryColor,
               ),
             ),
             BottomNavigationBarItem(
@@ -108,7 +108,7 @@ class _BottomBarState extends State<BottomBar> {
                 'assets/icons/chat_filled.svg',
                 width: 29,
                 height: 29,
-                color: Constants.activeIconColor,
+                color: Constants.kPrimaryColor,
               ),
             ),
             BottomNavigationBarItem(
@@ -123,7 +123,7 @@ class _BottomBarState extends State<BottomBar> {
                 'assets/icons/user_filled.svg',
                 width: 29,
                 height: 29,
-                color: Constants.activeIconColor,
+                color: Constants.kPrimaryColor,
               ),
             ),
           ],
