@@ -4,7 +4,6 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
-import 'package:bitsapp/views/New_Post_Screen.dart/components/local_media_container.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,6 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../components/circle_profile_pic.dart';
+import '../new_post_screen/components/local_media_container.dart';
 
 class NewPostScreen extends HookConsumerWidget {
   NewPostScreen({super.key});

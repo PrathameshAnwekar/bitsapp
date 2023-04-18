@@ -11,7 +11,7 @@ class ImageContainer extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: url,
       cacheKey: url,
-      fit: BoxFit.cover,
+      fit: BoxFit.fitWidth,
     );
   }
 }

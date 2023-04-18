@@ -120,17 +120,18 @@ class InternshipCard extends StatelessWidget {
                 trimExpandedText: ' show less',
                 trimCollapsedText: ' ',
                 style: GoogleFonts.roboto(
-                  fontSize: 14.5,
+                  fontSize: 13.5,
                   color: Colors.black.withOpacity(0.8),
                 ),
               ),
-              Divider(
-                endIndent: 3,
-                indent: 3,
-                height: 18,
-                thickness: 0.5,
-                color: Colors.grey.withOpacity(0.5),
-              ),
+              const SizedBox(height: 14),
+              // Divider(
+              //   endIndent: 3,
+              //   indent: 3,
+              //   height: 18,
+              //   thickness: 0.5,
+              //   color: Colors.grey.withOpacity(0.5),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
