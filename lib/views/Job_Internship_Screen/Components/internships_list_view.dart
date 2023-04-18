@@ -140,12 +140,15 @@ class InternshipCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Wrap(
-                    alignment: WrapAlignment.start,
-                    direction: Axis.horizontal,
-                    runSpacing: 6,
-                    spacing: 10,
-                    children: skillTagBuilder(),
+                  SizedBox(
+                    width: 270,
+                    child: Wrap(
+                      alignment: WrapAlignment.start,
+                      direction: Axis.horizontal,
+                      runSpacing: 6,
+                      spacing: 10,
+                      children: skillTagBuilder(),
+                    ),
                   ),
                   SimpleShadow(
                     sigma: 5,

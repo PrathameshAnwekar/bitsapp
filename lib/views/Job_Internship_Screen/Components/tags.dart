@@ -20,16 +20,12 @@ class Tags extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(inPadding),
       decoration: BoxDecoration(
-        // border: Border.all(
-        //   color: Colors.black.withOpacity(0.7),
-        // ),
-        color: Constants.inactiveIconColor,
+        color: Constants.inactiveIconColor.withOpacity(0.8),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
         text,
         style: GoogleFonts.roboto(
-          // color: Colors.black.withOpacity(0.7),
           color: Colors.white,
           fontSize: textSize,
           fontWeight: FontWeight.w400,

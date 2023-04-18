@@ -79,7 +79,7 @@ class JobInternhipScreen extends HookConsumerWidget {
           Container(
             padding: const EdgeInsets.all(1),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 150, 149, 170),
+              color: Constants.inactiveIconColor.withOpacity(0.8),
               borderRadius: BorderRadius.circular(6),
             ),
             child: GestureDetector(
@@ -101,10 +101,10 @@ class JobInternhipScreen extends HookConsumerWidget {
                 builder: ((context) => const InternshipTabView()),
               ),
             ),
-            icon: const Icon(
+            icon: Icon(
               Icons.assignment_rounded,
               size: 35,
-              color: Color.fromARGB(255, 150, 149, 170),
+              color: Constants.inactiveIconColor.withOpacity(0.8),
             ),
           ),
         ],
