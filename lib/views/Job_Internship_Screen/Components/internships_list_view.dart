@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class InternshipsListView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final contactsList = ref.watch(contactsListProvider);
     final internData = ref.watch(internshipDataProvider);
-    return ListView.separated(
+    return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
@@ -32,7 +33,7 @@ class InternshipsListView extends HookConsumerWidget {
           poster: poster,
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(height: 20),
+      // separatorBuilder: (context, index) => const SizedBox(height: 20),
       itemCount: internData.length,
     );
   }
@@ -48,13 +49,14 @@ class InternshipCard extends StatelessWidget {
   final BitsUser poster;
 
   List<Tags> skillTagBuilder() {
+    elog("This is the 0th internship${internshipData.skills[0]}");
     final List<Tags> skillTags = [];
     for (int i = 0; i < internshipData.skills.length; i++) {
       skillTags.add(
         Tags(
           text: internshipData.skills[i],
           inPadding: 5,
-          borderRadius: 10,
+          borderRadius: 12,
           textSize: 13,
         ),
       );
@@ -83,6 +85,7 @@ class InternshipCard extends StatelessWidget {
               Radius.circular(15),
             ),
           ),
+          margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
           padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,11 +93,11 @@ class InternshipCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  const CircleProfilePic(radius: 18),
+                  const CircleProfilePic(radius: 20),
                   const Spacer(flex: 1),
                   PersonDetail(
                       user: poster, isSmall: true, time: internshipData.time),
-                  const Spacer(flex: 15),
+                  const Spacer(flex: 20),
                   SvgPicture.asset("assets/icons/add_bookmark.svg"),
                   SvgPicture.asset("assets/icons/remove_bookmark.svg"),
                   // Tags(
@@ -108,14 +111,13 @@ class InternshipCard extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 internshipData.title,
-                style: GoogleFonts.dmSans(
-                  color: Colors.black.withOpacity(0.7),
-                  fontWeight: FontWeight.w300,
-                  // color: const Color.fromRGBO(248, 248, 253, 1),
-                  fontSize: 22,
+                style: GoogleFonts.roboto(
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w800,
+                  fontSize: 19.4,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 5),
               ReadMoreText(
                 internshipData.description,
                 textAlign: TextAlign.start,
@@ -123,17 +125,51 @@ class InternshipCard extends StatelessWidget {
                 trimMode: TrimMode.Line,
                 trimExpandedText: ' show less',
                 trimCollapsedText: ' ',
-                style: GoogleFonts.dmSans(
-                  color: const Color(0xFF383D51),
+                style: GoogleFonts.roboto(
+                  fontSize: 14.5,
+                  color: Colors.black.withOpacity(0.8),
                 ),
               ),
-              const SizedBox(height: 12),
-              Wrap(
-                alignment: WrapAlignment.start,
-                direction: Axis.horizontal,
-                runSpacing: 6,
-                spacing: 10,
-                children: skillTagBuilder(),
+              Divider(
+                endIndent: 3,
+                indent: 3,
+                height: 18,
+                thickness: 0.5,
+                color: Colors.grey.withOpacity(0.5),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Wrap(
+                    alignment: WrapAlignment.start,
+                    direction: Axis.horizontal,
+                    runSpacing: 6,
+                    spacing: 10,
+                    children: skillTagBuilder(),
+                  ),
+                  SimpleShadow(
+                    sigma: 5,
+                    color: Colors.grey.shade400,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 7,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        internshipData.compensation,
+                        style: GoogleFonts.roboto(
+                          color: Colors.black.withOpacity(0.8),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

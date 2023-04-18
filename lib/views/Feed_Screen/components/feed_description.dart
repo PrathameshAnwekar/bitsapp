@@ -40,7 +40,7 @@ class FeedDesc extends HookConsumerWidget {
             const SizedBox(width: 10),
             PersonDetail(
               user: poster,
-              isSmall: true,
+              isSmall: false,
               time: int.tryParse(feedPost.timeuid),
             ),
           ],
@@ -88,7 +88,7 @@ class FeedDesc extends HookConsumerWidget {
                 height: 25,
                 color: !likeStatus.value
                     ? const Color.fromRGBO(32, 33, 37, 1)
-                    : const Color(0xFF0073B1),
+                    : Constants.activeIconColor,
               ),
             ),
             Padding(

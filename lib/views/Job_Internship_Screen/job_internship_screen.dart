@@ -88,10 +88,10 @@ class JobInternhipScreen extends HookConsumerWidget {
                   builder: ((context) => PostNewInternship()),
                 ),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.add_rounded,
                 size: 28,
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.white,
               ),
             ),
           ),
@@ -104,7 +104,6 @@ class JobInternhipScreen extends HookConsumerWidget {
             icon: const Icon(
               Icons.assignment_rounded,
               size: 35,
-              // color: Colors.black.withOpacity(0.7),
               color: Color.fromARGB(255, 150, 149, 170),
             ),
           ),
@@ -119,12 +118,11 @@ class JobInternhipScreen extends HookConsumerWidget {
             topRight: Radius.circular(25),
           ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 25, bottom: 25),
+              padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
               child: Row(
                 children: <Widget>[
                   const Flexible(
@@ -151,6 +149,7 @@ class JobInternhipScreen extends HookConsumerWidget {
               ),
             ),
             const Expanded(child: InternshipsListView()),
+            const SizedBox(height: 25),
           ],
         ),
       ),

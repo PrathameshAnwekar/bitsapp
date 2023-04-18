@@ -35,11 +35,9 @@ class ChatRoomScreen extends HookConsumerWidget {
       },
       child: Scaffold(
         appBar: ChatAppBar(name: otherUser.name),
-        body: Container(
-          child: Body(
-            chatRoomUid: chatRoomUid,
-            receiver: otherUser,
-          ),
+        body: Body(
+          chatRoomUid: chatRoomUid,
+          receiver: otherUser,
         ),
         backgroundColor: Colors.white,
       ),
