@@ -150,8 +150,8 @@ class InternshipCard extends StatelessWidget {
                     color: Colors.grey.shade400,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 7,
-                        vertical: 5,
+                        horizontal: 8,
+                        vertical: 6,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -162,7 +162,7 @@ class InternshipCard extends StatelessWidget {
                         style: GoogleFonts.roboto(
                           color: Colors.black.withOpacity(0.8),
                           fontSize: 13,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),

@@ -65,17 +65,27 @@ class TextMessage extends ConsumerWidget {
               ),
             ),
             Text(
-              DateFormat('HH:mm')
-                  .format(DateTime.fromMillisecondsSinceEpoch(message.time)),
+              timeAgo(message.time),
               style: GoogleFonts.roboto(
-                fontSize: 11,
+                fontSize: 10,
                 height: 1.8,
                 fontWeight: FontWeight.w400,
               ),
-            )
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+String timeAgo(int d) {
+  DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+  Duration diff = DateTime.now().difference(dt);
+  String temp = DateFormat('HH:mm').format(dt);
+  if (diff.inDays > 1) {
+    return "$temp ${DateFormat.yMMMMd().format(dt)}";
+  } else {
+    return "$temp yesterday";
   }
 }
