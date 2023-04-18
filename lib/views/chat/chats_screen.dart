@@ -1,14 +1,34 @@
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/chat/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ChatsScreen extends HookConsumerWidget {
   const ChatsScreen({super.key});
   static const routeName = "/chats-screen";
+  static final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(WidgetRef ref) async {
+    // monitor network fetch
+    await FirestoreService.initialiseChatRooms(ref);
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    // items.add((items.length+1).toString());
+
+    _refreshController.loadComplete();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +36,8 @@ class ChatsScreen extends HookConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const ChannelChatScreen())));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => const ChannelChatScreen())));
         },
         child: const Icon(Icons.message),
       ),
@@ -86,7 +107,7 @@ class ChatsScreen extends HookConsumerWidget {
         //   ),
         // ),
       ),
-      body: buildBody(chatrooms),
+      body: buildBody(chatrooms, ref),
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.only(right: 12, bottom: 100),
       //   child: FloatingActionButton(
@@ -105,26 +126,34 @@ class ChatsScreen extends HookConsumerWidget {
     );
   }
 
-  buildBody(chatsData) {
+  Column buildBody(chatsData, ref) {
     return Column(
       children: [
         const SizedBox(height: 20),
         Expanded(
-          child: ListView.separated(
-            itemCount: chatsData.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () =>
-                  ChatsScreenController.gotoChatRoom(context, chatsData, index),
-              child: ChatCard(
-                chatRoom: chatsData[index],
-                index: index,
+          child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: false,
+            controller: _refreshController,
+            header: const WaterDropMaterialHeader(),
+            onLoading: () => _onLoading(),
+            onRefresh: () => _onRefresh(ref),
+            child: ListView.separated(
+              itemCount: chatsData.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => ChatsScreenController.gotoChatRoom(
+                    context, chatsData, index),
+                child: ChatCard(
+                  chatRoom: chatsData[index],
+                  index: index,
+                ),
               ),
-            ),
-            separatorBuilder: (context, index) => const Divider(
-              indent: 77,
-              endIndent: 15,
-              color: Color.fromRGBO(131, 144, 159, 0.7),
-              height: 1.5,
+              separatorBuilder: (context, index) => const Divider(
+                indent: 77,
+                endIndent: 15,
+                color: Color.fromRGBO(131, 144, 159, 0.7),
+                height: 1.5,
+              ),
             ),
           ),
         ),

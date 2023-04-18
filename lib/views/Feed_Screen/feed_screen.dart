@@ -21,21 +21,7 @@ class FeedScreen extends ConsumerWidget {
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-List<BitsUser> bitsUserList = List.generate(
-      50000,
-      (index) => BitsUser(
-          name: "name",
-          profilePicUrl: "profilePicUrl",
-          profileDescription: "profileDescription",
-          email: "email",
-          bitsID: "bitsID",
-          chatRooms: [],
-          uid: "uid",
-          fcmID: "fcmID",
-          appliedInternships: [],
-          postedInternships: [],
-          fcmToken: "",
-          feedPosts: []));
+
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initFeedPosts(ref);
@@ -54,7 +40,6 @@ List<BitsUser> bitsUserList = List.generate(
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    dlog("FeedScreen build ${bitsUserList.length}");
     final feedPosts = ref.watch(feedPostDataProvider).toList();
     return Scaffold(
       extendBody: true,
@@ -158,7 +143,7 @@ List<BitsUser> bitsUserList = List.generate(
               enablePullDown: true,
               enablePullUp: false,
               controller: _refreshController,
-              header: const WaterDropHeader(),
+              header: const MaterialClassicHeader(),
               onLoading: () => _onLoading(feedPosts),
               onRefresh: () => _onRefresh(ref),
               child: ListView.builder(
