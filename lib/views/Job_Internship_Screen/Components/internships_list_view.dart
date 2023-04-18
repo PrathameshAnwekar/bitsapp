@@ -100,12 +100,6 @@ class InternshipCard extends StatelessWidget {
                   const Spacer(flex: 20),
                   SvgPicture.asset("assets/icons/add_bookmark.svg"),
                   SvgPicture.asset("assets/icons/remove_bookmark.svg"),
-                  // Tags(
-                  //   text: internshipData.compensation,
-                  //   inPadding: 4,
-                  //   borderRadius: 20,
-                  //   textSize: 13,
-                  // ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -113,7 +107,7 @@ class InternshipCard extends StatelessWidget {
                 internshipData.title,
                 style: GoogleFonts.roboto(
                   color: Colors.black.withOpacity(0.8),
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                   fontSize: 19.4,
                 ),
               ),

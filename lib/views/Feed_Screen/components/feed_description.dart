@@ -50,10 +50,7 @@ class FeedDesc extends HookConsumerWidget {
           child: ReadMoreText(
             // feedPost.text,
             "Hello Folks 👋 \n\nHere is my new exploration for Macro: Colorie Counter Mobile App. What do you think? Please let me know in the comment section!",
-            style: GoogleFonts.roboto(
-              fontSize: 14.5,
-              // letterSpacing: 0.1,
-            ),
+            style: GoogleFonts.roboto(fontSize: 14.5),
             moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
             lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
             textAlign: TextAlign.start,
@@ -72,11 +69,15 @@ class FeedDesc extends HookConsumerWidget {
               onTap: () async {
                 if (likeStatus.value) {
                   final res = await FeedContainerController.removeLikeFromPost(
-                      feedPost, localUser.uid);
+                    feedPost,
+                    localUser.uid,
+                  );
                   likeStatus.value = !res;
                 } else {
                   final res = await FeedContainerController.addLikeToPost(
-                      feedPost, localUser.uid);
+                    feedPost,
+                    localUser.uid,
+                  );
                   likeStatus.value = res;
                 }
               },
