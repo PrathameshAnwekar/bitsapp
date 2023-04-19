@@ -40,7 +40,7 @@ class FeedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final feedPosts = ref.watch(feedPostDataProvider).toList();
+    final feedPosts = ref.watch(feedPostDataProvider);
     return Scaffold(
       extendBody: true,
       backgroundColor: const Color(0xFFf0f3fa),

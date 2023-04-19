@@ -23,14 +23,13 @@ class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     FeedScreen(),
-    const JobInternhipScreen(),
+    JobInternhipScreen(),
     NewPostScreen(),
     const ChatsScreen(),
     const ProfileScreen(null),
   ];
   @override
   Widget build(BuildContext context) {
-    print("rebuilding bottom nav screen");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
