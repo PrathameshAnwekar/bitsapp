@@ -1,6 +1,5 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,6 @@ class InternshipCard extends StatelessWidget {
   final BitsUser poster;
 
   List<Tags> skillTagBuilder() {
-    elog("This is the 0th internship${internshipData.skills[0]}");
     final List<Tags> skillTags = [];
     for (int i = 0; i < internshipData.skills.length; i++) {
       skillTags.add(
