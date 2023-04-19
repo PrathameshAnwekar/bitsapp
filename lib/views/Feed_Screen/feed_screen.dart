@@ -5,7 +5,6 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../constants/constants.dart';
 import 'Feed_Detail_Screen/feed_detail_screen.dart';
 import 'feed_container/feed_container.dart';
 
@@ -21,7 +21,6 @@ class FeedScreen extends ConsumerWidget {
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initFeedPosts(ref);
@@ -60,29 +59,35 @@ class FeedScreen extends ConsumerWidget {
                 statusBarIconBrightness: Brightness.dark,
                 statusBarBrightness: Brightness.light,
               ),
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(1000)),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          "https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc=",
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                  ),
+              leading: const Padding(
+                padding: EdgeInsets.only(left: 6, top: 7, bottom: 7),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/logo/logo6.png"),
                 ),
               ),
+              // leading: Padding(
+              //   padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(28),
+              //     ),
+              //     child: ClipRRect(
+              //       borderRadius: const BorderRadius.all(Radius.circular(1000)),
+              //       child: CachedNetworkImage(
+              //         fit: BoxFit.cover,
+              //         imageUrl:
+              //             "https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc=",
+              //         progressIndicatorBuilder:
+              //             (context, url, downloadProgress) =>
+              //                 CircularProgressIndicator(
+              //                     value: downloadProgress.progress),
+              //         errorWidget: (context, url, error) =>
+              //             const Icon(Icons.error),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               title: GestureDetector(
                 onTap: () {
                   FeedScreenController.goToSearch(context, ref);
@@ -92,11 +97,8 @@ class FeedScreen extends ConsumerWidget {
                   height: 45,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: const BoxDecoration(
-                    color: Color(0xFFf0f3fa),
+                    color: Constants.kSecondaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    // border: Border.all(
-                    //   color: Colors.grey.withOpacity(0.8),
-                    // ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

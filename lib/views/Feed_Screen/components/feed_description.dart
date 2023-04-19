@@ -34,26 +34,26 @@ class FeedDesc extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          children: [
-            const CircleProfilePic(radius: 22.5),
-            const SizedBox(width: 10),
-            PersonDetail(
-              user: poster,
-              isSmall: true,
-              time: int.tryParse(feedPost.timeuid),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              const CircleProfilePic(radius: 22.5),
+              const SizedBox(width: 10),
+              PersonDetail(
+                user: poster,
+                isSmall: false,
+                time: int.tryParse(feedPost.timeuid),
+              ),
+            ],
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: ReadMoreText(
             // feedPost.text,
             "Hello Folks 👋 \n\nHere is my new exploration for Macro: Colorie Counter Mobile App. What do you think? Please let me know in the comment section!",
-            style: GoogleFonts.roboto(
-              fontSize: 14.5,
-              // letterSpacing: 0.1,
-            ),
+            style: GoogleFonts.roboto(fontSize: 14.5),
             moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
             lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
             textAlign: TextAlign.start,
@@ -66,96 +66,105 @@ class FeedDesc extends HookConsumerWidget {
         ),
         MediaContainer(post: feedPost),
         const SizedBox(height: 8),
-        Row(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () async {
-                if (likeStatus.value) {
-                  final res = await FeedContainerController.removeLikeFromPost(
-                      feedPost, localUser.uid);
-                  likeStatus.value = !res;
-                } else {
-                  final res = await FeedContainerController.addLikeToPost(
-                      feedPost, localUser.uid);
-                  likeStatus.value = res;
-                }
-              },
-              child: SvgPicture.asset(
-                likeStatus.value
-                    ? Constants.postOptionIcons[1]
-                    : Constants.postOptionIcons[0],
-                width: 25,
-                height: 25,
-                color: !likeStatus.value
-                    ? const Color.fromRGBO(32, 33, 37, 1)
-                    : const Color(0xFF0073B1),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () async {
+                  if (likeStatus.value) {
+                    final res =
+                        await FeedContainerController.removeLikeFromPost(
+                      feedPost,
+                      localUser.uid,
+                    );
+                    likeStatus.value = !res;
+                  } else {
+                    final res = await FeedContainerController.addLikeToPost(
+                      feedPost,
+                      localUser.uid,
+                    );
+                    likeStatus.value = res;
+                  }
+                },
+                child: SvgPicture.asset(
+                  likeStatus.value
+                      ? Constants.postOptionIcons[1]
+                      : Constants.postOptionIcons[0],
+                  width: 25,
+                  height: 25,
+                  color: !likeStatus.value
+                      ? const Color.fromRGBO(32, 33, 37, 1)
+                      : Constants.activeIconColor,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6, right: 12),
-              child: Text(
-                '123',
-                style: GoogleFonts.manrope(color: Colors.black87),
+              Padding(
+                padding: const EdgeInsets.only(left: 6, right: 12),
+                child: Text(
+                  '123',
+                  style: GoogleFonts.manrope(color: Colors.black87),
+                ),
               ),
-            ),
-            GestureDetector(
-              onTap: () => commentFunc(),
-              child: SvgPicture.asset(
-                Constants.postOptionIcons[2],
-                width: 25,
-                height: 25,
-                color: const Color.fromRGBO(32, 33, 37, 1),
+              GestureDetector(
+                onTap: () => commentFunc(),
+                child: SvgPicture.asset(
+                  Constants.postOptionIcons[2],
+                  width: 25,
+                  height: 25,
+                  color: const Color.fromRGBO(32, 33, 37, 1),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: Text(
-                '16',
-                style: GoogleFonts.manrope(color: Colors.black87),
+              Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: Text(
+                  '16',
+                  style: GoogleFonts.manrope(color: Colors.black87),
+                ),
               ),
-            ),
-            const Spacer(),
-            // GestureDetector(
-            //   onTap: () async {
-            //     final res =
-            //         await FeedContainerController.bookmarkFeedPost(feedPost);
+              const Spacer(),
+              // GestureDetector(
+              //   onTap: () async {
+              //     final res =
+              //         await FeedContainerController.bookmarkFeedPost(feedPost);
 
-            //     if (res) {
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         const SnackBar(
-            //           content: Text('Post Bookmarked'),
-            //           duration: Duration(seconds: 1),
-            //         ),
-            //       );
-            //     }
-            //   },
-            //   child: SvgPicture.asset(
-            //     Constants.postOptionIcons[2],
-            //     width: 26,
-            //     height: 26,
-            //     color: const Color(0xFF0073B1),
-            //   ),
-            // ),
-            GestureDetector(
-              onTap: () async {
-                await FeedContainerController.openShareSheet(context, feedPost);
-              },
-              child: SvgPicture.asset(
-                Constants.postOptionIcons[4],
-                width: 25,
-                height: 25,
-                color: const Color.fromRGBO(32, 33, 37, 1),
+              //     if (res) {
+              //       ScaffoldMessenger.of(context).showSnackBar(
+              //         const SnackBar(
+              //           content: Text('Post Bookmarked'),
+              //           duration: Duration(seconds: 1),
+              //         ),
+              //       );
+              //     }
+              //   },
+              //   child: SvgPicture.asset(
+              //     Constants.postOptionIcons[2],
+              //     width: 26,
+              //     height: 26,
+              //     color: const Color(0xFF0073B1),
+              //   ),
+              // ),
+              GestureDetector(
+                onTap: () async {
+                  await FeedContainerController.openShareSheet(
+                      context, feedPost);
+                },
+                child: SvgPicture.asset(
+                  Constants.postOptionIcons[4],
+                  width: 25,
+                  height: 25,
+                  color: const Color.fromRGBO(32, 33, 37, 1),
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_horiz_rounded,
-                color: Color.fromRGBO(32, 33, 37, 1),
-                size: 24,
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.more_horiz_rounded,
+                  color: Color.fromRGBO(32, 33, 37, 1),
+                  size: 24,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

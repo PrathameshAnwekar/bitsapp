@@ -45,6 +45,11 @@ class JobInternhipScreen extends HookConsumerWidget {
       await showDialog(
         context: context,
         builder: (ctx) => MultiSelectDialog(
+          itemsTextStyle: GoogleFonts.roboto(),
+          searchTextStyle: GoogleFonts.roboto(),
+          searchHintStyle: GoogleFonts.roboto(),
+          selectedItemsTextStyle: GoogleFonts.roboto(),
+          separateSelectedItems: true,
           initialValue: filteredSkills,
           backgroundColor: Colors.white,
           height: 400,
@@ -61,27 +66,41 @@ class JobInternhipScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 85,
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         centerTitle: false,
         title: Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Text(
-            "Hello ${localUser.name}",
-            style: GoogleFonts.dmSans(
-              color: Colors.black.withOpacity(0.7),
-              fontWeight: FontWeight.w400,
-              fontSize: 23,
-            ),
+          padding: const EdgeInsets.only(left: 5, top: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Hi, ${localUser.name.split(' ')[0]}",
+                style: GoogleFonts.roboto(
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 21,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Let's discover perfect job for you",
+                style: GoogleFonts.roboto(
+                  color: const Color.fromARGB(255, 123, 123, 123),
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(height: 15),
+            ],
           ),
         ),
         elevation: 0,
         actions: [
           Container(
             padding: const EdgeInsets.all(1),
-            margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              color: const Color.fromRGBO(49, 50, 54, 1),
+              color: Constants.inactiveIconColor.withOpacity(0.8),
               borderRadius: BorderRadius.circular(6),
             ),
             child: GestureDetector(
@@ -90,10 +109,10 @@ class JobInternhipScreen extends HookConsumerWidget {
                   builder: ((context) => PostNewInternship()),
                 ),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.add_rounded,
                 size: 28,
-                color: Colors.white.withOpacity(0.9),
+                color: Colors.white,
               ),
             ),
           ),
@@ -104,21 +123,27 @@ class JobInternhipScreen extends HookConsumerWidget {
               ),
             ),
             icon: Icon(
-              Icons.format_align_left_rounded,
-              size: 28,
-              color: Colors.black.withOpacity(0.7),
+              Icons.assignment_rounded,
+              size: 35,
+              color: Constants.inactiveIconColor.withOpacity(0.8),
             ),
           ),
         ],
       ),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Constants.kSecondaryColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 15),
+              padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
               child: Row(
                 children: <Widget>[
                   const Flexible(
@@ -128,12 +153,13 @@ class JobInternhipScreen extends HookConsumerWidget {
                     onTap: () => showMultiSelect(context),
                     child: Container(
                       margin: const EdgeInsets.only(left: 10),
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          color: const Color.fromRGBO(255, 118, 84, 1),
+                          // color: const Color.fromRGBO(255, 118, 84, 1),
+                          color: Constants.kPrimaryColor,
                           borderRadius: BorderRadius.circular(15)),
-                      height: 65,
-                      width: 60,
+                      height: 55,
+                      width: 50,
                       child: SvgPicture.asset(
                         'assets/icons/vertical_filter.svg',
                         color: const Color.fromRGBO(248, 251, 254, 0.95),

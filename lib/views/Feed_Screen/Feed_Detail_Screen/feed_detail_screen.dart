@@ -41,7 +41,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 5, 10, 60),
+          padding: const EdgeInsets.only(top: 5, bottom: 60),
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             child: Column(
@@ -53,7 +53,8 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   feedPost: widget.feedPost,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                   child: Text(
                     key: _itemKey,
                     "Comments",
@@ -62,11 +63,14 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const CommentsBox(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    itemBuilder: (context, index) => const CommentsBox(),
+                  ),
                 ),
               ],
             ),

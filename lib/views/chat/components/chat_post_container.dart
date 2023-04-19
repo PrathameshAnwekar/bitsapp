@@ -45,7 +45,7 @@ class ChatPostContainerState extends ConsumerState<ChatPostContainer>
                 .read(contactsListProvider)
                 .firstWhere((element) => element.uid == post.posterUid);
             return Container(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(top: 15),
               height: SizeConfig.screenHeight * 0.4,
               width: SizeConfig.screenWidth * 0.4,
               clipBehavior: Clip.antiAliasWithSaveLayer,

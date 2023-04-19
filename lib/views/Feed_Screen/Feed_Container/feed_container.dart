@@ -1,4 +1,3 @@
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/feed_description.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,7 @@ class FeedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SizeConfig.screenWidth,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       color: Colors.white,
       child: FeedDesc(
         isFeedScreen: true,

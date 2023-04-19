@@ -8,7 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'components/body.dart';
 
-
 class ChatRoomScreen extends HookConsumerWidget {
   static const routeName = "/chat-room-creen";
   final String chatRoomUid;
@@ -16,11 +15,10 @@ class ChatRoomScreen extends HookConsumerWidget {
   const ChatRoomScreen({super.key, required this.chatRoomUid});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     final chatRoom = ref
         .watch(chatRoomsProvider)
         .firstWhere((element) => element.uid == chatRoomUid);
-         final chatStream = ref.watch(chatStreamProvider(chatRoomUid));
+    final chatStream = ref.watch(chatStreamProvider(chatRoomUid));
     final contactsList = ref.watch(contactsListProvider);
     final BitsUser otherUser = contactsList.firstWhere(
         (element) =>
@@ -41,14 +39,11 @@ class ChatRoomScreen extends HookConsumerWidget {
           chatRoomUid: chatRoomUid,
           receiver: otherUser,
         ),
-        
         backgroundColor: Colors.white,
       ),
     );
   }
 }
-
-
 
 final chatStreamProvider =
     StreamProvider.family<dynamic, String>((ref, chatRoomUid) async* {
@@ -74,5 +69,5 @@ final chatStreamProvider =
 });
 
 //Using these instead of hooks to avoid rebuilding the whole screen
-final replyOfProvider = StateProvider<String?>((ref) => null); 
+final replyOfProvider = StateProvider<String?>((ref) => null);
 final replyOfTextProvider = StateProvider<String?>((ref) => null);

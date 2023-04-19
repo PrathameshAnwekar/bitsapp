@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,16 +20,17 @@ class Tags extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(inPadding),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black.withOpacity(0.7),
-        ),
+        // color: Constants.inactiveIconColor.withOpacity(0.8),
+        border: Border.all(color: Constants.inactiveIconColor.withOpacity(0.8)),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
         text,
-        style: GoogleFonts.dmSans(
-          color: Colors.black.withOpacity(0.7),
+        style: GoogleFonts.roboto(
+          // color: Colors.white,
+          color: Colors.black.withOpacity(0.8),
           fontSize: textSize,
+          fontWeight: FontWeight.w400,
         ),
       ),
     );

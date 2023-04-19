@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/internship_data_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ApplyNowScreen extends HookConsumerWidget {
@@ -23,15 +25,20 @@ class ApplyNowScreen extends HookConsumerWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
-        leadingWidth: 0,
-        backgroundColor: const Color(0xFFF7F6F8),
+        titleSpacing: 20,
+        backgroundColor: Colors.white,
         title: AutoSizeText(
           internshipData.title,
-          style: TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 20),
+          style: GoogleFonts.roboto(
+            color: Colors.black.withOpacity(0.7),
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
           maxLines: 2,
         ),
         elevation: 0,
       ),
+      backgroundColor: Colors.white,
       bottomNavigationBar: _bottomWidget(context, _formKey,
           coverLetterController, ref, localUser, internshipUid),
       body: Form(
@@ -49,7 +56,8 @@ class ApplyNowScreen extends HookConsumerWidget {
                       const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: const Color(0xFFdfdee8).withOpacity(0.8),
+                    // color: const Color(0xFFdfdee8).withOpacity(0.8),
+                    color: Constants.kSecondaryColor,
                   ),
                 ),
                 _heading1("Contact details", 25, 5),
@@ -66,9 +74,9 @@ class ApplyNowScreen extends HookConsumerWidget {
                   textCapitalization: TextCapitalization.sentences,
                   minLines: 6,
                   maxLines: 7,
-                  style: const TextStyle(
+                  style: GoogleFonts.roboto(
                     fontSize: 16,
-                    color: Color.fromRGBO(27, 27, 27, 1),
+                    color: const Color.fromRGBO(27, 27, 27, 1),
                   ),
                   maxLength: 400,
                   // onFieldSubmitted: (_) {
@@ -93,18 +101,19 @@ class ApplyNowScreen extends HookConsumerWidget {
                       return null;
                     }
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.only(top: 20, left: 12, right: 12),
+                        const EdgeInsets.only(top: 20, left: 12, right: 12),
                     hintText:
                         'Mention what relevant skill or past experience you have for this internship',
-                    hintStyle: TextStyle(
+                    hintStyle: GoogleFonts.roboto(
                       fontSize: 16,
-                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                      color: const Color.fromRGBO(0, 0, 0, 0.25),
                     ),
                     filled: true,
-                    fillColor: Color.fromRGBO(242, 242, 242, 1),
-                    border: OutlineInputBorder(
+                    // fillColor: const Color.fromRGBO(242, 242, 242, 1),
+                    fillColor: Constants.kSecondaryColor,
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(6),
                       ),
@@ -129,8 +138,8 @@ Widget _heading1(String txt, double top, double bottom) {
     ),
     child: Text(
       txt,
-      style: const TextStyle(
-        color: Color(0xFF4D5470),
+      style: GoogleFonts.roboto(
+        color: const Color(0xFF4D5470),
         fontWeight: FontWeight.w600,
         fontSize: 20,
       ),
@@ -146,15 +155,15 @@ Widget _heading2(String txt, String txt2) {
       children: [
         Text(
           txt,
-          style: const TextStyle(
-            color: Color(0xFF4D5470),
+          style: GoogleFonts.roboto(
+            color: const Color(0xFF4D5470),
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
         ),
         Text(
           txt2,
-          style: TextStyle(
+          style: GoogleFonts.roboto(
             color: Colors.black.withOpacity(0.7),
             fontSize: 14,
           ),
@@ -168,6 +177,7 @@ Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
     localUser, internshipUid) {
   return Material(
     elevation: 14,
+    color: Colors.white,
     child: SizedBox(
       height: 90,
       child: Row(
@@ -181,14 +191,15 @@ Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: const Color(0xFF149fda),
+                  // color: const Color(0xFF149fda),
+                  color: Constants.kPrimaryColor,
                 ),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-              child: const Text(
+              child: Text(
                 "Back",
-                style: TextStyle(
-                  color: Color(0xFF149fda),
+                style: GoogleFonts.roboto(
+                  color: Constants.kPrimaryColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 17,
                 ),
@@ -208,19 +219,20 @@ Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
               }
             },
             child: Card(
-              color: const Color(0xFF149fda),
+              color: Constants.kPrimaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               shadowColor: const Color(0xFF149fda).withOpacity(0.6),
               elevation: 6,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 14),
                 child: Text(
                   "Submit",
-                  style: TextStyle(
+                  style: GoogleFonts.roboto(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: 17,
                   ),
                 ),
               ),

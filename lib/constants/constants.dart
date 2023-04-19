@@ -39,62 +39,59 @@ class Constants {
   ];
 
   static final List<String> skills = [
-    "Python",
-    "Flutter",
-    "Django",
-    "React",
-    "C++",
-    "Node JS",
     "Java",
-    "C",
-    "C#",
-    "PHP",
-    "Ruby",
-    "Go",
-    "Rust",
-    "Kotlin",
-    "Swift",
-    "Dart",
-    "SQL",
     "Python",
-    "Flutter",
-    "Django",
-    "React",
+    "JavaScript",
     "C++",
-    "Node JS",
-    "Java",
-    "C",
     "C#",
-    "PHP",
     "Ruby",
+    "Swift",
+    "Kotlin",
+    "PHP",
     "Go",
     "Rust",
-    "Kotlin",
-    "Swift",
+    "MATLAB",
+    "R",
+    "TypeScript",
+    "Perl",
+    "Shell scripting",
+    "HTML/CSS",
+    "Scala",
+    "Julia",
     "Dart",
-    "SQL",
-    "NoSQL",
+    "Flutter",
+    "React Native",
+    "Angular",
+    ".NET",
+    "Spring framework",
+    "Django",
+    "TensorFlow",
+    "PyTorch",
+    "Unity",
+    "JavaScript",
+    "React",
+    "Vue.js",
+    "Node.js",
+    "Ruby on Rails",
+    "SwiftUI",
     "MongoDB",
-    "C#",
-    "PHP",
-    "Ruby",
-    "Go",
-    "Rust",
-    "Kotlin",
-    "Swift",
-    "Dart",
-    "SQL",
-    "NoSQL",
-    "MongoDB",
+    "GraphQL",
+    "Redux",
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "Git",
+    "Jenkins"
   ];
 
-  static const kPrimaryColor = Color(0xFF00BF6D);
-  static const kSecondaryColor = Color(0xFFFE9901);
+  static const kPrimaryColor = Color(0xFF246ff1);
+  static const k2PrimaryColor = Color(0xFF7BC8E1);
+  static const kSecondaryColor = Color(0xFFF3F5FB);
   static const kContentColorLightTheme = Color(0xFF1D1D35);
   static const kContentColorDarkTheme = Color(0xFFF5FCF9);
   static const kWarninngColor = Color(0xFFF3BB1C);
   static const kErrorColor = Color(0xFFF03738);
   static const kDefaultPadding = 20.0;
-  static const activeIconColor = Color(0xFF2394c9);
-  static const inactiveIconColor = Colors.grey;
+  static const activeIconColor = Color(0xFF246ff1);
+  static const inactiveIconColor = Color.fromARGB(255, 150, 149, 170);
 }

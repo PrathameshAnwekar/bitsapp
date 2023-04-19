@@ -1,4 +1,3 @@
-import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/chat/chats_screen.dart';
 import 'package:bitsapp/views/new_post_screen/new_post_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,6 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  
-
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     FeedScreen(),
@@ -37,97 +34,100 @@ class _BottomBarState extends State<BottomBar> {
         index: _pageindex,
         children: pagelist,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _pageindex,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
-        elevation: 4,
-        onTap: (value) {
-          setState(() {
-            _pageindex = value;
-          });
-        },
-        backgroundColor: Colors.white,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/home_outline.svg',
-              width: 27,
-              height: 27,
-              color: Constants.inactiveIconColor,
+      bottomNavigationBar: SizedBox(
+        height: 68,
+        child: BottomNavigationBar(
+          currentIndex: _pageindex,
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          elevation: 4,
+          onTap: (value) {
+            setState(() {
+              _pageindex = value;
+            });
+          },
+          backgroundColor: Colors.white,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/home_outline.svg',
+                width: 27,
+                height: 27,
+                color: Constants.inactiveIconColor,
+              ),
+              label: "Home",
+              activeIcon: SvgPicture.asset(
+                'assets/icons/home_filled.svg',
+                width: 28,
+                height: 28,
+                color: Constants.kPrimaryColor,
+              ),
             ),
-            label: "Home",
-            activeIcon: SvgPicture.asset(
-              'assets/icons/home_filled.svg',
-              width: 28,
-              height: 28,
-              color: Constants.activeIconColor,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/internship_outline.svg',
+                width: 27,
+                height: 27,
+                color: Constants.inactiveIconColor,
+              ),
+              label: "Ads Alive",
+              activeIcon: SvgPicture.asset(
+                'assets/icons/internship_filled.svg',
+                width: 29,
+                height: 29,
+                color: Constants.kPrimaryColor,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/internship_outline.svg',
-              width: 27,
-              height: 27,
-              color: Constants.inactiveIconColor,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/newPost_outline.svg',
+                width: 27,
+                height: 27,
+                color: Constants.inactiveIconColor,
+              ),
+              label: "Lending",
+              activeIcon: SvgPicture.asset(
+                'assets/icons/newPost_filled.svg',
+                width: 29,
+                height: 29,
+                color: Constants.kPrimaryColor,
+              ),
             ),
-            label: "Ads Alive",
-            activeIcon: SvgPicture.asset(
-              'assets/icons/internship_filled.svg',
-              width: 28,
-              height: 28,
-              color: Constants.activeIconColor,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/chat_outline.svg',
+                width: 27,
+                height: 27,
+                color: Constants.inactiveIconColor,
+              ),
+              label: "Profile",
+              activeIcon: SvgPicture.asset(
+                'assets/icons/chat_filled.svg',
+                width: 29,
+                height: 29,
+                color: Constants.kPrimaryColor,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/newPost_outline.svg',
-              width: 27,
-              height: 27,
-              color: Constants.inactiveIconColor,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/user_outline.svg',
+                width: 27,
+                height: 27,
+                color: Constants.inactiveIconColor,
+              ),
+              label: "Profile",
+              activeIcon: SvgPicture.asset(
+                'assets/icons/user_filled.svg',
+                width: 29,
+                height: 29,
+                color: Constants.kPrimaryColor,
+              ),
             ),
-            label: "Lending",
-            activeIcon: SvgPicture.asset(
-              'assets/icons/newPost_filled.svg',
-              width: 28,
-              height: 28,
-              color: Constants.activeIconColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/chat_outline.svg',
-              width: 27,
-              height: 27,
-              color: Constants.inactiveIconColor,
-            ),
-            label: "Profile",
-            activeIcon: SvgPicture.asset(
-              'assets/icons/chat_filled.svg',
-              width: 28,
-              height: 28,
-              color: Constants.activeIconColor,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/user_outline.svg',
-              width: 27,
-              height: 27,
-              color: Constants.inactiveIconColor,
-            ),
-            label: "Profile",
-            activeIcon: SvgPicture.asset(
-              'assets/icons/user_filled.svg',
-              width: 28,
-              height: 28,
-              color: Constants.activeIconColor,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
       // bottomNavigationBar: SafeArea(
       //   child: Padding(

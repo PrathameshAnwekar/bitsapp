@@ -1,4 +1,3 @@
-import 'package:bitsapp/controllers/internship_data_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 
 import '../../constants/constants.dart';
+import '../../controllers/internship_data_controller.dart';
 import '../components/circle_profile_pic.dart';
 import 'components/title1.dart';
 
@@ -23,7 +23,7 @@ class PostNewInternship extends HookConsumerWidget {
     final titleController = useTextEditingController();
     final compensationController = useTextEditingController();
     final contactEmailController = useTextEditingController();
-    final skillController = useTextEditingController();
+    List<String> selectedSkills = [];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -61,13 +61,16 @@ class PostNewInternship extends HookConsumerWidget {
           GestureDetector(
             onTap: () {
               if (_formKey.currentState!.validate()) {
-                InternshipDataController.postNewInternship(ref, context,
-                    title: titleController.text,
-                    compensation: compensationController.text,
-                    contactEmail: contactEmailController.text,
-                    description: descriptionController.text,
-                    posterUID: localUser.uid,
-                    skills: skillController.text);
+                InternshipDataController.postNewInternship(
+                  ref,
+                  context,
+                  title: titleController.text,
+                  compensation: compensationController.text,
+                  contactEmail: contactEmailController.text,
+                  description: descriptionController.text,
+                  posterUID: localUser.uid,
+                  skills: selectedSkills,
+                );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -104,7 +107,7 @@ class PostNewInternship extends HookConsumerWidget {
                     children: [
                       const CircleProfilePic(radius: 18),
                       const Spacer(flex: 1),
-                      PersonDetail(user: localUser, isSmall: true,time: null),
+                      PersonDetail(user: localUser, isSmall: true, time: null),
                       const Spacer(flex: 15),
                     ],
                   ),
@@ -116,6 +119,7 @@ class PostNewInternship extends HookConsumerWidget {
                       }
                       return null;
                     },
+                    textCapitalization: TextCapitalization.words,
                     controller: titleController,
                     cursorColor: Colors.black54,
                     maxLength: 100,
@@ -156,6 +160,7 @@ class PostNewInternship extends HookConsumerWidget {
                       }
                       return null;
                     },
+                    textCapitalization: TextCapitalization.sentences,
                     cursorColor: Colors.black54,
                     maxLength: 400,
                     minLines: 5,
@@ -189,6 +194,11 @@ class PostNewInternship extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 25),
                   MultiSelectDialogField(
+                    itemsTextStyle: GoogleFonts.roboto(),
+                    searchTextStyle: GoogleFonts.roboto(),
+                    searchHintStyle: GoogleFonts.roboto(),
+                    selectedItemsTextStyle: GoogleFonts.roboto(),
+                    separateSelectedItems: true,
                     backgroundColor: Colors.white,
                     buttonIcon: const Icon(
                       Icons.keyboard_arrow_down_rounded,
@@ -202,7 +212,7 @@ class PostNewInternship extends HookConsumerWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    dialogHeight: 500,
+                    dialogHeight: 450,
                     searchable: true,
                     title: const Title1(txt: "Skill(s) required: "),
                     items: Constants.skills
@@ -210,7 +220,7 @@ class PostNewInternship extends HookConsumerWidget {
                         .toList(),
                     listType: MultiSelectListType.CHIP,
                     onConfirm: (values) {
-                      // _selectedAnimals = values;
+                      selectedSkills = values;
                     },
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade300),
@@ -230,6 +240,7 @@ class PostNewInternship extends HookConsumerWidget {
                             }
                             return null;
                           },
+                          textCapitalization: TextCapitalization.words,
                           cursorColor: Colors.black54,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(

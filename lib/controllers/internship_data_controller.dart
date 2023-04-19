@@ -10,11 +10,10 @@ class InternshipDataController {
       {required String title,
       required String description,
       required String posterUID,
-      required String skills,
+      required List<String> skills,
       required String contactEmail,
       required String compensation}) async {
     dlog("Form is valid, posting new internship");
-    final skillList = skills.split(",");
     final localUser = ref.read(localUserProvider);
     final internshipData = InternshipData(
         uid: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -23,7 +22,7 @@ class InternshipDataController {
         applications: [],
         posterUID: posterUID,
         time: DateTime.now().millisecondsSinceEpoch,
-        skills: skillList,
+        skills: skills,
         contactEmail: contactEmail,
         compensation: compensation);
     await ref

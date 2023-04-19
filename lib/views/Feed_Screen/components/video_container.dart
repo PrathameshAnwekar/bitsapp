@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
-/// Stateful widget to fetch and then display video content.
 class VideoContainer extends StatefulHookConsumerWidget {
   const VideoContainer({Key? key, required this.url}) : super(key: key);
   final String url;
@@ -28,17 +26,17 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
         builder: (context, file) {
           if (file.connectionState == ConnectionState.done) {
             if (file.hasData) {
-             if (init) {
-               _controller = VideoPlayerController.file(file.data as File)
-                ..initialize().then((_) {
-                  {
-                    setState(() {
-                      dlog("file data is ${file.data}");
-                      init = false;
-                    });
-                  }
-                });
-             }
+              if (init) {
+                _controller = VideoPlayerController.file(file.data as File)
+                  ..initialize().then((_) {
+                    {
+                      setState(() {
+                        dlog("file data is ${file.data}");
+                        init = false;
+                      });
+                    }
+                  });
+              }
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -48,7 +46,6 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
                   });
                 },
                 child: SizedBox(
-                
                   child: VideoPlayer(_controller),
                 ),
               );

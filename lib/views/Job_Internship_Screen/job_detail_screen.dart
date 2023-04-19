@@ -1,6 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/circle_profile_pic.dart';
 import '../components/person_detail.dart';
@@ -17,56 +18,67 @@ class JobDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(5),
+          child: Divider(
+            thickness: 1,
+            height: 10,
+            endIndent: 22,
+            indent: 22,
+          ),
+        ),
         scrolledUnderElevation: 0,
         leadingWidth: 40,
         centerTitle: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 6),
           child: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 28,
-              color: Color(0xFF69708C),
+              color: Colors.black.withOpacity(0.7),
             ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        backgroundColor: const Color(0xFFF7F6F8),
-        title: const Text(
+        backgroundColor: Colors.white,
+        title: Text(
           "Internship details",
-          style: TextStyle(color: Color(0xFF4D5470), fontSize: 20),
+          style: GoogleFonts.roboto(
+            color: Colors.black.withOpacity(0.7),
+            fontSize: 20,
+          ),
         ),
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF7F6F8),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Divider(
-              thickness: 1,
-              height: 15,
-            ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 10),
             Row(
               children: [
-                const CircleProfilePic(radius: 16),
+                const CircleProfilePic(radius: 21),
                 const Spacer(flex: 1),
-                PersonDetail(user: poster, isSmall: true, time: internshipData.time,),
+                PersonDetail(
+                  user: poster,
+                  isSmall: false,
+                  time: internshipData.time,
+                ),
                 const Spacer(flex: 15),
               ],
             ),
             const SizedBox(height: 20),
             Text(
               internshipData.title,
-              style: TextStyle(
-                // color: const Color(0xFF383D51).withOpacity(0.9),
-                color: Colors.black.withOpacity(0.7),
+              style: GoogleFonts.roboto(
+                color: Colors.black.withOpacity(0.8),
                 fontWeight: FontWeight.w700,
-                fontSize: 24,
+                fontSize: 20,
               ),
             ),
             Container(
@@ -80,10 +92,10 @@ class JobDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     "About Internship",
-                    style: TextStyle(
-                      color: Color(0xFF4D5470),
+                    style: GoogleFonts.roboto(
+                      color: const Color(0xFF4D5470),
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
@@ -91,25 +103,29 @@ class JobDetailScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     internshipData.description,
-                    style: TextStyle(
-                      color: const Color(0xFF383D51).withOpacity(0.8),
+                    style: GoogleFonts.roboto(
+                      fontSize: 14.5,
+                      color: Colors.black.withOpacity(0.8),
                     ),
                   ),
                 ],
               ),
             ),
-            const Heading2(txt1: "Skill(s) required", txt2: ""),
-            Wrap(
-              alignment: WrapAlignment.start,
-              direction: Axis.horizontal,
-              runSpacing: 6,
-              spacing: 10,
-              children: _tagBuilder(internshipData.skills),
+            const Heading2(txt1: "Skill(s) required :", txt2: ""),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                direction: Axis.horizontal,
+                runSpacing: 6,
+                spacing: 10,
+                children: _tagBuilder(internshipData.skills),
+              ),
             ),
-            const SizedBox(height: 10),
             Heading2(
-                txt1: "Compensation type : ",
-                txt2: internshipData.compensation),
+              txt1: "Compensation type : ",
+              txt2: internshipData.compensation,
+            ),
           ],
         ),
       ),

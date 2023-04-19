@@ -22,7 +22,7 @@ class PersonDetail extends StatelessWidget {
           user.name,
           style: GoogleFonts.roboto(
             color: const Color.fromRGBO(15, 15, 18, 0.9),
-            fontSize: isSmall ? 16 : 18,
+            fontSize: isSmall ? 14 : 16,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -33,7 +33,7 @@ class PersonDetail extends StatelessWidget {
           style: GoogleFonts.roboto(
             color: const Color.fromARGB(255, 166, 166, 166),
             letterSpacing: 0.2,
-            fontSize: isSmall ? 12.5 : 14.5,
+            fontSize: isSmall ? 10.5 : 12.5,
           ),
         ),
       ],

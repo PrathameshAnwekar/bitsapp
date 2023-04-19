@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
   const ChatAppBar({
-    super.key, required this.name,
+    super.key,
+    required this.name,
   });
   final String name;
 
@@ -37,9 +38,11 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
               ),
               Text(
-                "Online Now",
+                "● Online",
                 style: GoogleFonts.dmSans(
+                  color: Colors.green,
                   fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -48,7 +51,7 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
       ),
     );
   }
-  
+
   @override
-  Size get preferredSize => Size.fromHeight( SizeConfig.screenHeight * 0.07);
+  Size get preferredSize => Size.fromHeight(SizeConfig.screenHeight * 0.07);
 }

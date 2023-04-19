@@ -1,12 +1,9 @@
-import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/chat/components/chat_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/constants.dart';
@@ -59,10 +56,7 @@ class ChatRoomScreen extends ConsumerWidget {
         chatRoomUid: chatRoomUid,
         receiver: otherUser,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Constants.kSecondaryColor,
     );
   }
-
-  
 }
-
