@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
+import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readmore/readmore.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
@@ -14,9 +16,28 @@ import '../job_detail_screen.dart';
 import 'tags.dart';
 
 class InternshipsListView extends HookConsumerWidget {
-  const InternshipsListView({
+  InternshipsListView({
     super.key,
   });
+
+  final RefreshController _refreshController3 =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(WidgetRef ref) async {
+    // monitor network fetch
+    await FirestoreService.initInternshipData(ref);
+    // if failed,use refreshFailed()
+    _refreshController3.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    // items.add((items.length+1).toString());
+
+    _refreshController3.loadComplete();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,7 +70,7 @@ class InternshipCard extends StatelessWidget {
   final BitsUser poster;
 
   List<Tags> skillTagBuilder() {
-    elog("This is the 0th internship${internshipData.skills[0]}");
+    dlog("This is the 0th internship${internshipData.skills[0]}");
     final List<Tags> skillTags = [];
     for (int i = 0; i < internshipData.skills.length; i++) {
       skillTags.add(

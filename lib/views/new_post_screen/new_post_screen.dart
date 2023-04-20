@@ -149,7 +149,7 @@ class NewPostScreen extends HookConsumerWidget {
                         color: Color.fromRGBO(27, 27, 27, 1),
                       ),
                     ),
-                    LocalMediaContainer(files: files.value)
+                    LocalMediaContainer(files: files)
                   ],
                 ),
               ),

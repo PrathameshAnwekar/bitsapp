@@ -72,20 +72,11 @@ class FeedDesc extends HookConsumerWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () async {
-                  if (likeStatus.value) {
-                    final res =
-                        await FeedContainerController.removeLikeFromPost(
-                      feedPost,
-                      localUser.uid,
-                    );
-                    likeStatus.value = !res;
-                  } else {
-                    final res = await FeedContainerController.addLikeToPost(
-                      feedPost,
-                      localUser.uid,
-                    );
-                    likeStatus.value = res;
-                  }
+                  await FeedContainerController.toggleLike(
+                      likeStatus: likeStatus,
+                      localUserUid: localUser.uid,
+                      feedPostUid: feedPost.timeuid,
+                      ref: ref);
                 },
                 child: SvgPicture.asset(
                   likeStatus.value

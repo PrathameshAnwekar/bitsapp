@@ -11,14 +11,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class ChatsScreen extends HookConsumerWidget {
   const ChatsScreen({super.key});
   static const routeName = "/chats-screen";
-  static final RefreshController _refreshController =
+  static final RefreshController _refreshController2 =
       RefreshController(initialRefresh: false);
 
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initialiseChatRooms(ref);
     // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
+    _refreshController2.refreshCompleted();
   }
 
   void _onLoading() async {
@@ -27,7 +27,7 @@ class ChatsScreen extends HookConsumerWidget {
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     // items.add((items.length+1).toString());
 
-    _refreshController.loadComplete();
+    _refreshController2.loadComplete();
   }
 
   @override
@@ -132,9 +132,11 @@ class ChatsScreen extends HookConsumerWidget {
         const SizedBox(height: 20),
         Expanded(
           child: SmartRefresher(
+                          key:const ValueKey("Chat"),
+
             enablePullDown: true,
             enablePullUp: false,
-            controller: _refreshController,
+            controller: _refreshController2,
             header: const WaterDropMaterialHeader(),
             onLoading: () => _onLoading(),
             onRefresh: () => _onRefresh(ref),

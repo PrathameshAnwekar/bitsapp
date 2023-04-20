@@ -1,21 +1,25 @@
+import 'package:bitsapp/controllers/feed_container_controller.dart';
+import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/comment_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/feed_description.dart';
 
-class FeedDetailScreen extends StatefulWidget {
+class FeedDetailScreen extends ConsumerStatefulWidget {
   final bool isCommentPressed;
   final FeedPost feedPost;
   const FeedDetailScreen(
       {super.key, required this.isCommentPressed, required this.feedPost});
 
   @override
-  State<FeedDetailScreen> createState() => _FeedDetailScreenState();
+  ConsumerState<FeedDetailScreen> createState() => _FeedDetailScreenState();
 }
 
-class _FeedDetailScreenState extends State<FeedDetailScreen> {
+class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
   final _itemKey = GlobalKey();
   void commentFunc() async {
     final context = _itemKey.currentContext!;
@@ -27,6 +31,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
 
   @override
   void initState() {
+    commentController = TextEditingController();
     if (widget.isCommentPressed) {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => Future.delayed(const Duration(milliseconds: 280), commentFunc),
@@ -35,6 +40,7 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
     super.initState();
   }
 
+  late final TextEditingController commentController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,8 +74,8 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (context, index) => const CommentsBox(),
+                    itemCount: widget.feedPost.comments.length,
+                    itemBuilder: (context, index) =>  CommentsBox(comment: widget.feedPost.comments[index]),
                   ),
                 ),
               ],
@@ -79,6 +85,14 @@ class _FeedDetailScreenState extends State<FeedDetailScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: TextFormField(
+        controller: commentController,
+        textInputAction: TextInputAction.done,
+        onFieldSubmitted: (value) {
+          FeedContainerController.addCommentToPost(
+              feedPost: widget.feedPost,
+              commentController: commentController,
+              ref: ref);
+        },
         style: GoogleFonts.firaSans(
           color: Colors.white,
           fontSize: 17,

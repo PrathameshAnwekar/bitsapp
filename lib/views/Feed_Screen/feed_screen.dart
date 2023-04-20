@@ -19,13 +19,13 @@ import 'feed_container/feed_container.dart';
 class FeedScreen extends ConsumerWidget {
   FeedScreen({super.key});
 
-  final RefreshController _refreshController =
+  final RefreshController _refreshController1 =
       RefreshController(initialRefresh: false);
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
     await FirestoreService.initFeedPosts(ref);
     // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
+    _refreshController1.refreshCompleted();
   }
 
   void _onLoading(List<FeedPost> feedposts) async {
@@ -34,7 +34,7 @@ class FeedScreen extends ConsumerWidget {
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     // items.add((items.length+1).toString());
 
-    _refreshController.loadComplete();
+    _refreshController1.loadComplete();
   }
 
   @override
@@ -142,9 +142,10 @@ class FeedScreen extends ConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: SmartRefresher(
+              key:const ValueKey("Feed"),
               enablePullDown: true,
               enablePullUp: false,
-              controller: _refreshController,
+              controller: _refreshController1,
               header: const MaterialClassicHeader(),
               onLoading: () => _onLoading(feedPosts),
               onRefresh: () => _onRefresh(ref),

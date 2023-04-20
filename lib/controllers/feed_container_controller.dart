@@ -14,36 +14,37 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 class FeedContainerController {
-  static Future<bool> addLikeToPost(
-      FeedPost feedpost, String localUserUid) async {
-    try {
-      await FirestoreService.addLikeToFeedPost(feedpost.timeuid, localUserUid);
-      feedpost.likes.add(localUserUid);
-      return Future.value(true);
-    } catch (e) {
+  static Future<void> toggleLike({
+    required ValueNotifier<bool> likeStatus,
+    required String localUserUid,
+    required WidgetRef ref,
+    required String feedPostUid,
+  }) async {
+    try{if (likeStatus.value) {
+      await ref.read(feedPostDataProvider.notifier).removeLike(feedPostUid, localUserUid);
+      likeStatus.value = false;
+    } else {
+      await ref.read(feedPostDataProvider.notifier).addLike(feedPostUid,localUserUid);
+      likeStatus.value = true;
+    }}catch(e){
       elog(e.toString());
-      return Future.value(false);
     }
   }
 
   static Future<bool> addCommentToPost(
-      FeedPost feedpost, Comment comment) async {
+      {required FeedPost feedPost,
+      required TextEditingController commentController,
+      required WidgetRef ref}) async {
     try {
-      await FirestoreService.addCommentToFeedPost(feedpost.timeuid, comment);
-      feedpost.comments.add(comment);
-      return Future.value(true);
-    } catch (e) {
-      elog(e.toString());
-      return Future.value(false);
-    }
-  }
-
-  static Future<bool> removeLikeFromPost(
-      FeedPost feedpost, String localUserUid) async {
-    try {
-      await FirestoreService.removeLikeFromFeedPost(
-          feedpost.timeuid, localUserUid);
-      feedpost.likes.remove(localUserUid);
+      if (commentController.text.trim() == "") return false;
+      final comment = Comment(
+          posterUid: feedPost.posterUid,
+          text: commentController.text.trim(),
+          timeUid: DateTime.now().millisecondsSinceEpoch);
+      ref
+          .read(feedPostDataProvider.notifier)
+          .addComment(feedPost.timeuid, comment);
+      commentController.clear();
       return Future.value(true);
     } catch (e) {
       elog(e.toString());
@@ -93,7 +94,6 @@ class FeedContainerController {
             ));
   }
 
- 
   static Future<bool> shareFeedPostInternally(
       FeedPost feedpost, WidgetRef ref, List<String> uids) async {
     try {
@@ -129,17 +129,17 @@ class FeedContainerController {
         final otherUserUid = chatRoomToShare[i]
             .userUidList
             .firstWhere((element) => localUser.uid != element);
-        final fcmToken =
-            contacts.firstWhere((element) => element.uid == otherUserUid).fcmToken;
+        final fcmToken = contacts
+            .firstWhere((element) => element.uid == otherUserUid)
+            .fcmToken;
         final message = Message(
             sender: localUser.uid,
             text: shareString,
             type: MessageType.feedpost,
             replyOf: null,
             time: DateTime.now().millisecondsSinceEpoch);
-        ref
-            .read(chatRoomsProvider.notifier)
-            .addMessage(chatRoomToShare[i].uid, message, fcmToken ?? "null", "Someone new");
+        ref.read(chatRoomsProvider.notifier).addMessage(
+            chatRoomToShare[i].uid, message, fcmToken ?? "null", "Someone new");
       }
       return Future.value(true);
     } catch (e) {

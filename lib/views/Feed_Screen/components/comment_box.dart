@@ -1,12 +1,18 @@
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CommentsBox extends StatelessWidget {
-  const CommentsBox({super.key});
-
+class CommentsBox extends ConsumerWidget {
+  const CommentsBox({super.key, required this.comment});
+  final Comment comment;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final commentPoster = ref
+        .read(contactsListProvider)
+        .where((element) => element.uid == comment.posterUid);
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Row(
@@ -29,7 +35,7 @@ class CommentsBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Arya",
+                    commentPoster.first.name,
                     style: GoogleFonts.dmSans(
                       color: Colors.black.withOpacity(0.8),
                       fontSize: 16,
@@ -40,7 +46,7 @@ class CommentsBox extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    "I am a flutter developer \nThis is a test comment",
+                    comment.text,
                     style: GoogleFonts.dmSans(
                       color: Colors.black.withOpacity(0.65),
                       fontSize: 15,

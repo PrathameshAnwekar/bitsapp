@@ -15,26 +15,7 @@ import 'post_new_internship.dart';
 import 'tab_viewer/internship_tabview_screen.dart';
 
 class JobInternhipScreen extends HookConsumerWidget {
-   JobInternhipScreen({super.key});
-
-   final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh(WidgetRef ref) async {
-    // monitor network fetch
-    await FirestoreService.initInternshipData(ref);
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    // items.add((items.length+1).toString());
-
-    _refreshController.loadComplete();
-  }
+  const JobInternhipScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -169,15 +150,7 @@ class JobInternhipScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-            Expanded(
-                child: SmartRefresher(
-                    enablePullDown: true,
-                    enablePullUp: false,
-                    controller: _refreshController,
-                    header:  BezierCircleHeader(),
-                    onLoading: () => _onLoading(),
-                    onRefresh: () => _onRefresh(ref),
-                    child: InternshipsListView())),
+             Expanded(child: InternshipsListView()),
           ],
         ),
       ),
