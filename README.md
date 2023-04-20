@@ -6,3 +6,6 @@ Use this line === 'mediaFilesList': instance.mediaFilesList.map((e) => e.toJson(
 
 ### FirebaseAuth Stream
 Do not use the FirebaseAuth stream for listening to auth state changes in the MyApp widget. It leads to a bug where the AuthController.signIn() is disposed before completion, leading to data not being updated.
+  
+### Hive generated dart files
+Check for files from the previous commit for bits_user.g.dart. Hive here has been used for optimising getting the username and other necessary fields required for feedscreen and chat, rest of the fields aren't required and hence initialised with empty stuff;
