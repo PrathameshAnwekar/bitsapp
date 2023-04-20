@@ -2,7 +2,6 @@ import 'package:bitsapp/constants/init_constants.dart';
 import 'package:bitsapp/services/custom_routes.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/initializer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,7 +34,6 @@ class MyApp extends HookConsumerWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             useMaterial3: true,
-            
             colorSchemeSeed: Colors.amber,
             appBarTheme: const AppBarTheme(
               systemOverlayStyle: SystemUiOverlayStyle(

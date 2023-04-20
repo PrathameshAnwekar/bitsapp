@@ -70,7 +70,6 @@ class InternshipCard extends StatelessWidget {
   final BitsUser poster;
 
   List<Tags> skillTagBuilder() {
-    dlog("This is the 0th internship${internshipData.skills[0]}");
     final List<Tags> skillTags = [];
     for (int i = 0; i < internshipData.skills.length; i++) {
       skillTags.add(
