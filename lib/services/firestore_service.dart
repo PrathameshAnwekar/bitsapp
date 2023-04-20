@@ -10,6 +10,7 @@ import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/auth/auth_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,7 +49,6 @@ class FirestoreService {
         await FirestoreService.initialiseChatRooms(ref);
         dlog("Chat rooms initialised");
         await FirestoreService.initFeedPosts(ref);
-
       });
       return Future.value(true);
     } catch (e) {
@@ -97,6 +97,7 @@ class FirestoreService {
       }).toList();
 
       ref.read(contactsListProvider.notifier).state = allUsersList;
+      await HiveStore.storeAllUserToStorage(allUsersList);
       dlog("initialised ${allUsersList.length} contacts");
     } catch (e) {
       elog(e.toString());
@@ -274,7 +275,6 @@ class FirestoreService {
           .name;
       await NotifService.sendPostNotification(
           sender: senderName, text: feedPost.text);
-      
     } catch (e) {
       elog(e.toString());
       rethrow;

@@ -10,7 +10,7 @@ import 'package:month_year_picker/month_year_picker.dart';
 bool init = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await InitConstants().init();
+  await InitConstants.init();
   runApp(
     const ProviderScope(
       child: MyApp(),

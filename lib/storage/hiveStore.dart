@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/local_fcm_object.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,15 +10,35 @@ class HiveStore {
   static final storage = Hive.box("defaultStorage");
   static final chatRooms = Hive.box("chatStorage");
   static final bookmarkedPosts = Hive.box("bookmarkedPosts");
+  static final contactsStorage = Hive.box("contactsStorage");
 
   static init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     Hive
       ..init(appDocumentDirectory.path)
       ..registerAdapter(LocalFcmObjectAdapter());
+    Hive
+      ..init(appDocumentDirectory.path)
+      ..registerAdapter(BitsUserAdapter());
 
     await Hive.openBox("defaultStorage");
     await Hive.openBox("chatStorage");
     await Hive.openBox("bookmarkedPosts");
+    await Hive.openBox("contactsStorage");
   }
+
+  static Future<void> saveUserToStorage(BitsUser user) async {
+    await contactsStorage.put(user.uid, user);
+  }
+
+  static BitsUser? getUserFromStorage({required String uid})  {
+    return contactsStorage.get(uid);
+  }
+
+  static Future<void> storeAllUserToStorage(List<BitsUser> users) async {
+    for(int i = 0; i < users.length; i++){
+     await saveUserToStorage(users[i]);
+    }
+  }
+
 }

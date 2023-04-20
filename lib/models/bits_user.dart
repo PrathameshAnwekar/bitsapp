@@ -2,6 +2,7 @@ import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,16 +10,22 @@ import 'chat_room.dart';
 
 part 'bits_user.g.dart';
 
+
 @JsonSerializable()
-class BitsUser {
+@HiveType(typeId: 1)
+class BitsUser extends HiveObject {
   /// The generated code assumes these values exist in JSON.
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final String? profilePicUrl;
   final String? profileDescription;
   final String email;
   final String bitsID;
+  @HiveField(2)
   final String uid;
   final String? fcmID;
+  @HiveField(3)
   final String? fcmToken;
   final List<String> chatRooms;
   final List<String>? appliedInternships;
@@ -142,3 +149,4 @@ String properCase(String s) {
   }
   return proper;
 }
+

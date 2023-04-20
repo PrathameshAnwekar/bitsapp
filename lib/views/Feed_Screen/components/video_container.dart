@@ -10,8 +10,8 @@ class VideoContainer extends StatefulHookConsumerWidget {
   ConsumerState<VideoContainer> createState() => _VideoContainerState();
 }
 
+//TODO: Fix this, cache for chewie
 class _VideoContainerState extends ConsumerState<VideoContainer> {
-  late VideoPlayerController _controller;
   ChewieController? _chewieController;
 
   bool init = true;
@@ -34,7 +34,6 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
     _chewieController?.dispose();
   }
 

@@ -3,6 +3,62 @@
 part of 'bits_user.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class BitsUserAdapter extends TypeAdapter<BitsUser> {
+  @override
+  final int typeId = 1;
+
+  @override
+  BitsUser read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return BitsUser(
+      name: fields[0] as String,
+      profilePicUrl: fields[1] as String?,
+      uid: fields[2] as String,
+      fcmToken: fields[3] as String?,
+      //rest of these fields are not needed for most things in the app
+      appliedInternships: [],
+      bitsID: '',
+      chatRooms: [],
+      email: '',
+      fcmID: '',
+      feedPosts: [],
+      postedInternships: [],
+      profileDescription: '',
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, BitsUser obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(0)
+      ..write(obj.name)
+      ..writeByte(1)
+      ..write(obj.profilePicUrl)
+      ..writeByte(2)
+      ..write(obj.uid)
+      ..writeByte(3)
+      ..write(obj.fcmToken);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BitsUserAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

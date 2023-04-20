@@ -33,18 +33,15 @@ class FeedContainerController {
 
   static Future<bool> addCommentToPost(
       {required FeedPost feedPost,
-      required TextEditingController commentController,
+      required Comment comment,
+      
       required WidgetRef ref}) async {
     try {
-      if (commentController.text.trim() == "") return false;
-      final comment = Comment(
-          posterUid: feedPost.posterUid,
-          text: commentController.text.trim(),
-          timeUid: DateTime.now().millisecondsSinceEpoch);
+      if (comment.text.trim() == "") return false;
+      
       ref
           .read(feedPostDataProvider.notifier)
           .addComment(feedPost.timeuid, comment);
-      commentController.clear();
       return Future.value(true);
     } catch (e) {
       elog(e.toString());

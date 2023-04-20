@@ -9,7 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../components/feed_description.dart';
 
-class FeedDetailScreen extends ConsumerStatefulWidget {
+class FeedDetailScreen extends StatefulHookConsumerWidget {
   final bool isCommentPressed;
   final FeedPost feedPost;
   const FeedDetailScreen(
@@ -43,6 +43,7 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
   late final TextEditingController commentController;
   @override
   Widget build(BuildContext context) {
+    final comments = useState(widget.feedPost.comments);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -75,7 +76,8 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: widget.feedPost.comments.length,
-                    itemBuilder: (context, index) =>  CommentsBox(comment: widget.feedPost.comments[index]),
+                    itemBuilder: (context, index) =>
+                        CommentsBox(comment: widget.feedPost.comments[index]),
                   ),
                 ),
               ],
@@ -87,11 +89,8 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
       floatingActionButton: TextFormField(
         controller: commentController,
         textInputAction: TextInputAction.done,
-        onFieldSubmitted: (value) {
-          FeedContainerController.addCommentToPost(
-              feedPost: widget.feedPost,
-              commentController: commentController,
-              ref: ref);
+        onFieldSubmitted: (value) async {
+          await addComment(comments);
         },
         style: GoogleFonts.firaSans(
           color: Colors.white,
@@ -106,7 +105,7 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
           ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                topLeft: Radius.circular(0), topRight: Radius.circular(0)),
             borderSide: BorderSide.none,
           ),
           filled: true,
@@ -143,5 +142,16 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
       //   ),
       // ),
     );
+  }
+
+  Future<void> addComment(ValueNotifier<List<Comment>> comments) async {
+    final comment = Comment(
+        posterUid: widget.feedPost.posterUid,
+        text: commentController.text.trim(),
+        timeUid: DateTime.now().millisecondsSinceEpoch);
+    if (await FeedContainerController.addCommentToPost(
+        feedPost: widget.feedPost, comment: comment, ref: ref)) {}
+    commentController.clear();
+
   }
 }
