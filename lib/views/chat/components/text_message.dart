@@ -23,69 +23,58 @@ class TextMessage extends ConsumerWidget {
     bool isSender = message.sender == localUser.uid;
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 15),
-        child: Column(
-          crossAxisAlignment:
-              isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Constants.kDefaultPadding * 0.75 + 3,
-                vertical: Constants.kDefaultPadding / 2 + 3,
+      child: Column(
+        crossAxisAlignment:
+            isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Constants.kDefaultPadding * 0.75 + 3,
+              vertical: Constants.kDefaultPadding / 2 + 3,
+            ),
+            constraints: const BoxConstraints(maxWidth: 300),
+            decoration: BoxDecoration(
+              color: isSender
+                  ? Constants.kPrimaryColor
+                  : Constants.kSecondaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(10),
+                topRight: const Radius.circular(10),
+                bottomLeft: Radius.circular(isSender ? 10 : 0),
+                bottomRight: Radius.circular(isSender ? 0 : 10),
               ),
-              constraints: const BoxConstraints(maxWidth: 300),
-              decoration: BoxDecoration(
-                color: isSender ? Constants.kPrimaryColor : Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                  bottomLeft: Radius.circular(isSender ? 10 : 0),
-                  bottomRight: Radius.circular(isSender ? 0 : 10),
-                ),
-              ),
-              child: Column(
-                children: [
-                  if (replyText != null)
-                    Container(
-                      // color: Colors.transparent.withOpacity(0.1),
-                      color: Colors.white,
-                      child: Text(replyText!),
-                    ),
-                  Text(
-                    message.text,
-                    style: GoogleFonts.roboto(
-                      fontSize: 15,
-                      height: 1.2,
-                      // fontWeight: FontWeight.w400,
-                      color: isSender ? Colors.white : Colors.black,
-                    ),
+            ),
+            child: Column(
+              children: [
+                if (replyText != null)
+                  Container(
+                    // color: Colors.transparent.withOpacity(0.1),
+                    color: Colors.white,
+                    child: Text(replyText!),
                   ),
-                ],
-              ),
+                Text(
+                  message.text,
+                  style: GoogleFonts.roboto(
+                    fontSize: 15,
+                    height: 1.2,
+                    // fontWeight: FontWeight.w400,
+                    color: isSender ? Colors.white : Colors.black,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              timeAgo(message.time),
-              style: GoogleFonts.roboto(
-                fontSize: 10,
-                height: 1.8,
-                fontWeight: FontWeight.w400,
-              ),
+          ),
+          Text(
+            DateFormat('HH:mm')
+                .format(DateTime.fromMillisecondsSinceEpoch(message.time)),
+            style: GoogleFonts.roboto(
+              fontSize: 10,
+              height: 1.8,
+              fontWeight: FontWeight.w400,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
-}
-
-String timeAgo(int d) {
-  DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
-  Duration diff = DateTime.now().difference(dt);
-  String temp = DateFormat('HH:mm').format(dt);
-  if (diff.inDays > 1) {
-    return "$temp ${DateFormat.yMMMMd().format(dt)}";
-  } else {
-    return "$temp yesterday";
   }
 }

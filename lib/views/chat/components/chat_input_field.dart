@@ -10,22 +10,21 @@ class ChatInputField extends HookConsumerWidget {
   final String chatRoomUid;
   final String receiverFcmToken;
   final String senderName;
- 
+
   final VoidCallback reset;
   const ChatInputField(
       {Key? key,
       required this.chatRoomUid,
       required this.receiverFcmToken,
       required this.senderName,
-    
       required this.reset})
       : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
-     final String? replyOf = ref.watch(replyOfProvider);
-  final String? replyOfText = ref.watch(replyOfTextProvider);
+    final String? replyOf = ref.watch(replyOfProvider);
+    final String? replyOfText = ref.watch(replyOfTextProvider);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Constants.kDefaultPadding,
@@ -44,19 +43,17 @@ class ChatInputField extends HookConsumerWidget {
       child: SafeArea(
         child: Column(
           children: [
-        
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                child: replyOfText != null
-                    ? AutoSizeText(
-                        replyOfText,
-                        minFontSize: 15,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : const Text(""),
-              ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: replyOfText != null
+                  ? AutoSizeText(
+                      replyOfText,
+                      minFontSize: 15,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  : const Text(""),
+            ),
             Row(
               children: [
                 const SizedBox(width: Constants.kDefaultPadding / 2),
@@ -82,6 +79,7 @@ class ChatInputField extends HookConsumerWidget {
                         const SizedBox(width: Constants.kDefaultPadding / 4),
                         Expanded(
                           child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
                             controller: textController,
                             decoration: const InputDecoration(
                               hintText: "Type message",

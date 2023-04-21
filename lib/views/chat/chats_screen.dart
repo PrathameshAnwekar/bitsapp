@@ -132,8 +132,7 @@ class ChatsScreen extends HookConsumerWidget {
         const SizedBox(height: 20),
         Expanded(
           child: SmartRefresher(
-                          key:const ValueKey("Chat"),
-
+            key: const ValueKey("Chat"),
             enablePullDown: true,
             enablePullUp: false,
             controller: _refreshController2,

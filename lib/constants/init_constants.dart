@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bitsapp/firebase_options.dart';
 import 'package:bitsapp/services/fcm_service.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +28,6 @@ class InitConstants {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
-    
 
     FcmService.init();
   }

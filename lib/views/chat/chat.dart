@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants/constants.dart';
 import 'components/body.dart';
 
 final chatStreamProvider =
@@ -56,7 +55,7 @@ class ChatRoomScreen extends ConsumerWidget {
         chatRoomUid: chatRoomUid,
         receiver: otherUser,
       ),
-      backgroundColor: Constants.kSecondaryColor,
+      backgroundColor: Colors.white,
     );
   }
 }

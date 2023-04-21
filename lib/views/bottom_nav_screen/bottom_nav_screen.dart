@@ -20,7 +20,7 @@ class _BottomBarState extends State<BottomBar> {
   int _pageindex = 0;
   List<Widget> pagelist = <Widget>[
     FeedScreen(),
-    JobInternhipScreen(),
+    const JobInternhipScreen(),
     NewPostScreen(),
     const ChatsScreen(),
     const ProfileScreen(null),
@@ -73,7 +73,7 @@ class _BottomBarState extends State<BottomBar> {
                 height: 27,
                 color: Constants.inactiveIconColor,
               ),
-              label: "Ads Alive",
+              label: "Jobs",
               activeIcon: SvgPicture.asset(
                 'assets/icons/internship_filled.svg',
                 width: 29,
@@ -88,11 +88,11 @@ class _BottomBarState extends State<BottomBar> {
                 height: 27,
                 color: Constants.inactiveIconColor,
               ),
-              label: "Lending",
+              label: "Post",
               activeIcon: SvgPicture.asset(
                 'assets/icons/newPost_filled.svg',
-                width: 29,
-                height: 29,
+                width: 30.5,
+                height: 30.5,
                 color: Constants.kPrimaryColor,
               ),
             ),
@@ -103,11 +103,11 @@ class _BottomBarState extends State<BottomBar> {
                 height: 27,
                 color: Constants.inactiveIconColor,
               ),
-              label: "Profile",
+              label: "Chat",
               activeIcon: SvgPicture.asset(
                 'assets/icons/chat_filled.svg',
-                width: 29,
-                height: 29,
+                width: 30.5,
+                height: 30.5,
                 color: Constants.kPrimaryColor,
               ),
             ),
