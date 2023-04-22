@@ -12,36 +12,26 @@ class ImageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-    Navigator.push(
-      
-      context,
-      PageRouteBuilder(
-        
-        transitionDuration: Duration(milliseconds: 500),
-        pageBuilder: (context, animation, secondaryAnimation) => HeroContainer(tag: url),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var begin = 0.0;
-          var end = 1.0;
-          var curve = Curves.ease;
-
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-          return ScaleTransition(
-            scale: animation.drive(tween),
-            child: child,
-          );
-        },
-       opaque: false
-      ),
-    );
-  },
-      child: PhotoView(
-        initialScale: PhotoViewComputedScale.covered,
-
-        // wantKeepAlive: true,
-        imageProvider: CachedNetworkImageProvider(
-          url,
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => Scaffold(
+              backgroundColor: Colors.transparent,
+              body: PhotoView(
+                imageProvider: CachedNetworkImageProvider(url),
+                heroAttributes: PhotoViewHeroAttributes(
+                  tag: url,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      child: Hero(
+        tag: url,
+        child: CachedNetworkImage(
+          imageUrl: url,
           cacheKey: url,
+          fit: BoxFit.cover,
         ),
       ),
     );

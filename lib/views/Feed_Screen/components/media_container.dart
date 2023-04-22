@@ -1,6 +1,7 @@
 import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/new_video_controller.dart';
+import 'package:bitsapp/views/feed_screen/components/video_container.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -15,6 +16,7 @@ class MediaContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
+      key: Key(post.timeuid),
       itemCount: post.mediaFilesList.length,
       options: CarouselOptions(
         enableInfiniteScroll: false,
@@ -26,12 +28,13 @@ class MediaContainer extends StatelessWidget {
         final mediaFile = post.mediaFilesList[index];
         if (mediaFile.type == 'image') {
           return SizedBox(
+            
             width: SizeConfig.screenWidth,
             child: ImageContainer(url: mediaFile.url),
           );
         } else {
-          return ChewieListItem(
-            videoPlayerController: VideoPlayerController.network(mediaFile.url),
+          return VideoContainer(
+            url: mediaFile.url,
           );
         }
       },
