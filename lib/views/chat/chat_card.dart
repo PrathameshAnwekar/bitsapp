@@ -49,16 +49,16 @@ class ChatCard extends HookConsumerWidget {
                                 .singleWhere((element) =>
                                     element.uid == chatRoom.userUidList[0])
                                 .name,
-                        style: GoogleFonts.dmSans(
+                        style: GoogleFonts.roboto(
                           fontSize: 16,
                           height: 1.2,
                           fontWeight:
-                              index < 1 ? FontWeight.w800 : FontWeight.w400,
+                              index < 1 ? FontWeight.w700 : FontWeight.w400,
                         ),
                       ),
                       Text(
                         index < 1 ? '11:56' : '12 feb',
-                        style: GoogleFonts.rubik(
+                        style: GoogleFonts.roboto(
                           fontSize: 13,
                           color: const Color.fromRGBO(131, 144, 159, 1),
                           fontWeight:

@@ -4,6 +4,7 @@ import 'package:bitsapp/controllers/chat_controller.dart';
 import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChatInputField extends HookConsumerWidget {
@@ -30,16 +31,7 @@ class ChatInputField extends HookConsumerWidget {
         horizontal: Constants.kDefaultPadding,
         vertical: Constants.kDefaultPadding / 2,
       ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 4),
-            blurRadius: 32,
-            color: const Color(0xFF087949).withOpacity(0.08),
-          ),
-        ],
-      ),
+      color: Colors.white,
       child: SafeArea(
         child: Column(
           children: [
@@ -63,7 +55,7 @@ class ChatInputField extends HookConsumerWidget {
                       horizontal: Constants.kDefaultPadding * 0.75,
                     ),
                     decoration: BoxDecoration(
-                      color: Constants.kPrimaryColor.withOpacity(0.05),
+                      color: Constants.kSecondaryColor,
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Row(
@@ -81,9 +73,10 @@ class ChatInputField extends HookConsumerWidget {
                           child: TextField(
                             textCapitalization: TextCapitalization.sentences,
                             controller: textController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               hintText: "Type message",
                               border: InputBorder.none,
+                              hintStyle: GoogleFonts.roboto(),
                             ),
                           ),
                         ),

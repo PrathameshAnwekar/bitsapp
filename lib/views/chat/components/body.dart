@@ -2,7 +2,6 @@ import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:bitsapp/views/chat/components/chat_bubble.dart';
 import 'package:bitsapp/views/chat/components/chat_post_container.dart';
@@ -74,6 +73,7 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
             },
             separatorBuilder: (context, index) {
               bool dateTag = false;
+              bool lastMessages = false;
               DateTime msg1dur = DateTime.fromMillisecondsSinceEpoch(
                   messages[messages.length - index - 1].time);
               DateTime msg2dur;
@@ -81,15 +81,16 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
                 msg2dur = DateTime.fromMillisecondsSinceEpoch(
                     messages[messages.length - index - 2].time);
               } else {
+                lastMessages = true;
                 msg2dur = DateTime.now();
               }
               if (msg1dur.day != msg2dur.day) dateTag = true;
-              if (dateTag == false) {
+              if (!dateTag) {
                 return const SizedBox(height: 15);
               } else {
                 String temp;
-                int diff = msg1dur.difference(msg2dur).inDays;
-                elog(diff.toString());
+                int diff =
+                    (DateTime.now().difference(msg1dur).inHours / 24).round();
                 if (diff > 2) {
                   temp = DateFormat.yMMMMd().format(msg1dur);
                 } else if (diff > 1) {
@@ -99,45 +100,14 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
                 }
                 return SizedBox(
                   height: 55,
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Divider(
-                          thickness: 2,
-                          // color: Constants.kSecondaryColor,
-                          // color: Color.fromRGBO(186, 190, 194, 0.35),
-                          color: Color(0xFFf4f6fb),
-                        ),
+                  child: Center(
+                    child: Text(
+                      temp,
+                      style: GoogleFonts.roboto(
+                        fontSize: 12.5,
+                        color: Colors.black.withOpacity(0.4),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 8,
-                        ),
-                        decoration: const ShapeDecoration(
-                          shape: StadiumBorder(),
-                          // color: Constants.kSecondaryColor,
-                          // color: Color.fromRGBO(186, 190, 194, 0.35),
-                          color: Color(0xFFf4f6fb),
-                        ),
-                        child: Text(
-                          DateFormat.yMMMMd().format(msg1dur),
-                          // temp,
-                          style: GoogleFonts.roboto(
-                            color: Colors.black.withOpacity(0.78),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      const Expanded(
-                        child: Divider(
-                          // thickness: 2,
-                          // color: Constants.kSecondaryColor,
-                          // color: Color.fromRGBO(186, 190, 194, 0.35),
-                          color: Color(0xFFf4f6fb),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 );
               }

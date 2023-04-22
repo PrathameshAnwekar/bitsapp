@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/firestore_service.dart';
@@ -15,121 +16,92 @@ class ChatsScreen extends HookConsumerWidget {
       RefreshController(initialRefresh: false);
 
   void _onRefresh(WidgetRef ref) async {
-    // monitor network fetch
     await FirestoreService.initialiseChatRooms(ref);
-    // if failed,use refreshFailed()
     _refreshController2.refreshCompleted();
   }
 
   void _onLoading() async {
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    // items.add((items.length+1).toString());
-
     _refreshController2.loadComplete();
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatrooms = ref.watch(chatRoomsProvider);
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: ((context) => const ChannelChatScreen())));
-        },
-        child: const Icon(Icons.message),
-      ),
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              ChatsScreenController.gotoContactsScreen(context);
-            },
-          ),
-        ],
-        scrolledUnderElevation: 0,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
-            "Chat",
-            style: GoogleFonts.rubik(
-              color: const Color(0xFF2D3F65),
-              fontSize: 28,
-            ),
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          title: TabBar(
+            dividerColor: Constants.kSecondaryColor,
+            labelColor: Constants.activeIconColor,
+            unselectedLabelStyle:
+                GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
+            labelStyle:
+                GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
+            indicatorColor: Constants.activeIconColor,
+            tabs: const [
+              Tab(
+                text: "Messages",
+              ),
+              Tab(
+                text: "Channels",
+              ),
+            ],
           ),
         ),
-        // bottom: PreferredSize(
-        //   preferredSize: const Size.fromHeight(30),
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 20),
-        //     child: TextFormField(
-        //       cursorColor: const Color(0xFF676767),
-        //       style: GoogleFonts.rubik(
-        //         color: const Color(0xFF676767),
-        //         fontSize: 17,
-        //       ),
-        //       textCapitalization: TextCapitalization.words,
-        //       decoration: InputDecoration(
-        //         contentPadding: const EdgeInsets.only(top: 15),
-        //         focusedBorder: const UnderlineInputBorder(
-        //           borderSide: BorderSide(
-        //             width: 1.2,
-        //             color: Color(0xFF2D3F65),
-        //           ),
-        //         ),
-        //         enabledBorder: const UnderlineInputBorder(
-        //           borderSide: BorderSide(
-        //             width: 1.2,
-        //             color: Color(0xFF2D3F65),
-        //           ),
-        //         ),
-        //         hintText: "Search...",
-        //         hintStyle: GoogleFonts.rubik(
-        //           color: const Color(0xFF2D3F65),
-        //           fontSize: 14,
-        //         ),
-        //         suffixIcon: const Padding(
-        //           padding: EdgeInsets.only(top: 8.0),
-        //           child: Icon(
-        //             Icons.search,
-        //             color: Color(0xFF2D3F65),
-        //             size: 22,
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        body: TabBarView(
+          children: [
+            buildBody(chatrooms, ref),
+            const ChannelChatScreen(),
+          ],
+        ),
       ),
-      body: buildBody(chatrooms, ref),
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.only(right: 12, bottom: 100),
-      //   child: FloatingActionButton(
-      //     onPressed: () async {
-      //       if (await GoogleAuthService.signOut()) {
-      //         Navigator.of(context)
-      //             .pushNamedAndRemoveUntil(MyApp.routeName, (route) => false);
-      //       }
-      //     },
-      //     child: const Icon(
-      //       Icons.person_add_alt_1,
-      //       color: Colors.white,
-      //     ),
-      //   ),
-      // ),
     );
   }
 
   Column buildBody(chatsData, ref) {
     return Column(
       children: [
-        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+          child: SizedBox(
+            height: 50,
+            child: TextFormField(
+              cursorColor: Colors.black,
+              style: GoogleFonts.roboto(fontSize: 15.5),
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                fillColor: Constants.kSecondaryColor,
+                filled: true,
+                contentPadding: const EdgeInsets.only(top: 9.9),
+                focusedBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: Constants.kSecondaryColor,
+                  ),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: Constants.kSecondaryColor,
+                  ),
+                ),
+                hintText: "Search...",
+                hintStyle: GoogleFonts.roboto(fontSize: 15.5),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.black54,
+                  size: 20,
+                ),
+              ),
+            ),
+          ),
+        ),
         Expanded(
           child: SmartRefresher(
             key: const ValueKey("Chat"),
@@ -152,7 +124,7 @@ class ChatsScreen extends HookConsumerWidget {
               separatorBuilder: (context, index) => const Divider(
                 indent: 77,
                 endIndent: 15,
-                color: Color.fromRGBO(131, 144, 159, 0.7),
+                color: Color.fromARGB(255, 234, 236, 243),
                 height: 1.5,
               ),
             ),
