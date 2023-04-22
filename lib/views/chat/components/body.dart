@@ -73,7 +73,6 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
             },
             separatorBuilder: (context, index) {
               bool dateTag = false;
-              bool lastMessages = false;
               DateTime msg1dur = DateTime.fromMillisecondsSinceEpoch(
                   messages[messages.length - index - 1].time);
               DateTime msg2dur;
@@ -81,7 +80,6 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
                 msg2dur = DateTime.fromMillisecondsSinceEpoch(
                     messages[messages.length - index - 2].time);
               } else {
-                lastMessages = true;
                 msg2dur = DateTime.now();
               }
               if (msg1dur.day != msg2dur.day) dateTag = true;

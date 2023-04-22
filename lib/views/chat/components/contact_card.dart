@@ -1,6 +1,4 @@
-import 'package:bitsapp/controllers/chat_controller.dart';
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
-import 'package:bitsapp/controllers/contacts_screen_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +8,7 @@ class ContactCard extends HookConsumerWidget {
     Key? key,
     required this.user,
   }) : super(key: key);
-  
+
   final BitsUser user;
 
   @override

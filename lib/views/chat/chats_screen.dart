@@ -2,7 +2,6 @@ import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/firestore_service.dart';
-import 'package:bitsapp/views/chat/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,15 +55,19 @@ class ChatsScreen extends HookConsumerWidget {
         ),
         body: TabBarView(
           children: [
-            buildBody(chatrooms, ref),
-            const ChannelChatScreen(),
+            buildMessagesBody(chatrooms, ref),
+            buildChannelsBody(),
           ],
         ),
       ),
     );
   }
 
-  Column buildBody(chatsData, ref) {
+  Column buildChannelsBody() {
+    return Column();
+  }
+
+  Column buildMessagesBody(chatsData, ref) {
     return Column(
       children: [
         Padding(

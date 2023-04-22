@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
-import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -114,7 +112,7 @@ class FeedScreen extends ConsumerWidget {
                         style: GoogleFonts.dmSans(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.blueGrey.shade700,
+                          // color: Colors.blueGrey.shade700,
                         ),
                       ),
                     ],
@@ -142,7 +140,7 @@ class FeedScreen extends ConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: SmartRefresher(
-              key:const ValueKey("Feed"),
+              key: const ValueKey("Feed"),
               enablePullDown: true,
               enablePullUp: false,
               controller: _refreshController1,

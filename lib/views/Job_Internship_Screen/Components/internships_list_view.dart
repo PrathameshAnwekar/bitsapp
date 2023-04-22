@@ -1,7 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/services/firestore_service.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
