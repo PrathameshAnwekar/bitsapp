@@ -3,6 +3,7 @@ import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,12 +38,12 @@ class ChatsScreen extends HookConsumerWidget {
           automaticallyImplyLeading: false,
           title: TabBar(
             dividerColor: Constants.kSecondaryColor,
-            labelColor: Constants.activeIconColor,
+            labelColor: Constants.kPrimaryColor,
             unselectedLabelStyle:
                 GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
             labelStyle:
                 GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
-            indicatorColor: Constants.activeIconColor,
+            indicatorColor: Constants.kPrimaryColor,
             tabs: const [
               Tab(
                 text: "Messages",
@@ -64,12 +65,37 @@ class ChatsScreen extends HookConsumerWidget {
   }
 
   Column buildChannelsBody() {
-    return Column();
+    return Column(
+      children: <Widget>[
+        ExpandablePanel(
+          header: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              "All Channels",
+              style: GoogleFonts.roboto(
+                color: const Color(0xFF4D5470),
+                fontWeight: FontWeight.w500,
+                fontSize: 17,
+              ),
+            ),
+          ),
+          theme: ExpandableThemeData(
+            iconColor: Colors.black.withOpacity(0.8),
+            iconSize: 26,
+          ),
+          collapsed: const SizedBox(),
+          expanded: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const <Widget>[],
+          ),
+        ),
+      ],
+    );
   }
 
   Column buildMessagesBody(chatsData, ref) {
     return Column(
-      children: [
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
           child: SizedBox(

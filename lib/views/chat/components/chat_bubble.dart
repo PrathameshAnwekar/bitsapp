@@ -2,6 +2,7 @@ import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/views/chat/components/text_message.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:swipe_to/swipe_to.dart';
 
 class ChatBubble extends StatelessWidget {
   const ChatBubble({
@@ -23,8 +24,8 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: () {
+    return SwipeTo(
+      onRightSwipe: () {
         selectMessageForReply(
           ref,
           message,

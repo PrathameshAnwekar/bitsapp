@@ -11,7 +11,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../constants/constants.dart';
-import 'Feed_Detail_Screen/feed_detail_screen.dart';
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
@@ -40,7 +39,7 @@ class FeedScreen extends ConsumerWidget {
     final feedPosts = ref.watch(feedPostDataProvider);
     return Scaffold(
       extendBody: true,
-      backgroundColor: const Color(0xFFf0f3fa),
+      backgroundColor: Constants.kSecondaryColor,
       body: SafeArea(
         bottom: false,
         child: NestedScrollView(
@@ -112,7 +111,6 @@ class FeedScreen extends ConsumerWidget {
                         style: GoogleFonts.dmSans(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          // color: Colors.blueGrey.shade700,
                         ),
                       ),
                     ],

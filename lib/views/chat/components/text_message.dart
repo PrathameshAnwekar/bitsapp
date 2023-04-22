@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/views/chat/components/reply_message.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -45,19 +46,31 @@ class TextMessage extends ConsumerWidget {
               ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (replyText != null)
                   Container(
-                    // color: Colors.transparent.withOpacity(0.1),
-                    color: Colors.white,
-                    child: Text(replyText!),
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.only(bottom: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(10),
+                        topRight: const Radius.circular(10),
+                        bottomLeft: Radius.circular(isSender ? 10 : 0),
+                        bottomRight: Radius.circular(isSender ? 0 : 10),
+                      ),
+                      color: Colors.white,
+                    ),
+                    child: ReplyMessageWidget(
+                      message: replyText!,
+                      receiverUsername: "Prathamesh Anwekar",
+                    ),
                   ),
                 Text(
                   message.text,
                   style: GoogleFonts.roboto(
                     fontSize: 15,
                     height: 1.2,
-                    // fontWeight: FontWeight.w400,
                     color: isSender ? Colors.white : Colors.black,
                   ),
                 ),

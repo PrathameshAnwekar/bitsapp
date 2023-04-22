@@ -99,7 +99,7 @@ class FeedDesc extends HookConsumerWidget {
                   height: 25,
                   color: !likeStatus.value
                       ? const Color.fromRGBO(32, 33, 37, 1)
-                      : Constants.activeIconColor,
+                      : Constants.kPrimaryColor,
                 ),
               ),
               Padding(

@@ -1,12 +1,12 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/logger_service.dart';
-import 'package:bitsapp/views/chat/components/chat_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'components/body.dart';
+import 'components/chat_app_bar.dart';
 
 class ChatRoomScreen extends HookConsumerWidget {
   static const routeName = "/chat-room-creen";
@@ -69,5 +69,5 @@ final chatStreamProvider =
 });
 
 //Using these instead of hooks to avoid rebuilding the whole screen
-final replyOfProvider = StateProvider<String?>((ref) => null);
-final replyOfTextProvider = StateProvider<String?>((ref) => null);
+final replyOfProvider = StateProvider.autoDispose<String?>((ref) => null);
+final replyOfTextProvider = StateProvider.autoDispose<String?>((ref) => null);
