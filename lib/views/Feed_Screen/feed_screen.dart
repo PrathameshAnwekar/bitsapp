@@ -157,19 +157,9 @@ class FeedScreen extends ConsumerWidget {
                   final key = ObjectKey(feedPosts[index]);
                   return Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => FeedDetailScreen(
-                            isCommentPressed: false,
-                            feedPost: feedPosts[index],
-                          ),
-                        ),
-                      ),
-                      child: FeedContainer(
-                        key: key,
-                        feedPost: feedPosts[index],
-                      ),
+                    child: FeedContainer(
+                      key: key,
+                      feedPost: feedPosts[index],
                     ),
                   );
                 },

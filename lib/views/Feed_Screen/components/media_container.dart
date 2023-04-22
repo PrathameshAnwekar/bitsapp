@@ -18,7 +18,7 @@ class MediaContainer extends StatelessWidget {
       itemCount: post.mediaFilesList.length,
       options: CarouselOptions(
         enableInfiniteScroll: false,
-        height: SizeConfig.screenWidth * 1.1,
+        height: SizeConfig.screenWidth * 1,
         scrollDirection: Axis.horizontal,
         viewportFraction: 1,
       ),
