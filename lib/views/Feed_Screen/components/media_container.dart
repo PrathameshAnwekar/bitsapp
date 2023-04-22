@@ -4,6 +4,7 @@ import 'package:bitsapp/views/feed_screen/components/new_video_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
 
 import '../../Feed_Screen/components/image_container.dart';
 
