@@ -2,6 +2,7 @@ import 'package:bitsapp/controllers/feed_container_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
+import 'package:bitsapp/views/feed_screen/Feed_Detail_Screen/feed_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,20 +49,32 @@ class FeedDesc extends HookConsumerWidget {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: ReadMoreText(
-            // feedPost.text,
-            "Hello Folks 👋 \n\nHere is my new exploration for Macro: Colorie Counter Mobile App. What do you think? Please let me know in the comment section!",
-            style: GoogleFonts.roboto(fontSize: 14.5),
-            moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
-            lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
-            textAlign: TextAlign.start,
-            trimCollapsedText: " more",
-            trimExpandedText: " less",
-            trimMode: isFeedScreen ? TrimMode.Length : TrimMode.Line,
-            trimLines: 100000,
-            trimLength: 240,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => FeedDetailScreen(
+                  isCommentPressed: false,
+                  feedPost: feedPost,
+                ),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            child: ReadMoreText(
+              // feedPost.text,
+              "Hello Folks 👋 \n\nHere is my new exploration for Macro: Colorie Counter Mobile App. What do you think? Please let me know in the comment section!",
+              style: GoogleFonts.roboto(fontSize: 14.5),
+              moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
+              lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
+              textAlign: TextAlign.start,
+              trimCollapsedText: " more",
+              trimExpandedText: " less",
+              trimMode: isFeedScreen ? TrimMode.Length : TrimMode.Line,
+              trimLines: 100000,
+              trimLength: 240,
+            ),
           ),
         ),
         MediaContainer(post: feedPost),
