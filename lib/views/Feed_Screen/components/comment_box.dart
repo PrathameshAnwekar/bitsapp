@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/comment.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,9 +11,9 @@ class CommentsBox extends ConsumerWidget {
   final Comment comment;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final commentPoster = ref
-        .read(contactsListProvider)
-        .where((element) => element.uid == comment.posterUid);
+    print(comment.posterUid);
+    final commentPoster =
+        HiveStore.getUserFromStorage(uid: comment.posterUid) ?? BitsUser.dummy;
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Row(
@@ -35,7 +36,7 @@ class CommentsBox extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    commentPoster.first.name,
+                    commentPoster.name,
                     style: GoogleFonts.dmSans(
                       color: Colors.black.withOpacity(0.8),
                       fontSize: 16,

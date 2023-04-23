@@ -15,8 +15,10 @@ class VideoContainer extends StatefulHookConsumerWidget {
 
 //TODO: Fix this, cache for chewie
 class _VideoContainerState extends ConsumerState<VideoContainer> {
-  ChewieController? _chewieController;
-  VideoPlayerController? _controller;
+  late ChewieController _chewieController =
+      ChewieController(videoPlayerController: _controller);
+  late VideoPlayerController _controller =
+      VideoPlayerController.network(widget.url);
 
   bool init = true;
   @override
@@ -27,17 +29,12 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
   @override
   void dispose() {
     super.dispose();
-    _chewieController?.dispose();
-    _controller?.dispose();
+    _chewieController.dispose();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // return _chewieController != null
-    //     ? Chewie(controller: _chewieController!)
-    //     : const CircularProgressIndicator(
-    //         color: Colors.red,
-    //       );
     return FutureBuilder(
         future:
             DefaultCacheManager().getSingleFile(widget.url, key: widget.url),
@@ -51,23 +48,26 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
                       setState(() {
                         dlog("file data is ${file.data}");
                         init = false;
-                          _chewieController = ChewieController(videoPlayerController: _controller!);
+                        _chewieController = ChewieController(
+                            videoPlayerController: _controller,
+                            autoPlay: true,
+                            looping: true,
+                            allowFullScreen: true,
+                            allowMuting: true
+                           );
                       });
                     }
                   });
-              
               }
               return GestureDetector(
-                // onTap: () {
-                //   setState(() {
-                //     _chewieController.value.isPlaying
-                //         ? _chewieController.pause()
-                //         : _chewieController.play();
-                //   });
-                // },
-                child: SizedBox(
-                  child: Chewie(controller: _chewieController!),
-                ),
+                onTap: () {
+                  setState(() {
+                    _chewieController.isPlaying
+                        ? _chewieController.pause()
+                        : _chewieController.play();
+                  });
+                },
+                child: Chewie(controller: _chewieController),
               );
             } else {
               return const CircularProgressIndicator();

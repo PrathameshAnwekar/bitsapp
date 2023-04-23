@@ -1,4 +1,5 @@
 import 'package:bitsapp/controllers/feed_container_controller.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/views/feed_screen/components/comment_box.dart';
@@ -44,6 +45,7 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final comments = useState(widget.feedPost.comments);
+    final localUser = ref.watch(localUserProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -90,7 +92,7 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
         controller: commentController,
         textInputAction: TextInputAction.done,
         onFieldSubmitted: (value) async {
-          await addComment(comments);
+          await addComment(comments, localUser.uid);
         },
         style: GoogleFonts.firaSans(
           color: Colors.white,
@@ -144,9 +146,9 @@ class _FeedDetailScreenState extends ConsumerState<FeedDetailScreen> {
     );
   }
 
-  Future<void> addComment(ValueNotifier<List<Comment>> comments) async {
+  Future<void> addComment(ValueNotifier<List<Comment>> comments, localUseruid) async {
     final comment = Comment(
-        posterUid: widget.feedPost.posterUid,
+        posterUid: localUseruid,
         text: commentController.text.trim(),
         timeUid: DateTime.now().millisecondsSinceEpoch);
     if (await FeedContainerController.addCommentToPost(

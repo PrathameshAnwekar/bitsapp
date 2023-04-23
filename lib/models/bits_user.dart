@@ -10,7 +10,6 @@ import 'chat_room.dart';
 
 part 'bits_user.g.dart';
 
-
 @JsonSerializable()
 @HiveType(typeId: 1)
 class BitsUser extends HiveObject {
@@ -75,6 +74,20 @@ class BitsUser extends HiveObject {
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
+
+  static BitsUser dummy = BitsUser(
+      name: "Someone",
+      profilePicUrl: null,
+      email: "email",
+      profileDescription: "Someone",
+      bitsID: "bitsID",
+      chatRooms: [],
+      uid: "uid",
+      fcmID: "fcmID",
+      appliedInternships: [],
+      postedInternships: [],
+      feedPosts: [],
+      fcmToken: "fcmToken");
 }
 
 class BitsUserNotifier extends StateNotifier<BitsUser> {
@@ -115,7 +128,7 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     }
   }
 
-  void clearUser(){
+  void clearUser() {
     state = BitsUser(
         name: "name",
         profilePicUrl: "profilePicUrl",
@@ -149,4 +162,3 @@ String properCase(String s) {
   }
   return proper;
 }
-

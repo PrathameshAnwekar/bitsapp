@@ -1,6 +1,7 @@
 import 'package:bitsapp/controllers/feed_container_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
 import 'package:bitsapp/views/feed_screen/Feed_Detail_Screen/feed_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,10 @@ class FeedDesc extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final poster = ref
-        .read(contactsListProvider)
-        .firstWhere((element) => element.uid == feedPost.posterUid);
+    final poster = HiveStore.getUserFromStorage(uid: feedPost.posterUid) ?? BitsUser.dummy;
+    // final poster = ref
+    //     .read(contactsListProvider)
+    //     .firstWhere((element) => element.uid == feedPost.posterUid);
     final localUser = ref.watch(localUserProvider);
     final likeStatus = useState(feedPost.likes.contains(localUser.uid));
     return Column(
@@ -63,8 +65,7 @@ class FeedDesc extends HookConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             child: ReadMoreText(
-              // feedPost.text,
-              "Hello Folks 👋 \n\nHere is my new exploration for Macro: Colorie Counter Mobile App. What do you think? Please let me know in the comment section!",
+              feedPost.text,
               style: GoogleFonts.roboto(fontSize: 14.5),
               moreStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
               lessStyle: GoogleFonts.firaSans(color: const Color(0xFF0073B1)),
