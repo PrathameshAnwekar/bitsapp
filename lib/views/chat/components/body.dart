@@ -13,23 +13,16 @@ import 'package:intl/intl.dart';
 import 'chat_input_field.dart';
 
 class Body extends StatefulHookConsumerWidget {
-  const Body({
-    super.key,
-    required this.chatRoomUid,
-    required this.receiver,
-  });
+  const Body({super.key, required this.chatRoomUid,required this.receiver, });
   final String chatRoomUid;
   final BitsUser receiver;
   @override
-  BodyState createState() {
-    return BodyState();
-  }
+  ConsumerState<Body> createState() => _BodyState();
 }
 
-class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
+class _BodyState extends ConsumerState<Body> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final localUser = ref.read(localUserProvider);
     final messages = ref
         .watch(chatRoomsProvider)
@@ -40,6 +33,7 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
       children: [
         Expanded(
           child: ListView.separated(
+            addAutomaticKeepAlives: false,
             reverse: true,
             padding: const EdgeInsets.symmetric(
                 horizontal: Constants.kDefaultPadding),
@@ -122,9 +116,6 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
   void selectMessageForReply(
     WidgetRef ref,
     Message message,

@@ -30,6 +30,7 @@ class ImageContainer extends StatelessWidget {
           imageUrl: url,
           cacheKey: url,
           fit: BoxFit.cover,
+          repeat: ImageRepeat.noRepeat,
         ),
       ),
     );
