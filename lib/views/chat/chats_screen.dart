@@ -64,36 +64,50 @@ class ChatsScreen extends HookConsumerWidget {
     );
   }
 
-  Column buildChannelsBody() {
-    return Column(
-      children: <Widget>[
-        ExpandablePanel(
-          header: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              "All Channels",
-              style: GoogleFonts.roboto(
-                color: const Color(0xFF4D5470),
-                fontWeight: FontWeight.w500,
-                fontSize: 17,
+  Widget buildChannelsBody() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: <Widget>[
+          ExpandablePanel(
+            header: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                "All Channels",
+                style: GoogleFonts.roboto(
+                  color: const Color(0xFF4D5470),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 17,
+                ),
+              ),
+            ),
+            theme: ExpandableThemeData(
+              iconColor: Colors.black.withOpacity(0.8),
+              iconSize: 26,
+            ),
+            collapsed: const SizedBox(),
+            expanded: SizedBox(
+              height: 200,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 150,
+                    width: 100,
+                    color: Colors.red,
+                    margin: const EdgeInsets.all(10),
+                  );
+                },
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
               ),
             ),
           ),
-          theme: ExpandableThemeData(
-            iconColor: Colors.black.withOpacity(0.8),
-            iconSize: 26,
-          ),
-          collapsed: const SizedBox(),
-          expanded: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Column buildMessagesBody(chatsData, ref) {
+  Widget buildMessagesBody(chatsData, ref) {
     return Column(
       children: <Widget>[
         Padding(

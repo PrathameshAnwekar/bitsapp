@@ -1,27 +1,25 @@
-import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/views/chat/components/reply_message.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/constants.dart';
 
-class TextMessage extends ConsumerWidget {
+class TextMessage extends StatelessWidget {
   const TextMessage({
     Key? key,
     required this.message,
     required this.replyText,
+    required this.isSender,
   }) : super(key: key);
 
   final Message message;
   final String? replyText;
+  final bool isSender;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final localUser = ref.watch(localUserProvider);
-    bool isSender = message.sender == localUser.uid;
+  Widget build(BuildContext context) {
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
@@ -35,9 +33,7 @@ class TextMessage extends ConsumerWidget {
             ),
             constraints: const BoxConstraints(maxWidth: 300),
             decoration: BoxDecoration(
-              color: isSender
-                  ? Constants.kPrimaryColor
-                  : Constants.kSecondaryColor,
+              color: isSender ? Constants.kPrimaryColor : Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(10),
                 topRight: const Radius.circular(10),
@@ -59,7 +55,8 @@ class TextMessage extends ConsumerWidget {
                         bottomLeft: Radius.circular(isSender ? 10 : 0),
                         bottomRight: Radius.circular(isSender ? 0 : 10),
                       ),
-                      color: Colors.white,
+                      color:
+                          isSender ? Constants.kSecondaryColor : Colors.white,
                     ),
                     child: ReplyMessageWidget(
                       message: replyText!,

@@ -38,6 +38,7 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
     final focusNode = FocusNode();
     return Column(
       children: [
+        const SizedBox(height: 15),
         Expanded(
           child: ListView.separated(
             reverse: true,

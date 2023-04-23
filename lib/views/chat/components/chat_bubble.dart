@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:swipe_to/swipe_to.dart';
 
-class ChatBubble extends StatelessWidget {
+import '../../../models/bits_user.dart';
+
+class ChatBubble extends ConsumerWidget {
   const ChatBubble({
     super.key,
     required this.message,
@@ -23,19 +25,37 @@ class ChatBubble extends StatelessWidget {
   final Function selectMessageForReply;
 
   @override
-  Widget build(BuildContext context) {
-    return SwipeTo(
-      onRightSwipe: () {
-        selectMessageForReply(
-          ref,
-          message,
-          index,
-        );
-      },
-      child: TextMessage(
-        message: message,
-        replyText: replyText,
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localUser = ref.watch(localUserProvider);
+    bool isSender = message.sender == localUser.uid;
+    return isSender
+        ? SwipeTo(
+            onLeftSwipe: () {
+              selectMessageForReply(
+                ref,
+                message,
+                index,
+              );
+            },
+            child: TextMessage(
+              isSender: isSender,
+              message: message,
+              replyText: replyText,
+            ),
+          )
+        : SwipeTo(
+            onRightSwipe: () {
+              selectMessageForReply(
+                ref,
+                message,
+                index,
+              );
+            },
+            child: TextMessage(
+              isSender: isSender,
+              message: message,
+              replyText: replyText,
+            ),
+          );
   }
 }
