@@ -20,7 +20,6 @@ class Body extends StatefulHookConsumerWidget {
   });
   final String chatRoomUid;
   final BitsUser receiver;
-
   @override
   BodyState createState() {
     return BodyState();
@@ -31,14 +30,12 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     final localUser = ref.read(localUserProvider);
-
     final messages = ref
         .watch(chatRoomsProvider)
         .firstWhere((element) => element.uid == widget.chatRoomUid)
         .messages;
-    //edit all
+    final focusNode = FocusNode();
     return Column(
       children: [
         Expanded(
@@ -114,12 +111,13 @@ class BodyState extends ConsumerState<Body> with AutomaticKeepAliveClientMixin {
         ),
         ChatInputField(
           chatRoomUid: widget.chatRoomUid,
-          receiverFcmToken: widget.receiver.fcmToken!,
+          receiver: widget.receiver,
           senderName: localUser.name,
           reset: () {
             ref.read(replyOfProvider.notifier).state = null;
             ref.read(replyOfTextProvider.notifier).state = null;
           },
+          focusNode: focusNode,
         ),
       ],
     );
