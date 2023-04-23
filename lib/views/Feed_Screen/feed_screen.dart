@@ -51,11 +51,11 @@ class FeedScreen extends ConsumerWidget {
               floating: true,
               snap: true,
               toolbarHeight: 60,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.white,
-                statusBarIconBrightness: Brightness.dark,
-                statusBarBrightness: Brightness.light,
-              ),
+              // systemOverlayStyle: const SystemUiOverlayStyle(
+              //   statusBarColor: Colors.white,
+              //   statusBarIconBrightness: Brightness.dark,
+              //   statusBarBrightness: Brightness.light,
+              // ),
               leading: const Padding(
                 padding: EdgeInsets.only(left: 6, top: 7, bottom: 7),
                 child: CircleAvatar(
