@@ -46,7 +46,7 @@ class ContactCard extends HookConsumerWidget {
                             width: 3),
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
             Expanded(
