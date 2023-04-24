@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:bitsapp/views/feed_screen/components/image_container.dart';
 
-
 class ChatPostContainer extends ConsumerStatefulWidget {
   final Message message;
 
@@ -43,6 +42,7 @@ class ChatPostContainerState extends ConsumerState<ChatPostContainer>
           }
           if (snapshot.hasData) {
             final post = FeedPost.fromJson(snapshot.data!.data()!);
+            post.mediaFilesList = [post.mediaFilesList[0]];
             final BitsUser postAuthor =
                 HiveStore.getUserFromStorage(uid: post.posterUid) ??
                     BitsUser.dummy;
@@ -66,14 +66,13 @@ class ChatPostContainerState extends ConsumerState<ChatPostContainer>
                         return SizedBox(
                           width: SizeConfig.screenWidth * 1,
                           child: ImageContainer(
-                            url: mediaFile.url,
-                            tag: "chat${mediaFile.url}"
-                          ),
+                              url: mediaFile.url, tag: "chat${mediaFile.url}"),
                         );
                       } else {
                         return SizedBox(
                           width: SizeConfig.screenWidth * 1,
-                          child: VideoContainer(url: mediaFile.url, tag: "chat${mediaFile.url}"),
+                          child: VideoContainer(
+                              url: mediaFile.url, tag: "chat${mediaFile.url}"),
                         );
                       }
                     },
