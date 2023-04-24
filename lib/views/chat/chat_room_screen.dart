@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/logger_service.dart';
@@ -39,7 +40,8 @@ class ChatRoomScreen extends HookConsumerWidget {
           chatRoomUid: chatRoomUid,
           receiver: otherUser,
         ),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
+        backgroundColor: Constants.kSecondaryColor,
       ),
     );
   }

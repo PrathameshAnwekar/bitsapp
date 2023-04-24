@@ -106,7 +106,7 @@ class FeedDesc extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 6, right: 12),
                 child: Text(
-                  '123',
+                  feedPost.likes.length.toString(),
                   style: GoogleFonts.manrope(color: Colors.black87),
                 ),
               ),
@@ -122,7 +122,7 @@ class FeedDesc extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 6),
                 child: Text(
-                  '16',
+                  feedPost.comments.length.toString(),
                   style: GoogleFonts.manrope(color: Colors.black87),
                 ),
               ),

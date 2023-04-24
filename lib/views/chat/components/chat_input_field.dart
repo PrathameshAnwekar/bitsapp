@@ -1,8 +1,10 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/chat_controller.dart';
 import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:bitsapp/views/chat/components/reply_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,8 +34,8 @@ class ChatInputField extends HookConsumerWidget {
     final isReplying = replyOfText != null;
     const inputBottomRadius = Radius.circular(24);
     return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.all(8),
+      color: Constants.kSecondaryColor,
+      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 16, top: 8),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -42,9 +44,9 @@ class ChatInputField extends HookConsumerWidget {
                 if (isReplying)
                   Container(
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12),
                       ),
@@ -66,7 +68,8 @@ class ChatInputField extends HookConsumerWidget {
                   style: GoogleFonts.roboto(),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.grey[100],
+                    // fillColor: Colors.grey[100],
+                    fillColor: Colors.white,
                     hintText: 'Type a message',
                     hintStyle: GoogleFonts.roboto(color: Colors.black54),
                     border: OutlineInputBorder(
@@ -83,7 +86,7 @@ class ChatInputField extends HookConsumerWidget {
               ],
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 10),
           GestureDetector(
             onTap: () {
               if (textController.text.trim() != "") {
@@ -102,12 +105,17 @@ class ChatInputField extends HookConsumerWidget {
               reset();
             },
             child: Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.fromLTRB(14, 15, 16, 15),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.blue,
+                color: Constants.kPrimaryColor,
               ),
-              child: const Icon(Icons.send, color: Colors.white),
+              child: SvgPicture.asset(
+                "assets/icons/share_filled.svg",
+                width: 28,
+                height: 28,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

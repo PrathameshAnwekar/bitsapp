@@ -3,6 +3,7 @@ import 'package:bitsapp/models/chat_room.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class ChatCard extends HookConsumerWidget {
   const ChatCard({
@@ -18,6 +19,7 @@ class ChatCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
     final contactsList = ref.watch(contactsListProvider);
+    final lastMessage = chatRoom.messages[chatRoom.messages.length - 1];
     return Container(
       height: 75,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10 * 0.75),
@@ -57,7 +59,11 @@ class ChatCard extends HookConsumerWidget {
                         ),
                       ),
                       Text(
-                        index < 1 ? '11:56' : '12 feb',
+                        timeAgo(
+                          DateTime.fromMillisecondsSinceEpoch(
+                            lastMessage.time,
+                          ),
+                        ),
                         style: GoogleFonts.roboto(
                           fontSize: 13,
                           color: const Color.fromRGBO(131, 144, 159, 1),
@@ -70,7 +76,7 @@ class ChatCard extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Text(
-                      "This is a very long text and let's meet on friday",
+                      lastMessage.text,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.rubik(
@@ -87,5 +93,17 @@ class ChatCard extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  String timeAgo(DateTime d) {
+    if (DateTime.now().day == d.day) return DateFormat('HH:mm').format(d);
+    String temp;
+    int diff = (DateTime.now().difference(d).inHours / 24).round();
+    if (diff > 2) {
+      temp = DateFormat.yMMMMd().format(d);
+    } else {
+      temp = "Yesterday";
+    }
+    return temp;
   }
 }

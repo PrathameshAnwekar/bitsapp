@@ -31,6 +31,7 @@ class _BodyState extends ConsumerState<Body> {
     final focusNode = FocusNode();
     return Column(
       children: [
+        const SizedBox(height: 15),
         Expanded(
           child: ListView.separated(
             addAutomaticKeepAlives: false,
