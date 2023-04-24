@@ -27,9 +27,12 @@ class ChatsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatrooms = ref.watch(chatRoomsProvider);
+    FocusNode focusNode = FocusNode();
+    ExpandableController controller = ExpandableController();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -45,59 +48,92 @@ class ChatsScreen extends HookConsumerWidget {
             indicatorColor: Constants.kPrimaryColor,
             tabs: const [
               Tab(
-                text: "Messages",
+                text: "Channels",
               ),
               Tab(
-                text: "Channels",
+                text: "Messages",
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: [
+            buildChannelsBody(controller, focusNode),
             buildMessagesBody(chatrooms, ref),
-            buildChannelsBody(),
           ],
         ),
       ),
     );
   }
 
-  Widget buildChannelsBody() {
+  Widget buildChannelsBody(
+      ExpandableController controller, FocusNode focusNode) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
       child: Column(
         children: <Widget>[
           ExpandablePanel(
-            header: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                "All Channels",
-                style: GoogleFonts.roboto(
-                  color: const Color(0xFF4D5470),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 17,
+            controller: controller,
+            header: SizedBox(
+              height: 50,
+              child: TextFormField(
+                focusNode: focusNode,
+                onTap: () {
+                  controller.toggle();
+                  focusNode.hasFocus
+                      ? focusNode.unfocus()
+                      : focusNode.requestFocus();
+                },
+                cursorColor: Colors.black,
+                style: GoogleFonts.roboto(fontSize: 15.5),
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(
+                  fillColor: Constants.kSecondaryColor,
+                  filled: true,
+                  contentPadding: const EdgeInsets.only(top: 9.9),
+                  focusedBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Constants.kSecondaryColor,
+                    ),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Constants.kSecondaryColor,
+                    ),
+                  ),
+                  hintText: "Search channels...",
+                  hintStyle: GoogleFonts.roboto(fontSize: 15.5),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Colors.black54,
+                    size: 20,
+                  ),
                 ),
               ),
             ),
             theme: ExpandableThemeData(
-              iconColor: Colors.black.withOpacity(0.8),
-              iconSize: 26,
+              expandIcon: Icons.keyboard_arrow_down_rounded,
+              collapseIcon: Icons.keyboard_arrow_up_rounded,
+              useInkWell: false,
+              iconColor: Colors.black.withOpacity(0.65),
+              iconSize: 33,
             ),
             collapsed: const SizedBox(),
             expanded: SizedBox(
-              height: 200,
+              height: 400,
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return Container(
                     height: 150,
-                    width: 100,
                     color: Colors.red,
                     margin: const EdgeInsets.all(10),
                   );
                 },
                 itemCount: 5,
-                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
               ),
             ),
           ),
@@ -133,7 +169,7 @@ class ChatsScreen extends HookConsumerWidget {
                     color: Constants.kSecondaryColor,
                   ),
                 ),
-                hintText: "Search...",
+                hintText: "Search messages...",
                 hintStyle: GoogleFonts.roboto(fontSize: 15.5),
                 prefixIcon: const Icon(
                   Icons.search,

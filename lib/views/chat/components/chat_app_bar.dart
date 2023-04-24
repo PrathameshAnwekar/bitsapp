@@ -30,9 +30,7 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
             color: Colors.black.withOpacity(0.65),
           ),
         ),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
+        onPressed: () => Navigator.of(context).pop(),
       ),
       title: GestureDetector(
         onTap: () => Navigator.push(
