@@ -14,9 +14,9 @@ class ChatsScreenController {
     ));
   }
 
-  static void gotoChatRoom(context, chatsData, index) {
+  static void gotoChatRoom(context, chatsDataIndex) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return ChatRoomScreen(chatRoomUid: chatsData[index].uid);
+      return ChatRoomScreen(chatRoomUid: chatsDataIndex.uid);
     }));
   }
 

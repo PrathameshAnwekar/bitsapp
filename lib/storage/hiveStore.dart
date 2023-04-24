@@ -1,6 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/local_fcm_object.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -31,14 +31,13 @@ class HiveStore {
     await contactsStorage.put(user.uid, user);
   }
 
-  static BitsUser? getUserFromStorage({required String uid})  {
+  static BitsUser? getUserFromStorage({required String uid}) {
     return contactsStorage.get(uid);
   }
 
   static Future<void> storeAllUserToStorage(List<BitsUser> users) async {
-    for(int i = 0; i < users.length; i++){
-     await saveUserToStorage(users[i]);
+    for (int i = 0; i < users.length; i++) {
+      await saveUserToStorage(users[i]);
     }
   }
-
 }

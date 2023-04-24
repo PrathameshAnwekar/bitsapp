@@ -27,31 +27,10 @@ class ChannelChatInputField extends HookConsumerWidget {
         horizontal: Constants.kDefaultPadding,
         vertical: Constants.kDefaultPadding / 2,
       ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        // boxShadow: [
-        //   BoxShadow(
-        //     offset: const Offset(0, 4),
-        //     blurRadius: 32,
-        //     color: const Color(0xFF087949).withOpacity(0.08),
-        //   ),
-        // ],
-      ),
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: Column(
           children: [
-            // Container(
-            //   padding:
-            //       const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            //   child: replyOfText != null
-            //       ? AutoSizeText(
-            //           replyOfText,
-            //           minFontSize: 15,
-            //           maxLines: 1,
-            //           overflow: TextOverflow.ellipsis,
-            //         )
-            //       : const Text(""),
-            // ),
             Row(
               children: [
                 const SizedBox(width: Constants.kDefaultPadding / 2),

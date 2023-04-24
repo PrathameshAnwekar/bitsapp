@@ -19,9 +19,23 @@ class ProfileScreen extends ConsumerWidget {
     final BitsUser localUser = user ?? ref.watch(localUserProvider);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: SizedBox(
+            height: 32,
+            width: 32,
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.black.withOpacity(0.65),
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               AuthController.signOut(context, ref);
             },

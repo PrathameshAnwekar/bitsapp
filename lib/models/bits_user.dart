@@ -63,39 +63,41 @@ class BitsUser extends HiveObject {
     String name = properCase(result.user!.displayName ?? "name");
 
     BitsUser bitsUser = BitsUser(
-        name: name,
-        profilePicUrl: null,
-        email: result.user!.email!,
-        profileDescription: "BITSian",
-        bitsID: "NOT SET",
-        chatRooms: [],
-        uid: result.user!.uid,
-        fcmID: await FirebaseMessaging.instance.getToken(),
-        appliedInternships: [],
-        postedInternships: [],
-        feedPosts: [],
-        fcmToken: "NOT SET",
-        resumeLink: null,
-        userExperience: []);
+      name: name,
+      profilePicUrl: null,
+      email: result.user!.email!,
+      profileDescription: "BITSian",
+      bitsID: "NOT SET",
+      chatRooms: [],
+      uid: result.user!.uid,
+      fcmID: await FirebaseMessaging.instance.getToken(),
+      appliedInternships: [],
+      postedInternships: [],
+      feedPosts: [],
+      fcmToken: "NOT SET",
+      resumeLink: null,
+      userExperience: [],
+    );
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
 
   static BitsUser dummy = BitsUser(
-      name: "Someone",
-      profilePicUrl: null,
-      email: "email",
-      profileDescription: "Someone",
-      bitsID: "bitsID",
-      chatRooms: [],
-      uid: "uid",
-      fcmID: "fcmID",
-      appliedInternships: [],
-      postedInternships: [],
-      feedPosts: [],
-      fcmToken: "fcmToken",
-      resumeLink: null,
-      userExperience: []);
+    name: "Someone",
+    profilePicUrl: null,
+    email: "email",
+    profileDescription: "Someone",
+    bitsID: "bitsID",
+    chatRooms: [],
+    uid: "uid",
+    fcmID: "fcmID",
+    appliedInternships: [],
+    postedInternships: [],
+    feedPosts: [],
+    fcmToken: "fcmToken",
+    resumeLink: null,
+    userExperience: [],
+  );
 }
 
 class BitsUserNotifier extends StateNotifier<BitsUser> {

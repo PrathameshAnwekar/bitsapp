@@ -1,5 +1,4 @@
 import 'package:bitsapp/constants/constants.dart';
-import 'package:bitsapp/controllers/chats_screen_controller.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
@@ -156,16 +155,12 @@ class ChatsScreen extends HookConsumerWidget {
             onRefresh: () => _onRefresh(ref),
             child: ListView.separated(
               itemCount: chatsData.length,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () => ChatsScreenController.gotoChatRoom(
-                    context, chatsData, index),
-                child: ChatCard(
-                  chatRoom: chatsData[index],
-                  index: index,
-                ),
+              itemBuilder: (context, index) => ChatCard(
+                chatRoom: chatsData[index],
+                index: index,
               ),
               separatorBuilder: (context, index) => const Divider(
-                indent: 77,
+                indent: 82,
                 endIndent: 15,
                 color: Color.fromARGB(255, 234, 236, 243),
                 height: 1.5,
