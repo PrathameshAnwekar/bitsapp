@@ -16,9 +16,9 @@ class ShareSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final contactsList = ref.watch(contactsListProvider);
     final shareList = useState(<String>[]);
-
+    
     return Wrap(children: <Widget>[
-      Container(
+      SizedBox(
         height: SizeConfig.screenHeight * 0.7,
         child: Container(
           height: SizeConfig.screenHeight * 0.6,
@@ -56,7 +56,8 @@ class ShareSheet extends HookConsumerWidget {
             IconButton(
                 onPressed: () async {
                   await FeedContainerController.shareFeedPostInternally(
-                      feedPost, ref, shareList.value).then((value) => Navigator.of(context).pop() );
+                          feedPost, ref, shareList.value)
+                      .then((value) => Navigator.of(context).pop());
                 },
                 icon: const Icon(
                   Icons.send,
