@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageContainer extends StatelessWidget {
-  const ImageContainer({super.key, required this.url});
+  const ImageContainer({super.key, required this.url, required this.tag});
   final String url;
-
+  final String tag;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -17,7 +17,7 @@ class ImageContainer extends StatelessWidget {
               body: PhotoView(
                 imageProvider: CachedNetworkImageProvider(url),
                 heroAttributes: PhotoViewHeroAttributes(
-                  tag: url,
+                  tag: tag,
                 ),
               ),
             ),
@@ -25,7 +25,7 @@ class ImageContainer extends StatelessWidget {
         );
       },
       child: Hero(
-        tag: url,
+        tag: tag,
         child: CachedNetworkImage(
           imageUrl: url,
           cacheKey: url,

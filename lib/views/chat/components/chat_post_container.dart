@@ -2,11 +2,13 @@ import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/views/Feed_Screen/components/image_container.dart';
-import 'package:bitsapp/views/Feed_Screen/components/video_container.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
+import 'package:bitsapp/views/feed_screen/components/video_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:bitsapp/views/feed_screen/components/image_container.dart';
+
 
 class ChatPostContainer extends ConsumerStatefulWidget {
   final Message message;
@@ -41,9 +43,9 @@ class ChatPostContainerState extends ConsumerState<ChatPostContainer>
           }
           if (snapshot.hasData) {
             final post = FeedPost.fromJson(snapshot.data!.data()!);
-            final BitsUser postAuthor = ref
-                .read(contactsListProvider)
-                .firstWhere((element) => element.uid == post.posterUid);
+            final BitsUser postAuthor =
+                HiveStore.getUserFromStorage(uid: post.posterUid) ??
+                    BitsUser.dummy;
             return Container(
               height: SizeConfig.screenHeight * 0.4,
               width: SizeConfig.screenWidth * 0.4,
@@ -65,12 +67,13 @@ class ChatPostContainerState extends ConsumerState<ChatPostContainer>
                           width: SizeConfig.screenWidth * 1,
                           child: ImageContainer(
                             url: mediaFile.url,
+                            tag: "chat${mediaFile.url}"
                           ),
                         );
                       } else {
                         return SizedBox(
                           width: SizeConfig.screenWidth * 1,
-                          child: VideoContainer(url: mediaFile.url),
+                          child: VideoContainer(url: mediaFile.url, tag: "chat${mediaFile.url}"),
                         );
                       }
                     },

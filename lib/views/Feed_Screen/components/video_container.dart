@@ -7,18 +7,20 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoContainer extends StatefulHookConsumerWidget {
-  const VideoContainer({Key? key, required this.url}) : super(key: key);
+  const VideoContainer({Key? key, required this.tag, required this.url})
+      : super(key: key);
   final String url;
+  final String tag;
   @override
   ConsumerState<VideoContainer> createState() => _VideoContainerState();
 }
 
-//TODO: Fix this, cache for chewie
 class _VideoContainerState extends ConsumerState<VideoContainer> {
   late ChewieController _chewieController =
       ChewieController(videoPlayerController: _controller);
-  late VideoPlayerController _controller =
-      VideoPlayerController.network(widget.url);
+  late VideoPlayerController _controller = VideoPlayerController.network(
+      widget.url,
+      videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true));
 
   bool init = true;
   @override
@@ -42,32 +44,37 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
           if (file.connectionState == ConnectionState.done) {
             if (file.hasData) {
               if (init) {
-                _controller = VideoPlayerController.file(file.data as File)
+                _controller = VideoPlayerController.file(file.data as File,
+                    videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
                   ..initialize().then((_) {
                     {
                       setState(() {
                         dlog("file data is ${file.data}");
                         init = false;
+                        _controller.setVolume(0);
+
                         _chewieController = ChewieController(
                             videoPlayerController: _controller,
                             autoPlay: true,
                             looping: true,
                             allowFullScreen: true,
-                            allowMuting: true
-                           );
+                            allowMuting: true);
                       });
                     }
                   });
               }
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _chewieController.isPlaying
-                        ? _chewieController.pause()
-                        : _chewieController.play();
-                  });
-                },
-                child: Chewie(controller: _chewieController),
+              return Hero(
+                tag: widget.tag,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _chewieController.isPlaying
+                          ? _chewieController.pause()
+                          : _chewieController.play();
+                    });
+                  },
+                  child: Chewie(controller: _chewieController),
+                ),
               );
             } else {
               return const CircularProgressIndicator();
