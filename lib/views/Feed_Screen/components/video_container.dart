@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -73,15 +74,22 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
                           : _chewieController.play();
                     });
                   },
-                  child: Chewie(controller: _chewieController),
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      color: Colors.black,
+                      child: Chewie(controller: _chewieController)),
                 ),
               );
             } else {
-              return const CircularProgressIndicator();
+              return const CircularProgressIndicator(
+                color: Colors.white,
+              );
             }
           } else {
-            return const CircularProgressIndicator(
-              color: Colors.red,
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
             );
           }
         });

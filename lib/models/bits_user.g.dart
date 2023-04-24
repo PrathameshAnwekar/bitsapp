@@ -17,20 +17,20 @@ class BitsUserAdapter extends TypeAdapter<BitsUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BitsUser(
-      name: fields[0] as String,
-      profilePicUrl: fields[1] as String?,
-      uid: fields[2] as String,
-      fcmToken: fields[3] as String?,
-      //rest of these fields are not needed for most things in the app
-      appliedInternships: [],
-      bitsID: '',
-      chatRooms: [],
-      email: '',
-      fcmID: '',
-      feedPosts: [],
-      postedInternships: [],
-      profileDescription: '',
-    );
+        name: fields[0] as String,
+        profilePicUrl: fields[1] as String?,
+        uid: fields[2] as String,
+        fcmToken: fields[3] as String?,
+        profileDescription: "profileDescription",
+        email: "email",
+        bitsID: "bitsID",
+        chatRooms: [],
+        fcmID: "fcmID",
+        appliedInternships: [],
+        postedInternships: [],
+        feedPosts: [],
+        resumeLink: null,
+        userExperience: []);
   }
 
   @override
@@ -82,6 +82,10 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
           ?.map((e) => e as String)
           .toList(),
       fcmToken: json['fcmToken'] as String?,
+      resumeLink: json['resumeLink'] as String?,
+      userExperience: (json['userExperience'] as List<dynamic>?)
+          ?.map((e) => UserExperience.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
@@ -97,4 +101,6 @@ Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'appliedInternships': instance.appliedInternships,
       'postedInternships': instance.postedInternships,
       'feedPosts': instance.feedPosts,
+      'resumeLink': instance.resumeLink,
+      'userExperience': instance.userExperience,
     };

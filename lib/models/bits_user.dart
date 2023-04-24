@@ -1,3 +1,4 @@
+import 'package:bitsapp/models/user_experience.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +31,8 @@ class BitsUser extends HiveObject {
   final List<String>? appliedInternships;
   final List<String>? postedInternships;
   final List<String>? feedPosts;
-
+  final String? resumeLink;
+  final List<UserExperience>? userExperience;
   BitsUser({
     required this.name,
     required this.profilePicUrl,
@@ -44,6 +46,8 @@ class BitsUser extends HiveObject {
     required this.postedInternships,
     required this.feedPosts,
     required this.fcmToken,
+    required this.resumeLink,
+    required this.userExperience,
   });
 
   /// The generated code below handles if the corresponding JSON value doesn't
@@ -70,7 +74,9 @@ class BitsUser extends HiveObject {
         appliedInternships: [],
         postedInternships: [],
         feedPosts: [],
-        fcmToken: "NOT SET");
+        fcmToken: "NOT SET",
+        resumeLink: null,
+        userExperience: []);
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
   }
@@ -87,7 +93,9 @@ class BitsUser extends HiveObject {
       appliedInternships: [],
       postedInternships: [],
       feedPosts: [],
-      fcmToken: "fcmToken");
+      fcmToken: "fcmToken",
+      resumeLink: null,
+      userExperience: []);
 }
 
 class BitsUserNotifier extends StateNotifier<BitsUser> {
@@ -104,7 +112,9 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
             appliedInternships: [],
             postedInternships: [],
             fcmToken: "",
-            feedPosts: []));
+            feedPosts: [],
+            resumeLink: null,
+            userExperience: []));
 
   void setUser(BitsUser user) {
     state = user;
@@ -141,7 +151,9 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
         appliedInternships: [],
         postedInternships: [],
         fcmToken: "",
-        feedPosts: []);
+        feedPosts: [],
+        resumeLink: null,
+        userExperience: []);
   }
 }
 
