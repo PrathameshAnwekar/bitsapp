@@ -13,7 +13,11 @@ import 'package:intl/intl.dart';
 import 'chat_input_field.dart';
 
 class Body extends StatefulHookConsumerWidget {
-  const Body({super.key, required this.chatRoomUid,required this.receiver, });
+  const Body({
+    super.key,
+    required this.chatRoomUid,
+    required this.receiver,
+  });
   final String chatRoomUid;
   final BitsUser receiver;
   @override
@@ -31,7 +35,7 @@ class _BodyState extends ConsumerState<Body> {
     final focusNode = FocusNode();
     return Column(
       children: [
-        const SizedBox(height: 15),
+        // const SizedBox(height: 15),
         Expanded(
           child: ListView.separated(
             addAutomaticKeepAlives: false,
@@ -117,6 +121,7 @@ class _BodyState extends ConsumerState<Body> {
       ],
     );
   }
+
   void selectMessageForReply(
     WidgetRef ref,
     Message message,

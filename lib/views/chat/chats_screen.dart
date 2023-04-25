@@ -27,12 +27,9 @@ class ChatsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatrooms = ref.watch(chatRoomsProvider);
-    FocusNode focusNode = FocusNode();
-    ExpandableController controller = ExpandableController();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -58,87 +55,128 @@ class ChatsScreen extends HookConsumerWidget {
         ),
         body: TabBarView(
           children: [
-            buildChannelsBody(controller, focusNode),
+            buildChannelsBody(chatrooms, ref),
             buildMessagesBody(chatrooms, ref),
           ],
         ),
+        resizeToAvoidBottomInset: false,
       ),
     );
   }
 
-  Widget buildChannelsBody(
-      ExpandableController controller, FocusNode focusNode) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-      child: Column(
-        children: <Widget>[
-          ExpandablePanel(
-            controller: controller,
-            header: SizedBox(
-              height: 50,
-              child: TextFormField(
-                focusNode: focusNode,
-                onTap: () {
-                  controller.toggle();
-                  focusNode.hasFocus
-                      ? focusNode.unfocus()
-                      : focusNode.requestFocus();
-                },
-                cursorColor: Colors.black,
-                style: GoogleFonts.roboto(fontSize: 15.5),
-                textCapitalization: TextCapitalization.words,
-                decoration: InputDecoration(
-                  fillColor: Constants.kSecondaryColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.only(top: 9.9),
-                  focusedBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Constants.kSecondaryColor,
-                    ),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(
-                      color: Constants.kSecondaryColor,
-                    ),
-                  ),
-                  hintText: "Search channels...",
-                  hintStyle: GoogleFonts.roboto(fontSize: 15.5),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.black54,
-                    size: 20,
-                  ),
+  Widget buildChannelsBody(chatsData, ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey[300]!),
+          ),
+          child: ExpandablePanel(
+            header: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10),
+              child: Text(
+                "All Channels",
+                style: GoogleFonts.dmSans(
+                  color: const Color(0xFF4D5470),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 17,
                 ),
               ),
             ),
             theme: ExpandableThemeData(
+              tapHeaderToExpand: true,
+              useInkWell: false,
               expandIcon: Icons.keyboard_arrow_down_rounded,
               collapseIcon: Icons.keyboard_arrow_up_rounded,
-              useInkWell: false,
               iconColor: Colors.black.withOpacity(0.65),
               iconSize: 33,
             ),
             collapsed: const SizedBox(),
-            expanded: SizedBox(
-              height: 400,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 150,
-                    color: Colors.red,
-                    margin: const EdgeInsets.all(10),
-                  );
-                },
-                itemCount: 5,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
+            expanded: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: TextFormField(
+                      cursorColor: Colors.black,
+                      style: GoogleFonts.roboto(fontSize: 15.5),
+                      textCapitalization: TextCapitalization.words,
+                      decoration: InputDecoration(
+                        fillColor: Constants.kSecondaryColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.only(top: 9.9),
+                        focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Constants.kSecondaryColor,
+                          ),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Constants.kSecondaryColor,
+                          ),
+                        ),
+                        hintText: "Search channels...",
+                        hintStyle: GoogleFonts.roboto(fontSize: 15.5),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: Colors.black54,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 400,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 150,
+                          color: Colors.red,
+                          margin: const EdgeInsets.all(10),
+                        );
+                      },
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+          child: Text(
+            "Joined Channels",
+            style: GoogleFonts.dmSans(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: chatsData.length,
+            itemBuilder: (context, index) => ChatCard(
+              chatRoom: chatsData[index],
+              index: index,
+            ),
+            separatorBuilder: (context, index) => const Divider(
+              indent: 82,
+              endIndent: 15,
+              color: Color.fromARGB(255, 234, 236, 243),
+              height: 1.5,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
