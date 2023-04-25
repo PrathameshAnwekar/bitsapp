@@ -43,29 +43,35 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     }).toList();
   }
 
-  Future<void> addChatRoom(ChatRoom chatRoom, String user1uid, String user2uid) async {
+  Future<void> addChatRoom(
+      ChatRoom chatRoom, String user1uid, String user2uid) async {
     try {
       state = state..add(chatRoom);
       await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
-      
-      
+      state = state;
     } catch (e) {
       elog(e.toString());
     }
   }
 
-  void addMessage(String chatRoomUid, Message message, String fcmUid, String senderName) async {
+  void addMessage(String chatRoomUid, Message message, String fcmUid,
+      String senderName) async {
     try {
       await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
-      final sender = 
+      state = state.map((chatRoom) {
+      if (chatRoom.uid == chatRoomUid) {
+        chatRoom.messages.add(message);
+      }
+      return chatRoom;
+    }).toList();
       await NotifService.sendChatNotification(
           text: message.text, sender: senderName, token: fcmUid);
     } catch (e) {
       elog(e.toString());
     }
-
   }
-  void clear(){
+
+  void clear() {
     state = [];
   }
 }

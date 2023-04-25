@@ -34,7 +34,7 @@ class HiveStore {
   }
 
   static BitsUser? getUserFromStorage({required String uid}) {
-    elog(contactsStorage.get(uid).name);
+    // elog(contactsStorage.get(uid).name);
     return contactsStorage.get(uid);
   }
 

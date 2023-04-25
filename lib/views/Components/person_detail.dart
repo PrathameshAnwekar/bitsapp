@@ -19,7 +19,7 @@ class PersonDetail extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          user.name,
+          user.name ,
           style: GoogleFonts.roboto(
             color: const Color.fromRGBO(15, 15, 18, 0.9),
             fontSize: isSmall ? 14 : 16,

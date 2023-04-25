@@ -95,9 +95,11 @@ class FirestoreService {
         final profile = e.data();
         return BitsUser.fromJson(profile);
       }).toList();
+      
+      await HiveStore.storeAllUserToStorage(allUsersList);
       allUsersList.removeWhere((e) => e.uid == ref.read(localUserProvider).uid );
       ref.read(contactsListProvider.notifier).state = allUsersList;
-      await HiveStore.storeAllUserToStorage(allUsersList);
+      
       dlog("initialised ${allUsersList.length} contacts");
     } catch (e) {
       elog(e.toString());
