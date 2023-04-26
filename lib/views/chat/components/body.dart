@@ -113,8 +113,8 @@ class _BodyState extends ConsumerState<Body> {
           receiver: widget.receiver,
           senderName: localUser.name,
           reset: () {
-            ref.read(replyOfProvider.notifier).state = null;
-            ref.read(replyOfTextProvider.notifier).state = null;
+            ref.read(replyOfMessageProvider.notifier).state = null;
+            
           },
           focusNode: focusNode,
         ),
@@ -127,12 +127,10 @@ class _BodyState extends ConsumerState<Body> {
     Message message,
     int index,
   ) {
-    if (ref.read(replyOfProvider) == null) {
-      ref.read(replyOfProvider.notifier).state = message.time.toString();
-      ref.read(replyOfTextProvider.notifier).state = message.text;
+    if (ref.read(replyOfMessageProvider) == null) {
+      ref.read(replyOfMessageProvider.notifier).state = message;
     } else {
-      ref.read(replyOfProvider.notifier).state = null;
-      ref.read(replyOfTextProvider.notifier).state = null;
+      ref.read(replyOfMessageProvider.notifier).state = null;
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/controllers/chat_controller.dart';
+import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:bitsapp/views/chat/components/reply_message.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,9 @@ class ChatInputField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
-    final String? replyOf = ref.watch(replyOfProvider);
-    final String? replyOfText = ref.watch(replyOfTextProvider);
-    final isReplying = replyOfText != null;
+    final Message? replyOfMessage = ref.watch(replyOfMessageProvider);
+ 
+    final isReplying = replyOfMessage != null;
     const inputBottomRadius = Radius.circular(24);
     return Container(
       color: Constants.kSecondaryColor,
@@ -53,7 +54,7 @@ class ChatInputField extends HookConsumerWidget {
                     ),
                     child: ReplyMessageWidget(
                       receiverUsername: receiver.name,
-                      message: replyOfText,
+                      message: replyOfMessage.text,
                       onCancelReply: reset,
                     ),
                   ),
@@ -96,7 +97,7 @@ class ChatInputField extends HookConsumerWidget {
                   chatRoomUid: chatRoomUid,
                   receiverFcmToken: receiver.fcmToken!,
                   senderName: senderName,
-                  replyOf: replyOf,
+                  replyOf: replyOfMessage == null ? null : replyOfMessage.time.toString(),
                 );
                 FocusScope.of(context).unfocus();
               } else {

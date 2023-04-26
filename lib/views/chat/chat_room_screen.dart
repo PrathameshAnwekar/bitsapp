@@ -1,6 +1,7 @@
 import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,8 @@ class ChatRoomScreen extends HookConsumerWidget {
             BitsUser.dummy;
     return WillPopScope(
       onWillPop: () {
-        ref.read(replyOfProvider.notifier).state = null;
-        ref.read(replyOfTextProvider.notifier).state = null;
+        ref.read(replyOfMessageProvider.notifier).state = null;
+        
         return Future.value(true);
       },
       child: Scaffold(
@@ -67,5 +68,4 @@ final chatStreamProvider =
 });
 
 //Using these instead of hooks to avoid rebuilding the whole screen
-final replyOfProvider = StateProvider.autoDispose<String?>((ref) => null);
-final replyOfTextProvider = StateProvider.autoDispose<String?>((ref) => null);
+final replyOfMessageProvider = StateProvider.autoDispose<Message?>((ref) => null);

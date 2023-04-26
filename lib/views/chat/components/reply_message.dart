@@ -23,41 +23,40 @@ class ReplyMessageWidget extends StatelessWidget {
               width: 4,
             ),
             const SizedBox(width: 8),
-            Expanded(child: buildReplyMessage()),
-          ],
-        ),
-      );
-
-  Widget buildReplyMessage() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  receiverUsername,
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        receiverUsername,
+                        style: GoogleFonts.roboto(
+                          fontSize: 14.3,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    onCancelReply != null
+                        ? GestureDetector(
+                            onTap: onCancelReply,
+                            child: const Icon(Icons.close, size: 16),
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  message,
                   style: GoogleFonts.roboto(
-                    fontSize: 14.3,
-                    fontWeight: FontWeight.w600,
+                    color: Colors.black54,
+                    fontSize: 15,
                   ),
                 ),
-              ),
-              onCancelReply != null
-                  ? GestureDetector(
-                      onTap: onCancelReply,
-                      child: const Icon(Icons.close, size: 16),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            message,
-            style: GoogleFonts.roboto(
-              color: Colors.black54,
-              fontSize: 15,
-            ),
-          ),
-        ],
+              ],
+            )),
+          ],
+        ),
       );
 }

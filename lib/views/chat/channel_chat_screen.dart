@@ -1,4 +1,6 @@
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:bitsapp/views/chat/components/channel_chat_input_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
@@ -12,7 +14,7 @@ class ChannelChatScreen extends HookConsumerWidget {
   final String channelName;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("rebuildx${i++}");
+   
 
     return SafeArea(
       child: Scaffold(
@@ -39,8 +41,10 @@ class ChannelChatScreen extends HookConsumerWidget {
             ),
             ChannelChatInputField(
               chatRoomName: 'Announcements',
-              receiverFcmToken: 'null',
-              reset: () {},
+             senderName: ref.read(localUserProvider).name,
+              reset: () {
+                ref.read(replyOfMessageProvider.notifier).state = null;
+              },
             ),
           ],
         ),
