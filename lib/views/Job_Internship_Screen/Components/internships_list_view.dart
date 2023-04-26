@@ -1,6 +1,7 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
 import 'package:bitsapp/views/components/circle_profile_pic.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readmore/readmore.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
+import '../../../constants/constants.dart';
 import '../job_detail_screen.dart';
 import 'tags.dart';
 
@@ -30,31 +32,36 @@ class InternshipsListView extends HookConsumerWidget {
   }
 
   void _onLoading() async {
-    // monitor network fetch
     await Future.delayed(const Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    // items.add((items.length+1).toString());
-
     _refreshController3.loadComplete();
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contactsList = ref.watch(contactsListProvider);
     final internData = ref.watch(internshipDataProvider);
-    return ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (BuildContext context, int index) {
-        final poster = contactsList.firstWhere(
-            (element) => element.uid == internData[index].posterUID);
-        return InternshipCard(
-          internshipData: internData[index],
-          poster: poster,
-        );
-      },
-      // separatorBuilder: (context, index) => const SizedBox(height: 20),
-      itemCount: internData.length,
+    return SmartRefresher(
+      key: const ValueKey("Internships"),
+      enablePullDown: true,
+      enablePullUp: false,
+      controller: _refreshController3,
+      header: const MaterialClassicHeader(
+        color: Constants.kPrimaryColor,
+      ),
+      onLoading: () => _onLoading(),
+      onRefresh: () => _onRefresh(ref),
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (BuildContext context, int index) {
+          final poster =
+              HiveStore.getUserFromStorage(uid: internData[index].posterUID)!;
+          return InternshipCard(
+            internshipData: internData[index],
+            poster: poster,
+          );
+        },
+        itemCount: internData.length,
+      ),
     );
   }
 }

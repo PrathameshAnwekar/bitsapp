@@ -22,7 +22,7 @@ class ChatCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localUser = ref.watch(localUserProvider);
     final lastMessage = chatRoom.messages[chatRoom.messages.length - 1];
-    print("uuuuu" + chatRoom.userUidList.toString());
+    print("uuuuu${chatRoom.userUidList}");
     final otherUser = (chatRoom.userUidList[0] == localUser.uid
             ? HiveStore.getUserFromStorage(uid: chatRoom.userUidList[1])
             : HiveStore.getUserFromStorage(uid: chatRoom.userUidList[0])) ??
