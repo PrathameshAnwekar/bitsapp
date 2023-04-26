@@ -38,10 +38,9 @@ class ChannelChatScreen extends HookConsumerWidget {
               ),
             ),
             ChannelChatInputField(
-              chatRoomUid: 'Announcements',
+              chatRoomName: 'Announcements',
               receiverFcmToken: 'null',
               reset: () {},
-              senderName: 'Prathamesh',
             ),
           ],
         ),

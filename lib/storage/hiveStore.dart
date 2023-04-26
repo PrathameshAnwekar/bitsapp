@@ -30,17 +30,20 @@ class HiveStore {
   }
 
   static Future<void> saveUserToStorage(BitsUser user) async {
+
     await contactsStorage.put(user.uid, user);
   }
 
   static BitsUser? getUserFromStorage({required String uid}) {
-    // elog(contactsStorage.get(uid).name);
+    // print(contactsStorage.get(uid).name);
     return contactsStorage.get(uid);
   }
 
   static Future<void> storeAllUserToStorage(List<BitsUser> users) async {
+    if(!contactsStorage.isOpen) await Hive.openBox("contactsStorage");
     for (int i = 0; i < users.length; i++) {
-      // elog(users[i].name);
+      print(users[i].name);
+      
       await saveUserToStorage(users[i]);
     }
   }

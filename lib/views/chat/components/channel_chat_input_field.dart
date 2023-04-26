@@ -1,4 +1,5 @@
 import 'package:bitsapp/constants/constants.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firebase_chat_channel_service.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +7,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChannelChatInputField extends HookConsumerWidget {
-  final String chatRoomUid;
+  final String chatRoomName;
   final String receiverFcmToken;
-  final String senderName;
 
   final VoidCallback reset;
   const ChannelChatInputField(
       {Key? key,
-      required this.chatRoomUid,
+      required this.chatRoomName,
       required this.receiverFcmToken,
-      required this.senderName,
+    
       required this.reset})
       : super(key: key);
 
@@ -76,11 +76,11 @@ class ChannelChatInputField extends HookConsumerWidget {
                           onTap: () {
                             if (textController.text.trim() != "") {
                               FirestoreChannelService.addMessageToChannel(
-                                  "Announcements",
+                                  chatRoomName,
                                   Message(
                                     text: textController.text,
                                     time: DateTime.now().millisecondsSinceEpoch,
-                                    sender: senderName,
+                                    sender: ref.read(localUserProvider).uid,
                                     type: MessageType.text,
                                     replyOf: null,
                                   ));

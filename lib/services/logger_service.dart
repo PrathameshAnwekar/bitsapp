@@ -12,7 +12,7 @@ final _logger = Logger(
 );
 
 void dlog(String message) {
-  _logger.d("DEBUG:\t$message");
+  // _logger.d("DEBUG:\t$message");
 }
 
 void elog(String message) {

@@ -1,8 +1,10 @@
 import 'package:bitsapp/constants/constants.dart';
+import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_channel.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/chat/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -193,7 +195,7 @@ class ChatsScreen extends HookConsumerWidget {
                   lastMessage: data['lastMessage'] != null
                       ? Message.fromJson(data['lastMessage'])
                       : Message.dummyMessage);
-
+              final lastMessageSender = HiveStore.getUserFromStorage(uid: channel.lastMessage.sender) ?? BitsUser.dummy;
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -243,7 +245,7 @@ class ChatsScreen extends HookConsumerWidget {
                   subtitle: Padding(
                     padding: const EdgeInsets.only(right: 20, top: 5),
                     child: Text(
-                      channel.lastMessage.text,
+                      "${lastMessageSender.name}: ${channel.lastMessage.text}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.rubik(
