@@ -170,21 +170,7 @@ class ChatsScreen extends HookConsumerWidget {
             ),
           ),
         ),
-        // Expanded(
-        //   child: ListView.separated(
-        //     itemCount: chatsData.length,
-        //     itemBuilder: (context, index) => ChatCard(
-        //       chatRoom: chatsData[index],
-        //       index: index,
-        //     ),
-        //     separatorBuilder: (context, index) => const Divider(
-        //       indent: 82,
-        //       endIndent: 15,
-        //       color: Color.fromARGB(255, 234, 236, 243),
-        //       height: 1.5,
-        //     ),
-        //   ),
-        // ),
+   
         Expanded(
           child: FirestoreListView(
             query: FirebaseFirestore.instance.collection('Channels'),

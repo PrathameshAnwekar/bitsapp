@@ -21,6 +21,7 @@ class ChannelChatScreen extends HookConsumerWidget {
   FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Constants.kSecondaryColor,
