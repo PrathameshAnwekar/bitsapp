@@ -31,8 +31,9 @@ class ChannelChatScreen extends HookConsumerWidget {
                 itemBuilder: (context, snapshot) {
                   final Message message = Message.fromJson(snapshot.data());
                   return Padding(
-                      padding: const EdgeInsets.only(top: 50, bottom: 50),
-                      child: Text(message.text));
+                    padding: const EdgeInsets.only(top: 50, bottom: 50),
+                    child: Text(message.text),
+                  );
                 },
               ),
             ),

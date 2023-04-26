@@ -4,7 +4,6 @@ import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -142,7 +141,9 @@ class FeedScreen extends ConsumerWidget {
               enablePullDown: true,
               enablePullUp: false,
               controller: _refreshController1,
-              header: const MaterialClassicHeader(),
+              header: const MaterialClassicHeader(
+                color: Constants.kPrimaryColor,
+              ),
               onLoading: () => _onLoading(feedPosts),
               onRefresh: () => _onRefresh(ref),
               child: ListView.builder(
