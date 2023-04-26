@@ -1,37 +1,30 @@
 import 'package:bitsapp/constants/constants.dart';
-import 'package:bitsapp/controllers/chat_controller.dart';
-import 'package:bitsapp/views/chat/chat_room_screen.dart';
-import 'package:bitsapp/views/chat/components/reply_message.dart';
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/services/firebase_chat_channel_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/bits_user.dart';
-
-class ChatInputField extends HookConsumerWidget {
-  final String chatRoomUid;
-  final BitsUser receiver;
-  final String senderName;
-  final VoidCallback reset;
+class ChannelChatInputField extends HookConsumerWidget {
+  final String chatRoomName;
+  final String receiverFcmToken;
   final FocusNode focusNode;
+  final VoidCallback reset;
 
-  const ChatInputField({
-    required this.chatRoomUid,
-    required this.receiver,
-    required this.senderName,
-    required this.reset,
-    required this.focusNode,
+  const ChannelChatInputField({
     Key? key,
+    required this.chatRoomName,
+    required this.focusNode,
+    required this.receiverFcmToken,
+    required this.reset,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
-    final String? replyOf = ref.watch(replyOfProvider);
-    final String? replyOfText = ref.watch(replyOfTextProvider);
-    final isReplying = replyOfText != null;
     const inputBottomRadius = Radius.circular(24);
     return Container(
       color: Constants.kSecondaryColor,
@@ -41,22 +34,22 @@ class ChatInputField extends HookConsumerWidget {
           Expanded(
             child: Column(
               children: [
-                if (isReplying)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        topRight: Radius.circular(12),
-                      ),
-                    ),
-                    child: ReplyMessageWidget(
-                      receiverUsername: receiver.name,
-                      message: replyOfText,
-                      onCancelReply: reset,
-                    ),
-                  ),
+                // if (isReplying)
+                //   Container(
+                //     padding: const EdgeInsets.all(8),
+                //     decoration: const BoxDecoration(
+                //       color: Colors.white,
+                //       borderRadius: BorderRadius.only(
+                //         topLeft: Radius.circular(12),
+                //         topRight: Radius.circular(12),
+                //       ),
+                //     ),
+                //     child: ReplyMessageWidget(
+                //       receiverUsername: receiver.name,
+                //       message: replyOfText,
+                //       onCancelReply: reset,
+                //     ),
+                //   ),
                 TextField(
                   focusNode: focusNode,
                   cursorColor: Colors.black,
@@ -71,11 +64,11 @@ class ChatInputField extends HookConsumerWidget {
                     fillColor: Colors.white,
                     hintText: 'Type a message',
                     hintStyle: GoogleFonts.roboto(color: Colors.black54),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.only(
-                        topLeft: isReplying ? Radius.zero : inputBottomRadius,
-                        topRight: isReplying ? Radius.zero : inputBottomRadius,
+                        topLeft: inputBottomRadius,
+                        topRight: inputBottomRadius,
                         bottomLeft: inputBottomRadius,
                         bottomRight: inputBottomRadius,
                       ),
@@ -89,22 +82,25 @@ class ChatInputField extends HookConsumerWidget {
           GestureDetector(
             onTap: () {
               if (textController.text.trim() != "") {
-                ChatController.sendMessage(
-                  ref: ref,
-                  textController: textController,
-                  chatRoomUid: chatRoomUid,
-                  receiverFcmToken: receiver.fcmToken!,
-                  senderName: senderName,
-                  replyOf: replyOf,
+                FirestoreChannelService.addMessageToChannel(
+                  chatRoomName,
+                  Message(
+                    text: textController.text,
+                    time: DateTime.now().millisecondsSinceEpoch,
+                    sender: ref.read(localUserProvider).uid,
+                    type: MessageType.text,
+                    replyOf: null,
+                  ),
                 );
                 focusNode.unfocus();
+                textController.clear();
               } else {
                 textController.clear();
               }
               reset();
             },
             child: Container(
-              padding: const EdgeInsets.fromLTRB(14, 15, 16, 15),
+              padding: const EdgeInsets.fromLTRB(14, 15, 12, 15),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Constants.kPrimaryColor,
@@ -121,20 +117,4 @@ class ChatInputField extends HookConsumerWidget {
       ),
     );
   }
-
-  Widget buildReply(String replyMessage) => Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
-          ),
-        ),
-        child: ReplyMessageWidget(
-          receiverUsername: receiver.name,
-          message: replyMessage,
-          onCancelReply: reset,
-        ),
-      );
 }

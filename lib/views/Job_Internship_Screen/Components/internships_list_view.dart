@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readmore/readmore.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import '../../../constants/constants.dart';
+import '../../profile_screen/profile_screen.dart';
 import '../job_detail_screen.dart';
 import 'tags.dart';
 
@@ -25,9 +27,7 @@ class InternshipsListView extends HookConsumerWidget {
       RefreshController(initialRefresh: false);
 
   void _onRefresh(WidgetRef ref) async {
-    // monitor network fetch
     await FirestoreService.initInternshipData(ref);
-    // if failed,use refreshFailed()
     _refreshController3.refreshCompleted();
   }
 
@@ -116,17 +116,27 @@ class InternshipCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const CircleProfilePic(radius: 20),
-                  const Spacer(flex: 1),
-                  PersonDetail(
-                      user: poster, isSmall: true, time: internshipData.time),
-                  const Spacer(flex: 20),
-                  SvgPicture.asset("assets/icons/add_bookmark.svg"),
-                  SvgPicture.asset("assets/icons/remove_bookmark.svg"),
-                ],
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    child: ProfileScreen(poster),
+                    duration: const Duration(milliseconds: 250),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const CircleProfilePic(radius: 19),
+                    const Spacer(flex: 1),
+                    PersonDetail(
+                        user: poster, isSmall: true, time: internshipData.time),
+                    const Spacer(flex: 20),
+                    SvgPicture.asset("assets/icons/add_bookmark.svg"),
+                    SvgPicture.asset("assets/icons/remove_bookmark.svg"),
+                  ],
+                ),
               ),
               const SizedBox(height: 12),
               Text(

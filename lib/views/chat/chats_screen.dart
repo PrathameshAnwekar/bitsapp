@@ -5,7 +5,7 @@ import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
-import 'package:bitsapp/views/chat/channel_chat_screen.dart';
+import 'package:bitsapp/views/chat/channel_chat_screen/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../Components/person_detail.dart';
 
 class ChatsScreen extends HookConsumerWidget {
   const ChatsScreen({super.key});
@@ -190,13 +192,19 @@ class ChatsScreen extends HookConsumerWidget {
             itemBuilder: (context, snapshot) {
               final data = snapshot.data();
               final ChatChannel channel = ChatChannel(
-                  name: data['name'],
-                  messages: [],
-                  lastMessage: data['lastMessage'] != null
-                      ? Message.fromJson(data['lastMessage'])
-                      : Message.dummyMessage);
-              final lastMessageSender = HiveStore.getUserFromStorage(uid: channel.lastMessage.sender) ?? BitsUser.dummy;
-              return GestureDetector(
+                name: data['name'],
+                messages: [],
+                lastMessage: data['lastMessage'] != null
+                    ? Message.fromJson(data['lastMessage'])
+                    : Message.dummyMessage,
+              );
+              final lastMessageSender = HiveStore.getUserFromStorage(
+                      uid: channel.lastMessage.sender) ??
+                  BitsUser.dummy;
+              return ListTile(
+                horizontalTitleGap: 12,
+                splashColor: Colors.transparent,
+                minVerticalPadding: 0,
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -206,52 +214,43 @@ class ChatsScreen extends HookConsumerWidget {
                     ),
                   );
                 },
-                child: ListTile(
-                  horizontalTitleGap: 12,
-                  splashColor: Colors.transparent,
-                  minVerticalPadding: 0,
-                  // onTap: () => ChatsScreenController.gotoChatRoom(context, chatRoom),
-                  leading: const CircleAvatar(
-                    radius: 28,
-                    backgroundImage: NetworkImage(
-                        "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
-                  ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        channel.name,
-                        style: GoogleFonts.roboto(
-                          fontSize: 16,
-                          height: 1.2,
-                          // fontWeight: index < 1 ? FontWeight.w700 : FontWeight.w400,
+                leading: const CircleAvatar(
+                  radius: 28,
+                  backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                ),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      channel.name,
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        height: 1.2,
+                        // fontWeight: index < 1 ? FontWeight.w700 : FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      timeAgo(
+                        DateTime.fromMillisecondsSinceEpoch(
+                          channel.lastMessage.time,
                         ),
                       ),
-                      Text(
-                        // timeAgo(
-                        //   DateTime.fromMillisecondsSinceEpoch(
-                        //     lastMessage.time,
-                        //   ),
-                        // ),
-                        "12 feb",
-                        style: GoogleFonts.roboto(
-                          fontSize: 13,
-                          color: const Color.fromRGBO(131, 144, 159, 1),
-                          // fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(right: 20, top: 5),
-                    child: Text(
-                      "${lastMessageSender.name}: ${channel.lastMessage.text}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.rubik(
+                      style: GoogleFonts.roboto(
+                        fontSize: 13,
                         color: const Color.fromRGBO(131, 144, 159, 1),
-                        // fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
                       ),
+                    ),
+                  ],
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(right: 20, top: 5),
+                  child: Text(
+                    "${lastMessageSender.name}: ${channel.lastMessage.text}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(131, 144, 159, 1),
                     ),
                   ),
                 ),
