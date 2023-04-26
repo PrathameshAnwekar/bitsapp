@@ -9,9 +9,9 @@ import '../../profile_screen/profile_screen.dart';
 
 class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
   const ChatAppBar({
-    super.key,
+    Key? key,
     required this.otherUser,
-  });
+  }) : super(key: key);
   final BitsUser otherUser;
 
   @override

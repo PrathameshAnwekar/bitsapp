@@ -9,10 +9,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../constants/constants.dart';
 import '../../components/circle_profile_pic.dart';
+import '../../profile_screen/profile_screen.dart';
 import 'media_container.dart';
 
 class FeedDesc extends HookConsumerWidget {
@@ -28,10 +30,8 @@ class FeedDesc extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final poster = HiveStore.getUserFromStorage(uid: feedPost.posterUid) ?? BitsUser.dummy;
-    // final poster = ref
-    //     .read(contactsListProvider)
-    //     .firstWhere((element) => element.uid == feedPost.posterUid);
+    final poster =
+        HiveStore.getUserFromStorage(uid: feedPost.posterUid) ?? BitsUser.dummy;
     final localUser = ref.watch(localUserProvider);
     final likeStatus = useState(feedPost.likes.contains(localUser.uid));
     return Column(
@@ -39,16 +39,26 @@ class FeedDesc extends HookConsumerWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              const CircleProfilePic(radius: 22.5),
-              const SizedBox(width: 10),
-              PersonDetail(
-                user: poster,
-                isSmall: false,
-                time: int.tryParse(feedPost.timeuid),
+          child: GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.bottomToTop,
+                child: ProfileScreen(poster),
+                duration: const Duration(milliseconds: 250),
               ),
-            ],
+            ),
+            child: Row(
+              children: [
+                const CircleProfilePic(radius: 22.5),
+                const SizedBox(width: 10),
+                PersonDetail(
+                  user: poster,
+                  isSmall: false,
+                  time: int.tryParse(feedPost.timeuid),
+                ),
+              ],
+            ),
           ),
         ),
         GestureDetector(
@@ -62,8 +72,9 @@ class FeedDesc extends HookConsumerWidget {
               ),
             );
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             child: ReadMoreText(
               feedPost.text,
               style: GoogleFonts.roboto(fontSize: 14.5),

@@ -19,7 +19,7 @@ class PersonDetail extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          user.name ,
+          user.name,
           style: GoogleFonts.roboto(
             color: const Color.fromRGBO(15, 15, 18, 0.9),
             fontSize: isSmall ? 14 : 16,
@@ -38,6 +38,43 @@ class PersonDetail extends StatelessWidget {
         ),
       ],
     );
+    // return ListTile(
+    //   style: ListTileStyle.list,
+    //   onTap: () => Navigator.push(
+    //     context,
+    //     PageTransition(
+    //       type: PageTransitionType.bottomToTop,
+    //       child: ProfileScreen(user),
+    //       duration: const Duration(milliseconds: 250),
+    //     ),
+    //   ),
+    //   minVerticalPadding: 0,
+    //   contentPadding: const EdgeInsets.only(left: 10),
+    //   leading: const CircleAvatar(
+    //     radius: 22.5,
+    //     backgroundColor: Color.fromRGBO(226, 210, 254, 1),
+    //     backgroundImage: NetworkImage(
+    //       "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+    //     ),
+    //   ),
+    //   horizontalTitleGap: 10,
+    //   title: Text(
+    //     user.name,
+    //     style: GoogleFonts.roboto(
+    //       color: const Color.fromRGBO(15, 15, 18, 0.9),
+    //       fontSize: isSmall ? 14 : 16,
+    //       fontWeight: FontWeight.w500,
+    //     ),
+    //   ),
+    //   subtitle: Text(
+    //     time != null ? timeAgo(DateTime.fromMillisecondsSinceEpoch(time!)) : "",
+    //     style: GoogleFonts.roboto(
+    //       color: const Color.fromARGB(255, 166, 166, 166),
+    //       letterSpacing: 0.2,
+    //       fontSize: isSmall ? 10.5 : 12.5,
+    //     ),
+    //   ),
+    // );
   }
 }
 

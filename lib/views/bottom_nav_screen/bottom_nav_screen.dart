@@ -17,7 +17,7 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _pageindex = 3;
+  int _pageindex = 1;
   List<Widget> pagelist = <Widget>[
     FeedScreen(),
     const JobInternhipScreen(),
@@ -29,7 +29,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      extendBody: true,
+      extendBody: false,
       body: IndexedStack(
         index: _pageindex,
         children: pagelist,

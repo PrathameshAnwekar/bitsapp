@@ -69,7 +69,6 @@ class ChatInputField extends HookConsumerWidget {
                   style: GoogleFonts.roboto(),
                   decoration: InputDecoration(
                     filled: true,
-                    // fillColor: Colors.grey[100],
                     fillColor: Colors.white,
                     hintText: 'Type a message',
                     hintStyle: GoogleFonts.roboto(color: Colors.black54),
@@ -99,7 +98,7 @@ class ChatInputField extends HookConsumerWidget {
                   senderName: senderName,
                   replyOf: replyOfMessage == null ? null : replyOfMessage.time.toString(),
                 );
-                FocusScope.of(context).unfocus();
+                focusNode.unfocus();
               } else {
                 textController.clear();
               }

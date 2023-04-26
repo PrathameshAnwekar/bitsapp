@@ -10,17 +10,14 @@ class ChatBubble extends ConsumerWidget {
   const ChatBubble({
     super.key,
     required this.message,
-    required this.messages,
     required this.ref,
-    required this.index,
     required this.selectMessageForReply,
     required this.replyText,
+    required this.focusNode,
   });
   final Message message;
-  final List<Message> messages;
   final WidgetRef ref;
-  final int index;
-
+  final FocusNode focusNode;
   final String? replyText;
   final Function selectMessageForReply;
 
@@ -34,8 +31,8 @@ class ChatBubble extends ConsumerWidget {
               selectMessageForReply(
                 ref,
                 message,
-                index,
               );
+              focusNode.requestFocus();
             },
             child: TextMessage(
               isSender: isSender,
@@ -48,8 +45,8 @@ class ChatBubble extends ConsumerWidget {
               selectMessageForReply(
                 ref,
                 message,
-                index,
               );
+              focusNode.requestFocus();
             },
             child: TextMessage(
               isSender: isSender,

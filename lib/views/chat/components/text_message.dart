@@ -55,8 +55,7 @@ class TextMessage extends StatelessWidget {
                         bottomLeft: Radius.circular(isSender ? 10 : 0),
                         bottomRight: Radius.circular(isSender ? 0 : 10),
                       ),
-                      color:
-                          isSender ? Constants.kSecondaryColor : Colors.white,
+                      color: Colors.white,
                     ),
                     child: ReplyMessageWidget(
                       message: replyText!,

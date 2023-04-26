@@ -1,11 +1,9 @@
 import 'package:bitsapp/models/bits_user.dart';
-import 'package:bitsapp/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../constants/constants.dart';
 import 'components/internships_list_view.dart';
@@ -150,7 +148,7 @@ class JobInternhipScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-             Expanded(child: InternshipsListView()),
+            Expanded(child: InternshipsListView()),
           ],
         ),
       ),

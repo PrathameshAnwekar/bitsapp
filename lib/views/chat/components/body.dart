@@ -35,7 +35,6 @@ class _BodyState extends ConsumerState<Body> {
     final focusNode = FocusNode();
     return Column(
       children: [
-        // const SizedBox(height: 15),
         Expanded(
           child: ListView.separated(
             addAutomaticKeepAlives: false,
@@ -55,13 +54,13 @@ class _BodyState extends ConsumerState<Body> {
               }
               if (message.type == MessageType.text) {
                 return ChatBubble(
-                    key: key,
-                    message: message,
-                    replyText: replyText,
-                    messages: messages,
-                    index: index,
-                    ref: ref,
-                    selectMessageForReply: selectMessageForReply);
+                  key: key,
+                  message: message,
+                  replyText: replyText,
+                  ref: ref,
+                  selectMessageForReply: selectMessageForReply,
+                  focusNode: focusNode,
+                );
               } else if (message.type == MessageType.feedpost) {
                 return ChatPostContainer(key: key, message: message);
               }
@@ -125,7 +124,6 @@ class _BodyState extends ConsumerState<Body> {
   void selectMessageForReply(
     WidgetRef ref,
     Message message,
-    int index,
   ) {
     if (ref.read(replyOfMessageProvider) == null) {
       ref.read(replyOfMessageProvider.notifier).state = message;
