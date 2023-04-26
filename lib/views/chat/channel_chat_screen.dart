@@ -8,8 +8,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 int i = 0;
 
 class ChannelChatScreen extends HookConsumerWidget {
-  const ChannelChatScreen({super.key});
-
+  const ChannelChatScreen({super.key, required this.channelName, });
+  final String channelName;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print("rebuildx${i++}");
@@ -24,7 +24,7 @@ class ChannelChatScreen extends HookConsumerWidget {
                 reverse: true,
                 query: FirebaseFirestore.instance
                     .collection('Channels')
-                    .doc("Announcements")
+                    .doc(channelName)
                     .collection("messages")
                     .orderBy('time', descending: true),
                 pageSize: 20,

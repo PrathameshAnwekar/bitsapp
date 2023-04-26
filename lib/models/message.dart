@@ -23,6 +23,14 @@ class Message {
 
   /// Connect the generated [_$MessageToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$MessageToJson(this);
+
+  static final dummyMessage = Message(
+    time: DateTime.now().millisecondsSinceEpoch,
+    text: "No messages yet.",
+    sender: "GlwKMq1V8UcbGw7JdFzE4oknEIF3",
+    type: MessageType.text,
+    replyOf: null,
+  );
 }
 
 enum MessageType {

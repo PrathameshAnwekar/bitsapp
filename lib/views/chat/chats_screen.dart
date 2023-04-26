@@ -1,6 +1,9 @@
 import 'package:bitsapp/constants/constants.dart';
+import 'package:bitsapp/models/chat_channel.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/views/chat/channel_chat_screen.dart';
 import 'package:bitsapp/views/chat/chat_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -183,61 +186,70 @@ class ChatsScreen extends HookConsumerWidget {
             query: FirebaseFirestore.instance.collection('Channels'),
             pageSize: 20,
             itemBuilder: (context, snapshot) {
-              // final Message message = Message.fromJson(snapshot.data());
-              // final data = snapshot.data();
-              // final ChatChannel channel = ChatChannel(
-              //     name: data['name'],
-              //     messages: data['messages'].map((e) => Message.fromJson(e)));
+              final data = snapshot.data();
+              final ChatChannel channel = ChatChannel(
+                  name: data['name'],
+                  messages: [],
+                  lastMessage: data['lastMessage'] != null
+                      ? Message.fromJson(data['lastMessage'])
+                      : Message.dummyMessage);
 
-              return ListTile(
-                horizontalTitleGap: 12,
-                splashColor: Colors.transparent,
-                minVerticalPadding: 0,
-                // onTap: () => ChatsScreenController.gotoChatRoom(context, chatRoom),
-                leading: const CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage(
-                      // index < 1
-                      "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                      // : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
-                      // otherUser.profilePicUrl
-                      ),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Announcemnets",
-                      style: GoogleFonts.roboto(
-                        fontSize: 16,
-                        height: 1.2,
-                        // fontWeight: index < 1 ? FontWeight.w700 : FontWeight.w400,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ChannelChatScreen(
+                        channelName: channel.name,
                       ),
                     ),
-                    Text(
-                      // timeAgo(
-                      //   DateTime.fromMillisecondsSinceEpoch(
-                      //     lastMessage.time,
-                      //   ),
-                      // ),
-                      "12 feb",
-                      style: GoogleFonts.roboto(
-                        fontSize: 13,
+                  );
+                },
+                child: ListTile(
+                  horizontalTitleGap: 12,
+                  splashColor: Colors.transparent,
+                  minVerticalPadding: 0,
+                  // onTap: () => ChatsScreenController.gotoChatRoom(context, chatRoom),
+                  leading: const CircleAvatar(
+                    radius: 28,
+                    backgroundImage: NetworkImage(
+                        "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"),
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        channel.name,
+                        style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          height: 1.2,
+                          // fontWeight: index < 1 ? FontWeight.w700 : FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        // timeAgo(
+                        //   DateTime.fromMillisecondsSinceEpoch(
+                        //     lastMessage.time,
+                        //   ),
+                        // ),
+                        "12 feb",
+                        style: GoogleFonts.roboto(
+                          fontSize: 13,
+                          color: const Color.fromRGBO(131, 144, 159, 1),
+                          // fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(right: 20, top: 5),
+                    child: Text(
+                      channel.lastMessage.text,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(131, 144, 159, 1),
                         // fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
                       ),
-                    ),
-                  ],
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(right: 20, top: 5),
-                  child: Text(
-                    "This is the last message",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.rubik(
-                      color: const Color.fromRGBO(131, 144, 159, 1),
-                      // fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
                     ),
                   ),
                 ),
