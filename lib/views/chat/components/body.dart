@@ -29,7 +29,7 @@ class _BodyState extends ConsumerState<Body> {
   Widget build(BuildContext context) {
     final localUser = ref.read(localUserProvider);
     final messages = ref
-        .watch(chatRoomsProvider)
+        .read(chatRoomsProvider)
         .firstWhere((element) => element.uid == widget.chatRoomUid)
         .messages;
     final focusNode = FocusNode();

@@ -2,6 +2,7 @@ import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -12,7 +13,7 @@ final chatRoomsProvider =
         (ref) => ChatRoomsNotifier());
 
 @JsonSerializable()
-class ChatRoom {
+class ChatRoom extends ChangeNotifier {
   final String uid;
   final List<String> userUidList;
   List<Message> messages;
@@ -29,6 +30,8 @@ class ChatRoom {
 
 class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
   ChatRoomsNotifier() : super([]);
+  
+  
 
   void initChatRooms(List<ChatRoom> chatRooms) {
     state = chatRooms;
@@ -59,11 +62,11 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
     try {
       await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
       state = state.map((chatRoom) {
-      if (chatRoom.uid == chatRoomUid) {
-        chatRoom.messages.add(message);
-      }
-      return chatRoom;
-    }).toList();
+        if (chatRoom.uid == chatRoomUid) {
+          chatRoom.messages.add(message);
+        }
+        return chatRoom;
+      }).toList();
       await NotifService.sendChatNotification(
           text: message.text, sender: senderName, token: fcmUid);
     } catch (e) {

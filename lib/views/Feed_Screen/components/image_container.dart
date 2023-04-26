@@ -3,28 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageContainer extends StatelessWidget {
-  const ImageContainer({super.key, required this.url, required this.tag});
+  ImageContainer({super.key, required this.url, required this.tag, this.isHero = false});
   final String url;
   final String tag;
+  bool isHero;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
+     if(!isHero)   Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (BuildContext context) => Scaffold(
-              backgroundColor: Colors.transparent,
-              body: PhotoView(
-                imageProvider: CachedNetworkImageProvider(url),
-                heroAttributes: PhotoViewHeroAttributes(
-                  tag: tag,
-                ),
-              ),
-            ),
+            builder: (BuildContext context) => ImageContainer(url: url, tag: tag, isHero: true,)
           ),
         );
       },
       child: Hero(
+        createRectTween: (begin, end) {
+          return RectTween(begin: begin, end: end);
+        },
         tag: tag,
         child: CachedNetworkImage(
           imageUrl: url,
