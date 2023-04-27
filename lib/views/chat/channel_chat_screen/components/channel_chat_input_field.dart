@@ -5,11 +5,12 @@ import 'package:bitsapp/services/firebase_chat_channel_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/chat/chat_room_screen.dart';
 import 'package:bitsapp/views/chat/components/reply_message.dart';
+import 'package:bitsapp/views/chat/components/send_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../components/message_input_field.dart';
 
 class ChannelChatInputField extends HookConsumerWidget {
   final String chatRoomName;
@@ -35,7 +36,6 @@ class ChannelChatInputField extends HookConsumerWidget {
             BitsUser.dummy
         : null;
     final recieverName = isReplying ? receiver!.name : "";
-    const inputBottomRadius = Radius.circular(24);
     return Container(
       color: Constants.kSecondaryColor,
       padding: const EdgeInsets.only(left: 15, right: 15, bottom: 16, top: 8),
@@ -60,30 +60,10 @@ class ChannelChatInputField extends HookConsumerWidget {
                       onCancelReply: reset,
                     ),
                   ),
-                TextField(
+                MessageInputField(
                   focusNode: focusNode,
-                  cursorColor: Colors.black,
-                  controller: textController,
-                  cursorRadius: const Radius.circular(5),
-                  textCapitalization: TextCapitalization.sentences,
-                  autocorrect: true,
-                  enableSuggestions: true,
-                  style: GoogleFonts.roboto(),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Type a message',
-                    hintStyle: GoogleFonts.roboto(color: Colors.black54),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.only(
-                        topLeft: isReplying ? Radius.zero : inputBottomRadius,
-                        topRight: isReplying ? Radius.zero : inputBottomRadius,
-                        bottomLeft: inputBottomRadius,
-                        bottomRight: inputBottomRadius,
-                      ),
-                    ),
-                  ),
+                  textController: textController,
+                  isReplying: isReplying,
                 ),
               ],
             ),
@@ -109,19 +89,7 @@ class ChannelChatInputField extends HookConsumerWidget {
               }
               reset();
             },
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(14, 15, 12, 15),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Constants.kPrimaryColor,
-              ),
-              child: SvgPicture.asset(
-                "assets/icons/share_filled.svg",
-                width: 28,
-                height: 28,
-                color: Colors.white,
-              ),
-            ),
+            child: const SendButton(),
           ),
         ],
       ),
