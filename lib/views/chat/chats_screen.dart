@@ -170,7 +170,6 @@ class ChatsScreen extends HookConsumerWidget {
             ),
           ),
         ),
-   
         Expanded(
           child: FirestoreListView(
             query: FirebaseFirestore.instance.collection('Channels'),

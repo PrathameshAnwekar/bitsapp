@@ -20,7 +20,6 @@ class ApplyNowScreen extends HookConsumerWidget {
         .watch(internshipDataProvider)
         .where((element) => element.uid == internshipUid)
         .first;
-
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -191,7 +190,6 @@ Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  // color: const Color(0xFF149fda),
                   color: Constants.kPrimaryColor,
                 ),
               ),

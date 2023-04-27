@@ -28,21 +28,8 @@ class JobDetailScreen extends StatelessWidget {
           ),
         ),
         scrolledUnderElevation: 0,
-        leadingWidth: 40,
-        centerTitle: false,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 6),
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 28,
-              color: Colors.black.withOpacity(0.7),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Text(
           "Internship details",
@@ -77,7 +64,7 @@ class JobDetailScreen extends StatelessWidget {
               internshipData.title,
               style: GoogleFonts.roboto(
                 color: Colors.black.withOpacity(0.8),
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 fontSize: 20,
               ),
             ),
