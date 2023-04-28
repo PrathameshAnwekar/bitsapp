@@ -30,7 +30,8 @@ class BitsUserAdapter extends TypeAdapter<BitsUser> {
         postedInternships: [],
         feedPosts: [],
         resumeLink: null,
-        userExperience: []);
+        userExperience: [], 
+        chatBarrier: false);
   }
 
   @override
@@ -86,6 +87,7 @@ BitsUser _$BitsUserFromJson(Map<String, dynamic> json) => BitsUser(
       userExperience: (json['userExperience'] as List<dynamic>?)
           ?.map((e) => UserExperience.fromJson(e as Map<String, dynamic>))
           .toList(),
+      chatBarrier: json['chatBarrier'] as bool?
     );
 
 Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
@@ -103,4 +105,5 @@ Map<String, dynamic> _$BitsUserToJson(BitsUser instance) => <String, dynamic>{
       'feedPosts': instance.feedPosts,
       'resumeLink': instance.resumeLink,
       'userExperience': instance.userExperience,
+      'chatBarries': instance.chatBarrier
     };

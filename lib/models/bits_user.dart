@@ -33,6 +33,7 @@ class BitsUser extends HiveObject {
   final List<String>? feedPosts;
   final String? resumeLink;
   final List<UserExperience>? userExperience;
+  final bool? chatBarrier;
   BitsUser({
     required this.name,
     required this.profilePicUrl,
@@ -48,6 +49,7 @@ class BitsUser extends HiveObject {
     required this.fcmToken,
     required this.resumeLink,
     required this.userExperience,
+    required this.chatBarrier
   });
 
   factory BitsUser.fromJson(Map<String, dynamic> json) =>
@@ -74,6 +76,7 @@ class BitsUser extends HiveObject {
       fcmToken: "NOT SET",
       resumeLink: null,
       userExperience: [],
+      chatBarrier: false
     );
     ref.read(localUserProvider.notifier).setUser(bitsUser);
     await FirestoreService.createUser(bitsUser);
@@ -94,6 +97,7 @@ class BitsUser extends HiveObject {
     fcmToken: "fcmToken",
     resumeLink: null,
     userExperience: [],
+    chatBarrier: false
   );
 }
 
@@ -113,7 +117,8 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
             fcmToken: "",
             feedPosts: [],
             resumeLink: null,
-            userExperience: []));
+            userExperience: [], 
+            chatBarrier: false));
 
   void setUser(BitsUser user) {
     state = user;
@@ -152,7 +157,8 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
         fcmToken: "",
         feedPosts: [],
         resumeLink: null,
-        userExperience: []);
+        userExperience: [],
+        chatBarrier: false);
   }
 }
 

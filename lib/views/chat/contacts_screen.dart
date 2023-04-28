@@ -9,7 +9,7 @@ class ContactsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contactsList = ref.read(contactsListProvider).toList();
+    final contactsList = ref.read(contactsListProvider).where((element) => element.chatBarrier == false).toList();
     final localUser = ref.read(localUserProvider);
     contactsList.removeWhere((element) => element.uid == localUser.uid);
     return Scaffold(
