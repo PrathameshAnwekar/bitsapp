@@ -36,9 +36,41 @@ class ProfileSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List matchQuery = [];
+    query = query.toLowerCase();
     for (var user in searchTerms) {
-      if (user.name.toLowerCase().contains(query.toLowerCase())) {
+      final emailBool = user.email.contains(query);
+      if (emailBool) {
         matchQuery.add(user);
+        continue;
+      }
+      final nameBool = user.name.toLowerCase().contains(query);
+      if (nameBool) {
+        matchQuery.add(user);
+        continue;
+      }
+      final expOrgBool = user.userExperience != null
+          ? user.userExperience!
+              .map((e) => e.description)
+              .toList()
+              .contains(query)
+          : false;
+      if (expOrgBool) {
+        matchQuery.add(user);
+        continue;
+      }
+      final expTitleBool = user.userExperience != null
+          ? user.userExperience!.map((e) => e.title).toList().contains(query)
+          : false;
+      if (expTitleBool) {
+        matchQuery.add(user);
+        continue;
+      }
+      final descBool = user.profileDescription != null
+          ? user.profileDescription!.toLowerCase().contains(query)
+          : false;
+      if (descBool) {
+        matchQuery.add(user);
+        continue;
       }
     }
     return ListView.builder(
@@ -53,8 +85,9 @@ class ProfileSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List matchQuery = [];
+    query = query.toLowerCase();
     for (var user in searchTerms) {
-      if (user.name.toLowerCase().contains(query.toLowerCase())) {
+      if (user.name.toLowerCase().contains(query)) {
         matchQuery.add(user);
       }
     }

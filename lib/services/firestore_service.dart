@@ -8,6 +8,7 @@ import 'package:bitsapp/models/internship_application.dart';
 import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/models/user_experience.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
@@ -85,6 +86,53 @@ class FirestoreService {
     }
   }
 
+  static Future<void> addUserExperience(String uid, UserExperience exp) async {
+    try {
+      await _usersRef.doc(uid).set({
+        "userExperience": FieldValue.arrayUnion([exp.toJson()])
+      }, SetOptions(merge: true));
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
+
+  static Future<void> removeUserExperience(
+      String uid, UserExperience experience) async {
+    try {
+      await _usersRef.doc(uid).set({
+        "userExperience": FieldValue.arrayRemove([experience.toJson()])
+      }, SetOptions(merge: true));
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
+
+  static Future<void> uploadResume(
+      File pdf, String userUid, BuildContext context,WidgetRef ref) async {
+    try {
+      final url = await _firebaseStorage
+          .child("resumes/$userUid")
+          .putFile(pdf)
+          .then((value) => value.ref.getDownloadURL());
+      await _usersRef
+          .doc(userUid)
+          .set({"resumeLink": url}, SetOptions(merge: true));
+      await initUser(ref, context);
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
+
+  static Future<void> setChatBarrier(bool value, String userUid) async {
+    try {
+      _usersRef
+          .doc(userUid)
+          .set({"chatBarrier": value}, SetOptions(merge: true));
+    } catch (e) {
+      elog(e.toString());
+    }
+  }
+
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {
       //get documents order by "name" field in each document
@@ -95,11 +143,11 @@ class FirestoreService {
         final profile = e.data();
         return BitsUser.fromJson(profile);
       }).toList();
-      
+
       await HiveStore.storeAllUserToStorage(allUsersList);
-      allUsersList.removeWhere((e) => e.uid == ref.read(localUserProvider).uid );
+      allUsersList.removeWhere((e) => e.uid == ref.read(localUserProvider).uid);
       ref.read(contactsListProvider.notifier).state = allUsersList;
-      
+
       dlog("initialised ${allUsersList.length} contacts");
     } catch (e) {
       elog(e.toString());

@@ -50,12 +50,9 @@ class BitsUser extends HiveObject {
     required this.userExperience,
   });
 
-  /// The generated code below handles if the corresponding JSON value doesn't
-  /// exist or is empty.
   factory BitsUser.fromJson(Map<String, dynamic> json) =>
       _$BitsUserFromJson(json);
 
-  /// Connect the generated [_$UserToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$BitsUserToJson(this);
 
   static Future<void> createNewUser(
