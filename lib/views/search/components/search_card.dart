@@ -1,5 +1,6 @@
 import 'package:bitsapp/controllers/search_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,9 +26,9 @@ class SearchCard extends HookConsumerWidget {
           children: [
             Stack(
               children: [
-                const CircleAvatar(
+                 CircleAvatar(
                   radius: 24,
-                  // backgroundImage: AssetImage(chat.image),
+                  backgroundImage: CachedNetworkImageProvider(user.profilePicUrl ?? 'https://picsum.photos/50/50?'),
                 ),
                 if (true)
                   Positioned(
