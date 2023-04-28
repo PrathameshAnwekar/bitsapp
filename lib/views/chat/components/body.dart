@@ -113,7 +113,6 @@ class _BodyState extends ConsumerState<Body> {
           senderName: localUser.name,
           reset: () {
             ref.read(replyOfMessageProvider.notifier).state = null;
-            
           },
           focusNode: focusNode,
         ),

@@ -48,9 +48,9 @@ class ChatsScreen extends HookConsumerWidget {
             dividerColor: Constants.kSecondaryColor,
             labelColor: Constants.kPrimaryColor,
             unselectedLabelStyle:
-                GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
+                GoogleFonts.inter(fontSize: 15.3, fontWeight: FontWeight.w500),
             labelStyle:
-                GoogleFonts.dmSans(fontSize: 16, fontWeight: FontWeight.w600),
+                GoogleFonts.inter(fontSize: 15.3, fontWeight: FontWeight.w500),
             indicatorColor: Constants.kPrimaryColor,
             tabs: const [
               Tab(
@@ -170,7 +170,6 @@ class ChatsScreen extends HookConsumerWidget {
             ),
           ),
         ),
-   
         Expanded(
           child: FirestoreListView(
             query: FirebaseFirestore.instance.collection('Channels'),

@@ -18,47 +18,73 @@ class ApplyNow extends StatelessWidget {
       elevation: 14,
       child: SizedBox(
         height: 90,
-        child: Center(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) => ApplyNowScreen(
-                        internshipUid: internshipUid,
-                      )),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Constants.kPrimaryColor,
+                  ),
                 ),
-              );
-            },
-            child: Card(
-              color: Constants.kPrimaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              shadowColor: Constants.kPrimaryColor.withOpacity(0.8),
-              elevation: 6,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(35, 16, 4, 16),
-                    child: Text(
-                      "Apply Now",
-                      style: GoogleFonts.roboto(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                child: Text(
+                  "Back",
+                  style: GoogleFonts.roboto(
+                    color: Constants.kPrimaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
                   ),
-                  const Icon(
-                    Icons.navigate_next_rounded,
-                    color: Colors.white,
-                    size: 28,
-                  ),
-                  const SizedBox(width: 18),
-                ],
+                ),
               ),
             ),
-          ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) => ApplyNowScreen(
+                          internshipUid: internshipUid,
+                        )),
+                  ),
+                );
+              },
+              child: Card(
+                color: Constants.kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                shadowColor: Constants.kPrimaryColor.withOpacity(0.8),
+                elevation: 6,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(35, 16, 4, 16),
+                      child: Text(
+                        "Apply Now",
+                        style: GoogleFonts.roboto(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.navigate_next_rounded,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                    const SizedBox(width: 18),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

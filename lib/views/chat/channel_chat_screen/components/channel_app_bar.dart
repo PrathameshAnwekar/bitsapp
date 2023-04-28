@@ -42,7 +42,7 @@ class ChannelAppBar extends StatelessWidget with PreferredSizeWidget {
               const SizedBox(width: Constants.kDefaultPadding * 0.75),
               Text(
                 channelName,
-                style: GoogleFonts.dmSans(
+                style: GoogleFonts.inter(
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),

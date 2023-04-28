@@ -4,9 +4,15 @@ import 'package:bitsapp/views/chat/components/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
-class TextMessage extends StatelessWidget {
-  const TextMessage({
+import '../../../../constants/constants.dart';
+import '../../../../models/bits_user.dart';
+import '../../../../storage/hiveStore.dart';
+import '../../../profile_screen/profile_screen.dart';
+
+class ChannelTextMessage extends StatelessWidget {
+  const ChannelTextMessage({
     Key? key,
     required this.message,
     required this.replyText,
@@ -19,6 +25,8 @@ class TextMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final poster =
+        HiveStore.getUserFromStorage(uid: message.sender) ?? BitsUser.dummy;
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
@@ -30,10 +38,30 @@ class TextMessage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (replyText != null)
+                if (!isSender)
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: ProfileScreen(poster),
+                        duration: const Duration(milliseconds: 250),
+                      ),
+                    ),
+                    child: Text(
+                      "~${poster.name}",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        color: Constants.inactiveIconColor,
+                        fontSize: 13.5,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                if (replyText != "")
                   Container(
                     padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(bottom: 4),
+                    margin: const EdgeInsets.only(bottom: 4, left: 9, right: 9),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(10),
@@ -48,12 +76,15 @@ class TextMessage extends StatelessWidget {
                       receiverUsername: "Prathamesh Anwekar",
                     ),
                   ),
-                Text(
-                  message.text,
-                  style: GoogleFonts.roboto(
-                    fontSize: 15,
-                    height: 1.2,
-                    color: isSender ? Colors.white : Colors.black,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 9),
+                  child: Text(
+                    message.text,
+                    style: GoogleFonts.roboto(
+                      fontSize: 15,
+                      height: 1.2,
+                      color: isSender ? Colors.white : Colors.black,
+                    ),
                   ),
                 ),
               ],
