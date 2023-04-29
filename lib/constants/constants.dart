@@ -84,7 +84,7 @@ class Constants {
     "Jenkins"
   ];
 
-  static const kPrimaryColor = Color(0xFF1979fa);
+  static const kPrimaryColor = Color(0xFF256ff0);
   static const kSecondaryColor = Color(0xFFf8f7fc);
   static const k2SecondaryColor = Color(0xFFf7f7f8);
   static const kContentColorLightTheme = Color(0xFF1D1D35);

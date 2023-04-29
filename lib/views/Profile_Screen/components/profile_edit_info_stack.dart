@@ -15,9 +15,11 @@ class ProfileInfoStack extends StatefulWidget {
   final String name;
   final String? imageUrl;
   final String? profileDescription;
+  final bool isLocalUser;
   const ProfileInfoStack({
     super.key,
     required this.name,
+    required this.isLocalUser,
     this.imageUrl,
     this.profileDescription,
   });
@@ -100,25 +102,28 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
               ),
             ),
           ),
-          Positioned(
-            right: 10,
-            top: 72,
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.bottomToTop,
-                    child: const ProfileEditScreen(),
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 250),
-                  ),
-                );
-              },
-              icon: const Icon(
-                FontAwesomeIcons.penToSquare,
-                size: 22,
-                color: Color(0xFF69708C),
+          Visibility(
+            visible: widget.isLocalUser,
+            child: Positioned(
+              right: 10,
+              top: 72,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.bottomToTop,
+                      child: const ProfileEditScreen(),
+                      childCurrent: widget,
+                      duration: const Duration(milliseconds: 250),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  FontAwesomeIcons.penToSquare,
+                  size: 22,
+                  color: Color(0xFF69708C),
+                ),
               ),
             ),
           ),

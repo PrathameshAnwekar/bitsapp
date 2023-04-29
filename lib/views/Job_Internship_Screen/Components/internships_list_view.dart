@@ -55,9 +55,13 @@ class InternshipsListView extends HookConsumerWidget {
         itemBuilder: (BuildContext context, int index) {
           final poster =
               HiveStore.getUserFromStorage(uid: internData[index].posterUID)!;
-          return InternshipCard(
-            internshipData: internData[index],
-            poster: poster,
+          bool isLastIndex = (index == (internData.length - 1));
+          return Padding(
+            padding: EdgeInsets.only(bottom: isLastIndex ? 20 : 0),
+            child: InternshipCard(
+              internshipData: internData[index],
+              poster: poster,
+            ),
           );
         },
         itemCount: internData.length,
