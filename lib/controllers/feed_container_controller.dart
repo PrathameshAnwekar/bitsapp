@@ -14,31 +14,39 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 class FeedContainerController {
-  static Future<void> toggleLike({
+  static Future<bool> toggleLike({
     required ValueNotifier<bool> likeStatus,
     required String localUserUid,
     required WidgetRef ref,
     required String feedPostUid,
   }) async {
-    try{if (likeStatus.value) {
-      await ref.read(feedPostDataProvider.notifier).removeLike(feedPostUid, localUserUid);
-      likeStatus.value = false;
-    } else {
-      await ref.read(feedPostDataProvider.notifier).addLike(feedPostUid,localUserUid);
-      likeStatus.value = true;
-    }}catch(e){
+    try {
+      if (likeStatus.value) {
+        await ref
+            .read(feedPostDataProvider.notifier)
+            .removeLike(feedPostUid, localUserUid);
+        likeStatus.value = false;
+        return false;
+      } else {
+        await ref
+            .read(feedPostDataProvider.notifier)
+            .addLike(feedPostUid, localUserUid);
+        likeStatus.value = true;
+        return true;
+      }
+    } catch (e) {
       elog(e.toString());
+      return false;
     }
   }
 
   static Future<bool> addCommentToPost(
       {required FeedPost feedPost,
       required Comment comment,
-      
       required WidgetRef ref}) async {
     try {
       if (comment.text.trim() == "") return false;
-      
+
       ref
           .read(feedPostDataProvider.notifier)
           .addComment(feedPost.timeuid, comment);

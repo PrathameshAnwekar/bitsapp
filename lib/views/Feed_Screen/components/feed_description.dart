@@ -9,6 +9,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:like_button/like_button.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
 
@@ -95,24 +97,16 @@ class FeedDesc extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             children: <Widget>[
-              GestureDetector(
-                onTap: () async {
-                  await FeedContainerController.toggleLike(
+              LikeButton(
+                isLiked: likeStatus.value,
+                onTap: (isLiked) async {
+                  return await FeedContainerController.toggleLike(
                       likeStatus: likeStatus,
                       localUserUid: localUser.uid,
                       feedPostUid: feedPost.timeuid,
-                      ref: ref);
+                      ref: ref,
+                      );
                 },
-                child: SvgPicture.asset(
-                  likeStatus.value
-                      ? Constants.postOptionIcons[1]
-                      : Constants.postOptionIcons[0],
-                  width: 25,
-                  height: 25,
-                  color: !likeStatus.value
-                      ? const Color.fromRGBO(32, 33, 37, 1)
-                      : Constants.kPrimaryColor,
-                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 6, right: 12),
