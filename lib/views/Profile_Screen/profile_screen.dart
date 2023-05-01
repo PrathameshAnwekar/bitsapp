@@ -16,37 +16,56 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen(this.user, {super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final BitsUser localUser = user ?? ref.watch(localUserProvider);
+    BitsUser localUser = user ?? ref.watch(localUserProvider);
+    bool isLocalUser = (user == null);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: SizedBox(
-            height: 32,
-            width: 32,
-            child: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.black.withOpacity(0.65),
+        leading: isLocalUser
+            ? null
+            : IconButton(
+                icon: SizedBox(
+                  height: 32,
+                  width: 32,
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: Colors.black.withOpacity(0.65),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+        actions: [
+          Visibility(
+            visible: isLocalUser,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: SizedBox(
+                height: 32,
+                width: 32,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.logout,
+                    color: Colors.black.withOpacity(0.65),
+                  ),
+                  onPressed: () {
+                    AuthController.signOut(context, ref);
+                  },
+                ),
+              ),
             ),
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              AuthController.signOut(context, ref);
-            },
-          )
         ],
         scrolledUnderElevation: 0,
-        title: Text(
-          "Profile",
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.65),
-            fontWeight: FontWeight.w500,
+        title: Padding(
+          padding: EdgeInsets.only(left: isLocalUser ? 3.5 : 0),
+          child: Text(
+            "Profile",
+            style: TextStyle(
+              color: Colors.black.withOpacity(0.65),
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         backgroundColor: Colors.white,
@@ -58,6 +77,7 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             children: <Widget>[
               ProfileInfoStack(
+                isLocalUser: isLocalUser,
                 name: localUser.name,
                 imageUrl: localUser.profilePicUrl,
                 profileDescription: localUser.profileDescription,
@@ -85,22 +105,25 @@ class ProfileScreen extends ConsumerWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                child: const ExperienceEditScreen(),
-                                childCurrent: this,
-                                duration: const Duration(milliseconds: 250),
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            FontAwesomeIcons.penToSquare,
-                            size: 22,
-                            color: Color(0xFF69708C),
+                        Visibility(
+                          visible: isLocalUser,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  child: const ExperienceEditScreen(),
+                                  childCurrent: this,
+                                  duration: const Duration(milliseconds: 250),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.penToSquare,
+                              size: 22,
+                              color: Color(0xFF69708C),
+                            ),
                           ),
                         ),
                       ],
@@ -155,22 +178,25 @@ class ProfileScreen extends ConsumerWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                child: const EducationEditScreen(),
-                                childCurrent: this,
-                                duration: const Duration(milliseconds: 250),
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            FontAwesomeIcons.penToSquare,
-                            size: 22,
-                            color: Color(0xFF69708C),
+                        Visibility(
+                          visible: isLocalUser,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  child: const EducationEditScreen(),
+                                  childCurrent: this,
+                                  duration: const Duration(milliseconds: 250),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.penToSquare,
+                              size: 22,
+                              color: Color(0xFF69708C),
+                            ),
                           ),
                         ),
                       ],

@@ -134,33 +134,34 @@ class FeedScreen extends ConsumerWidget {
               centerTitle: true,
             ),
           ],
-          body: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: SmartRefresher(
-              key: const ValueKey("Feed"),
-              enablePullDown: true,
-              enablePullUp: false,
-              controller: _refreshController1,
-              header: const MaterialClassicHeader(
-                color: Constants.kPrimaryColor,
-              ),
-              onLoading: () => _onLoading(feedPosts),
-              onRefresh: () => _onRefresh(ref),
-              child: ListView.builder(
-                addAutomaticKeepAlives: true,
-                addRepaintBoundaries: false,
-                itemCount: feedPosts.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final key = ObjectKey(feedPosts[index]);
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: FeedContainer(
-                      key: key,
-                      feedPost: feedPosts[index],
-                    ),
-                  );
-                },
-              ),
+          body: SmartRefresher(
+            key: const ValueKey("Feed"),
+            enablePullDown: true,
+            enablePullUp: false,
+            controller: _refreshController1,
+            header: const MaterialClassicHeader(
+              color: Constants.kPrimaryColor,
+            ),
+            onLoading: () => _onLoading(feedPosts),
+            onRefresh: () => _onRefresh(ref),
+            child: ListView.builder(
+              addAutomaticKeepAlives: true,
+              addRepaintBoundaries: false,
+              itemCount: feedPosts.length,
+              itemBuilder: (BuildContext context, int index) {
+                final key = ObjectKey(feedPosts[index]);
+                bool isLastIndex = (index == (feedPosts.length - 1));
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: isLastIndex ? 10 : 0,
+                  ),
+                  child: FeedContainer(
+                    key: key,
+                    feedPost: feedPosts[index],
+                  ),
+                );
+              },
             ),
           ),
         ),
