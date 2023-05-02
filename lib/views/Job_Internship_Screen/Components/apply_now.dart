@@ -7,19 +7,22 @@ class ApplyNow extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.text,
+    required this.elevation,
+    required this.alignment,
   });
   final VoidCallback onPressed;
   final String text;
-
+  final double elevation;
+  final MainAxisAlignment alignment;
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      elevation: 14,
+      elevation: elevation,
       child: SizedBox(
         height: 90,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: alignment,
           children: [
             GestureDetector(
               onTap: () {

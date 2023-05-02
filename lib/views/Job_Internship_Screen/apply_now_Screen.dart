@@ -53,6 +53,8 @@ class ApplyNowScreen extends HookConsumerWidget {
           }
         },
         text: "Submit",
+        elevation: 14,
+        alignment: MainAxisAlignment.spaceEvenly,
       ),
       // bottomNavigationBar: _bottomWidget(context, _formKey,
       //     coverLetterController, ref, localUser, internshipUid),

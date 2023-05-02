@@ -126,6 +126,8 @@ class JobDetailScreen extends StatelessWidget {
           ),
         ),
         text: "Apply Now",
+        elevation: 14,
+        alignment: MainAxisAlignment.spaceEvenly,
       ),
     );
   }

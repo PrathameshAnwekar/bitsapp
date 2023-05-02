@@ -8,8 +8,10 @@ import '../../../constants/size_config.dart';
 
 class VerticalMenu extends StatelessWidget {
   final List<UserExperience> userExperience;
+  final bool isEdit;
   const VerticalMenu({
     super.key,
+    required this.isEdit,
     required this.userExperience,
   });
 
@@ -52,7 +54,7 @@ class VerticalMenu extends StatelessWidget {
               color: Colors.grey.shade400,
               child: Container(
                 width: SizeConfig.screenWidth * 0.75,
-                margin: const EdgeInsets.only(left: 30),
+                margin: EdgeInsets.only(left: isEdit ? 25 : 30),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: const BoxDecoration(
@@ -86,12 +88,22 @@ class VerticalMenu extends StatelessWidget {
                       "Jun 2022 - Jul 2022 · 2 mos",
                       // userExperience[index].start.toString() +
                       //     userExperience[index].end.toString(),
-                      style: GoogleFonts.roboto(
+                      style: GoogleFonts.inter(
                         color: Colors.black54,
                         fontSize: 14,
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Visibility(
+              visible: isEdit,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.edit_rounded,
+                  size: 24,
                 ),
               ),
             ),

@@ -20,8 +20,8 @@ class TextBox extends StatelessWidget {
         gradient: isSender
             ? LinearGradient(
                 colors: [
-                  Constants.kPrimaryColor.withOpacity(0.76),
-                  Constants.kPrimaryColor
+                  Constants.kPrimaryColor.withOpacity(0.8),
+                  Constants.kPrimaryColor,
                 ],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,

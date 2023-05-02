@@ -10,7 +10,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:like_button/like_button.dart';
-import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
 
@@ -91,7 +90,11 @@ class FeedDesc extends HookConsumerWidget {
             ),
           ),
         ),
-        MediaContainer(post: feedPost),
+        MediaContainer(
+          heightFactor: 1,
+          timeuid: feedPost.timeuid,
+          mediaFilesList: feedPost.mediaFilesList,
+        ),
         const SizedBox(height: 8),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -101,11 +104,11 @@ class FeedDesc extends HookConsumerWidget {
                 isLiked: likeStatus.value,
                 onTap: (isLiked) async {
                   return await FeedContainerController.toggleLike(
-                      likeStatus: likeStatus,
-                      localUserUid: localUser.uid,
-                      feedPostUid: feedPost.timeuid,
-                      ref: ref,
-                      );
+                    likeStatus: likeStatus,
+                    localUserUid: localUser.uid,
+                    feedPostUid: feedPost.timeuid,
+                    ref: ref,
+                  );
                 },
               ),
               Padding(
@@ -132,31 +135,12 @@ class FeedDesc extends HookConsumerWidget {
                 ),
               ),
               const Spacer(),
-              // GestureDetector(
-              //   onTap: () async {
-              //     final res =
-              //         await FeedContainerController.bookmarkFeedPost(feedPost);
-
-              //     if (res) {
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         const SnackBar(
-              //           content: Text('Post Bookmarked'),
-              //           duration: Duration(seconds: 1),
-              //         ),
-              //       );
-              //     }
-              //   },
-              //   child: SvgPicture.asset(
-              //     Constants.postOptionIcons[2],
-              //     width: 26,
-              //     height: 26,
-              //     color: const Color(0xFF0073B1),
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () async {
                   await FeedContainerController.openShareSheet(
-                      context, feedPost);
+                    context,
+                    feedPost,
+                  );
                 },
                 child: SvgPicture.asset(
                   Constants.postOptionIcons[4],

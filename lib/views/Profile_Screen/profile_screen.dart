@@ -1,9 +1,9 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/user_experience.dart';
-import 'package:bitsapp/views/profile_screen/edit_education_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -48,14 +48,14 @@ class ProfileScreen extends ConsumerWidget {
         description: 'Electronics and Instrumentation',
         start: 1,
         end: 2,
-        type: ExperienceType.work,
+        type: ExperienceType.education,
       ),
       UserExperience(
         title: 'The Camford International School',
         description: '',
         start: 1,
         end: 2,
-        type: ExperienceType.work,
+        type: ExperienceType.education,
       ),
     ];
     return Scaffold(
@@ -136,7 +136,7 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         Text(
                           "Experience",
-                          style: TextStyle(
+                          style: GoogleFonts.roboto(
                             color: Colors.black.withOpacity(0.65),
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -150,7 +150,10 @@ class ProfileScreen extends ConsumerWidget {
                                 context,
                                 PageTransition(
                                   type: PageTransitionType.bottomToTop,
-                                  child: const ExperienceEditScreen(),
+                                  child: ExperienceEditScreen(
+                                    userExperience: temp,
+                                    isExperience: true,
+                                  ),
                                   childCurrent: this,
                                   duration: const Duration(milliseconds: 250),
                                 ),
@@ -165,7 +168,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    VerticalMenu(userExperience: temp),
+                    VerticalMenu(userExperience: temp, isEdit: false),
                     // const ExperienceWidget(
                     //   url:
                     //       "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
@@ -207,7 +210,7 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         Text(
                           "Education",
-                          style: TextStyle(
+                          style: GoogleFonts.roboto(
                             color: Colors.black.withOpacity(0.65),
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -221,7 +224,10 @@ class ProfileScreen extends ConsumerWidget {
                                 context,
                                 PageTransition(
                                   type: PageTransitionType.bottomToTop,
-                                  child: const EducationEditScreen(),
+                                  child: ExperienceEditScreen(
+                                    userExperience: temp2,
+                                    isExperience: false,
+                                  ),
                                   childCurrent: this,
                                   duration: const Duration(milliseconds: 250),
                                 ),
@@ -236,8 +242,7 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-
-                    VerticalMenu(userExperience: temp2),
+                    VerticalMenu(userExperience: temp2, isEdit: false),
                     // const ExperienceWidget(
                     //   url:
                     //       "https://media.licdn.com/dms/image/C510BAQFYyp6NIc6n2A/company-logo_100_100/0/1539083994824?e=1684972800&v=beta&t=XdAP4lWl6r1I2NMtcvmoJBoCAJ9IGgpQjUYF5fEdG5w",
