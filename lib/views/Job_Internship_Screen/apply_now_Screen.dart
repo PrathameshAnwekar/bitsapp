@@ -8,6 +8,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'components/apply_now.dart';
+
 class ApplyNowScreen extends HookConsumerWidget {
   ApplyNowScreen({super.key, required this.internshipUid});
   final String internshipUid;
@@ -38,8 +40,22 @@ class ApplyNowScreen extends HookConsumerWidget {
         elevation: 0,
       ),
       backgroundColor: Colors.white,
-      bottomNavigationBar: _bottomWidget(context, _formKey,
-          coverLetterController, ref, localUser, internshipUid),
+      bottomNavigationBar: ApplyNow(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            InternshipDataController.addApplication(
+              ref: ref,
+              applicantUid: localUser.uid,
+              internshipUid: internshipUid,
+              coverLetter: coverLetterController.text,
+              context: context,
+            );
+          }
+        },
+        text: "Submit",
+      ),
+      // bottomNavigationBar: _bottomWidget(context, _formKey,
+      //     coverLetterController, ref, localUser, internshipUid),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -168,76 +184,6 @@ Widget _heading2(String txt, String txt2) {
           ),
         ),
       ],
-    ),
-  );
-}
-
-Widget _bottomWidget(BuildContext context, formKey, coverLetterController, ref,
-    localUser, internshipUid) {
-  return Material(
-    elevation: 14,
-    color: Colors.white,
-    child: SizedBox(
-      height: 90,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Constants.kPrimaryColor,
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-              child: Text(
-                "Back",
-                style: GoogleFonts.roboto(
-                  color: Constants.kPrimaryColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 17,
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                InternshipDataController.addApplication(
-                  ref: ref,
-                  applicantUid: localUser.uid,
-                  internshipUid: internshipUid,
-                  coverLetter: coverLetterController.text,
-                  context: context,
-                );
-              }
-            },
-            child: Card(
-              color: Constants.kPrimaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              shadowColor: const Color(0xFF149fda).withOpacity(0.6),
-              elevation: 6,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 14),
-                child: Text(
-                  "Submit",
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     ),
   );
 }

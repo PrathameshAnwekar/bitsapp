@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 
+import '../../constants/constants.dart';
 import '../job_internship_screen/components/title1.dart';
 import 'components/data_widget.dart';
 
@@ -25,8 +26,9 @@ class ExperienceEditScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         title: Text(
           "Edit Experience",
-          style: GoogleFonts.dmSans(
-            color: Colors.black.withOpacity(0.65),
+          style: GoogleFonts.inter(
+            color: Colors.black.withOpacity(0.8),
+            fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -102,29 +104,92 @@ class ExperienceEditScreen extends StatelessWidget {
               String? selectedEmploymentType;
               return AlertDialog(
                 actions: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4D5470),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.only(top: 10),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 6),
-                      child: const Text("Save",
-                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                  // GestureDetector(
+                  //   onTap: () => Navigator.of(context).pop(),
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       color: const Color(0xFF4D5470),
+                  //       borderRadius: BorderRadius.circular(20),
+                  //     ),
+                  //     margin: const EdgeInsets.only(top: 10),
+                  //     padding: const EdgeInsets.symmetric(
+                  //         horizontal: 15, vertical: 6),
+                  //     child: const Text("Save",
+                  //         style: TextStyle(fontSize: 18, color: Colors.white)),
+                  //   ),
+                  // )
+                  SizedBox(
+                    height: 70,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Constants.kPrimaryColor,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 35, vertical: 12),
+                            child: Text(
+                              "Back",
+                              style: GoogleFonts.roboto(
+                                color: Constants.kPrimaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Card(
+                            color: Constants.kPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            shadowColor:
+                                Constants.kPrimaryColor.withOpacity(0.8),
+                            elevation: 6,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 35,
+                                    vertical: 14,
+                                  ),
+                                  child: Text(
+                                    "Save",
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  )
+                  ),
                 ],
                 scrollable: true,
                 insetPadding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                 title: const Text("Add experience"),
-                titleTextStyle: GoogleFonts.dmSans(
+                titleTextStyle: GoogleFonts.inter(
                   color: Colors.black.withOpacity(0.8),
                   fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
                 surfaceTintColor: Colors.white,
                 titlePadding:
@@ -312,7 +377,7 @@ Future<DateTime?> pickDate(BuildContext context) async {
   final newDate = await showMonthYearPicker(
     context: context,
     initialDate: initialDate,
-    firstDate: DateTime(DateTime.now().year - 30),
+    firstDate: DateTime(DateTime.now().year - 50),
     lastDate: DateTime(DateTime.now().year + 1),
   );
   return newDate;

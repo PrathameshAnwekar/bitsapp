@@ -1,14 +1,15 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/user_experience.dart';
 import 'package:bitsapp/views/profile_screen/edit_education_screen.dart';
-import 'package:bitsapp/views/profile_screen/edit_experience_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../profile_screen/components/data_widget.dart';
 import 'components/profile_edit_info_stack.dart';
+import 'components/vertical_menu.dart';
+import 'edit_experience_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   final BitsUser? user;
@@ -18,6 +19,45 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     BitsUser localUser = user ?? ref.watch(localUserProvider);
     bool isLocalUser = (user == null);
+    List<UserExperience> temp = [
+      UserExperience(
+        title: 'Summer Intern',
+        description: 'Jio Platforms Limited',
+        start: 1,
+        end: 2,
+        type: ExperienceType.work,
+      ),
+      UserExperience(
+        title: 'App Developer',
+        description: 'Rentalz',
+        start: 1,
+        end: 2,
+        type: ExperienceType.work,
+      ),
+      UserExperience(
+        title: 'Summer Intern',
+        description: 'CRISS Robotics',
+        start: 1,
+        end: 2,
+        type: ExperienceType.work,
+      ),
+    ];
+    List<UserExperience> temp2 = [
+      UserExperience(
+        title: 'Bits Pilani',
+        description: 'Electronics and Instrumentation',
+        start: 1,
+        end: 2,
+        type: ExperienceType.work,
+      ),
+      UserExperience(
+        title: 'The Camford International School',
+        description: '',
+        start: 1,
+        end: 2,
+        type: ExperienceType.work,
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -85,11 +125,8 @@ class ProfileScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.17),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(15),
-                  ),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,41 +165,39 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const ExperienceWidget(
-                      url:
-                          "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
-                      txt1: "Summer Intern",
-                      txt2: "Jio Platforms Limited · Internship",
-                      txt3: "Jun 2022 - Jul 2022 · 2 mos",
-                      showEdit: false,
-                    ),
-                    const ExperienceWidget(
-                      url:
-                          "https://media.licdn.com/dms/image/C4D0BAQF4FNXeLIGIaA/company-logo_100_100/0/1628696386405?e=1684972800&v=beta&t=gxswQ2V7FRmjIZwRAp129CzoW4_xWlhxXWI2bUY_R3Q",
-                      txt1: "App Developer",
-                      txt2: "Rentalz · Part-time",
-                      txt3: "Sep 2021 - Feb 2022 · 6 mos",
-                      showEdit: false,
-                    ),
-                    const ExperienceWidget(
-                      url:
-                          "https://media.licdn.com/dms/image/C4E0BAQGJ6Z9crpkcXw/company-logo_100_100/0/1629550065724?e=1684972800&v=beta&t=KKLx6qZHKGmK1n2YingHh-WdO-x6jHif5hzfSSWsWok",
-                      txt1: "Summer Intern",
-                      txt2: "CRISS Robotics · Internship",
-                      txt3: "Jul 2021 - Feb 2022 · 8 mos",
-                      showEdit: false,
-                    ),
+                    VerticalMenu(userExperience: temp),
+                    // const ExperienceWidget(
+                    //   url:
+                    //       "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
+                    //   txt1: "Summer Intern",
+                    //   txt2: "Jio Platforms Limited · Internship",
+                    //   txt3: "Jun 2022 - Jul 2022 · 2 mos",
+                    //   showEdit: false,
+                    // ),
+                    // const ExperienceWidget(
+                    //   url:
+                    //       "https://media.licdn.com/dms/image/C4D0BAQF4FNXeLIGIaA/company-logo_100_100/0/1628696386405?e=1684972800&v=beta&t=gxswQ2V7FRmjIZwRAp129CzoW4_xWlhxXWI2bUY_R3Q",
+                    //   txt1: "App Developer",
+                    //   txt2: "Rentalz · Part-time",
+                    //   txt3: "Sep 2021 - Feb 2022 · 6 mos",
+                    //   showEdit: false,
+                    // ),
+                    // const ExperienceWidget(
+                    //   url:
+                    //       "https://media.licdn.com/dms/image/C4E0BAQGJ6Z9crpkcXw/company-logo_100_100/0/1629550065724?e=1684972800&v=beta&t=KKLx6qZHKGmK1n2YingHh-WdO-x6jHif5hzfSSWsWok",
+                    //   txt1: "Summer Intern",
+                    //   txt2: "CRISS Robotics · Internship",
+                    //   txt3: "Jul 2021 - Feb 2022 · 8 mos",
+                    //   showEdit: false,
+                    // ),
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.17),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(15),
-                  ),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,22 +236,24 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const ExperienceWidget(
-                      url:
-                          "https://media.licdn.com/dms/image/C510BAQFYyp6NIc6n2A/company-logo_100_100/0/1539083994824?e=1684972800&v=beta&t=XdAP4lWl6r1I2NMtcvmoJBoCAJ9IGgpQjUYF5fEdG5w",
-                      txt1: "Bits Pilani",
-                      txt2: "Electronics and Instrumentation",
-                      txt3: "2022 - 2024",
-                      showEdit: false,
-                    ),
-                    const ExperienceWidget(
-                      url:
-                          "https://imgs.search.brave.com/YXw_8nP0SsLihynYGUbasNPbeLL4szRrTqjONaMmYq8/rs:fit:225:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Z/YWcwLUNCN2ktZG5s/aFlFRlh2U0dnQUFB/QSZwaWQ9QXBp",
-                      txt1: "The Camford International School",
-                      txt2: "2018-2020",
-                      txt3: "",
-                      showEdit: false,
-                    ),
+
+                    VerticalMenu(userExperience: temp2),
+                    // const ExperienceWidget(
+                    //   url:
+                    //       "https://media.licdn.com/dms/image/C510BAQFYyp6NIc6n2A/company-logo_100_100/0/1539083994824?e=1684972800&v=beta&t=XdAP4lWl6r1I2NMtcvmoJBoCAJ9IGgpQjUYF5fEdG5w",
+                    //   txt1: "Bits Pilani",
+                    //   txt2: "Electronics and Instrumentation",
+                    //   txt3: "2022 - 2024",
+                    //   showEdit: false,
+                    // ),
+                    // const ExperienceWidget(
+                    //   url:
+                    //       "https://imgs.search.brave.com/YXw_8nP0SsLihynYGUbasNPbeLL4szRrTqjONaMmYq8/rs:fit:225:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Z/YWcwLUNCN2ktZG5s/aFlFRlh2U0dnQUFB/QSZwaWQ9QXBp",
+                    //   txt1: "The Camford International School",
+                    //   txt2: "2018-2020",
+                    //   txt3: "",
+                    //   showEdit: false,
+                    // ),
                   ],
                 ),
               ),

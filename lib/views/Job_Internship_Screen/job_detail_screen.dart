@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../components/circle_profile_pic.dart';
 import '../components/person_detail.dart';
+import 'apply_now_screen.dart';
 import 'components/apply_now.dart';
 import 'components/heading2.dart';
 import 'components/tags.dart';
@@ -116,7 +117,16 @@ class JobDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: ApplyNow(internshipUid: internshipData.uid),
+      bottomNavigationBar: ApplyNow(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => ApplyNowScreen(
+                  internshipUid: internshipData.uid,
+                )),
+          ),
+        ),
+        text: "Apply Now",
+      ),
     );
   }
 
