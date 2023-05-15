@@ -138,11 +138,12 @@ class FeedContainerController {
             .firstWhere((element) => element.uid == otherUserUid)
             .fcmToken;
         final message = Message(
-            sender: localUser.uid,
-            text: shareString,
-            type: MessageType.feedpost,
-            replyOf: null,
-            time: DateTime.now().millisecondsSinceEpoch);
+          sender: localUser.uid,
+          text: shareString,
+          type: MessageType.feedpost,
+          replyOf: null,
+          time: DateTime.now().millisecondsSinceEpoch,
+        );
         ref.read(chatRoomsProvider.notifier).addMessage(
             chatRoomToShare[i].uid, message, fcmToken ?? "null", "Someone new");
       }

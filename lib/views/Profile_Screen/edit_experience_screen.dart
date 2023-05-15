@@ -1,3 +1,4 @@
+import 'package:bitsapp/constants/constants.dart';
 import 'package:bitsapp/views/profile_screen/components/vertical_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,14 +20,6 @@ class ExperienceEditScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String title = isExperience ? "Experience" : "Education";
-    final employmentType = [
-      "Full-Time",
-      "Part-Time",
-      "Self-Employed",
-      "Freelance",
-      "Internship",
-      "Trainee"
-    ];
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -47,7 +40,7 @@ class ExperienceEditScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => showPopUp(context, employmentType, isExperience),
+            onPressed: () => showPopUp(context, isExperience),
             icon: Icon(
               FontAwesomeIcons.plus,
               color: Colors.black.withOpacity(0.65),
@@ -66,6 +59,11 @@ class ExperienceEditScreen extends StatelessWidget {
               VerticalMenu(
                 userExperience: userExperience,
                 isEdit: true,
+                onEdit: (index) => showPopUp(
+                  context,
+                  isExperience,
+                  oldData: userExperience[index],
+                ),
               ),
             ],
           ),
@@ -74,16 +72,18 @@ class ExperienceEditScreen extends StatelessWidget {
     );
   }
 
-  showPopUp(
-      BuildContext context, List<String> employmentType, bool isExperience) {
-    final String title = isExperience ? "Experience" : "Education";
+  showPopUp(BuildContext context, bool isExperience,
+      {UserExperience? oldData}) {
+    final bool isEdit = oldData != null;
+    final String title2 = isExperience ? "Experience" : "Education";
+    final String title1 = isEdit ? "Edit $title2" : "Add $title2";
     showDialog(
       context: context,
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            String? selectedEmploymentType;
             return AlertDialog(
+              backgroundColor: Colors.white,
               actions: [
                 ApplyNow(
                   onPressed: () {
@@ -93,73 +93,11 @@ class ExperienceEditScreen extends StatelessWidget {
                   elevation: 0,
                   alignment: MainAxisAlignment.spaceBetween,
                 ),
-                // SizedBox(
-                //   height: 70,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       GestureDetector(
-                //         onTap: () {
-                //           Navigator.pop(context);
-                //         },
-                //         child: Container(
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(10),
-                //             border: Border.all(
-                //               color: Constants.kPrimaryColor,
-                //             ),
-                //           ),
-                //           padding: const EdgeInsets.symmetric(
-                //               horizontal: 35, vertical: 12),
-                //           child: Text(
-                //             "Back",
-                //             style: GoogleFonts.roboto(
-                //               color: Constants.kPrimaryColor,
-                //               fontWeight: FontWeight.w500,
-                //               fontSize: 17,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       GestureDetector(
-                //         onTap: () {
-                //           Navigator.pop(context);
-                //         },
-                //         child: Card(
-                //           color: Constants.kPrimaryColor,
-                //           shape: RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(10)),
-                //           shadowColor: Constants.kPrimaryColor.withOpacity(0.8),
-                //           elevation: 6,
-                //           child: Row(
-                //             mainAxisSize: MainAxisSize.min,
-                //             children: [
-                //               Padding(
-                //                 padding: const EdgeInsets.symmetric(
-                //                   horizontal: 35,
-                //                   vertical: 14,
-                //                 ),
-                //                 child: Text(
-                //                   "Save",
-                //                   style: GoogleFonts.roboto(
-                //                     color: Colors.white,
-                //                     fontWeight: FontWeight.w500,
-                //                     fontSize: 16,
-                //                   ),
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
               scrollable: true,
               insetPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              title: Text("Add $title"),
+              title: Text(title1),
               titleTextStyle: GoogleFonts.inter(
                 color: Colors.black.withOpacity(0.8),
                 fontSize: 20,
@@ -183,9 +121,10 @@ class ExperienceEditScreen extends StatelessWidget {
                       }
                       return null;
                     },
+                    initialValue: isEdit ? oldData.title : null,
                     // controller: titleController,
                     cursorColor: Colors.black54,
-                    maxLength: 100,
+                    maxLength: 50,
                     decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.only(bottom: -10.0, left: 12),
@@ -221,6 +160,7 @@ class ExperienceEditScreen extends StatelessWidget {
                       }
                       return null;
                     },
+                    initialValue: isEdit ? oldData.description : null,
                     // controller: titleController,
                     cursorColor: Colors.black54,
                     maxLength: 100,
@@ -252,9 +192,23 @@ class ExperienceEditScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      DateWidget(start: true),
-                      DateWidget(start: false),
+                    children: [
+                      DateWidget(
+                        start: true,
+                        oldDate: isEdit
+                            ? DateTime.fromMillisecondsSinceEpoch(
+                                oldData.start,
+                              )
+                            : DateTime(0, 0, 0),
+                      ),
+                      DateWidget(
+                        start: false,
+                        oldDate: isEdit
+                            ? DateTime.fromMillisecondsSinceEpoch(
+                                oldData.end,
+                              )
+                            : DateTime(0, 0, 0),
+                      ),
                     ],
                   ),
                 ],
@@ -269,9 +223,11 @@ class ExperienceEditScreen extends StatelessWidget {
 
 class DateWidget extends StatefulWidget {
   final bool start;
+  final DateTime oldDate;
   const DateWidget({
     super.key,
     required this.start,
+    required this.oldDate,
   });
 
   @override
@@ -281,30 +237,15 @@ class DateWidget extends StatefulWidget {
 class _DateWidgetState extends State<DateWidget> {
   @override
   Widget build(BuildContext context) {
-    DateTime? date = DateTime.now();
-    List months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Title1(txt: widget.start ? "Start Date" : "End Date"),
         GestureDetector(
           onTap: () async {
-            final getDate = await pickDate(context);
+            final getDate = await pickDate(context, widget.oldDate);
             setState(() {
-              date = getDate;
+              // date = getDate;
             });
           },
           child: Container(
@@ -316,9 +257,11 @@ class _DateWidgetState extends State<DateWidget> {
             ),
             child: Center(
               child: Text(
-                widget.start
-                    ? '${months[date.month - 1]} ${date.year}'
-                    : "Present",
+                widget.oldDate != DateTime(0, 0, 0)
+                    ? '${Constants.months[widget.oldDate.month - 1]} ${widget.oldDate.year}'
+                    : widget.start
+                        ? "${Constants.months[DateTime.now().month - 1]} ${DateTime.now().year}"
+                        : "Present",
                 style: GoogleFonts.roboto(
                   fontSize: 16.5,
                   fontWeight: FontWeight.w400,
@@ -332,8 +275,8 @@ class _DateWidgetState extends State<DateWidget> {
   }
 }
 
-Future<DateTime?> pickDate(BuildContext context) async {
-  final initialDate = DateTime.now();
+Future<DateTime?> pickDate(BuildContext context, DateTime oldDate) async {
+  final initialDate = oldDate;
   final newDate = await showMonthYearPicker(
     context: context,
     initialDate: initialDate,

@@ -124,7 +124,7 @@ class FeedDesc extends HookConsumerWidget {
                   Constants.postOptionIcons[2],
                   width: 25,
                   height: 25,
-                  color: const Color.fromRGBO(32, 33, 37, 1),
+                  color: Constants.postOptionIconColor,
                 ),
               ),
               Padding(
@@ -146,15 +146,62 @@ class FeedDesc extends HookConsumerWidget {
                   Constants.postOptionIcons[4],
                   width: 25,
                   height: 25,
-                  color: const Color.fromRGBO(32, 33, 37, 1),
+                  color: Constants.postOptionIconColor,
                 ),
               ),
-              IconButton(
-                onPressed: () {},
+              PopupMenuButton(
+                color: Constants.kSecondaryColor,
+                elevation: 0,
+                onSelected: (value) => onSelected(context, value),
+                itemBuilder: (_) => [
+                  PopupMenuItem<int>(
+                    value: 0,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 2),
+                        SvgPicture.asset(
+                          "assets/icons/add_bookmark.svg",
+                          height: 20,
+                          width: 20,
+                          color: Colors.blueGrey.shade700,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          "Bookmark",
+                          style: GoogleFonts.inter(
+                            color: Colors.blueGrey.shade700,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem<int>(
+                    value: 1,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.flag_circle_rounded,
+                          size: 25.5,
+                          color: Colors.blueGrey.shade700,
+                        ),
+                        const SizedBox(width: 9),
+                        Text(
+                          "Report",
+                          style: GoogleFonts.inter(
+                            color: Colors.blueGrey.shade700,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
                 icon: const Icon(
                   Icons.more_horiz_rounded,
-                  color: Color.fromRGBO(32, 33, 37, 1),
-                  size: 24,
+                  color: Constants.postOptionIconColor,
                 ),
               ),
             ],
@@ -163,4 +210,6 @@ class FeedDesc extends HookConsumerWidget {
       ],
     );
   }
+
+  void onSelected(context, value) {}
 }

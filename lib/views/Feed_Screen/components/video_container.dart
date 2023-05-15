@@ -39,59 +39,63 @@ class _VideoContainerState extends ConsumerState<VideoContainer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future:
-            DefaultCacheManager().getSingleFile(widget.url, key: widget.url),
-        builder: (context, file) {
-          if (file.connectionState == ConnectionState.done) {
-            if (file.hasData) {
-              if (init) {
-                _controller = VideoPlayerController.file(file.data as File,
-                    videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
-                  ..initialize().then((_) {
+      future: DefaultCacheManager().getSingleFile(widget.url, key: widget.url),
+      builder: (context, file) {
+        if (file.connectionState == ConnectionState.done) {
+          if (file.hasData) {
+            if (init) {
+              _controller = VideoPlayerController.file(file.data as File,
+                  videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
+                ..initialize().then(
+                  (_) {
                     {
-                      setState(() {
-                        dlog("file data is ${file.data}");
-                        init = false;
-                        _controller.setVolume(0);
-
-                        _chewieController = ChewieController(
+                      setState(
+                        () {
+                          dlog("file data is ${file.data}");
+                          init = false;
+                          _controller.setVolume(1.0);
+                          _chewieController = ChewieController(
                             videoPlayerController: _controller,
                             autoPlay: true,
-                            looping: true,
+                            looping: false,
                             allowFullScreen: true,
-                            allowMuting: true);
-                      });
+                            allowMuting: true,
+                          );
+                        },
+                      );
                     }
-                  });
-              }
-              return Hero(
-                tag: widget.tag,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _chewieController.isPlaying
-                          ? _chewieController.pause()
-                          : _chewieController.play();
-                    });
                   },
-                  child: Container(
-                      width: SizeConfig.screenWidth,
-                      color: Colors.black,
-                      child: Chewie(controller: _chewieController)),
-                ),
-              );
-            } else {
-              return const CircularProgressIndicator(
-                color: Colors.white,
-              );
+                );
             }
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
+            return Hero(
+              tag: widget.tag,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _chewieController.isPlaying
+                        ? _chewieController.pause()
+                        : _chewieController.play();
+                  });
+                },
+                child: Container(
+                    width: SizeConfig.screenWidth,
+                    color: Colors.black,
+                    child: Chewie(controller: _chewieController)),
               ),
             );
+          } else {
+            return const CircularProgressIndicator(
+              color: Colors.white,
+            );
           }
-        });
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        }
+      },
+    );
   }
 }

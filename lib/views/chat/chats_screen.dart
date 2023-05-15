@@ -275,7 +275,11 @@ class ChatsScreen extends HookConsumerWidget {
                   ),
                 ),
                 hintText: "Search messages...",
-                hintStyle: GoogleFonts.roboto(fontSize: 15.5),
+                hintStyle: GoogleFonts.inter(
+                  fontSize: 14.8,
+                  color: Colors.blueGrey.shade500,
+                  fontWeight: FontWeight.w500,
+                ),
                 prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.black54,
@@ -289,9 +293,6 @@ class ChatsScreen extends HookConsumerWidget {
           child: SmartRefresher(
             key: const ValueKey("Chat"),
             controller: _refreshController2,
-            // header: const WaterDropMaterialHeader(
-            //   backgroundColor: Constants.kPrimaryColor,
-            // ),
             header: const MaterialClassicHeader(
               color: Constants.kPrimaryColor,
             ),

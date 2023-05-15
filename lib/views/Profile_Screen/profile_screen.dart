@@ -23,22 +23,22 @@ class ProfileScreen extends ConsumerWidget {
       UserExperience(
         title: 'Summer Intern',
         description: 'Jio Platforms Limited',
-        start: 1,
-        end: 2,
+        start: 1654021800000,
+        end: 1656613800000,
         type: ExperienceType.work,
       ),
       UserExperience(
         title: 'App Developer',
         description: 'Rentalz',
-        start: 1,
-        end: 2,
+        start: 1643653800000,
+        end: 1677609000000,
         type: ExperienceType.work,
       ),
       UserExperience(
         title: 'Summer Intern',
         description: 'CRISS Robotics',
-        start: 1,
-        end: 2,
+        start: 1625077800000,
+        end: 1643653800000,
         type: ExperienceType.work,
       ),
     ];
@@ -46,15 +46,15 @@ class ProfileScreen extends ConsumerWidget {
       UserExperience(
         title: 'Bits Pilani',
         description: 'Electronics and Instrumentation',
-        start: 1,
-        end: 2,
+        start: 1577817000000,
+        end: -62170003800000,
         type: ExperienceType.education,
       ),
       UserExperience(
         title: 'The Camford International School',
         description: '',
-        start: 1,
-        end: 2,
+        start: 1514745000000,
+        end: 1577817000000,
         type: ExperienceType.education,
       ),
     ];
@@ -102,7 +102,7 @@ class ProfileScreen extends ConsumerWidget {
           padding: EdgeInsets.only(left: isLocalUser ? 3.5 : 0),
           child: Text(
             "Profile",
-            style: TextStyle(
+            style: GoogleFonts.roboto(
               color: Colors.black.withOpacity(0.65),
               fontWeight: FontWeight.w500,
             ),
@@ -169,30 +169,6 @@ class ProfileScreen extends ConsumerWidget {
                       ],
                     ),
                     VerticalMenu(userExperience: temp, isEdit: false),
-                    // const ExperienceWidget(
-                    //   url:
-                    //       "https://jep-asset.akamaized.net/jio/svg-og/jio_logo.png",
-                    //   txt1: "Summer Intern",
-                    //   txt2: "Jio Platforms Limited · Internship",
-                    //   txt3: "Jun 2022 - Jul 2022 · 2 mos",
-                    //   showEdit: false,
-                    // ),
-                    // const ExperienceWidget(
-                    //   url:
-                    //       "https://media.licdn.com/dms/image/C4D0BAQF4FNXeLIGIaA/company-logo_100_100/0/1628696386405?e=1684972800&v=beta&t=gxswQ2V7FRmjIZwRAp129CzoW4_xWlhxXWI2bUY_R3Q",
-                    //   txt1: "App Developer",
-                    //   txt2: "Rentalz · Part-time",
-                    //   txt3: "Sep 2021 - Feb 2022 · 6 mos",
-                    //   showEdit: false,
-                    // ),
-                    // const ExperienceWidget(
-                    //   url:
-                    //       "https://media.licdn.com/dms/image/C4E0BAQGJ6Z9crpkcXw/company-logo_100_100/0/1629550065724?e=1684972800&v=beta&t=KKLx6qZHKGmK1n2YingHh-WdO-x6jHif5hzfSSWsWok",
-                    //   txt1: "Summer Intern",
-                    //   txt2: "CRISS Robotics · Internship",
-                    //   txt3: "Jul 2021 - Feb 2022 · 8 mos",
-                    //   showEdit: false,
-                    // ),
                   ],
                 ),
               ),
@@ -243,22 +219,6 @@ class ProfileScreen extends ConsumerWidget {
                       ],
                     ),
                     VerticalMenu(userExperience: temp2, isEdit: false),
-                    // const ExperienceWidget(
-                    //   url:
-                    //       "https://media.licdn.com/dms/image/C510BAQFYyp6NIc6n2A/company-logo_100_100/0/1539083994824?e=1684972800&v=beta&t=XdAP4lWl6r1I2NMtcvmoJBoCAJ9IGgpQjUYF5fEdG5w",
-                    //   txt1: "Bits Pilani",
-                    //   txt2: "Electronics and Instrumentation",
-                    //   txt3: "2022 - 2024",
-                    //   showEdit: false,
-                    // ),
-                    // const ExperienceWidget(
-                    //   url:
-                    //       "https://imgs.search.brave.com/YXw_8nP0SsLihynYGUbasNPbeLL4szRrTqjONaMmYq8/rs:fit:225:225:1/g:ce/aHR0cHM6Ly90c2Uy/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Z/YWcwLUNCN2ktZG5s/aFlFRlh2U0dnQUFB/QSZwaWQ9QXBp",
-                    //   txt1: "The Camford International School",
-                    //   txt2: "2018-2020",
-                    //   txt3: "",
-                    //   showEdit: false,
-                    // ),
                   ],
                 ),
               ),

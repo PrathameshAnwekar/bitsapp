@@ -84,8 +84,23 @@ class Constants {
     "Jenkins"
   ];
 
+  static final List<String> months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
   static const kPrimaryColor = Color(0xFF256ff0);
-  static const kSecondaryColor = Color(0xFFf8f7fc);
+  static const kSecondaryColor = Color(0xFFf2f4fa);
   static const k2SecondaryColor = Color(0xFFf7f7f8);
   static const kContentColorLightTheme = Color(0xFF1D1D35);
   static const kContentColorDarkTheme = Color(0xFFF5FCF9);
@@ -93,4 +108,5 @@ class Constants {
   static const kErrorColor = Color(0xFFF03738);
   static const kDefaultPadding = 20.0;
   static const inactiveIconColor = Color.fromARGB(255, 150, 149, 170);
+  static const postOptionIconColor = Color.fromRGBO(32, 33, 37, 1);
 }
