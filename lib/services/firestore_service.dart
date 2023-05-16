@@ -70,8 +70,9 @@ class FirestoreService {
 
       ref.read(localUserProvider.notifier).setUser(user);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("You've been logged out, please log in again.")));
+      elog(e.toString());
+      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //     content: Text("You've been logged out, please log in again.")));
       Navigator.of(context)
           .pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
       elog(e.toString());
@@ -108,7 +109,7 @@ class FirestoreService {
   }
 
   static Future<void> uploadResume(
-      File pdf, String userUid, BuildContext context,WidgetRef ref) async {
+      File pdf, String userUid, BuildContext context, WidgetRef ref) async {
     try {
       final url = await _firebaseStorage
           .child("resumes/$userUid")
@@ -301,7 +302,6 @@ class FirestoreService {
 
   static Future<void> addFeedPost(
       FeedPost feedPost, Map<File, String> files, WidgetRef ref) async {
-    //upload files list and get urls in a list
     try {
       int i = 0;
       for (var file in files.keys) {
@@ -317,6 +317,9 @@ class FirestoreService {
         vlog("UploadTaskFlow: added ${files[file]} to mediaFilesList");
       }
       await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
+      await _usersRef.doc(feedPost.posterUid).update({
+        "feedPosts": FieldValue.arrayUnion([feedPost.timeuid])
+      });
       ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
       final senderName = ref
           .read(contactsListProvider)

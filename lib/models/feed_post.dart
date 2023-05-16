@@ -64,8 +64,8 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   //list of feedPosts constructor
   FeedPostDataNotifier() : super([]);
 
-  void initFeedPostsData(List<FeedPost> feedPost) {
-    state = feedPost;
+  void initFeedPostsData(List<FeedPost> feedPosts) {
+    state = feedPosts;
   }
 
   void addExtraFeedPosts(List<FeedPost> feedPosts) {
