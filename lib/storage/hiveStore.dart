@@ -1,6 +1,5 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/local_fcm_object.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +11,7 @@ class HiveStore {
   static final chatRooms = Hive.box("chatStorage");
   static final bookmarkedPosts = Hive.box("bookmarkedPosts");
   static final contactsStorage = Hive.box("contactsStorage");
+  static final savedPostsStorage = Hive.box("savedPostsStorage");
 
   static init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
@@ -27,6 +27,7 @@ class HiveStore {
     await Hive.openBox("chatStorage");
     await Hive.openBox("bookmarkedPosts");
     await Hive.openBox("contactsStorage");
+    await Hive.openBox("savedPostsStorage");
   }
 
   static Future<void> saveUserToStorage(BitsUser user) async {

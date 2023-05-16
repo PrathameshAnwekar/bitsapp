@@ -125,7 +125,7 @@ class JobInternhipScreen extends HookConsumerWidget {
               padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
               child: Row(
                 children: <Widget>[
-                  const Flexible(
+                   Flexible(
                     child: SearchBar(),
                   ),
                   GestureDetector(
