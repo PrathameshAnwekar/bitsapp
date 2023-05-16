@@ -2,7 +2,6 @@ import 'package:bitsapp/constants/size_config.dart';
 import 'package:bitsapp/controllers/feed_container_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/feed_screen/components/send_message_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

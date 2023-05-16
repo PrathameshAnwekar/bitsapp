@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/constants.dart';
 
-class ChannelAppBar extends StatelessWidget with PreferredSizeWidget {
+class ChannelAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChannelAppBar({
     Key? key,
     required this.channelName,

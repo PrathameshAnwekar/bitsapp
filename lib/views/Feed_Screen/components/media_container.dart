@@ -1,5 +1,4 @@
 import 'package:bitsapp/constants/size_config.dart';
-import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/views/feed_screen/components/image_container.dart';
 import 'package:bitsapp/views/feed_screen/components/video_container.dart';

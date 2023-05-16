@@ -7,7 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../constants/constants.dart';
 import '../../profile_screen/profile_screen.dart';
 
-class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
+class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatAppBar({
     Key? key,
     required this.otherUser,
