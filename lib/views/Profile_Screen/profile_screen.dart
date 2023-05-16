@@ -1,6 +1,10 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/user_experience.dart';
+import 'package:bitsapp/services/logger_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +23,8 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     BitsUser localUser = user ?? ref.watch(localUserProvider);
     bool isLocalUser = (user == null);
+    final posts = localUser.feedPosts;
+
     List<UserExperience> temp = [
       UserExperience(
         title: 'Summer Intern',
@@ -222,6 +228,52 @@ class ProfileScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1.0),
+                  itemCount: posts != null ? posts.length : 5,
+                  itemBuilder: (context, index) {
+                    elog(posts!.length.toString());
+                    return Container(
+                      // Your grid item widget
+                      width: 100,
+                      height: 200,
+                      color: Colors.green,
+                      child: Text('Grid Item $index'),
+                    );
+                    return FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .doc("FeedPosts/${posts![index]}")
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final post = FeedPost.fromJson(snapshot.data!.data()!);
+                          return GestureDetector(
+                            onTap: () {
+                              // TODO: Show post details
+                            },
+                            child: post.mediaFilesList.isNotEmpty
+                                ? Image.network(
+                                    post.mediaFilesList[0].url,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Container(
+                                    color: Colors.green,
+                                  ),
+                          );
+                        });
+                  },
+                ),
+              )
             ],
           ),
         ),

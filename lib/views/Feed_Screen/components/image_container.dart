@@ -5,7 +5,7 @@ class ImageContainer extends StatelessWidget {
   ImageContainer({super.key, required this.url, required this.tag, this.isHero = false});
   final String url;
   final String tag;
-  bool isHero;
+  final bool isHero;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
