@@ -1,4 +1,5 @@
 import 'package:bitsapp/constants/constants.dart';
+import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/profile_screen/components/vertical_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -245,7 +246,7 @@ class _DateWidgetState extends State<DateWidget> {
           onTap: () async {
             final getDate = await pickDate(context, widget.oldDate);
             setState(() {
-              // date = getDate;
+              dlog(getDate.toString());
             });
           },
           child: Container(
