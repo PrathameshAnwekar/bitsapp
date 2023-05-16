@@ -39,8 +39,11 @@ class _BodyState extends ConsumerState<Body> {
           child: ListView.separated(
             addAutomaticKeepAlives: false,
             reverse: true,
-            padding: const EdgeInsets.symmetric(
-                horizontal: Constants.kDefaultPadding),
+            padding: const EdgeInsets.only(
+              left: Constants.kDefaultPadding,
+              right: Constants.kDefaultPadding,
+              top: 15,
+            ),
             physics: const ClampingScrollPhysics(),
             itemCount: messages.length,
             itemBuilder: (context, index) {
@@ -62,7 +65,12 @@ class _BodyState extends ConsumerState<Body> {
                   focusNode: focusNode,
                 );
               } else if (message.type == MessageType.feedpost) {
-                return ChatPostContainer(key: key, message: message);
+                final localUser = ref.watch(localUserProvider);
+                return ChatPostContainer(
+                  key: key,
+                  message: message,
+                  isSender: (message.sender == localUser.uid),
+                );
               }
               return const SizedBox();
             },

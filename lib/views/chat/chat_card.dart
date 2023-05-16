@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_room.dart';
+import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,15 @@ class ChatCard extends HookConsumerWidget {
             ? HiveStore.getUserFromStorage(uid: chatRoom.userUidList[1])
             : HiveStore.getUserFromStorage(uid: chatRoom.userUidList[0])) ??
         BitsUser.dummy;
+    final String message;
+    if (lastMessage.type == MessageType.text) {
+      message = lastMessage.text;
+    } else if (lastMessage.type == MessageType.feedpost) {
+      final postUser = HiveStore.getUserFromStorage(uid: lastMessage.sender);
+      message = "Sent post by ${postUser!.name}";
+    } else {
+      message = "";
+    }
     return ListTile(
       horizontalTitleGap: 12,
       splashColor: Colors.transparent,
@@ -68,10 +78,11 @@ class ChatCard extends HookConsumerWidget {
       subtitle: Padding(
         padding: const EdgeInsets.only(right: 20, top: 5),
         child: Text(
-          lastMessage.text,
+          // lastMessage.text,
+          message,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.rubik(
+          style: GoogleFonts.roboto(
             color: const Color.fromRGBO(131, 144, 159, 1),
             fontWeight: index < 1 ? FontWeight.w500 : FontWeight.w400,
           ),

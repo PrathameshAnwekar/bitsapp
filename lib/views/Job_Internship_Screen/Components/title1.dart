@@ -14,9 +14,9 @@ class Title1 extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Text(
         txt,
-        style: GoogleFonts.dmSans(
+        style: GoogleFonts.roboto(
           color: Colors.black.withOpacity(0.7),
-          fontSize: 18,
+          fontSize: 17,
           fontWeight: FontWeight.w500,
         ),
       ),

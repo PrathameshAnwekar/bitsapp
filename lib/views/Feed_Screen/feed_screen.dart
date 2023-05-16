@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/services/firestore_service.dart';
@@ -7,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../constants/constants.dart';
+import '../notifications_screen/notification_screen.dart';
 import 'feed_container/feed_container.dart';
 
 class FeedScreen extends ConsumerWidget {
@@ -107,8 +107,9 @@ class FeedScreen extends ConsumerWidget {
                       const SizedBox(width: 10),
                       Text(
                         "Search",
-                        style: GoogleFonts.dmSans(
-                          fontSize: 16,
+                        style: GoogleFonts.inter(
+                          fontSize: 15,
+                          color: Colors.blueGrey.shade700,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -118,16 +119,19 @@ class FeedScreen extends ConsumerWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
-                  icon: Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.rotationY(pi),
-                    child: SvgPicture.asset(
-                      'assets/icons/menu.svg',
-                      height: 32,
-                      width: 32,
-                      color: Colors.blueGrey.shade600,
+                  onPressed: () => Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: const NotificationsScreen(),
+                      duration: const Duration(milliseconds: 200),
                     ),
+                  ),
+                  icon: SvgPicture.asset(
+                    'assets/icons/notification_on.svg',
+                    height: 32,
+                    width: 32,
+                    color: Colors.blueGrey.shade600,
                   ),
                 ),
               ],
