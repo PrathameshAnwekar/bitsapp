@@ -1,5 +1,6 @@
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/internship_data.dart';
+import 'package:bitsapp/services/firestore_internship_serviced.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/Components/person_detail.dart';
@@ -27,7 +28,7 @@ class InternshipsListView extends HookConsumerWidget {
       RefreshController(initialRefresh: false);
 
   void _onRefresh(WidgetRef ref) async {
-    await FirestoreService.initInternshipData(ref);
+    await FirestoreInternshipService.initInternshipData(ref);
     _refreshController3.refreshCompleted();
   }
 

@@ -1,6 +1,6 @@
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/media_file.dart';
-import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -86,7 +86,7 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
   //delete feedPost from list
   Future<void> deletefeedPost(String feedPostUid) async {
     try {
-      await FirestoreService.deleteFeedPost(feedPostUid).then((value) {
+      await FirestoreFeedService.deleteFeedPost(feedPostUid).then((value) {
         state =
             state.where((feedPost) => feedPost.timeuid != feedPostUid).toList();
       });
@@ -98,7 +98,7 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
 
   Future<void> addComment(String feedPostUid, Comment comment) async {
     try {
-      await FirestoreService.addCommentToFeedPost(feedPostUid, comment)
+      await FirestoreFeedService.addCommentToFeedPost(feedPostUid, comment)
           .then((value) {
         state = state
           ..where((feedPost) => feedPost.timeuid == feedPostUid)
@@ -114,7 +114,7 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
 
   Future<void> addLike(String feedPostUid, String uid) async {
     try {
-      await FirestoreService.addLikeToFeedPost(feedPostUid, uid).then((value) {
+      await FirestoreFeedService.addLikeToFeedPost(feedPostUid, uid).then((value) {
         state = state
           ..where((feedPost) => feedPost.timeuid == feedPostUid)
               .first
@@ -129,7 +129,7 @@ class FeedPostDataNotifier extends StateNotifier<List<FeedPost>> {
 
   Future<void> removeLike(String feedPostUid, String uid) async {
     try {
-      await FirestoreService.removeLikeFromFeedPost(feedPostUid, uid)
+      await FirestoreFeedService.removeLikeFromFeedPost(feedPostUid, uid)
           .then((value) {
         state = state
           ..where((feedPost) => feedPost.timeuid == feedPostUid)

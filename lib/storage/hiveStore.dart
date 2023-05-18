@@ -12,7 +12,7 @@ class HiveStore {
   static final bookmarkedPosts = Hive.box("bookmarkedPosts");
   static final contactsStorage = Hive.box("contactsStorage");
   static final savedPostsStorage = Hive.box("savedPostsStorage");
-
+  static final notificationStorage = Hive.box("notificationStorage");
   static init() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     Hive.init((await getApplicationDocumentsDirectory()).path);
@@ -28,6 +28,7 @@ class HiveStore {
     await Hive.openBox("bookmarkedPosts");
     await Hive.openBox("contactsStorage");
     await Hive.openBox("savedPostsStorage");
+    await Hive.openBox("notificationStorage");
   }
 
   static Future<void> saveUserToStorage(BitsUser user) async {
@@ -40,7 +41,7 @@ class HiveStore {
     return contactsStorage.get(uid);
   }
 
-  static Future<void> storeAllUserToStorage(List<BitsUser> users) async {
+  static Future<void> storeAllUsersToStorage(List<BitsUser> users) async {
     if(!contactsStorage.isOpen) await Hive.openBox("contactsStorage");
     for (int i = 0; i < users.length; i++) {
       print(users[i].name);

@@ -3,7 +3,7 @@ import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/comment.dart';
 import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/feed_screen/components/share_sheet.dart';
@@ -60,7 +60,7 @@ class FeedContainerController {
   static Future<bool> removeCommentFromPost(
       FeedPost feedpost, Comment comment) async {
     try {
-      await FirestoreService.deleteCommentFromFeedPost(
+      await FirestoreFeedService.deleteCommentFromFeedPost(
           feedpost.timeuid, comment);
       feedpost.comments.remove(comment);
       return Future.value(true);
@@ -72,7 +72,7 @@ class FeedContainerController {
 
   static Future<bool> deletePost(FeedPost feedpost) async {
     try {
-      await FirestoreService.deleteFeedPost(feedpost.timeuid);
+      await FirestoreFeedService.deleteFeedPost(feedpost.timeuid);
       return Future.value(true);
     } catch (e) {
       elog(e.toString());

@@ -1,4 +1,5 @@
 import 'package:bitsapp/models/user_experience.dart';
+import 'package:bitsapp/services/firestore_profile_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,7 +80,7 @@ class BitsUser extends HiveObject {
       chatBarrier: false
     );
     ref.read(localUserProvider.notifier).setUser(bitsUser);
-    await FirestoreService.createUser(bitsUser);
+    await FirestoreProfileService.createUser(bitsUser);
   }
 
   static BitsUser dummy = BitsUser(

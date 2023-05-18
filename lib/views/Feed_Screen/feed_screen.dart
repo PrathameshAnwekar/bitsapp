@@ -1,5 +1,6 @@
 import 'package:bitsapp/controllers/feed_screen_controller.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,7 +20,7 @@ class FeedScreen extends ConsumerWidget {
       RefreshController(initialRefresh: false);
   void _onRefresh(WidgetRef ref) async {
     // monitor network fetch
-    await FirestoreService.initFeedPosts(ref);
+    await FirestoreFeedService.initFeedPosts(ref);
     // if failed,use refreshFailed()
     _refreshController1.refreshCompleted();
   }

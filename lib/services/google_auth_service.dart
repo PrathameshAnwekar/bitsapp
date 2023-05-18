@@ -1,5 +1,6 @@
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/services/firestore_profile_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,7 +27,7 @@ class GoogleAuthService {
         if (result.additionalUserInfo!.isNewUser) {
           await BitsUser.createNewUser(ref, result);
         }
-        await FirestoreService.initUser(ref, context);
+        await FirestoreProfileService.initUser(ref, context);
         await FirestoreService.initEverything(ref, context);
         dlog(
             "Signed in as ${result.user!.displayName} , ${result.user!.email}");

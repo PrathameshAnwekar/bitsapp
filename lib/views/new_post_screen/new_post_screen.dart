@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
@@ -49,7 +50,7 @@ class NewPostScreen extends HookConsumerWidget {
                 text: textController.text,
               );
               loading.value = true;
-              await FirestoreService.addFeedPost(feedPost, files.value, ref)
+              await FirestoreFeedService.addFeedPost(feedPost, files.value, ref)
                   .then((value) {
                 files.value = {};
                 textController.text = "";
