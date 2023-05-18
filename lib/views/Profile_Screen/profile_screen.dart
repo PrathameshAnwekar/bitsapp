@@ -129,7 +129,6 @@ class ProfileScreen extends ConsumerWidget {
               ProfileInfoStack(
                 isLocalUser: isLocalUser,
                 name: localUser.name,
-                imageUrl: localUser.profilePicUrl,
                 profileDescription: localUser.profileDescription,
               ),
               Container(

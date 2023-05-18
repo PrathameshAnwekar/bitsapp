@@ -12,8 +12,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FirestoreProfileService{
-    static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class FirestoreProfileService {
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
   static final _usersRef = _firestore.collection("Users");
   static final _internshipsRef = _firestore.collection("Internships");
@@ -29,13 +29,14 @@ class FirestoreProfileService{
       final user = BitsUser.fromJson(userDoc.data()!);
 
       ref.read(localUserProvider.notifier).setUser(user);
-     
     } catch (e) {
       elog(e.toString());
       // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       //     content: Text("You've been logged out, please log in again.")));
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
+      if (context.mounted) {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
+      }
       elog(e.toString());
     }
   }
@@ -95,8 +96,8 @@ class FirestoreProfileService{
     }
   }
 
-  static Future<void> uploadProfilePicture(
-      File image, String userUid, BuildContext context, WidgetRef ref) async {
+  static Future<String> uploadProfilePicture(
+      File image, String userUid, WidgetRef ref) async {
     try {
       final url = await _firebaseStorage
           .child("profilePictures/$userUid")
@@ -105,12 +106,13 @@ class FirestoreProfileService{
       await _usersRef
           .doc(userUid)
           .set({"profilePicUrl": url}, SetOptions(merge: true));
-      await initUser(ref, context);
+      
+      return url;
     } catch (e) {
       elog(e.toString());
+      return "";
     }
   }
-
 
   static Future<void> updateContactsList(WidgetRef ref) async {
     try {

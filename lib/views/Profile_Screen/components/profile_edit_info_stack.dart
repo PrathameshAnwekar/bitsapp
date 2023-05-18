@@ -1,9 +1,13 @@
 import 'dart:io';
 
 import 'package:bitsapp/constants/constants.dart';
+import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/services/firestore_profile_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -11,27 +15,30 @@ import '../../../services/logger_service.dart';
 import '../profile_edit_screen.dart';
 import 'profile_image_zoom.dart';
 
-class ProfileInfoStack extends StatefulWidget {
+class ProfileInfoStack extends StatefulHookConsumerWidget {
   final String name;
-  final String? imageUrl;
+
   final String? profileDescription;
   final bool isLocalUser;
   const ProfileInfoStack({
     super.key,
     required this.name,
     required this.isLocalUser,
-    this.imageUrl,
     this.profileDescription,
   });
 
   @override
-  State<ProfileInfoStack> createState() => _ProfileInfoStack();
+  ConsumerState<ProfileInfoStack> createState() => _ProfileInfoStack();
 }
 
-class _ProfileInfoStack extends State<ProfileInfoStack> {
-  File? fileMedia;
+class _ProfileInfoStack extends ConsumerState<ProfileInfoStack> {
   @override
   Widget build(BuildContext context) {
+    final localUser = ref.watch(localUserProvider);
+    //picsum randoom image url if null
+    final profilePicUrl =
+        useState(localUser.profilePicUrl ?? 'https://picsum.photos/200/300');
+    final picLoading = useState(false);
     return SizedBox(
       height: 270,
       width: double.infinity,
@@ -131,24 +138,21 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
             radius: 75,
             backgroundColor: const Color(0xFF69708C).withOpacity(0.2),
             child: GestureDetector(
-              onTap: () => showPopUp(
-                  "https://media.licdn.com/dms/image/D4D03AQGUfeCsI0M43A/profile-displayphoto-shrink_400_400/0/1680925107700?e=1686787200&v=beta&t=z2bRyfd5TA-jO3CIcmCwJ3IbbRey_mdyrC6gSeV316I",
-                  context),
-              child: fileMedia == null
+              onTap: () => showPopUp(profilePicUrl.value, context),
+              child: !picLoading.value
                   ? CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.white,
                       backgroundImage: CachedNetworkImageProvider(
-                          widget.imageUrl ??
-                              "https://media.licdn.com/dms/image/D4D03AQGUfeCsI0M43A/profile-displayphoto-shrink_400_400/0/1680925107700?e=1686787200&v=beta&t=z2bRyfd5TA-jO3CIcmCwJ3IbbRey_mdyrC6gSeV316I",
-                          errorListener: () {
+                          profilePicUrl.value, errorListener: () {
                         elog("Error loading image");
-                      }, cacheKey: "localUser.profilePicUrl"),
+                      }, cacheKey: profilePicUrl.value),
                     )
-                  : CircleAvatar(
+                  : const CircleAvatar(
                       radius: 70,
-                      backgroundColor: Colors.white,
-                      backgroundImage: FileImage(fileMedia!),
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
                     ),
             ),
           ),
@@ -158,7 +162,7 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
             child: buildCircle(
               child: buildCircle(
                 child: GestureDetector(
-                  onTap: () => capture(),
+                  onTap: () => capture(localUser.uid, context, picLoading, profilePicUrl),
                   child: const Icon(
                     Icons.edit,
                     color: Colors.white,
@@ -177,13 +181,16 @@ class _ProfileInfoStack extends State<ProfileInfoStack> {
     );
   }
 
-  Future capture() async {
+  Future capture(String localUserUid, BuildContext context,
+      ValueNotifier picLoading, ValueNotifier picUrl) async {
     final getMedia = ImagePicker().pickImage;
     final media = await getMedia(source: ImageSource.gallery);
     final file = File(media!.path);
-    setState(() {
-      fileMedia = file;
-    });
+    picLoading.value = true;
+    final url = await FirestoreProfileService.uploadProfilePicture(file, localUserUid, ref);
+    picLoading.value = false;
+
+    picUrl.value = url;
   }
 }
 
