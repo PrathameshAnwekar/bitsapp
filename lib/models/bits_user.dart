@@ -20,7 +20,7 @@ class BitsUser extends HiveObject {
   final String name;
   @HiveField(1)
   final String? profilePicUrl;
-  final String? profileDescription;
+  String? profileDescription;
   final String email;
   final String bitsID;
   @HiveField(2)
@@ -60,7 +60,7 @@ class BitsUser extends HiveObject {
 
   static Future<void> createNewUser(
       WidgetRef ref, UserCredential result) async {
-    String name = properCase(result.user!.displayName ?? "name");
+    String name = titleCase(result.user!.displayName ?? "name");
 
     BitsUser bitsUser = BitsUser(
       name: name,
@@ -125,6 +125,10 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
     state = user;
   }
 
+  void setUserDescription(String desc){
+    state = state..profileDescription = desc;
+  }
+
   void addChatRoom(String uid) {
     dlog("creating a new chatRoom for uid $uid");
 
@@ -169,7 +173,7 @@ final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(
 final contactsListProvider = StateProvider((ref) => List<BitsUser>.empty());
 
 //function to properly capitalise the name
-String properCase(String s) {
+String titleCase(String s) {
   String proper = s[0].toUpperCase();
   for (int i = 1; i < s.length; i++) {
     if (s[i - 1] == ' ') {

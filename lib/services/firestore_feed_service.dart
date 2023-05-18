@@ -10,8 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FirestoreFeedService{
-
+class FirestoreFeedService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final _chatRoomsRef = _firestore.collection("ChatRooms");
   static final _usersRef = _firestore.collection("Users");
@@ -19,8 +18,6 @@ class FirestoreFeedService{
   static final _feedPostsRef = _firestore.collection("FeedPosts");
   static final _firebaseStorage = FirebaseStorage.instance.ref();
   static Future<void> initFeedPosts(WidgetRef ref) async {
-
-    
     //get last 10 posts
     await _feedPostsRef
         .orderBy("timeuid", descending: true)
@@ -47,6 +44,16 @@ class FirestoreFeedService{
           ref.read(feedPostDataProvider.notifier).addExtraFeedPosts(posts);
           dlog("added ${posts.length} posts");
         });
+  }
+
+  static Future<void> setUserDescription(
+      String desc, String uid, WidgetRef ref) async {
+    try {
+      await _usersRef.doc(uid).update({"profileDescription": desc});
+      ref.read(localUserProvider.notifier).setUserDescription(desc);
+    } catch (e) {
+      elog(e.toString());
+    }
   }
 
   static Future<void> addFeedPost(

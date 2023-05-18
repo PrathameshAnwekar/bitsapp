@@ -129,7 +129,7 @@ class ProfileScreen extends ConsumerWidget {
               ProfileInfoStack(
                 isLocalUser: isLocalUser,
                 name: localUser.name,
-                profileDescription: localUser.profileDescription,
+               
               ),
               Container(
                 padding: const EdgeInsets.all(10),

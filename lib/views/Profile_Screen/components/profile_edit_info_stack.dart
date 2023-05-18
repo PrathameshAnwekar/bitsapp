@@ -18,13 +18,12 @@ import 'profile_image_zoom.dart';
 class ProfileInfoStack extends StatefulHookConsumerWidget {
   final String name;
 
-  final String? profileDescription;
   final bool isLocalUser;
   const ProfileInfoStack({
     super.key,
     required this.name,
     required this.isLocalUser,
-    this.profileDescription,
+ 
   });
 
   @override
@@ -75,7 +74,7 @@ class _ProfileInfoStack extends ConsumerState<ProfileInfoStack> {
                       ),
                     ),
                     Text(
-                      widget.profileDescription ??
+                      localUser.profileDescription ?? 
                           "Your friendly neighbourhood bitsian",
                       textAlign: TextAlign.center,
                       style: TextStyle(
