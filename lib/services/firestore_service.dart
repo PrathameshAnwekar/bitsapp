@@ -9,6 +9,10 @@ import 'package:bitsapp/models/internship_data.dart';
 import 'package:bitsapp/models/media_file.dart';
 import 'package:bitsapp/models/message.dart';
 import 'package:bitsapp/models/user_experience.dart';
+import 'package:bitsapp/services/firestore_chat_service.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
+import 'package:bitsapp/services/firestore_internship_serviced.dart';
+import 'package:bitsapp/services/firestore_profile_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
@@ -41,325 +45,29 @@ class FirestoreService {
   static Future<bool> initEverything(
       WidgetRef ref, BuildContext context) async {
     try {
-      await FirestoreService.initUser(ref, context);
+      await FirestoreProfileService.initUser(ref, context);
       dlog("User initialised");
-      await FirestoreService.updateContactsList(ref).then((value) async {
+      await FirestoreProfileService.updateContactsList(ref).then((value) async {
         dlog("Contacts list updated");
-        await FirestoreService.initInternshipData(ref);
+        await FirestoreInternshipService.initInternshipData(ref);
         dlog("Internship data initialised");
-        await FirestoreService.initialiseChatRooms(ref);
+        await FirestoreChatService.initialiseChatRooms(ref);
         dlog("Chat rooms initialised");
-        await FirestoreService.initFeedPosts(ref);
+        await FirestoreFeedService.initFeedPosts(ref);
       });
-      return Future.value(true);
+      return true;
     } catch (e) {
       elog(e.toString());
-      return Future.value(false);
+      return false;
     }
   }
 
-  // ************* USER SERVICES ************* //
-  static Future<void> initUser(WidgetRef ref, BuildContext context) async {
-    try {
-      final uid = FirebaseAuth.instance.currentUser!.uid;
-
-      final userDoc = await _usersRef
-          .doc(uid)
-          .get(const GetOptions(source: Source.serverAndCache));
-      final user = BitsUser.fromJson(userDoc.data()!);
-
-      ref.read(localUserProvider.notifier).setUser(user);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("You've been logged out, please log in again.")));
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(AuthScreen.routeName, (route) => false);
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> createUser(BitsUser user) async {
-    try {
-      await _usersRef.doc(user.uid).set(user.toJson());
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> addUserExperience(String uid, UserExperience exp) async {
-    try {
-      await _usersRef.doc(uid).set({
-        "userExperience": FieldValue.arrayUnion([exp.toJson()])
-      }, SetOptions(merge: true));
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> removeUserExperience(
-      String uid, UserExperience experience) async {
-    try {
-      await _usersRef.doc(uid).set({
-        "userExperience": FieldValue.arrayRemove([experience.toJson()])
-      }, SetOptions(merge: true));
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> uploadResume(
-      File pdf, String userUid, BuildContext context,WidgetRef ref) async {
-    try {
-      final url = await _firebaseStorage
-          .child("resumes/$userUid")
-          .putFile(pdf)
-          .then((value) => value.ref.getDownloadURL());
-      await _usersRef
-          .doc(userUid)
-          .set({"resumeLink": url}, SetOptions(merge: true));
-      await initUser(ref, context);
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> setChatBarrier(bool value, String userUid) async {
-    try {
-      _usersRef
-          .doc(userUid)
-          .set({"chatBarrier": value}, SetOptions(merge: true));
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> updateContactsList(WidgetRef ref) async {
-    try {
-      //get documents order by "name" field in each document
-      final response = await _usersRef
-          .orderBy(FieldPath(const ["name"]))
-          .get(const GetOptions(source: Source.serverAndCache));
-      final allUsersList = response.docs.map((e) {
-        final profile = e.data();
-        return BitsUser.fromJson(profile);
-      }).toList();
-
-      await HiveStore.storeAllUserToStorage(allUsersList);
-      allUsersList.removeWhere((e) => e.uid == ref.read(localUserProvider).uid);
-      ref.read(contactsListProvider.notifier).state = allUsersList;
-
-      dlog("initialised ${allUsersList.length} contacts");
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  // ************* CHAT ROOM SERVICES ************* //
-  static Future<void> initialiseChatRooms(WidgetRef ref) async {
-    try {
-      await _chatRoomsRef
-          .where("userUidList", arrayContains: ref.read(localUserProvider).uid)
-          .get(const GetOptions(source: Source.serverAndCache))
-          .then((value) {
-        final chatRooms =
-            value.docs.map((e) => ChatRoom.fromJson(e.data())).toList();
-
-        ref.read(localUserProvider.notifier).initChatRoomsUidList(chatRooms);
-        ref.read(chatRoomsProvider.notifier).initChatRooms(chatRooms);
-        dlog("initialised ${chatRooms.length} chat rooms");
-      });
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> addChatRoom(
-      ChatRoom chatRoom, String user1uid, String user2uid) async {
-    try {
-      await _chatRoomsRef.doc(chatRoom.uid).set(chatRoom.toJson());
-      await _usersRef.doc(user1uid).update({
-        "chatRooms": FieldValue.arrayUnion([chatRoom.uid])
-      });
-      await _usersRef.doc(user2uid).update({
-        "chatRooms": FieldValue.arrayUnion([chatRoom.uid])
-      });
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  static Future<void> addMessageToChatRoom(
-      String chatRoomUid, Message message) async {
-    try {
-      await _chatRoomsRef.doc(chatRoomUid).update({
-        "messages": FieldValue.arrayUnion([message.toJson()])
-      });
-
-      dlog("added message ${message.text} to chat room $chatRoomUid");
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  // ************* iNTERNSHIP SERVICES ************* //
-  static Future<void> postInternship(
-      InternshipData internshipData, String localUserUid) async {
-    await _internshipsRef.doc(internshipData.uid).set(internshipData.toJson());
-    await _usersRef.doc(localUserUid).set({
-      "postedInternships": FieldValue.arrayUnion([internshipData.uid])
-    }, SetOptions(merge: true));
-  }
-
-  static Future<void> updateInternship(InternshipData internshipData) async {
-    await _internshipsRef
-        .doc(internshipData.uid)
-        .update(internshipData.toJson());
-  }
-
-  static Future<void> deleteInternship(String internshipUid) async {
-    await _internshipsRef.doc(internshipUid).delete();
-  }
-
-  static Future<void> addInternshipApplication(String internshipUid,
-      InternshipApplication internshipApplication, String localUserUid) async {
-    await _internshipsRef.doc(internshipUid).set({
-      "applications": FieldValue.arrayUnion([internshipApplication.toJson()])
-    }, SetOptions(merge: true));
-    _usersRef.doc(localUserUid).set({
-      "appliedInternships": FieldValue.arrayUnion([internshipUid])
-    }, SetOptions(merge: true));
-  }
-
-  static Future<void> initInternshipData(WidgetRef ref) async {
-    await _internshipsRef
-        .get(const GetOptions(source: Source.serverAndCache))
-        .then((value) {
-      final internships =
-          value.docs.map((e) => InternshipData.fromJson(e.data())).toList();
-      ref
-          .read(internshipDataProvider.notifier)
-          .initInternshipsData(internships);
-      dlog("initialised ${internships.length} internships");
-    });
-  }
-
-  static Future<void> updateInternshipApplicationStatus(
-      InternshipApplication application,
-      InternshipData internship,
-      String status) async {
-    try {
-      _internshipsRef.doc(internship.uid).update({
-        "applications": FieldValue.arrayRemove([application.toJson()]),
-      });
-
-      application.status = status;
-      _internshipsRef.doc(internship.uid).update({
-        "applications": FieldValue.arrayUnion([application.toJson()]),
-      });
-    } catch (e) {
-      elog(e.toString());
-    }
-  }
-
-  // ************* FIREBASEMESSAGING SERVICES ************* //
   static updateFcmToken(String token) async {
     await _usersRef
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({"fcmToken": token});
   }
 
-  // ************* FEED POST SERVICES ************* //
 
-  static Future<void> initFeedPosts(WidgetRef ref) async {
-    //get last 10 posts
-    await _feedPostsRef
-        .orderBy("timeuid", descending: true)
-        .limit(10)
-        .get(const GetOptions(source: Source.serverAndCache))
-        .then((value) {
-      final posts = value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
-      ref.read(feedPostDataProvider.notifier).initFeedPostsData(posts);
-      dlog("initialised ${posts.length} posts");
-    });
-  }
-
-  static Future<void> fetchExtra10FeedPosts(WidgetRef ref) async {
-    //get 10 more posts
-    final feedPosts = ref.read(feedPostDataProvider);
-    await _feedPostsRef
-        .orderBy("timeuid", descending: true)
-        .startAfter([feedPosts[feedPosts.length - 1].timeuid])
-        .limit(10)
-        .get(const GetOptions(source: Source.serverAndCache))
-        .then((value) {
-          final posts =
-              value.docs.map((e) => FeedPost.fromJson(e.data())).toList();
-          ref.read(feedPostDataProvider.notifier).addExtraFeedPosts(posts);
-          dlog("added ${posts.length} posts");
-        });
-  }
-
-  static Future<void> addFeedPost(
-      FeedPost feedPost, Map<File, String> files, WidgetRef ref) async {
-    //upload files list and get urls in a list
-    try {
-      int i = 0;
-      for (var file in files.keys) {
-        vlog("UploadTaskFlow: uploading ${files[file]}");
-        final url = await _firebaseStorage
-            .child("feedPosts/${feedPost.posterUid}/${feedPost.timeuid}-$i")
-            .putFile(file)
-            .then((value) => value.ref.getDownloadURL());
-        i++;
-        vlog("UploadTaskFlow: uploaded ${files[file]} $i. url : $url");
-
-        feedPost.mediaFilesList.add(MediaFile(type: files[file]!, url: url));
-        vlog("UploadTaskFlow: added ${files[file]} to mediaFilesList");
-      }
-      await _feedPostsRef.doc(feedPost.timeuid).set(feedPost.toJson());
-      ref.read(feedPostDataProvider.notifier).addFeedPost(feedPost);
-      final senderName = ref
-          .read(contactsListProvider)
-          .where((element) => element.uid == feedPost.posterUid)
-          .first
-          .name;
-      await NotifService.sendPostNotification(
-          sender: senderName, text: feedPost.text);
-    } catch (e) {
-      elog(e.toString());
-      rethrow;
-    }
-  }
-
-  static Future<void> deleteFeedPost(String timeuid) async {
-    await _feedPostsRef.doc(timeuid).delete();
-  }
-
-  static Future<void> addCommentToFeedPost(
-      String feedPostUid, Comment comment) async {
-    await _feedPostsRef.doc(feedPostUid).update({
-      "comments": FieldValue.arrayUnion([comment.toJson()])
-    });
-  }
-
-  static Future<void> deleteCommentFromFeedPost(
-      String feedPostUid, Comment comment) async {
-    await _feedPostsRef.doc(feedPostUid).update({
-      "comments": FieldValue.arrayRemove([comment.toJson()])
-    });
-  }
-
-  static Future<void> addLikeToFeedPost(
-      String feedPostUid, String userUid) async {
-    await _feedPostsRef.doc(feedPostUid).update({
-      "likes": FieldValue.arrayUnion([userUid])
-    });
-  }
-
-  static Future<void> removeLikeFromFeedPost(
-      String feedPostUid, String userUid) async {
-    await _feedPostsRef.doc(feedPostUid).update({
-      "likes": FieldValue.arrayRemove([userUid])
-    });
-  }
+  
 }

@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 
 class ImageContainer extends StatelessWidget {
   ImageContainer({super.key, required this.url, required this.tag, this.isHero = false});
   final String url;
   final String tag;
-  bool isHero;
+  final bool isHero;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

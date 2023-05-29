@@ -1,4 +1,5 @@
 import 'package:bitsapp/models/user_experience.dart';
+import 'package:bitsapp/services/firestore_profile_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +20,7 @@ class BitsUser extends HiveObject {
   final String name;
   @HiveField(1)
   final String? profilePicUrl;
-  final String? profileDescription;
+  String? profileDescription;
   final String email;
   final String bitsID;
   @HiveField(2)
@@ -59,7 +60,7 @@ class BitsUser extends HiveObject {
 
   static Future<void> createNewUser(
       WidgetRef ref, UserCredential result) async {
-    String name = properCase(result.user!.displayName ?? "name");
+    String name = titleCase(result.user!.displayName ?? "name");
 
     BitsUser bitsUser = BitsUser(
       name: name,
@@ -79,7 +80,7 @@ class BitsUser extends HiveObject {
       chatBarrier: false
     );
     ref.read(localUserProvider.notifier).setUser(bitsUser);
-    await FirestoreService.createUser(bitsUser);
+    await FirestoreProfileService.createUser(bitsUser);
   }
 
   static BitsUser dummy = BitsUser(
@@ -122,6 +123,10 @@ class BitsUserNotifier extends StateNotifier<BitsUser> {
 
   void setUser(BitsUser user) {
     state = user;
+  }
+
+  void setUserDescription(String desc){
+    state = state..profileDescription = desc;
   }
 
   void addChatRoom(String uid) {
@@ -168,7 +173,7 @@ final localUserProvider = StateNotifierProvider<BitsUserNotifier, BitsUser>(
 final contactsListProvider = StateProvider((ref) => List<BitsUser>.empty());
 
 //function to properly capitalise the name
-String properCase(String s) {
+String titleCase(String s) {
   String proper = s[0].toUpperCase();
   for (int i = 1; i < s.length; i++) {
     if (s[i - 1] == ' ') {

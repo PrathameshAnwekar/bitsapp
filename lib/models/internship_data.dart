@@ -1,5 +1,5 @@
 import 'package:bitsapp/models/internship_application.dart';
-import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/firestore_internship_serviced.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -53,7 +53,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //add internship to list
   Future<void> postInternship(InternshipData internshipData, String localUserUid) async {
     try {
-      await FirestoreService.postInternship(internshipData, localUserUid);
+      await FirestoreInternshipService.postInternship(internshipData, localUserUid);
       state = state..add(internshipData);
       dlog('Internship ${internshipData.title} added to list');
     } catch (e) {
@@ -64,7 +64,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //update internship in list
   void updateInternship(InternshipData internshipData) async {
     try {
-      await FirestoreService.updateInternship(internshipData);
+      await FirestoreInternshipService.updateInternship(internshipData);
       state = state.map((internship) {
         if (internship.uid == internshipData.uid) {
           internship = internshipData;
@@ -80,7 +80,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //delete internship from list
   void deleteInternship(String internshipUid) async {
     try {
-      await FirestoreService.deleteInternship(internshipUid);
+      await FirestoreInternshipService.deleteInternship(internshipUid);
       state =
           state.where((internship) => internship.uid != internshipUid).toList();
     } catch (e) {
@@ -91,7 +91,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
   //add applicantion to internship
   Future<void> addApplication(
       String internshipUid, InternshipApplication application, String localUserUid) async {
-    try{await FirestoreService.addInternshipApplication(internshipUid, application, localUserUid);
+    try{await FirestoreInternshipService.addInternshipApplication(internshipUid, application, localUserUid);
     state = state.map((internship) {
       if (internship.uid == internshipUid) {
         internship.applications!.add(application);
@@ -104,7 +104,7 @@ class InternshipDataNotifier extends StateNotifier<List<InternshipData>> {
 
   Future<void> updateInternshipApplicationStatus(InternshipApplication application, InternshipData internship, String status)async{
     try{
-      await FirestoreService.updateInternshipApplicationStatus(application, internship, status);
+      await FirestoreInternshipService.updateInternshipApplicationStatus(application, internship, status);
       state = state.map((internship) {
         if (internship.uid == internship.uid) {
           internship.applications!.map((application) {

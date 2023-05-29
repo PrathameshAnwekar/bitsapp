@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/feed_post.dart';
+import 'package:bitsapp/services/firestore_feed_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/views/components/person_detail.dart';
@@ -16,13 +17,12 @@ import 'package:image_picker/image_picker.dart';
 import '../components/circle_profile_pic.dart';
 
 class NewPostScreen extends HookConsumerWidget {
-  NewPostScreen({super.key});
+  const NewPostScreen({super.key});
   static const String routeName = "/new_post_screen";
-  Map<File, String> mp = {};
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
-    final files = useState(mp);
+    final files = useState<Map<File, String>>({});
     final localUser = ref.watch(localUserProvider);
     vlog(files.value.toString());
     final loading = useState(false);
@@ -50,7 +50,7 @@ class NewPostScreen extends HookConsumerWidget {
                 text: textController.text,
               );
               loading.value = true;
-              await FirestoreService.addFeedPost(feedPost, files.value, ref)
+              await FirestoreFeedService.addFeedPost(feedPost, files.value, ref)
                   .then((value) {
                 files.value = {};
                 textController.text = "";
@@ -164,5 +164,5 @@ Future capture(String source, ValueNotifier files) async {
   final media = await getMedia(source: ImageSource.gallery);
   final file = File(media!.path);
   files.value.addAll({file: source});
-  files.notifyListeners();
+  // files.notifyListeners();
 }

@@ -1,4 +1,4 @@
-import 'package:bitsapp/controllers/search_controller.dart';
+import 'package:bitsapp/controllers/search_controller.dart' as sc;
 import 'package:bitsapp/models/bits_user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class SearchCard extends HookConsumerWidget {
 
     return InkWell(
       onTap: () {
-        SearchController.goToUserProfile(context, user);
+        sc.SearchController.goToUserProfile(context, user);
       },
       child: Padding(
         padding:

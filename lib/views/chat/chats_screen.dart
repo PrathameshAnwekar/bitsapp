@@ -3,6 +3,7 @@ import 'package:bitsapp/models/bits_user.dart';
 import 'package:bitsapp/models/chat_channel.dart';
 import 'package:bitsapp/models/chat_room.dart';
 import 'package:bitsapp/models/message.dart';
+import 'package:bitsapp/services/firestore_chat_service.dart';
 import 'package:bitsapp/services/firestore_service.dart';
 import 'package:bitsapp/storage/hiveStore.dart';
 import 'package:bitsapp/views/chat/channel_chat_screen/channel_chat_screen.dart';
@@ -24,7 +25,7 @@ class ChatsScreen extends HookConsumerWidget {
       RefreshController(initialRefresh: false);
 
   void _onRefresh(WidgetRef ref) async {
-    await FirestoreService.initialiseChatRooms(ref);
+    await FirestoreChatService.initialiseChatRooms(ref);
     _refreshController2.refreshCompleted();
   }
 

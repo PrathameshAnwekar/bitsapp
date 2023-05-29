@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:bitsapp/controllers/auth_controller.dart';
 import 'package:bitsapp/models/bits_user.dart';
+import 'package:bitsapp/models/feed_post.dart';
 import 'package:bitsapp/models/user_experience.dart';
+import 'package:bitsapp/services/logger_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 import 'components/profile_edit_info_stack.dart';
 import 'components/vertical_menu.dart';
@@ -19,6 +27,8 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     BitsUser localUser = user ?? ref.watch(localUserProvider);
     bool isLocalUser = (user == null);
+    var posts = localUser.feedPosts;
+
     List<UserExperience> temp = [
       UserExperience(
         title: 'Summer Intern',
@@ -119,8 +129,7 @@ class ProfileScreen extends ConsumerWidget {
               ProfileInfoStack(
                 isLocalUser: isLocalUser,
                 name: localUser.name,
-                imageUrl: localUser.profilePicUrl,
-                profileDescription: localUser.profileDescription,
+               
               ),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -222,10 +231,114 @@ class ProfileScreen extends ConsumerWidget {
                   ],
                 ),
               ),
+              GridView.count(
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children:
+                    List.generate(posts == null ? 0 : posts.length, (index) {
+                  if (posts == null) posts = [];
+                  return FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .doc("FeedPosts/${posts?[index]}")
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        final post = FeedPost.fromJson(snapshot.data!.data()!);
+                        return FutureBuilder(
+                            future: gridPostTile(post),
+                            builder: (context, snapshot) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: snapshot.data ??
+                                        const AssetImage("assets/applogo.png"),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            });
+                      });
+                }),
+              ),
+              // Expanded(
+              //   child: GridView.builder(
+              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 3,
+              //         crossAxisSpacing: 10,
+              //         mainAxisSpacing: 10,
+              //         childAspectRatio: 1.0),
+              //     itemCount: posts != null ? posts.length : 5,
+              //     itemBuilder: (context, index) {
+              //       elog(posts!.length.toString());
+              //       return Container(
+              //         // Your grid item widget
+              //         width: 100,
+              //         height: 200,
+              //         color: Colors.green,
+              //         child: Text('Grid Item $index'),
+              //       );
+              //       return FutureBuilder(
+              //           future: FirebaseFirestore.instance
+              //               .doc("FeedPosts/${posts![index]}")
+              //               .get(),
+              //           builder: (context, snapshot) {
+              //             if (snapshot.connectionState ==
+              //                 ConnectionState.waiting) {
+              //               return const Center(
+              //                 child: CircularProgressIndicator(),
+              //               );
+              //             }
+              //             final post = FeedPost.fromJson(snapshot.data!.data()!);
+              //             return GestureDetector(
+              //               onTap: () {
+              //                 // TODO: Show post details
+              //               },
+              //               child: post.mediaFilesList.isNotEmpty
+              //                   ? Image.network(
+              //                       post.mediaFilesList[0].url,
+              //                       fit: BoxFit.cover,
+              //                     )
+              //                   : Container(
+              //                       color: Colors.green,
+              //                     ),
+              //             );
+              //           });
+              //     },
+              //   ),
+              // )
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<ImageProvider<Object>> gridPostTile(FeedPost post) async {
+    if (post.mediaFilesList.isNotEmpty) {
+      if (post.mediaFilesList[0].type == 'image') {
+        return NetworkImage(post.mediaFilesList[0].url);
+      }
+      if (post.mediaFilesList[0].type == 'video') {
+        final fileName = await VideoThumbnail.thumbnailData(
+          video: post.mediaFilesList[0].url,
+
+          imageFormat: ImageFormat.WEBP,
+          maxHeight:
+              64, // specify the height of the thumbnail, let the width auto-scaled to keep the source aspect ratio
+          quality: 50,
+        );
+
+        if (fileName != null) {
+          return MemoryImage(fileName);
+        }
+      }
+    }
+    return const AssetImage("assets/applogo.png");
   }
 }

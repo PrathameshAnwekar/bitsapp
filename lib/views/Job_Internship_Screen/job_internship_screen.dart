@@ -7,7 +7,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '../../constants/constants.dart';
 import 'components/internships_list_view.dart';
-import 'components/search_bar.dart';
+import 'components/search_bar.dart' as sb;
 import 'components/title1.dart';
 import 'post_new_internship.dart';
 import 'tab_viewer/internship_tabview_screen.dart';
@@ -125,8 +125,8 @@ class JobInternhipScreen extends HookConsumerWidget {
               padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
               child: Row(
                 children: <Widget>[
-                  const Flexible(
-                    child: SearchBar(),
+                   Flexible(
+                    child: sb.SearchBar(),
                   ),
                   GestureDetector(
                     onTap: () => showMultiSelect(context),

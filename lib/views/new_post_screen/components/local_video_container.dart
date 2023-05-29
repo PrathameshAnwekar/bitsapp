@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:bitsapp/services/logger_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:video_player/video_player.dart';
 
@@ -10,8 +8,10 @@ import 'package:video_player/video_player.dart';
 class LocalVideoContainer extends StatefulHookConsumerWidget {
   const LocalVideoContainer({Key? key, required this.file}) : super(key: key);
   final File file;
+
   @override
-  _LocalVideoContainerState createState() => _LocalVideoContainerState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LocalVideoContainerState();
 }
 
 class _LocalVideoContainerState extends ConsumerState<LocalVideoContainer> {

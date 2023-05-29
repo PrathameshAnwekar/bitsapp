@@ -1,5 +1,5 @@
 import 'package:bitsapp/models/message.dart';
-import 'package:bitsapp/services/firestore_service.dart';
+import 'package:bitsapp/services/firestore_chat_service.dart';
 import 'package:bitsapp/services/logger_service.dart';
 import 'package:bitsapp/services/notif_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,7 +50,7 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
       ChatRoom chatRoom, String user1uid, String user2uid) async {
     try {
       state = state..add(chatRoom);
-      await FirestoreService.addChatRoom(chatRoom, user1uid, user2uid);
+      await FirestoreChatService.addChatRoom(chatRoom, user1uid, user2uid);
       state = state;
     } catch (e) {
       elog(e.toString());
@@ -60,7 +60,7 @@ class ChatRoomsNotifier extends StateNotifier<List<ChatRoom>> {
   void addMessage(String chatRoomUid, Message message, String fcmUid,
       String senderName) async {
     try {
-      await FirestoreService.addMessageToChatRoom(chatRoomUid, message);
+      await FirestoreChatService.addMessageToChatRoom(chatRoomUid, message);
       state = state.map((chatRoom) {
         if (chatRoom.uid == chatRoomUid) {
           chatRoom.messages.add(message);
