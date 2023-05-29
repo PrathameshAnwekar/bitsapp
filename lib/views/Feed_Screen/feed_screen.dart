@@ -11,6 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../constants/constants.dart';
 import '../notifications_screen/notification_screen.dart';
 import 'feed_container/feed_container.dart';
+import 'navigation_drawer.dart';
 
 class FeedScreen extends ConsumerWidget {
   FeedScreen({super.key});
@@ -37,6 +38,7 @@ class FeedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feedPosts = ref.watch(feedPostDataProvider);
     return Scaffold(
+      drawer: const CustomDrawer(),
       extendBody: true,
       backgroundColor: Constants.kSecondaryColor,
       body: SafeArea(
@@ -55,35 +57,18 @@ class FeedScreen extends ConsumerWidget {
               //   statusBarIconBrightness: Brightness.dark,
               //   statusBarBrightness: Brightness.light,
               // ),
-              leading: const Padding(
-                padding: EdgeInsets.only(left: 6, top: 7, bottom: 7),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/logo/logo6.png"),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 6, top: 5, bottom: 7),
+                child: IconButton(
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  icon: SvgPicture.asset(
+                    'assets/icons/menu.svg',
+                    height: 32,
+                    width: 32,
+                    color: Colors.blueGrey.shade600,
+                  ),
                 ),
               ),
-              // leading: Padding(
-              //   padding: const EdgeInsets.only(left: 6, top: 6, bottom: 6),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       color: Colors.white,
-              //       borderRadius: BorderRadius.circular(28),
-              //     ),
-              //     child: ClipRRect(
-              //       borderRadius: const BorderRadius.all(Radius.circular(1000)),
-              //       child: CachedNetworkImage(
-              //         fit: BoxFit.cover,
-              //         imageUrl:
-              //             "https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc=",
-              //         progressIndicatorBuilder:
-              //             (context, url, downloadProgress) =>
-              //                 CircularProgressIndicator(
-              //                     value: downloadProgress.progress),
-              //         errorWidget: (context, url, error) =>
-              //             const Icon(Icons.error),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               title: GestureDetector(
                 onTap: () {
                   FeedScreenController.goToSearch(context, ref);

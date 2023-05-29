@@ -54,18 +54,18 @@ class ChatsScreen extends HookConsumerWidget {
             indicatorColor: Constants.kPrimaryColor,
             tabs: const [
               Tab(
-                text: "Channels",
+                text: "Messages",
               ),
               Tab(
-                text: "Messages",
+                text: "Channels",
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            buildChannelsBody(chatrooms, ref),
             buildMessagesBody(chatrooms, ref),
+            buildChannelsBody(chatrooms, ref),
           ],
         ),
         resizeToAvoidBottomInset: false,

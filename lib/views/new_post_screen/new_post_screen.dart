@@ -57,8 +57,8 @@ class NewPostScreen extends HookConsumerWidget {
                 loading.value = false;
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content:  Text("Posted Successfully!"),
-                    duration:  Duration(seconds: 3),
+                    content: Text("Posted Successfully!"),
+                    duration: Duration(seconds: 3),
                   ),
                 );
               });

@@ -150,6 +150,7 @@ class FeedDesc extends HookConsumerWidget {
                 ),
               ),
               PopupMenuButton(
+                padding: EdgeInsets.zero,
                 color: Constants.kSecondaryColor,
                 elevation: 0,
                 onSelected: (value) => onSelected(context, value),
